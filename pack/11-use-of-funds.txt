@@ -1,0 +1,12 @@
+PXD2 — USE OF PROCEEDS  ·  $487,000 over 90 days
+
+  $180,000  Contract firmware + mesh  —  90 days of radio, codebook, ASTROCOM scheduler, and queue engineering.
+  $109,800  Working capital  —  Contingency, fab respins, and close costs.
+   $68,000  Mulberry Pi 1 Rev B  —  ODM path off Rev A0 mechanical gerbers toward licensed SOM.
+   $54,000  Arizona lab, 90 days  —  Bench, power, range time, insurance.
+   $42,000  IP freeze  —  Provisionals on Numerical Sentencing, Mesh-Brain codebook, Mulberry, ASTROCOM.
+   $22,000  Radios and FCC path  —  SX1262 modules, ShortTurbo lab, counsel.
+    $8,400  Master CORE  —  Ryzen 7 9850X3D + RTX 5080 air-gapped hub.
+    $2,800  Phase-1 swarm kit  —  4× Raspberry Pi 5 + LoRa transceivers + cases.
+
+Total  $487,000

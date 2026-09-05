@@ -1,0 +1,55 @@
+PXD2  ·  MESH-BRAIN  ·  DECK OUTLINE
+12 slides. Not an offer to sell securities.
+
+01. LAB SEED  ·  72-HOUR CLOSE
+    Air-gapped compute, spoken in numbers.
+02. PROBLEM
+    Field clusters fail on power, packets, and ports. Not on FLOPS.
+    • CAD optimization and local weights already scale with a single 5080.
+    • Wi-Fi, SSH, and open ports are the attack surface and the power budget.
+    • JSON over IP is too fat for a 237-byte LoRa payload and too loud for a dark site.
+03. SOLUTION
+    A many-to-one radio swarm that never speaks IP.
+    • Swarm nodes tokenize on the Pi. The radio carries integers.
+    • A silent CORE unpacks the codebook and saturates the GPU.
+    • Telemetry is a two-byte micro-packet. The data center is not invited.
+04. PRODUCT
+    Mesh-Brain. Four nodes. One air-gapped hub.
+    • Pi 5 + SX1262. 915 / 868 MHz. ShortTurbo. Payload cap 237 bytes.
+    • Hub reassembles. Redis queues. 9850X3D unpacks. 5080 consumes integers.
+05. SECRET
+    JSON becomes 11 bytes of radio.
+    • Bitpacked codebook: command, object, two scalars, seed.
+    • Numerical Sentencing. Cyrptonics LEX → PAGE → SEQ. Replay is refused.
+    • Change the data. Keep the silicon. Do not reinstall the OS to prompt the machine.
+06. OS
+    Not a desktop. A droid lattice.
+07. WHY NOW
+    Edge AI is still under 1% of IoT connections.
+    • Enterprise IoT reached $324B in 2025 (IoT Analytics).
+    • On-device AI for IoT: $10.1B in 2024 → $30.6B in 2029 (Berg Insight). Phones and PCs excluded.
+    • Year-0 lab kits. Year-1 codebook + ASTROCOM license. Year-2 Mulberry as the node.
+08. COMPETITION
+    They sell bandwidth or dashboards. We sell a throat.
+09. TRACTION
+    Nine private inventor records. A live codebook. No fake users.
+    • Mulberry Pi 1 Rev A0 gerbers — mechanical proto, stated as such.
+    • Numerical Sentencing testbed. Cyrptonics encoder. Working ternary codec.
+    • ASTROCOM v4.14 OS packs. Pair code AST-R2-HOLO. This deck runs the 11-byte frame.
+10. TEAM
+    One founder. The method is his.
+    • Chad Peters — PXD2 Soft Dev Group, Arizona.
+    • Originator of Numerical Sentencing and .PMOC (Parallel Memory Optimized Compute).
+    • This round hires firmware and mesh. It does not hire a story.
+11. THE ASK
+    $487,000 to freeze IP, stand the bench, and prove the throat.
+    • YC post-money SAFE. $4,800,000 cap. 20% discount. MFN on.
+    • Minimum check $25,000. Close 8 September 2026, 12:43 Arizona.
+    • Delaware C-Corp first. IP assigned in. Wires to the company account only.
+12. USE OF PROCEEDS
+    90 days. No office theater.
+13. PXD2  ·  MESH-BRAIN
+    Words never leave the plate.
+
+Ask $487,000  ·  cap $4,800,000  ·  20%  ·  close 8 Sep 2026 12:43 AZ
+pxdsquared@gmail.com
