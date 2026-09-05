@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PXD2 Lab — Mesh-Brain investor pack</title>
+  <meta name="description" content="PXD2 lab seed. Air-gapped compute, spoken in numbers. Not an offer to sell securities." />
+  <meta name="theme-color" content="#09090b" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #09090b;
+      --surface: #111114;
+      --elevated: #18181c;
+      --fg: #ececef;
+      --muted: #9a9aa3;
+      --subtle: #6d6d75;
+      --accent: #c5cad3;
+      --accent-fg: #09090b;
+      --signal: #7a9e8a;
+      --line: #2a2a30;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: var(--bg); color: var(--fg); }
+    body {
+      font-family: Barlow, ui-sans-serif, system-ui, sans-serif;
+      line-height: 1.5;
+      min-height: 100dvh;
+      overflow-x: hidden;
+    }
+    h1, h2, h3 { font-family: "Barlow Condensed", Barlow, sans-serif; font-weight: 500; text-wrap: balance; }
+    a { color: var(--accent); }
+    header {
+      position: sticky; top: 0; z-index: 10;
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 20px; background: color-mix(in srgb, var(--bg) 95%, transparent);
+      border-bottom: 1px solid var(--line); backdrop-filter: blur(8px);
+    }
+    header svg { flex: none; }
+    header .brand { font-family: "Barlow Condensed", Barlow, sans-serif; font-size: 20px; letter-spacing: 0.02em; }
+    header .sub { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+    header .spacer { flex: 1; }
+    .wrap { max-width: 920px; margin: 0 auto; padding: 32px 20px 80px; }
+    .kicker { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+    h1 { font-size: clamp(36px, 8vw, 64px); line-height: 1.05; letter-spacing: -0.02em; margin: 12px 0 16px; }
+    .lede { color: var(--muted); max-width: 40rem; font-size: 17px; }
+    .stats {
+      display: grid; grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 12px; margin: 32px 0;
+    }
+    @media (min-width: 720px) { .stats { grid-template-columns: repeat(4, minmax(0,1fr)); } }
+    .stat {
+      background: var(--surface); border-radius: 16px; padding: 16px;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.08);
+    }
+    .stat dt { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--subtle); }
+    .stat dd { margin: 6px 0 0; font-family: "Barlow Condensed", Barlow, sans-serif; font-size: 26px; }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 8px 0 28px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      height: 44px; padding: 0 16px; border-radius: 6px; text-decoration: none;
+      font-size: 14px; font-weight: 500;
+    }
+    .btn.primary { background: var(--accent); color: var(--accent-fg); }
+    .btn.ghost { border: 1px solid var(--line); color: var(--fg); }
+    .url {
+      display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
+      background: var(--surface); border-radius: 10px; padding: 10px 12px;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.08); margin-bottom: 36px;
+    }
+    .url input {
+      flex: 1; min-width: 0; background: transparent; border: 0; color: var(--fg);
+      font-family: ui-monospace, SF Mono, Menlo, Consolas, monospace; font-size: 13px;
+      outline: none;
+    }
+    .url button {
+      height: 36px; padding: 0 12px; border: 0; border-radius: 6px;
+      background: var(--accent); color: var(--accent-fg); font-weight: 500; cursor: pointer;
+    }
+    .grid3 { display: grid; gap: 12px; }
+    @media (min-width: 720px) { .grid3 { grid-template-columns: repeat(3, minmax(0,1fr)); } }
+    .grid3 article {
+      background: var(--surface); border-radius: 16px; padding: 16px;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.08);
+    }
+    .grid3 h3 { margin: 0 0 8px; font-size: 22px; }
+    .grid3 p { margin: 0; color: var(--muted); font-size: 14px; }
+    h2 { font-size: 32px; margin: 48px 0 12px; }
+    .files { list-style: none; padding: 0; margin: 16px 0 0; display: flex; flex-direction: column; gap: 6px; }
+    .files li {
+      display: flex; justify-content: space-between; gap: 12px; align-items: center;
+      background: var(--surface); border-radius: 8px; padding: 12px 14px;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.08);
+    }
+    .files a { font-family: ui-monospace, SF Mono, Menlo, Consolas, monospace; font-size: 13px; text-decoration: none; }
+    .files span { color: var(--subtle); font-size: 12px; }
+    pre {
+      white-space: pre-wrap; background: var(--surface); border-radius: 16px;
+      padding: 20px; box-shadow: 0 0 0 1px rgba(255,255,255,0.08);
+      font-size: 13px; line-height: 1.55; color: var(--fg);
+    }
+    footer { color: var(--subtle); font-size: 12px; margin-top: 48px; max-width: 40rem; line-height: 1.55; }
+    .hatch {
+      height: 8px; margin: 0 0 28px;
+      background: repeating-linear-gradient(-45deg, var(--line) 0 6px, transparent 6px 12px);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <svg width="28" height="28" viewBox="0 0 32 32" aria-hidden="true">
+      <rect width="32" height="32" fill="#09090b"/>
+      <rect x="5" y="8" width="13" height="8" fill="none" stroke="#c5cad3" stroke-width="1.5"/>
+      <rect x="14" y="16" width="13" height="8" fill="none" stroke="#c5cad3" stroke-width="1.5"/>
+      <circle cx="26" cy="8" r="1.4" fill="#7a9e8a"/>
+    </svg>
+    <div>
+      <div class="brand">PXD2 Lab</div>
+      <div class="sub">Mesh-Brain · seed</div>
+    </div>
+    <div class="spacer"></div>
+    <a class="btn ghost" href="https://github.com/PxD2/PxD2.github.io/archive/refs/heads/main.zip">Download ZIP</a>
+  </header>
+  <main class="wrap">
+    <p class="kicker">Lab seed · 72-hour close · not an offering</p>
+    <h1>Air-gapped compute, spoken in numbers.</h1>
+    <p class="lede">PXD2, Inc. (to be formed). Mesh-Brain LoRa swarm into a silent CORE. ASTROCOM is a barebone OS for droids, not desks. This page is the investor pack — open it on any phone.</p>
+    <dl class="stats">
+      <div class="stat"><dt>Ask</dt><dd>$487,000</dd></div>
+      <div class="stat"><dt>Post-money cap</dt><dd>$4,800,000</dd></div>
+      <div class="stat"><dt>Discount</dt><dd>20%</dd></div>
+      <div class="stat"><dt>Min check</dt><dd>$25,000</dd></div>
+    </dl>
+    <div class="actions">
+      <a class="btn primary" href="https://github.com/PxD2/PxD2.github.io/archive/refs/heads/main.zip">Download investor pack</a>
+      <a class="btn ghost" href="https://github.com/PxD2/PxD2.github.io">Open GitHub</a>
+      <a class="btn ghost" href="mailto:pxdsquared@gmail.com">pxdsquared@gmail.com</a>
+    </div>
+    <div class="url">
+      <input id="site-url" readonly value="https://pxd2.github.io/" />
+      <button type="button" id="copy-url">Copy URL</button>
+    </div>
+    <div class="hatch"></div>
+    <div class="grid3">
+      <article><h3>Change the data</h3><p>The prompt is a numerical sentence, not a chat. You do not reinstall the OS to make the machine work. .PMOC holds the payload. The codebook writes 11 bytes onto the air.</p></article>
+      <article><h3>Maintain the silicon</h3><p>Mulberry dual-site ARM and the air-gapped CORE stay. Firmware is thin. No store, no desktop chrome, no vendor telemetry. Barebone is the product.</p></article>
+      <article><h3>OS for droids</h3><p>Linux and Microsoft taught the world how to build an operating system. ASTROCOM is not a distro for people. It is a lattice for chassis. A person occupies one seat. A swarm occupies sixty-four.</p></article>
+    </div>
+    <h2>The pack</h2>
+    <p class="lede">Plain text. Counsel stamps originals. Use the official YC post-money SAFE — these files are templates, not executed instruments.</p>
+    <ul class="files">
+      <li><a href="pack/01-readme.txt">01-readme.txt</a><span>Readme</span></li>
+      <li><a href="pack/02-one-pager.txt">02-one-pager.txt</a><span>One-pager</span></li>
+      <li><a href="pack/03-deck-outline.txt">03-deck-outline.txt</a><span>Deck outline</span></li>
+      <li><a href="pack/04-safe-term-sheet.txt">04-safe-term-sheet.txt</a><span>SAFE term sheet</span></li>
+      <li><a href="pack/05-investor-intro.txt">05-investor-intro.txt</a><span>Investor intro</span></li>
+      <li><a href="pack/06-ip-assignment.txt">06-ip-assignment.txt</a><span>IP assignment</span></li>
+      <li><a href="pack/07-action-of-sole-director.txt">07-action-of-sole-director.txt</a><span>Action of sole director</span></li>
+      <li><a href="pack/08-83b-election.txt">08-83b-election.txt</a><span>83(b) election</span></li>
+      <li><a href="pack/09-wire-memo.txt">09-wire-memo.txt</a><span>Wire memo</span></li>
+      <li><a href="pack/10-data-room.txt">10-data-room.txt</a><span>Data room</span></li>
+      <li><a href="pack/11-use-of-funds.txt">11-use-of-funds.txt</a><span>Use of funds</span></li>
+      <li><a href="pack/12-cap-table.txt">12-cap-table.txt</a><span>Cap table</span></li>
+      <li><a href="pack/13-competition.txt">13-competition.txt</a><span>Competition</span></li>
+      <li><a href="pack/14-risks.txt">14-risks.txt</a><span>Risks</span></li>
+      <li><a href="pack/15-github-records.txt">15-github-records.txt</a><span>GitHub records</span></li>
+    </ul>
+    <h2>One-pager</h2>
+    <pre id="pager"></pre>
+    <footer>
+      Close 8 September 2026, 12:43 Arizona. Founder Chad Peters.
+      Not an offer to sell securities. Not a solicitation of an offer to buy.
+      Hardware claims match the inventor record: Mulberry Rev A0 is a mechanical proto;
+      ASTROCOM v4.14 packs exist; the 64-seat lattice is an occupancy model.
+      Linux and Microsoft are named as ancestry, not partners.
+      <br /><br />
+      https://github.com/PxD2/PxD2.github.io
+    </footer>
+  </main>
+  <script>
+    fetch("pack/02-one-pager.txt").then(function(r){return r.text()}).then(function(t){
+      document.getElementById("pager").textContent = t;
+    });
+    var btn = document.getElementById("copy-url");
+    var input = document.getElementById("site-url");
+    btn.addEventListener("click", async function() {
+      try {
+        await navigator.clipboard.writeText(input.value);
+        btn.textContent = "Copied";
+        setTimeout(function(){ btn.textContent = "Copy URL"; }, 1600);
+      } catch (e) {
+        input.select();
+        btn.textContent = "Select to copy";
+      }
+    });
+  </script>
+</body>
+</html>
