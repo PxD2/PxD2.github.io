@@ -1,0 +1,18 @@
+SECTION 83(b) ELECTION (TEMPLATE)
+Not legal advice. Mail certified within 30 days of the stock grant. Keep the green card.
+
+Taxpayer:        Chad Peters
+SSN:             [founder fills]
+Address:         [Arizona address]
+
+Description:     9,000,000 shares of common stock of PXD2, Inc.,
+                 a Delaware corporation, par value $0.00001.
+Date of grant:   [date of Action of Sole Director]
+FMV at grant:    Par / nominal (unvested common; confirm with counsel).
+Amount paid:     $[amount actually paid, often par]
+Tax year:        2026
+
+I elect under IRC §83(b) to include in gross income the excess of FMV over amount paid.
+
+Copy to: IRS (certified), company records, personal tax file.
+Signed: ______________________________     Date: ______________

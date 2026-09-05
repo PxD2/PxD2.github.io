@@ -1,0 +1,21 @@
+INTELLECTUAL PROPERTY ASSIGNMENT (TEMPLATE)
+Not legal advice. Have counsel issue the executed original.
+
+Assignor:  Chad Peters ("Inventor")
+Assignee:  PXD2, Inc., a Delaware corporation (to be formed) ("Company")
+
+1. Assignment. Inventor hereby assigns to Company all right, title, and interest in and to the
+   works, methods, hardware designs, software, firmware, trade secrets, and inventor records
+   known as: Numerical Sentencing; Mesh-Brain / Tokenized Binary Pipeline; Mulberry Pi 1
+   dual-site ARM; Cyrptonics (LEX / PAGE / SEQ); ternary-binary codec; .PMOC; ASTROCOM
+   and ASTROCOM Droid; and all related GitHub repositories under github.com/PxD2, including
+   provisionals and improvements conceived through the date of this assignment.
+
+2. Moral / inventor credit. Inventorship credit remains with Chad Peters. Ownership sits with Company.
+
+3. Further assurances. Inventor will sign provisionals, assignments, and oaths reasonably requested.
+
+4. Repos. Upon formation, GitHub org ownership transfers from the personal account to Company.
+
+Signed: ______________________________     Date: ______________
+Chad Peters
