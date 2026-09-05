@@ -1,0 +1,21 @@
+PXD2 — COMPETITION
+
+Meshtastic / LoRa chat
+  They: Open mesh for text. Human packets.
+  We:   Integer CAD/infer frames. The radio is a throat, not a chat.
+
+NVIDIA Jetson / IGX
+  They: FLOPS at the edge. Still on the net.
+  We:   The 5080 sits behind a codebook. No NIC.
+
+Palantir / Anduril
+  They: Classified software on connected stacks.
+  We:   A shop kit. Dual-use labs that cannot put CAD on the public net.
+
+AWS Snow / Outposts
+  They: Sneakernet and on-prem cloud. Still AWS.
+  We:   Live swarm. 11-byte radio. The data center is not invited.
+
+Linux / Windows desks
+  They: One seat. Bloat. Built for people.
+  We:   Sixty-four bare images. Built for droids. Ancestry, not affiliation.
