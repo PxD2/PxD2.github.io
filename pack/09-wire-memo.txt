@@ -1,0 +1,14 @@
+PXD2, INC. — WIRE INSTRUCTIONS (TEMPLATE)
+Do not send funds until: (1) Delaware file stamped, (2) EIN issued, (3) company account open, (4) SAFE countersigned.
+
+Bank:            Mercury (or successor)
+Account name:    PXD2, Inc.
+Account number:  [counsel fills]
+Routing:         [counsel fills]
+SWIFT:           [if any]
+Memo / ref:      PXD2 SAFE [investor legal name]
+Amount:          [check size] USD
+Beneficiary:     PXD2, Inc., Delaware
+
+Never wire to a personal account. Never wire on a handshake.
+Contact: pxdsquared@gmail.com

@@ -1,0 +1,13 @@
+PXD2  ·  MESH-BRAIN  ·  ONE-PAGER
+PXD2, Inc.  ·  Delaware C-Corporation  ·  Arizona, United States
+
+Air-gapped compute, spoken in numbers.
+
+PROBLEM. Edge CAD and local inference scale with FLOPS. Field clusters fail on power, IP overhead, and open ports.
+PRODUCT. Mesh-Brain radio swarm into a silent CORE, running ASTROCOM — a barebone OS for droids, not desks. Target lattice: 64 concurrent images. People keep one seat.
+SECRET. Change the data, keep the silicon. JSON is refused. An 11-byte bitpacked frame replaces the prompt. Numerical Sentencing drives the machine. Linux and Microsoft are ancestry, not partners.
+TRACTION. Nine private inventor records. Mulberry Pi 1 Rev A0 gerbers. ASTROCOM v4.14 OS packs. Working ternary codec. Live codebook in this brief.
+WHY NOW. Enterprise IoT is a $324B market (IoT Analytics, 2025). Edge-AI is <1% of 21.1B IoT connections. On-device AI for IoT is $10.1B (2024) → $30.6B (2029) (Berg Insight). Air-gap is the wedge, not the whole TAM.
+ASK. $487,000 lab seed. YC post-money SAFE, $4,800,000 cap, 20% discount. Close 8 Sep 2026 12:43 Arizona.
+TEAM. Chad Peters, founder. Independent developer. Originator of .PMOC and Numerical Sentencing.
+CONTACT. pxdsquared@gmail.com

@@ -1,0 +1,9 @@
+PXD2 — MODELED CAP TABLE
+Authorized 10,000,000 common @ $0.00001
+Post-money SAFE at $4,800,000. Model, not a ledger.
+
+ 80.9%     8,086,875 sh  Chad Peters (Common)
+  9.0%       898,542 sh  Option pool (unissued)
+ 10.1%     1,014,583 sh  Lab seed SAFE
+
+At $487,000 the SAFE owns 10.1% post-money.
