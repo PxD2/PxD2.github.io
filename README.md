@@ -1,11 +1,10 @@
 # PXD2
 
-Live hall: **[pxd2.github.io](https://pxd2.github.io/)**
+Live hall: **[pxd2.github.io](https://pxd2.github.io/)**  
+Company · contact · investors: **[pxd2.github.io/company](https://pxd2.github.io/company/)**
 
-Software as much as hardware. Think tank. Alternative autonomous systems. First steel to mothball fleet refit.
+Software as much as hardware. The future of defense, security, and prosperity is autonomy. PXD2 will lead the way — by consistent, unyielding hard work.
 
-This is the public landing. Walk the nave, take the tour, export the glTF.
-
-- [Walk the floor](https://pxd2.github.io/)
-- [The brief](https://pxd2.github.io/pack/)
+- [Walk the floor](https://pxd2.github.io/) — press Enter for the company page
+- [Company, contact, investors](https://pxd2.github.io/company/)
 - Profile: [github.com/PxD2](https://github.com/PxD2)
