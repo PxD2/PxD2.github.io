@@ -10,4 +10,4 @@ Software as much as hardware. The future of defense, security, and prosperity is
 - Profile: [github.com/PxD2](https://github.com/PxD2)
 
 
-Contact: Chad Peters · (928) 457-6404 · pxd2@gmail.com
+Contact: Chad Peters · (928) 457-6404 · pxdsquared@gmail.com
