@@ -1,12 +1,11 @@
-# PXD2 Gallery
+# PXD2
 
-Live: https://pxd2.github.io/
+Live hall: **[pxd2.github.io](https://pxd2.github.io/)**
 
-In-house display hall — carbon hulls, Smithsonian-hung airframes, software stack on the walls.
+Software as much as hardware. Think tank. Alternative autonomous systems. First steel to mothball fleet refit.
 
-- Walk the nave: WASD + scroll
-- Software wall: ASTROCOM, .PMOC, Mesh-Brain, Numerical Sentencing, Cyrptonics, Ternary-binary, Mulberry Pi 1
-- Lab seed: $487,000 YC post-money SAFE, $4.8M cap, 20% discount
-- Investor pack (plain text): [/pack/](https://pxd2.github.io/pack/)
+This is the public landing. Walk the nave, take the tour, export the glTF.
 
-Not an offering. Counsel stamps originals.
+- [Walk the floor](https://pxd2.github.io/)
+- [The brief](https://pxd2.github.io/pack/)
+- Profile: [github.com/PxD2](https://github.com/PxD2)
