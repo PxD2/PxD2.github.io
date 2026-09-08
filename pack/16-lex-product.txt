@@ -1,0 +1,40 @@
+PXD2  ·  LEX  ·  DATA STORAGE AND TRANSFER
+Public contract: https://github.com/PxD2/lex
+Not an offer to sell securities.
+
+ONE LINE
+Store and send a 1-, 2-, or 4-byte ideogram. Expand it to a paragraph only where the book already lives.
+
+THE MATH (CLOSED BOOK)
+  1 byte   → up to 256 paragraphs
+  2 bytes  → up to 65,536 paragraphs
+  4 bytes  → up to 4,294,967,296 paragraphs
+A 500-byte status line becomes 1 byte + optional slots after both ends hold the same library hash.
+That is the 99%+ cut. It is not gzip for arbitrary English.
+
+ANCESTORS, NOT COMPETITORS
+  Q-code     three letters = a sentence on Morse
+  HTTP 404   three digits = a full error sentence
+  LEX        1/2/4 bytes = a versioned paragraph + slots, hashed to the book
+
+STACK
+  L1 LEX     meaning. Public codec. .PMOC slice kind 3.
+  L2 PAGE    expendable scrambled id. Private cyrptonics.
+  L3 SEQ     LoRa / warble. Mesh-Brain.
+
+BUYERS
+  Air-gapped shops that cannot put CAD or prompts on the public net
+  Swarm / LoRa operators with a 237-byte payload cap
+  Droid / NPC speech packs with a frozen book
+  CORE logs that should store ids and expand at read time
+
+WHAT WE SELL YEAR-1
+  Codebook license + ASTROCOM seat, not bandwidth.
+  The library is the SKU. The symbol is the receipt.
+
+DYNAMIC MODE
+  Minting a new paragraph assigns a new id and ships a library revision out of band.
+  Do not put the novel paragraph on the radio and call it 4-byte compression.
+
+CONTACT
+  Chad Peters  ·  pxdsquared@gmail.com  ·  (928) 457-6404

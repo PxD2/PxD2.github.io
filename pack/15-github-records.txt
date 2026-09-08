@@ -1,34 +1,53 @@
-PXD2 — PRIVATE GITHUB RECORDS  ·  https://github.com/PxD2
-All private. Inventor account PxD2. Not assigned until formation.
+PXD2 — GITHUB RECORDS  ·  https://github.com/PxD2
+Inventor account PxD2. Private records not assigned until formation.
 
+PUBLIC
+PxD2/lex
+  LEX  ·  Shared ideogram layer  ·  Public contract + demo codec  ·  DATA
+  1/2/4-byte symbols expand to paragraphs. Library hash on the frame.
+  This is the commercial face of storage and transfer.
+
+PxD2/PxD2
+  Profile README  ·  Floor + data product lead
+
+PxD2/PxD2.github.io
+  Live hall + investor pack
+
+PxD2/web-systems
+  Client websites held for others
+
+PxD2/stagekey
+  Plate / hologram finish tool
+
+PRIVATE INVENTOR RECORDS
 PxD2/mulberry-pi-1
   Mulberry Pi 1  ·  Swarm silicon  ·  Rev A0 gerbers  ·  HW
-  One board, two ARM sites, offset and opposite. CPU0 top 0°, CPU1 bottom 180°. Target 16 cores. Envelope 3.45 × 2.5 × 1.5 in. Mechanical proto — dummy BGA farms, not a bootable SoC.
+  One board, two ARM sites, offset and opposite. Mechanical proto — dummy BGA farms, not a bootable SoC.
 
 PxD2/numerical-sentencing
   Numerical Sentencing  ·  Control method  ·  Method + Pi testbed  ·  L1
-  Machines are not prompted with text. They are driven by a sentence of numbers with fixed roles. The next legal act is a continuation of that sentence. Method © Chad Peters / PXD2.
+  Machines are not prompted with text. They are driven by a sentence of numbers with fixed roles.
 
 PxD2/cyrptonics
-  Cyrptonics  ·  Radio throat  ·  Encoder + papers  ·  L2
-  Expendable Rolodex keys. LEX → PAGE → SEQ. One-shot pages. Feistel-scrambled directory ids. After a single encode the page is burned. Replay is refused.
+  Cyrptonics  ·  Radio throat  ·  Encoder + papers + production lexicon  ·  L2
+  Expendable Rolodex keys. LEX → PAGE → SEQ. One-shot pages. Feistel-scrambled directory ids.
 
 PxD2/ternary-binary
   Ternary-binary  ·  Dense codec  ·  Working MIT codec  ·  L2
-  Base-3 codec, unbalanced 012 and balanced −0+. Lossless text packing. Optional denser packing inside the 237-byte LoRa payload.
+  Base-3 codec. Optional denser packing inside the 237-byte LoRa payload.
 
 PxD2/astrocoms
   ASTROCOM  ·  Droid OS  ·  v4.14 packs  ·  OS
-  Barebone astromech OS — not a desktop. Pi 4 plant → PiKVM → CORE (9850X3D + 5080) → Droid handset. Pair AST-R2-HOLO. Android, Apple, PC, Pi, USB ISO. Target lattice: 64 concurrent images. People keep one seat.
 
 PxD2/astrocom-droid
   ASTROCOM Droid  ·  Handset  ·  Installable station  ·  OS
-  Black-plate phone station. Pairs with the Pi swarm and CORE on the same lattice. The operator is a chassis, not a person at a desk.
 
 PxD2/PMOC
   .PMOC  ·  File system  ·  Inventor record  ·  FS
-  Parallel Memory Optimized Compute format, originated during AMD North America software work. The CORE's native container. Change the data; keep the silicon.
+  Parallel Memory Optimized Compute. Lex slices are kind 3.
+
+PxD2/mesh-brain
+  Mesh-Brain  ·  Build book  ·  Internal  ·  FABRIC
 
 PxD2/stl-llm-cad-dfx-scad-
   STL / LLM CAD  ·  Generative CAD slot  ·  Reserved  ·  CAD
-  Empty holder for the CAD diffusion path the Mesh-Brain codebook already addresses: gear, bracket, plate — rendered on the air-gapped 5080.
