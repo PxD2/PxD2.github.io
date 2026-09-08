@@ -1,0 +1,52 @@
+PXD2 — SAME-NIGHT CLOSE
+Not an offer to sell securities. Templates are not filed instruments.
+Now: Monday 7 Sep 2026 ~21:00 Arizona. Printed close: 8 Sep 2026 12:43 Arizona.
+
+PHYSICS
+Delaware is closed. You cannot stamp a C-Corp, pull an EIN, open Mercury, and clear
+a SAFE wire before sunrise. Tonight you lock YES + dollars. Tuesday you make a
+company that can receive them. No personal wires. No Venmo. No public offering.
+
+TRACK A — CLEAN (default)
+21:00  Start Stripe Atlas: PXD2, Inc. / DE C-Corp / 10M authorized /
+       9M to Chad Peters / 1M pool. Pay the fee. Screenshot.
+21:25  Wet-ink IP assignment (pack/06). Photo it. LEX on the schedule.
+21:40  Ten names who already know you and can write $25k without a meeting.
+22:00  Send the short note. Then call.
+01:00  Sleep. Atlas files when DE opens.
+Tue+   Stamp 1–2 business days. EIN after that if you have SSN.
+       Wire when the account name is PXD2, Inc.
+
+TRACK B — FAST TUESDAY (only if you already have a YES)
+05:00 AZ / 08:00 ET  Paid same-day DE expedite.
+Then  IRS EIN online. Rho or lawyer escrow if Mercury wants the CP575.
+12:43  Countersign official YC post-money SAFE. Send real wire instructions.
+
+SHORT NOTE
+Subject: PXD2 — $25k+ lab seed, close tomorrow
+
+[Name] — I’m forming PXD2, Inc. (Delaware) in the morning and closing a $487k
+lab seed on a YC post-money SAFE, $4.8M cap, 20% discount. Min $25k. You already
+know the work: a shared number that expands to a paragraph, radio that carries
+the number, CORE that stays off the public net.
+
+I need a written yes and a dollar figure tonight. Wire goes to the company
+account after the Delaware stamp and EIN — not to me. Official YC SAFE. I will
+send the one-pager and the form the moment you reply YES + amount.
+
+Chad Peters  (928) 457-6404  pxdsquared@gmail.com
+
+SAFE FIELDS
+Company: PXD2, Inc.   State: Delaware
+Form: YC Post-Money SAFE (Valuation Cap + Discount)
+Cap: $4,800,000   Discount: 20%   MFN: on
+Min check: $25,000   Signatory: Chad Peters, CEO (after formation)
+Form source: https://www.ycombinator.com/documents
+
+DONE TONIGHT WHEN
+Atlas or expedite queued. IP assignment photographed. One written YES + amount.
+SAFE PDF filled, company signature blank until the corp exists.
+
+FUNDED WHEN
+PXD2, Inc. exists. SAFE countersigned by the corporation. Dollars in an account
+titled PXD2, Inc.
