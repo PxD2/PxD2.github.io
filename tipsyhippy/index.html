@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tipsy Hippy Grill — Walk the patio</title>
+    <meta
+      name="description"
+      content="Log cabin in the pines. Best outdoor seating in the White Mountains. Wings, pizza, burgers, 20 drafts. Pinetop-Lakeside, AZ."
+    />
+    <meta name="theme-color" content="#1a120c" />
+    <link rel="canonical" href="https://pxd2.github.io/tipsyhippy/" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Oswald:wght@500;600;700;800&display=swap"
+    />
+    <link rel="stylesheet" href="./style.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div id="stage"></div>
+
+    <header class="hud-top">
+      <p class="mark">Tipsy Hippy</p>
+      <p class="sub">The patio is open</p>
+      <nav>
+        <button type="button" data-go="patio">Patio</button>
+        <button type="button" data-go="indoor">Indoor</button>
+        <button type="button" data-go="bar">Love Shack</button>
+        <button type="button" data-go="lawn">Lawn</button>
+        <button type="button" data-go="dusk">Dusk</button>
+        <a href="#menu">Menu</a>
+        <a href="https://order.spoton.com/so-tipsy-hippy-grill-19076/lakeside-az/66302d9ef52c5a003da949ff/">Order</a>
+      </nav>
+    </header>
+
+    <section id="idle" class="idle">
+      <p class="kicker">Wings · pizza · patio · White Mountains</p>
+      <h1>Tipsy Hippy</h1>
+      <p class="lede">
+        Log cabin in the pines. Reviewers call the outdoor seating the best in town. Forest lawn,
+        cornhole, Love Shack bar, 20 drafts. Formerly Long Wong’s — same backyard, new name.
+      </p>
+      <div class="cta">
+        <button type="button" class="btn primary" id="btn-enter">Enter</button>
+        <button type="button" class="btn" id="btn-walk">Walk</button>
+        <button type="button" class="btn" id="btn-tour">Tour</button>
+        <a class="btn" href="https://order.spoton.com/so-tipsy-hippy-grill-19076/lakeside-az/66302d9ef52c5a003da949ff/">Order</a>
+        <a class="btn ghost" href="tel:+19283581972">(928) 358-1972</a>
+      </div>
+      <p class="hint">Tap a room. Walk uses WASD + mouse. Tour walks you through.</p>
+    </section>
+
+    <aside id="card" class="card hidden"></aside>
+
+    <div class="walk-bar hidden" id="walk-bar">
+      <button type="button" id="btn-prev">Prev</button>
+      <p id="spot-label">Patio</p>
+      <button type="button" id="btn-next">Next</button>
+      <button type="button" id="btn-exit">Exit</button>
+    </div>
+
+    <main id="sheet" class="sheet">
+      <section>
+        <p class="kicker">Why people drive</p>
+        <h2>The patio, then the plate</h2>
+        <p>
+          2251 W White Mountain Blvd, Pinetop-Lakeside — ten minutes from Show Low. Pet-friendly
+          lawn, string lights, stone fire table, pines at the fence. Indoor log room if the monsoon
+          hits. Family, tacos Tuesday, live music when it’s posted.
+        </p>
+      </section>
+      <section class="split">
+        <article>
+          <p class="kicker">Hours</p>
+          <ul>
+            <li>Sun 11–8</li>
+            <li>Mon–Thu 11–9</li>
+            <li>Fri–Sat 11–10</li>
+          </ul>
+          <p class="fine">Kitchen can close a beat early. Call if you’re rolling in last call.</p>
+        </article>
+        <article id="menu">
+          <p class="kicker">What to order</p>
+          <ul>
+            <li>Wings — mild to inferno, honey hot, BBQ, teriyaki, salt & vinegar</li>
+            <li>Scratch pizza, hand-formed burgers, baby backs</li>
+            <li>Fish tacos (Tuesday), fried pickles, BBQ pork</li>
+            <li>20 drafts, full cocktails, kids’ menu, cornhole</li>
+          </ul>
+          <p>
+            <a class="inline" href="https://order.spoton.com/so-tipsy-hippy-grill-19076/lakeside-az/66302d9ef52c5a003da949ff/">Full menu / order →</a>
+          </p>
+        </article>
+      </section>
+      <section>
+        <p class="kicker">From the floor</p>
+        <blockquote>“The outdoor seating area is probably the best in town.” — Jeff H., Yelp</blockquote>
+        <blockquote>“Indoor and outdoor sitting, the food is very good. Fish tacos were huge.” — Kathryn J.</blockquote>
+        <blockquote>“Family friendly. Beer, chill outside, play some cornhole.” — Dyan D.</blockquote>
+        <p class="fine">
+          Facebook: 80% recommend ·
+          <a class="inline" href="https://www.facebook.com/TipsyHippyGrill">TipsyHippyGrill</a>
+          · Google ~4.0 from a thousand reviews. Service runs mountain-pace on a packed patio — flag the
+          table, we will get you.
+        </p>
+      </section>
+      <section class="cta-row">
+        <a class="btn primary" href="https://order.spoton.com/so-tipsy-hippy-grill-19076/lakeside-az/66302d9ef52c5a003da949ff/">Order pickup</a>
+        <a class="btn" href="tel:+19283581972">Call the grill</a>
+        <a class="btn" href="https://maps.google.com/?q=2251+W+White+Mountain+Blvd+Pinetop-Lakeside+AZ+85929">Directions</a>
+        <a class="btn ghost" href="https://www.facebook.com/TipsyHippyGrill">Facebook</a>
+      </section>
+    </main>
+
+    <footer>
+      Tipsy Hippy Grill · 2251 W White Mountain Blvd, Pinetop-Lakeside AZ 85929 · (928) 358-1972
+      · Walk built for the house, hosted on PxD2.
+    </footer>
+
+    <script type="module" src="./hall.js"></script>
+  </body>
+</html>
