@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Cornhole — Tipsy Hippy</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&family=Oswald:wght@600;700&display=swap" />
+    <link rel="stylesheet" href="../games.css" />
+  </head>
+  <body>
+    <header class="top">
+      <p class="mark">Cornhole</p>
+      <nav>
+        <a href="../">Games</a>
+        <a href="../../">Patio</a>
+        <a href="https://order.spoton.com/so-tipsy-hippy-grill-19076/lakeside-az/66302d9ef52c5a003da949ff/">Wings</a>
+      </nav>
+    </header>
+    <main class="wrap">
+      <p class="kicker">First to 21 · cancel scoring</p>
+      <div class="hud">
+        <div><b id="you">0</b>You</div>
+        <div><b id="kit">0</b>Kitchen</div>
+        <div><b id="bag">4</b>Bags</div>
+        <div><b id="msg">Hold</b>Throw</div>
+      </div>
+      <canvas id="c" width="420" height="640"></canvas>
+      <p class="muted" style="text-align:center">Hold on the grass, drag up, let go. Hole is 3. Board is 1. Short is air.</p>
+      <p style="text-align:center;margin-top:1rem"><button class="btn ghost" id="reset">New game</button></p>
+    </main>
+    <script>
+      const canvas = document.getElementById("c");
+      const ctx = canvas.getContext("2d");
+      const youEl = document.getElementById("you");
+      const kitEl = document.getElementById("kit");
+      const bagEl = document.getElementById("bag");
+      const msgEl = document.getElementById("msg");
+      let you = 0, kit = 0, bags = 4, turn = "you", flying = null, hold = null, over = false;
+      const hole = { x: 210, y: 118, r: 28 };
+      const board = { x: 120, y: 70, w: 180, h: 240 };
+
+      function scoreBag(x, y) {
+        const d = Math.hypot(x - hole.x, y - hole.y);
+        if (d < hole.r - 4) return 3;
+        if (x > board.x && x < board.x + board.w && y > board.y && y < board.y + board.h) return 1;
+        return 0;
+      }
+
+      function kitchenThrow() {
+        const power = 11 + Math.random() * 3.2;
+        const angle = -Math.PI / 2 + (Math.random() - 0.5) * 0.18;
+        flying = { x: 210, y: 600, vx: Math.cos(angle) * power, vy: Math.sin(angle) * power, who: "kit" };
+      }
+
+      function land(who, pts) {
+        if (who === "you") you += pts;
+        else kit += pts;
+        youEl.textContent = you;
+        kitEl.textContent = kit;
+        bags -= 1;
+        bagEl.textContent = bags;
+        msgEl.textContent = pts === 3 ? "Hole!" : pts === 1 ? "Board" : "Short";
+        if (you >= 21 || kit >= 21) {
+          over = true;
+          msgEl.textContent = you >= kit ? "You win. Wings." : "Kitchen wins. Order anyway.";
+          return;
+        }
+        if (bags <= 0) {
+          bags = 4;
+          bagEl.textContent = 4;
+          turn = "you";
+          msgEl.textContent = "New round";
+          return;
+        }
+        if (who === "you") {
+          turn = "kit";
+          setTimeout(kitchenThrow, 500);
+        } else turn = "you";
+      }
+
+      function draw() {
+        ctx.fillStyle = "#1c3a22";
+        ctx.fillRect(0, 0, 420, 640);
+        ctx.fillStyle = "#4f8a3a";
+        ctx.fillRect(0, 300, 420, 340);
+        ctx.fillStyle = "#c4a36a";
+        ctx.fillRect(board.x, board.y, board.w, board.h);
+        ctx.fillStyle = "#1a120c";
+        ctx.beginPath();
+        ctx.arc(hole.x, hole.y, hole.r, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = "#e8a317";
+        ctx.font = "700 18px Oswald, sans-serif";
+        ctx.fillText("TIPSY HIPPY", 150, 300);
+        ctx.fillStyle = "#5a3c24";
+        ctx.fillRect(200, 310, 20, 290);
+        if (hold) {
+          ctx.strokeStyle = "#e8a317";
+          ctx.beginPath();
+          ctx.moveTo(210, 600);
+          ctx.lineTo(hold.x, hold.y);
+          ctx.stroke();
+        }
+        if (flying) {
+          ctx.fillStyle = flying.who === "you" ? "#e8a317" : "#2f6f62";
+          ctx.beginPath();
+          ctx.arc(flying.x, flying.y, 14, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.fillStyle = "#e8a317";
+        ctx.beginPath();
+        ctx.arc(210, 600, 12, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      function tick() {
+        if (flying) {
+          flying.vy += 0.22;
+          flying.x += flying.vx;
+          flying.y += flying.vy;
+          flying.vx *= 0.995;
+          if (flying.y > 630 || flying.x < -20 || flying.x > 440 || (flying.vy > 0 && flying.y > 70 && scoreBag(flying.x, flying.y) && flying.y < 320 && Math.hypot(flying.x - hole.x, flying.y - hole.y) < hole.r)) {
+            const pts = scoreBag(flying.x, flying.y);
+            const who = flying.who;
+            flying = null;
+            land(who, pts);
+          } else if (flying.y > 318 && flying.vy > 0 && flying.x > board.x && flying.x < board.x + board.w && flying.y < board.y + board.h + 8) {
+            const pts = scoreBag(flying.x, flying.y);
+            const who = flying.who;
+            flying = null;
+            land(who, pts);
+          }
+        }
+        draw();
+        requestAnimationFrame(tick);
+      }
+
+      function pos(e) {
+        const r = canvas.getBoundingClientRect();
+        const p = e.touches ? e.touches[0] : e;
+        return { x: (p.clientX - r.left) * (420 / r.width), y: (p.clientY - r.top) * (640 / r.height) };
+      }
+      canvas.addEventListener("pointerdown", (e) => {
+        if (over || flying || turn !== "you") return;
+        hold = pos(e);
+        canvas.setPointerCapture(e.pointerId);
+      });
+      canvas.addEventListener("pointermove", (e) => { if (hold) hold = pos(e); });
+      canvas.addEventListener("pointerup", (e) => {
+        if (!hold || turn !== "you") return;
+        const p = pos(e);
+        flying = { x: 210, y: 600, vx: (210 - p.x) / 14, vy: (600 - p.y) / 14, who: "you" };
+        hold = null;
+      });
+      document.getElementById("reset").onclick = () => { you = kit = 0; bags = 4; turn = "you"; over = false; flying = null; youEl.textContent = kitEl.textContent = "0"; bagEl.textContent = "4"; msgEl.textContent = "Hold"; };
+      tick();
+    </script>
+  </body>
+</html>

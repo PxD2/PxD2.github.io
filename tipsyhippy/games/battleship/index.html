@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Battleship — Fool Hollow fleet</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&family=Oswald:wght@600;700&display=swap" />
+    <link rel="stylesheet" href="../games.css" />
+    <style>
+      .wrap { max-width: 42rem; }
+      h1 { font-size: 1.8rem; margin: 0.3rem 0; }
+      .row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+      @media (max-width: 700px) { .row { grid-template-columns: 1fr; } }
+      .board { grid-template-columns: repeat(10, 1fr); }
+    </style>
+  </head>
+  <body>
+    <header class="top">
+      <p class="mark">Battleship</p>
+      <nav>
+        <a href="../">Games</a>
+        <a href="../../">Patio</a>
+        <a href="https://order.spoton.com/so-tipsy-hippy-grill-19076/lakeside-az/66302d9ef52c5a003da949ff/">Wings</a>
+      </nav>
+    </header>
+    <main class="wrap">
+      <p class="kicker">Fool Hollow · Rainbow · Show Low Lake</p>
+      <h1>Sink the other lake</h1>
+      <p class="muted" id="status">Place your fleet. Tap two cells to drop a boat. Then fire on their water.</p>
+      <div class="row">
+        <div>
+          <p class="kicker">Your lake</p>
+          <div class="board" id="mine"></div>
+        </div>
+        <div>
+          <p class="kicker">Their water</p>
+          <div class="board" id="theirs"></div>
+        </div>
+      </div>
+      <p style="margin-top:1rem"><button class="btn ghost" id="reset">New game</button></p>
+    </main>
+    <script>
+      const SHIPS = [5, 4, 3, 3, 2];
+      const NAMES = ["Sunrise", "Fool Hollow", "Rainbow", "Woodland", "Show Low"];
+      let placing = 0, pick = null, yours = [], cpu = [], yourHits = new Set(), cpuHits = new Set(), yourMiss = new Set(), cpuMiss = new Set(), fire = false, over = false;
+
+      function cells() { return [...Array(100).keys()]; }
+      function xy(i) { return [i % 10, Math.floor(i / 10)]; }
+      function idx(x, y) { return y * 10 + x; }
+      function occ(ships) {
+        const s = new Set();
+        ships.forEach((sh) => sh.cells.forEach((c) => s.add(c)));
+        return s;
+      }
+      function placeAt(x, y, len, horiz, taken) {
+        const cells = [];
+        for (let i = 0; i < len; i++) {
+          const cx = horiz ? x + i : x;
+          const cy = horiz ? y : y + i;
+          if (cx > 9 || cy > 9) return null;
+          const id = idx(cx, cy);
+          if (taken.has(id)) return null;
+          cells.push(id);
+        }
+        return cells;
+      }
+      function randomFleet() {
+        const ships = [];
+        const taken = new Set();
+        SHIPS.forEach((len, n) => {
+          for (let t = 0; t < 80; t++) {
+            const horiz = Math.random() < 0.5;
+            const cells = placeAt(Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), len, horiz, taken);
+            if (cells) { cells.forEach((c) => taken.add(c)); ships.push({ name: NAMES[n], cells }); break; }
+          }
+        });
+        return ships;
+      }
+      function sunk(ships, hits) {
+        return ships.filter((s) => s.cells.every((c) => hits.has(c)));
+      }
+
+      const mine = document.getElementById("mine");
+      const theirs = document.getElementById("theirs");
+      const status = document.getElementById("status");
+      function paint() {
+        const yOcc = occ(yours);
+        mine.innerHTML = "";
+        theirs.innerHTML = "";
+        cells().forEach((i) => {
+          const a = document.createElement("button");
+          a.className = "cell";
+          if (yOcc.has(i)) a.classList.add("ship");
+          if (cpuHits.has(i)) a.classList.add("hit");
+          if (cpuMiss.has(i)) a.classList.add("miss");
+          a.onclick = () => onMine(i);
+          mine.appendChild(a);
+          const b = document.createElement("button");
+          b.className = "cell";
+          if (yourHits.has(i)) b.classList.add("hit");
+          if (yourMiss.has(i)) b.classList.add("miss");
+          b.onclick = () => onTheirs(i);
+          theirs.appendChild(b);
+        });
+      }
+      function onMine(i) {
+        if (fire || over) return;
+        if (!pick) { pick = i; status.textContent = "Tap the other end of " + NAMES[placing] + " (" + SHIPS[placing] + ")."; return; }
+        const [x1, y1] = xy(pick); const [x2, y2] = xy(i);
+        const horiz = y1 === y2;
+        const vert = x1 === x2;
+        if (!horiz && !vert) { pick = null; status.textContent = "Straight line only."; return; }
+        const len = SHIPS[placing];
+        const startX = Math.min(x1, x2), startY = Math.min(y1, y2);
+        const span = horiz ? Math.abs(x2 - x1) + 1 : Math.abs(y2 - y1) + 1;
+        if (span !== len) { pick = null; status.textContent = NAMES[placing] + " needs " + len + " cells."; return; }
+        const cells = placeAt(startX, startY, len, horiz, occ(yours));
+        if (!cells) { pick = null; status.textContent = "Blocked."; return; }
+        yours.push({ name: NAMES[placing], cells });
+        placing += 1; pick = null;
+        if (placing >= SHIPS.length) {
+          fire = true;
+          cpu = randomFleet();
+          status.textContent = "Fleet in. Fire on their water. Best wings after you sink Sunrise.";
+        } else status.textContent = "Place " + NAMES[placing] + " (" + SHIPS[placing] + ").";
+        paint();
+      }
+      function cpuFire() {
+        let i;
+        do { i = Math.floor(Math.random() * 100); } while (cpuHits.has(i) || cpuMiss.has(i));
+        if (occ(yours).has(i)) cpuHits.add(i);
+        else cpuMiss.add(i);
+        if (sunk(yours, cpuHits).length === yours.length) { over = true; status.textContent = "They sank you. Order pizza. Rematch."; }
+      }
+      function onTheirs(i) {
+        if (!fire || over || yourHits.has(i) || yourMiss.has(i)) return;
+        if (occ(cpu).has(i)) {
+          yourHits.add(i);
+          const dead = sunk(cpu, yourHits);
+          status.textContent = dead.length ? "You sank " + dead.map((s) => s.name).join(", ") + "." : "Hit.";
+          if (dead.length === cpu.length) { over = true; status.textContent = "Fleet down. You won the lake. Wings on the patio."; paint(); return; }
+        } else { yourMiss.add(i); status.textContent = "Water."; }
+        cpuFire();
+        paint();
+      }
+      function reset() {
+        placing = 0; pick = null; yours = []; cpu = []; yourHits = new Set(); cpuHits = new Set(); yourMiss = new Set(); cpuMiss = new Set(); fire = false; over = false;
+        status.textContent = "Place " + NAMES[0] + " (" + SHIPS[0] + "). Tap two cells.";
+        paint();
+      }
+      document.getElementById("reset").onclick = reset;
+      reset();
+    </script>
+  </body>
+</html>
