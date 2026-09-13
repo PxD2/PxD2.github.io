@@ -104,7 +104,23 @@ h1 { margin: 0.4rem 0 0; font-size: clamp(2.4rem, 8vw, 4.4rem); line-height: 0.9
 .dock-btn.dir { background: #3d5a8a; }
 .dock-btn.order { background: var(--primary); color: var(--primary-fg); }
 .dock-btn.order small { color: rgb(26 18 12 / 0.7); }
-.dock-btn.walk { background: #6b3a16; }
+#vr-btn, button.VRButton {
+  position: fixed !important;
+  top: calc(3.6rem + env(safe-area-inset-top)) !important;
+  right: 0.7rem !important;
+  left: auto !important;
+  bottom: auto !important;
+  z-index: 9 !important;
+  border-radius: 12px !important;
+  background: #2f6f62 !important;
+  border: 0 !important;
+  color: #f3efe6 !important;
+  font: 700 12px/1 Barlow, sans-serif !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  padding: 0.7rem 0.9rem !important;
+  opacity: 1 !important;
+}
 
 .sheet { position: relative; z-index: 3; margin-top: 100dvh; padding: 3rem 1.2rem 2rem; max-width: 52rem; margin-left: auto; margin-right: auto; }
 .sheet h2 { font-size: 2rem; margin: 0.4rem 0; }

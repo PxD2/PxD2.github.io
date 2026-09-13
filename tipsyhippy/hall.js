@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { VRButton } from "three/addons/webxr/VRButton.js";
 
 const PHONE = "tel:+19283581972";
 const ORDER =
@@ -44,22 +45,37 @@ const spotLabel = document.getElementById("spot-label");
 const stick = document.getElementById("stick");
 const knob = document.getElementById("knob");
 
-const renderer = new THREE.WebGLRenderer({ antialias: !coarse, powerPreference: "high-performance" });
+const renderer = new THREE.WebGLRenderer({ antialias: !coarse, powerPreference: "high-performance", alpha: false });
 renderer.setPixelRatio(Math.min(devicePixelRatio, coarse ? 1.4 : 2));
 renderer.setSize(innerWidth, innerHeight);
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.12;
 renderer.shadowMap.enabled = !coarse;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.xr.enabled = true;
 stage.appendChild(renderer.domElement);
 
-const scene = new THREE.Scene();
-scene.fog = new THREE.FogExp2("#8fb4c8", 0.018);
+const vrBtn = VRButton.createButton(renderer);
+vrBtn.id = "vr-btn";
+document.body.appendChild(vrBtn);
 
-const camera = new THREE.PerspectiveCamera(coarse ? 74 : 68, innerWidth / innerHeight, 0.08, 220);
-camera.position.set(0, H, -10);
+const scene = new THREE.Scene();
+scene.fog = new THREE.FogExp2("#8fb4c8", 0.016);
+
+const camera = new THREE.PerspectiveCamera(coarse ? 74 : 68, innerWidth / innerHeight, 0.08, 260);
+camera.position.set(0, H, 0);
+const rig = new THREE.Group();
+rig.position.set(0, 0, -10);
+rig.add(camera);
+scene.add(rig);
+
+const ctrl0 = renderer.xr.getController(0);
+const ctrl1 = renderer.xr.getController(1);
+rig.add(ctrl0, ctrl1);
 
 const loader = new THREE.TextureLoader();
+const windMats = [];
+const swayTrees = [];
 function tex(src, rx = 1, ry = 1) {
   const t = loader.load(src);
   t.colorSpace = THREE.SRGBColorSpace;
@@ -255,28 +271,36 @@ stringLights(new THREE.Vector3(-4, 3.4, 1), new THREE.Vector3(5, 3.4, 5), 12);
 
 function ponderosa3d(x, z, s = 1) {
   const g = new THREE.Group();
-  const trunkH = 9.5 * s;
-  const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.18 * s, 0.38 * s, trunkH, 8), barkMat);
+  const trunkH = 11 * s;
+  const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.16 * s, 0.42 * s, trunkH, 10), barkMat);
   trunk.position.y = trunkH / 2;
   trunk.castShadow = true;
   g.add(trunk);
-  const crowns = [
-    [0, trunkH + 0.2 * s, 0, 2.4 * s],
-    [0.7 * s, trunkH - 1.1 * s, 0.3 * s, 1.8 * s],
-    [-0.6 * s, trunkH - 0.6 * s, -0.4 * s, 1.7 * s],
-    [0.2 * s, trunkH + 1.3 * s, 0.15 * s, 1.4 * s],
-    [-0.3 * s, trunkH - 2.2 * s, 0.5 * s, 1.5 * s],
+  const crown = new THREE.Group();
+  const clusters = [
+    [0, 0, 0, 2.6],
+    [0.85, -1.3, 0.2, 1.9],
+    [-0.7, -0.8, -0.45, 1.85],
+    [0.15, 1.2, 0.2, 1.55],
+    [-0.35, -2.4, 0.55, 1.7],
+    [0.55, -2.0, -0.5, 1.4],
   ];
-  crowns.forEach(([cx, cy, cz, r], i) => {
-    const c = new THREE.Mesh(new THREE.SphereGeometry(r, 9, 7), i % 2 ? needle : needle2);
-    c.position.set(cx, cy, cz);
-    c.scale.y = 0.72;
+  clusters.forEach(([cx, cy, cz, r], i) => {
+    const c = new THREE.Mesh(
+      new THREE.SphereGeometry(r * s, 11, 8),
+      i % 2 ? needle : needle2,
+    );
+    c.position.set(cx * s, trunkH + cy * s, cz * s);
+    c.scale.set(1.05, 0.62, 1.1);
     c.castShadow = true;
-    g.add(c);
+    crown.add(c);
   });
+  g.add(crown);
   g.position.set(x, 0, z);
   g.rotation.y = Math.random() * Math.PI;
+  g.userData = { phase: Math.random() * 6, crown };
   scene.add(g);
+  swayTrees.push(g);
 }
 
 const nearPines = [
@@ -290,22 +314,43 @@ addBox(0.12, 1.1, 16, 10.4, 0.55, 14, wood);
 addBox(18, 1.1, 0.12, 1, 0.55, 22.2, wood);
 
 alphaTex("./images/ponderosa.jpg").then((t) => {
-  const mat = new THREE.MeshBasicMaterial({ map: t, transparent: true, alphaTest: 0.28, side: THREE.DoubleSide, depthWrite: false });
-  const geo = new THREE.PlaneGeometry(7.4, 13.2);
-  for (let i = 0; i < 46; i++) {
-    const a = (i / 46) * Math.PI * 1.15 + 0.2;
-    const r = 26 + (i % 5) * 4.5 + (i % 3);
+  const mat = new THREE.MeshBasicMaterial({
+    map: t,
+    transparent: true,
+    alphaTest: 0.22,
+    side: THREE.DoubleSide,
+    depthWrite: false,
+  });
+  mat.onBeforeCompile = (shader) => {
+    shader.uniforms.uTime = { value: 0 };
+    shader.vertexShader = `uniform float uTime;\n${shader.vertexShader.replace(
+      "#include <begin_vertex>",
+      `#include <begin_vertex>
+       float lift = clamp(transformed.y / 6.0 + 0.5, 0.0, 1.0);
+       transformed.x += sin(uTime * 0.85 + transformed.y * 0.35) * lift * 0.22;
+       transformed.z += cos(uTime * 0.62 + transformed.x * 0.2) * lift * 0.14;`,
+    )}`;
+    mat.userData.shader = shader;
+  };
+  windMats.push(mat);
+  const geo = new THREE.PlaneGeometry(6.8, 14.4, 6, 10);
+  for (let i = 0; i < 52; i++) {
+    const a = (i / 52) * Math.PI * 1.2 + 0.15;
+    const r = 22 + (i % 6) * 4.2 + (i % 4);
     const x = Math.sin(a) * r;
-    const z = 8 + Math.cos(a) * r * 0.72 + 10;
-    const s = 0.85 + (i % 7) * 0.12;
+    const z = 6 + Math.cos(a) * r * 0.7 + 12;
+    const s = 0.9 + (i % 7) * 0.11;
     const g = new THREE.Group();
-    const a1 = new THREE.Mesh(geo, mat);
-    const a2 = new THREE.Mesh(geo, mat);
-    a2.rotation.y = Math.PI / 2;
-    g.add(a1, a2);
-    g.position.set(x, 6.4 * s, z);
+    for (let k = 0; k < 3; k++) {
+      const p = new THREE.Mesh(geo, mat);
+      p.rotation.y = (k * Math.PI) / 3;
+      g.add(p);
+    }
+    g.position.set(x, 7.1 * s, z);
     g.scale.setScalar(s);
+    g.userData = { phase: Math.random() * 8, crown: g };
     scene.add(g);
+    swayTrees.push(g);
   }
 });
 
@@ -315,6 +360,13 @@ function collide(next) {
     if (next.x + r > w.minx && next.x - r < w.maxx && next.z + r > w.minz && next.z - r < w.maxz) return true;
   }
   return next.x < -16 || next.x > 16 || next.z < -15.2 || next.z > 23;
+}
+
+function playerPos() {
+  const p = new THREE.Vector3();
+  if (renderer.xr.isPresenting) camera.getWorldPosition(p);
+  else p.set(rig.position.x, H, rig.position.z);
+  return p;
 }
 
 function nearestSpot(p) {
@@ -344,26 +396,30 @@ function goTo(id, instant = false) {
   const spot = spots.find((s) => s.id === id) || spots[0];
   tour = spots.indexOf(spot);
   setCard(spot);
-  const target = new THREE.Vector3(...spot.pos);
+  const target = new THREE.Vector3(spot.pos[0], 0, spot.pos[2]);
   const look = new THREE.Vector3(...spot.look);
+  lookFrom(new THREE.Vector3(spot.pos[0], H, spot.pos[2]), look);
   if (instant) {
-    camera.position.copy(target);
-    camera.lookAt(look);
-    lookFrom(target, look);
+    rig.position.copy(target);
+    if (!renderer.xr.isPresenting) {
+      rig.rotation.y = yaw;
+      camera.rotation.x = pitch;
+    }
     return;
   }
-  const start = camera.position.clone();
-  const startLook = new THREE.Vector3();
-  camera.getWorldDirection(startLook);
-  startLook.add(camera.position);
+  const start = rig.position.clone();
+  const startYaw = rig.rotation.y;
   const t0 = performance.now();
   tween = (now) => {
     const u = Math.min(1, (now - t0) / 1100);
     const e = 1 - (1 - u) ** 3;
-    camera.position.lerpVectors(start, target, e);
-    camera.lookAt(startLook.clone().lerp(look, e));
+    rig.position.lerpVectors(start, target, e);
+    if (!renderer.xr.isPresenting) {
+      rig.rotation.y = startYaw + (yaw - startYaw) * e;
+      camera.rotation.x = pitch;
+    }
     if (u < 1) requestAnimationFrame(tween);
-    else { tween = null; lookFrom(target, look); }
+    else tween = null;
   };
   requestAnimationFrame(tween);
 }
@@ -377,7 +433,7 @@ function enter(next = "tour") {
     walking = true;
     stick.classList.remove("hidden");
     if (!coarse) renderer.domElement.requestPointerLock?.();
-    setCard(nearestSpot(camera.position));
+    setCard(nearestSpot(playerPos()));
   } else {
     walking = false;
     stick.classList.add("hidden");
@@ -476,32 +532,78 @@ addEventListener("resize", () => {
 });
 
 const clock = new THREE.Clock();
+function xrMove(dt) {
+  const session = renderer.xr.getSession();
+  if (!session) return;
+  let ax = 0, az = 0;
+  for (const src of session.inputSources) {
+    const gp = src.gamepad;
+    if (!gp) continue;
+    const x = gp.axes[2] ?? gp.axes[0] ?? 0;
+    const y = gp.axes[3] ?? gp.axes[1] ?? 0;
+    if (Math.abs(x) > Math.abs(ax)) ax = x;
+    if (Math.abs(y) > Math.abs(az)) az = y;
+  }
+  if (Math.abs(ax) < 0.15) ax = 0;
+  if (Math.abs(az) < 0.15) az = 0;
+  if (!ax && !az) return;
+  const dir = new THREE.Vector3();
+  camera.getWorldDirection(dir);
+  dir.y = 0;
+  dir.normalize();
+  const right = new THREE.Vector3().crossVectors(dir, new THREE.Vector3(0, 1, 0)).normalize();
+  const next = rig.position.clone();
+  next.addScaledVector(dir, -az * 3.6 * dt);
+  next.addScaledVector(right, ax * 3.6 * dt);
+  const tryX = next.clone(); tryX.z = rig.position.z;
+  if (!collide({ x: tryX.x, z: tryX.z })) rig.position.x = tryX.x;
+  const tryZ = next.clone(); tryZ.x = rig.position.x;
+  if (!collide({ x: tryZ.x, z: tryZ.z })) rig.position.z = tryZ.z;
+}
+
 function tick() {
   const dt = Math.min(clock.getDelta(), 0.05);
-  sky.position.copy(camera.position);
-  if (walking && !tween) {
+  const t = clock.elapsedTime;
+  sky.position.copy(rig.position);
+  windMats.forEach((m) => {
+    if (m.userData.shader) m.userData.shader.uniforms.uTime.value = t;
+  });
+  swayTrees.forEach((g) => {
+    const ph = g.userData.phase || 0;
+    g.rotation.z = Math.sin(t * 0.55 + ph) * 0.028;
+    g.rotation.x = Math.cos(t * 0.42 + ph) * 0.016;
+    if (g.userData.crown && g.userData.crown !== g) {
+      g.userData.crown.rotation.y = Math.sin(t * 0.35 + ph) * 0.08;
+    }
+  });
+  if (renderer.xr.isPresenting) {
+    xrMove(dt);
+  } else if (walking && !tween) {
     const dir = new THREE.Vector3(Math.sin(yaw), 0, -Math.cos(yaw));
     const right = new THREE.Vector3().crossVectors(dir, new THREE.Vector3(0, 1, 0)).negate();
-    const speed = ((keys.ShiftLeft ? 6.4 : 3.5) ) * dt;
-    const next = camera.position.clone();
+    const speed = (keys.ShiftLeft ? 6.4 : 3.5) * dt;
+    const next = rig.position.clone();
     if (keys.KeyW) next.addScaledVector(dir, speed);
     if (keys.KeyS) next.addScaledVector(dir, -speed);
     if (keys.KeyA) next.addScaledVector(right, -speed);
     if (keys.KeyD) next.addScaledVector(right, speed);
     next.addScaledVector(dir, -joy.z * 3.8 * dt);
     next.addScaledVector(right, joy.x * 3.8 * dt);
-    const tryX = next.clone(); tryX.z = camera.position.z;
-    if (!collide(tryX)) camera.position.x = tryX.x;
-    const tryZ = next.clone(); tryZ.x = camera.position.x;
-    if (!collide(tryZ)) camera.position.z = tryZ.z;
-    camera.position.y = H;
-    camera.rotation.set(pitch, yaw, 0, "YXZ");
-    const here = nearestSpot(camera.position);
+    const tryX = next.clone(); tryX.z = rig.position.z;
+    if (!collide({ x: tryX.x, z: tryX.z })) rig.position.x = tryX.x;
+    const tryZ = next.clone(); tryZ.x = rig.position.x;
+    if (!collide({ x: tryZ.x, z: tryZ.z })) rig.position.z = tryZ.z;
+    rig.rotation.y = yaw;
+    camera.rotation.x = pitch;
+    camera.rotation.y = 0;
+    camera.rotation.z = 0;
+    const here = nearestSpot(playerPos());
     if (spotLabel.textContent !== here.name) setCard(here);
   }
   renderer.render(scene, camera);
-  requestAnimationFrame(tick);
 }
+
+renderer.xr.addEventListener("sessionstart", () => enter("walk"));
+renderer.setAnimationLoop(tick);
 goTo("indoor", true);
-tick();
 window.__tipsy = { ORDER, PHONE, DIR_GOOGLE, goTo, enter, spots };
