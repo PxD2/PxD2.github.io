@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Wilderness — Apache & Navajo County trail</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&family=Oswald:wght@600;700&display=swap" />
+    <link rel="stylesheet" href="../games.css" />
+  </head>
+  <body>
+    <header class="top">
+      <p class="mark">Wilderness</p>
+      <nav>
+        <a href="../">Games</a>
+        <a href="../../">Patio</a>
+        <a href="https://order.spoton.com/so-tipsy-hippy-grill-19076/lakeside-az/66302d9ef52c5a003da949ff/">Wings</a>
+      </nav>
+    </header>
+    <main class="wrap">
+      <p class="kicker">A mountain trail · not Oregon · this county</p>
+      <h1>Wilderness</h1>
+      <p class="muted">Your family is crossing Apache and Navajo country to the patio. History is real. The wolves are a maybe. The wings are the finish line.</p>
+      <div class="hud">
+        <div><b id="day">1</b>Day</div>
+        <div><b id="food">12</b>Food</div>
+        <div><b id="water">10</b>Water</div>
+        <div><b id="morale">8</b>Morale</div>
+      </div>
+      <p class="kicker" id="place">St. Johns</p>
+      <div class="log" id="log"></div>
+      <div class="choices" id="choices"></div>
+    </main>
+    <script>
+      const STOPS = [
+        { id: "stjohns", name: "St. Johns", hist: "Apache County seat. Hispanic plaza and Mormon settlers both built this town in the 1870s. You start at the courthouse lawn with a pickup and a cooler." },
+        { id: "concho", name: "Concho", hist: "One of the oldest valleys in the White Mountains. Hispanic families ranched here before the highway. Concho Lake still sits in the grass." },
+        { id: "painted", name: "Painted Desert edge", hist: "Petrified Forest: trees two hundred million years old, turned to stone. The Painted Desert is a neighbor to both counties. Take only pictures." },
+        { id: "holbrook", name: "Holbrook", hist: "Railroad reached here in 1881. Navajo County seat. Route 66 and Hashknife cowboy country. Wind always has an opinion." },
+        { id: "snowflake", name: "Snowflake–Taylor", hist: "Named for Erastus Snow and William Flake, 1878. Two towns, one valley, lots of brick. Paper mill country to the north." },
+        { id: "showlow", name: "Show Low", hist: "1870: Corydon Cooley and Marion Clark cut cards for the ranch. Cooley drew the deuce of clubs — show low and you win. Main street is still Deuce of Clubs." },
+        { id: "fort", name: "Fort Apache road", hist: "White Mountain Apache Tribe. Fort Apache was established in 1870. Government sits at Whiteriver. Sunrise and Hon-Dah are theirs. A living nation, not a museum." },
+        { id: "pinetop", name: "Pinetop-Lakeside", hist: "Two towns became one in 1984. Pines, lakes, monsoon. The patio at Tipsy Hippy is 2251 W White Mountain Blvd. You can smell the fryer." },
+      ];
+      const EVENTS = [
+        { t: "Monsoon wall", b: "A black cloud stands on the Rim. The wash will run in twenty minutes.", opts: [
+          { l: "Wait it out at a chapter-house parking lot", food: -1, water: 0, morale: 1, note: "Rain hits. You stay dry. An elder tells you the wash has a name." },
+          { l: "Gun it. We're almost there", food: 0, water: -1, morale: -2, note: "Water over the road. You stall. Everybody is mad. Don't do this in real life." },
+        ]},
+        { t: "Elk in the road", b: "A bull elk owns 260. He is not moving.", opts: [
+          { l: "Stop. Let him finish", food: 0, water: 0, morale: 1, note: "He walks off like he pays taxes here. You take a photo you will lose." },
+          { l: "Honk", food: 0, water: 0, morale: -1, note: "He stares. You wait anyway. The kids learned a word you didn't teach." },
+        ]},
+        { t: "Trading post", b: "Frybread, maps, cold water. The clerk asks where you're from.", opts: [
+          { l: "Buy water and frybread", food: 2, water: 3, morale: 1, note: "Best money of the trip. You say thank you and mean it." },
+          { l: "Just use the restroom", food: 0, water: 0, morale: 0, note: "Fine. The kids wanted frybread. Remember that at the patio." },
+        ]},
+        { t: "Forest closure", b: "Stage 2. No fires. The ranger is not in a mood.", opts: [
+          { l: "Cold camp, no stove", food: -1, water: 0, morale: -1, note: "Sandwiches. You did the right thing. The pines are still here because people listen." },
+          { l: "Sneak a fire", food: 0, water: 0, morale: -3, note: "Don't. The game yells at you. Volunteer fire is twenty minutes out. You eat cold." },
+        ]},
+        { t: "Fool Hollow", b: "The lake is full of boats and kids. Trout or skip.", opts: [
+          { l: "Fish an hour", food: 2, water: -1, morale: 2, note: "You catch enough to brag. Nobody believes the size." },
+          { l: "Skip. Patio is calling", food: -1, water: 0, morale: 0, note: "Miles instead of fish. Valid." },
+        ]},
+        { t: "Window Rock radio", b: "KTNN on the dial. Navajo and English. Window Rock is the capital — Apache County, Navajo Nation.", opts: [
+          { l: "Leave it on. Learn a word", food: 0, water: 0, morale: 2, note: "Yá'át'ééh. The kids repeat it wrong and then better." },
+          { l: "Sports talk from Phoenix", food: 0, water: 0, morale: -1, note: "You already know the score. You missed the mountain." },
+        ]},
+        { t: "Deuce of Clubs", b: "Show Low. The street is named for a card. Cooley showed low.", opts: [
+          { l: "Tell the kids the story", food: 0, water: 0, morale: 2, note: "They will tell it wrong at school. That's how towns live." },
+          { l: "Just get gas", food: 0, water: 1, morale: 0, note: "Gas is expensive. The story is free. You skipped the free thing." },
+        ]},
+        { t: "Cooler fail", b: "Ice is soup. The sandwiches have opinions.", opts: [
+          { l: "Dump it. Buy jerky", food: 1, water: -1, morale: -1, note: "Jerky and grouch. You'll make it." },
+          { l: "Eat it anyway", food: 1, water: 0, morale: -2, note: "Bad idea. Someone feels rough. You slow down." },
+        ]},
+      ];
+
+      const S = { i: 0, day: 1, food: 12, water: 10, morale: 8, log: [], done: false };
+
+      function paint() {
+        document.getElementById("day").textContent = S.day;
+        document.getElementById("food").textContent = S.food;
+        document.getElementById("water").textContent = S.water;
+        document.getElementById("morale").textContent = S.morale;
+        document.getElementById("place").textContent = STOPS[Math.min(S.i, STOPS.length - 1)].name;
+        document.getElementById("log").innerHTML = S.log.slice(-6).map((l) => `<p>${l}</p>`).join("");
+      }
+      function say(t) { S.log.push(t); paint(); }
+      function apply(o) {
+        S.food += o.food; S.water += o.water; S.morale += o.morale;
+        S.food = Math.max(0, S.food); S.water = Math.max(0, S.water); S.morale = Math.max(0, Math.min(12, S.morale));
+        say(o.note);
+        if (S.food <= 0 || S.water <= 0 || S.morale <= 0) {
+          S.done = true;
+          choices([{ l: "Start over — the patio still wants you", fn: restart }]);
+          say("The trip folds. You are not dead. You are just at a gas station in Holbrook eating chips. Try again. Wings are still the prize.");
+          return true;
+        }
+        return false;
+      }
+      function choices(list) {
+        const box = document.getElementById("choices");
+        box.innerHTML = "";
+        list.forEach((c) => {
+          const b = document.createElement("button");
+          b.textContent = c.l;
+          b.onclick = c.fn;
+          box.appendChild(b);
+        });
+      }
+      function arrive() {
+        const stop = STOPS[S.i];
+        say("<b>" + stop.name + ".</b> " + stop.hist);
+        if (stop.id === "pinetop") {
+          S.done = true;
+          say("You made it. String lights. Pines. The kitchen is dropping wings. Adults can peel to the Love Shack. Kids stay on the lawn. Takeout if the monsoon comes back.");
+          choices([
+            { l: "Order wings now", fn: () => location.href = "https://order.spoton.com/so-tipsy-hippy-grill-19076/lakeside-az/66302d9ef52c5a003da949ff/" },
+            { l: "Walk the patio", fn: () => location.href = "../../" },
+            { l: "Run it again", fn: restart },
+          ]);
+          paint();
+          return;
+        }
+        choices([{ l: "Roll on", fn: trail }]);
+      }
+      function trail() {
+        S.day += 1; S.food -= 1; S.water -= 1;
+        if (S.food <= 0 || S.water <= 0) { apply({ food: 0, water: 0, morale: 0, note: "Empty cooler. Empty bottles." }); return; }
+        const ev = EVENTS[Math.floor(Math.random() * EVENTS.length)];
+        say("<b>" + ev.t + ".</b> " + ev.b);
+        choices(ev.opts.map((o) => ({ l: o.l, fn: () => { if (apply(o)) return; S.i += 1; arrive(); } })));
+        paint();
+      }
+      function restart() {
+        S.i = 0; S.day = 1; S.food = 12; S.water = 10; S.morale = 8; S.log = []; S.done = false;
+        say("Pickup packed. Kids arguing. You leave St. Johns for the pines.");
+        arrive();
+      }
+      restart();
+    </script>
+  </body>
+</html>
