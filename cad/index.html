@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PXD2 CAD — Ask for a part</title>
+  <meta name="description" content="PXD2 CAD. Ask for a part. Reverse-engineering CAD for the K2 Plus. Stamp, scan, laser-align, print. Open source." />
+  <meta name="theme-color" content="#07080c" />
+  <link rel="canonical" href="https://pxd2.github.io/cad/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://pxd2.github.io/cad/" />
+  <meta property="og:title" content="PXD2 CAD — Ask for a part" />
+  <meta property="og:description" content="Reverse-engineering CAD for the K2 Plus. Stamp, stack, laser-align holes, print." />
+  <meta property="og:image" content="https://pxd2.github.io/og.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="PXD2 CAD — Ask for a part" />
+  <meta name="twitter:description" content="Open-source shop CAD. Laser level through holes. Generic Revopoint to STL." />
+  <meta name="twitter:image" content="https://pxd2.github.io/og.jpg" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Oswald:wght@500;600;700;800&display=swap" />
+  <link rel="stylesheet" href="site.css" />
+</head>
+<body>
+  <header>
+    <div class="brand-row">
+      <a class="mark" href="https://pxd2.github.io/cad/">
+        <span class="l" style="color:#00f6ff;text-shadow:0 0 18px #00f6ff,0 0 42px #00f6ff">P</span><span class="l" style="color:#ff3ad8;text-shadow:0 0 18px #ff3ad8,0 0 42px #ff3ad8">X</span><span class="l" style="color:#ffd24d;text-shadow:0 0 18px #ffd24d,0 0 42px #ffd24d">D</span><span class="l" style="color:#4dff9a;text-shadow:0 0 18px #4dff9a,0 0 42px #4dff9a">2</span>
+      </a>
+      <span class="floor-tag">CAD</span>
+      <a class="home-link" href="https://pxd2.github.io/">Floor</a>
+    </div>
+    <nav>
+      <a class="on" href="#ask">Ask</a>
+      <a href="#laser">Laser</a>
+      <a href="#tray">Tray</a>
+      <a href="#scan">Scan</a>
+      <a href="#voice">Voice</a>
+      <a href="#source">Source</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="ask">
+      <p class="kicker">Software · hardware · shop</p>
+      <h1 class="mark-xl">
+        <span class="l" style="color:#00f6ff;text-shadow:0 0 18px #00f6ff,0 0 42px #00f6ff">P</span><span class="l" style="color:#ff3ad8;text-shadow:0 0 18px #ff3ad8,0 0 42px #ff3ad8">X</span><span class="l" style="color:#ffd24d;text-shadow:0 0 18px #ffd24d,0 0 42px #ffd24d">D</span><span class="l" style="color:#4dff9a;text-shadow:0 0 18px #4dff9a,0 0 42px #4dff9a">2</span>
+      </h1>
+      <p class="sub">Ask for a part</p>
+      <p class="lede">Reverse-engineering CAD for a child-simple shop. Stamp a plate. Fire a laser through the holes. Align. Print on a Creality K2 Plus 350³. Kernel is millimeters. Display inches if you want.</p>
+      <p class="cta-row">
+        <a class="btn primary" href="https://github.com/PxD2/cad">Open the source</a>
+        <a class="btn secondary" href="#laser">Laser level</a>
+        <a class="btn ghost" href="https://pxd2.github.io/">Walk the floor</a>
+      </p>
+    </section>
+
+    <div class="bed-wrap" aria-hidden="true">
+      <svg viewBox="0 0 920 420" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bed" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#1a2230"/>
+            <stop offset="1" stop-color="#0c1018"/>
+          </linearGradient>
+        </defs>
+        <rect x="0" y="0" width="920" height="420" fill="#07080c"/>
+        <g transform="translate(460 248)">
+          <polygon points="-320,40 0,140 320,40 0,-60" fill="url(#bed)" stroke="#2a3344" stroke-width="1.4"/>
+          <g stroke="#243044" stroke-width="0.7" opacity="0.55">
+            <line x1="-240" y1="15" x2="80" y2="-85"/>
+            <line x1="-160" y1="-10" x2="160" y2="-110"/>
+            <line x1="-80" y1="-35" x2="240" y2="-135"/>
+            <line x1="-280" y1="-20" x2="40" y2="80"/>
+            <line x1="-200" y1="-45" x2="120" y2="55"/>
+            <line x1="-120" y1="-70" x2="200" y2="30"/>
+          </g>
+          <polygon points="-70,-18 70,-18 90,-4 -50,-4" fill="#c5cdd4" opacity="0.92"/>
+          <polygon points="70,-18 90,-4 90,10 70,-4" fill="#9aa7b4"/>
+          <polygon points="-50,-4 90,-4 90,10 -50,10" fill="#7d868f"/>
+          <g class="laser" stroke="#ff3a3a" stroke-width="1.6" opacity="0.9">
+            <line x1="-300" y1="-8" x2="300" y2="-8"/>
+            <line x1="-280" y1="6" x2="280" y2="6"/>
+          </g>
+          <g class="laser d2" stroke="#3ec8ff" stroke-width="1.5">
+            <line x1="-40" y1="-90" x2="-90" y2="70"/>
+            <line x1="40" y1="-90" x2="-10" y2="70"/>
+          </g>
+          <g class="laser d3" stroke="#3dff6a" stroke-width="1.7">
+            <line x1="-28" y1="-8" x2="-28" y2="-150"/>
+            <line x1="28" y1="-8" x2="28" y2="-150"/>
+            <line x1="-12" y1="6" x2="-12" y2="-136"/>
+            <line x1="44" y1="6" x2="44" y2="-136"/>
+          </g>
+          <circle cx="-28" cy="-8" r="5" fill="none" stroke="#ff3a3a" stroke-width="1.2"/>
+          <circle cx="28" cy="-8" r="5" fill="none" stroke="#ff3a3a" stroke-width="1.2"/>
+          <circle cx="-12" cy="6" r="5" fill="none" stroke="#3ec8ff" stroke-width="1.2"/>
+          <circle cx="44" cy="6" r="5" fill="none" stroke="#3ec8ff" stroke-width="1.2"/>
+        </g>
+        <text x="36" y="36" fill="#8b93a3" font-family="Barlow,system-ui,sans-serif" font-size="11" letter-spacing="3">K2 PLUS · 350³</text>
+        <text x="36" y="392" fill="#ff3a3a" font-family="Barlow,system-ui,sans-serif" font-size="11" letter-spacing="2">LOCK X</text>
+        <text x="120" y="392" fill="#3dff6a" font-family="Barlow,system-ui,sans-serif" font-size="11" letter-spacing="2">LOCK Y</text>
+        <text x="204" y="392" fill="#3ec8ff" font-family="Barlow,system-ui,sans-serif" font-size="11" letter-spacing="2">LOCK Z</text>
+      </svg>
+    </div>
+
+    <section id="laser">
+      <h3>Laser level</h3>
+      <p>False 3-plane lasers through every hole, like a Bosch on the bench. Red along X, green plumb on Y, cyan along Z. Drag until the beams coincide. <b>Align holes</b> slides the selected part onto the other part’s pattern.</p>
+      <p>
+        <span class="lock x">Lock X</span>
+        <span class="lock y">Lock Y</span>
+        <span class="lock z">Lock Z</span>
+      </p>
+      <div class="grid3" style="margin-top:1.1rem">
+        <article>
+          <p class="meta x">Side X</p>
+          <h4>Horizontal</h4>
+          <p>A red beam through the hole, spanning the bed. Line two plates left-right until the X lasers are one line.</p>
+        </article>
+        <article>
+          <p class="meta y">Vert Y</p>
+          <h4>Plumb</h4>
+          <p>Green up the hole axis. Scroll-wheel lifts the part on its vertical beds. Magnets onto nearby stack tops.</p>
+        </article>
+        <article>
+          <p class="meta z">Side Z</p>
+          <h4>Depth</h4>
+          <p>Cyan through the hole front-to-back. Rulers on the bed. Dimension brackets on the selected solid.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="tray">
+      <h3>The tray</h3>
+      <p>Layers pile like paint. Stamp, stack, drag, arrows. Flip and rotate on gamer-mouse side buttons — back is flip 90°, forward is rotate 90°. F and R if you only have a laptop.</p>
+      <div class="grid2">
+        <article>
+          <p class="meta">Ask</p>
+          <h4>Say the part</h4>
+          <p>Type or speak. “80×60 plate 6 mm thick with 4 M6 holes.” Local parser or Grok. NEMA faces, pulleys, 608s, GoPro mounts — real solids, not lookalike plates.</p>
+        </article>
+        <article>
+          <p class="meta">Thingiverse</p>
+          <h4>Twins that fit</h4>
+          <p>Premade hits land as the correct kind. A NEMA 17 is 42.3 with a 31 mm bolt pattern. The laser fires through those holes.</p>
+        </article>
+        <article>
+          <p class="meta">Units</p>
+          <h4>mm · cm · in</h4>
+          <p>Kernel stays millimeters. Display whatever the shop uses. Inches for the ranch. Metric for the printer.</p>
+        </article>
+        <article>
+          <p class="meta">Export</p>
+          <h4>STL and friends</h4>
+          <p>STL, DXF, OpenSCAD, CadQuery, FreeCAD, Blender, JSON. Peg-split what will not fit the K2.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="scan">
+      <h3>Generic Revo</h3>
+      <p>A generic Revopoint path that goes direct to STL. Drop a scan. Voxelize. Stamp it on the tray. Move it. Print it.</p>
+      <div class="grid2">
+        <article>
+          <p class="meta">Drop</p>
+          <h4>Cloud to solid</h4>
+          <p>PLY / mesh in. Occupancy mesh out. The Generic device auto-stamps onto the bed so you can drag it like any other layer.</p>
+        </article>
+        <article>
+          <p class="meta">Shop</p>
+          <h4>Reverse-eng</h4>
+          <p>Scan the ranch part. Align holes to a NEMA face or an M6 plate. That is the whole point of the laser.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="voice">
+      <h3>Voice</h3>
+      <ul class="voice">
+        <li><b>stamp</b> · <b>stack</b> · <b>demo stack</b></li>
+        <li><b>laser</b> · <b>laser off</b> · <b>align holes</b></li>
+        <li><b>flip</b> · <b>rotate 90</b></li>
+        <li><b>thingiverse for nema 17</b> · <b>stamp 608</b></li>
+        <li><b>use inches</b> · <b>use mm</b></li>
+      </ul>
+    </section>
+
+    <section id="source">
+      <h3>Source</h3>
+      <p>Open. MIT. Chad Peters / PXD2 Soft Dev Group. The kernel is in the repo. Clone it. Run it. Break it on the printer, not in a subscription.</p>
+      <p class="cta-row">
+        <a class="btn primary" href="https://github.com/PxD2/cad">github.com/PxD2/cad</a>
+        <a class="btn secondary" href="https://pxd2.github.io/pxd2spaces/">Hackspace</a>
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>PXD2 CAD · ask for a part · K2 Plus 350³ · MIT</p>
+    <p>
+      <a href="https://pxd2.github.io/">Walk the floor</a>
+      ·
+      <a href="https://github.com/PxD2/cad">Source</a>
+      ·
+      <a href="https://github.com/PxD2">github.com/PxD2</a>
+    </p>
+  </footer>
+</body>
+</html>
