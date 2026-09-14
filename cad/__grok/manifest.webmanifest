@@ -1,0 +1,11 @@
+{
+  "name": "PXD2",
+  "short_name": "PXD2",
+  "description": "Ask for a part. Reverse-engineering CAD for the K2 Plus.",
+  "start_url": "/cad/",
+  "scope": "/cad/",
+  "display": "standalone",
+  "background_color": "#0b0c0e",
+  "theme_color": "#0b0c0e",
+  "icons": [{ "src": "/cad/__grok/icon-180.png", "sizes": "180x180", "type": "image/png" }]
+}
