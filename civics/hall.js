@@ -65,6 +65,16 @@ function card([tag, title, why, id]) {
 function grid(list) {
   return `<div class="grid">${list.map(card).join("")}</div>`;
 }
+document.getElementById("founding").innerHTML =
+  `<h2>Two complete accounts</h2>
+  <p class="lede">Do not score 1788 by the government that later won. Federalists wanted energy and union. Anti-Federalists wanted a confederated republic and rights as the price of consent. Lincoln is where they met: acts while Congress was out, legalized after the fact, by a Congress without the dissenting section.</p>
+  <p><a href="founding.html">Open the full record — quotes, dates, cases →</a></p>
+  <div class="grid" style="margin-top:1.5rem">
+    <article class="lesson"><div class="meta"><div class="tag">Federalist</div><h3>Energy, union, extended republic</h3><p>Hamilton said energy in the executive out loud (Fed. 70). Bill of rights unnecessary (Fed. 84). They lost that argument and wrote the amendments. They did not lose Article II.</p></div></article>
+    <article class="lesson"><div class="meta"><div class="tag">Anti-Federalist</div><h3>Consolidation, scale, written rights</h3><p>Brutus: officers above control. Mason: no press, jury, or standing-army clause. North Carolina withheld consent until the amendments moved.</p></div></article>
+  </div>
+  <h2>Lincoln, in one paragraph</h2>
+  <p class="lede">15 April 1861: troops called, Congress set for 4 July. Blockade 19 April. Habeas 27 April. Taney in Merryman: only Congress suspends. Lincoln does not produce the body. 6 August 1861: Congress declares the past “legalized… as if” it had already authorized it. Prize Cases 5–4 after the captures. Milligan after the war. The 37th Congress sat without eleven states. Retroactive legality is the statute’s own words.</p>`;
 document.getElementById("hillsdale").innerHTML =
   `<h2>Introduction to the Constitution</h2>` +
   grid(intro) +
