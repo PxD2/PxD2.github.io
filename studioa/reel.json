@@ -1,0 +1,18 @@
+{
+  "show": "Hornet Bell",
+  "studio": "Studio A",
+  "episodeMinutes": 8,
+  "shotSeconds": 10,
+  "slots": 48,
+  "note": "8 minutes = 48 shots at 10 seconds. Toy Story-level CGI, original characters. Not Pixar IP.",
+  "bible": [
+    {"id": "vee", "name": "Vee", "art": "/hornet/art/vee.jpg", "lock": "Auburn hair, pine-green ribbon, 1770s wool cloak, about eight. Same face every shot."},
+    {"id": "lee", "name": "Lee", "art": "/hornet/art/lee.jpg", "lock": "Dark hair, oversized buff militia coat, pewter buttons. Same face every shot."},
+    {"id": "bell", "name": "Bell", "art": "/hornet/art/bell.jpg", "lock": "Bronze meeting-house bell, friendly face, gold hairline, pine-green yoke ribbon. Not the Philadelphia Liberty Bell."}
+  ],
+  "shots": [
+    {"slot": 0, "ep": "e01", "title": "Catawba golden hour", "prompt": "Vee and Lee by the river with Bell on a stump", "still": "/studioa/stills/e01-s01.jpg", "video": "/studioa/shots/e01-s01.mp4", "sec": 10},
+    {"slot": 1, "ep": "e01", "title": "Bell in the meeting house", "prompt": "Bell sways on the yoke in Hopewell", "still": "/studioa/stills/e01-s02.jpg", "video": "/studioa/shots/e01-s02.mp4", "sec": 10},
+    {"slot": 16, "ep": "e04", "title": "The horse comes home", "prompt": "Riderless horse through the pines at dusk", "still": "/studioa/stills/e04-s01.jpg", "video": "/studioa/shots/e04-s01.mp4", "sec": 10}
+  ]
+}
