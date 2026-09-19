@@ -77,24 +77,23 @@
     let show, ep, step = 0;
     const dlg = document.getElementById("dlg");
     function paint() {
-      const clips = ep.cartoon || [];
-      const total = (clips.length || ep.panels.length) + 1;
-      const last = clips.length ? step >= clips.length : step >= ep.panels.length;
-      const panel = ep.panels[Math.min(step, ep.panels.length - 1)];
-      document.getElementById("etitle").textContent = "Episode " + String(ep.n).padStart(2,"0") + " · " + ep.title;
+      const film = (ep.cartoon && ep.cartoon[0] && ep.cartoon[0].src || "").replace("/hornet/", "");
       const v = document.getElementById("efilm");
-      if (clips[step] && !last) {
-        v.src = clips[step].src.replace("/hornet/", "");
+      if (v.dataset.ep !== ep.id) {
+        v.dataset.ep = ep.id;
+        v.src = film;
         v.play();
-      } else {
-        v.removeAttribute("src");
-        v.poster = ep.still.replace("/hornet/","");
       }
-      document.getElementById("who").textContent = last ? "What we learned" : panel.who;
-      document.getElementById("line").textContent = last ? ep.learn : panel.text;
-      document.getElementById("pos").textContent = Math.min(step+1,total) + " / " + total;
-      document.getElementById("prev").disabled = step === 0;
-      document.getElementById("next").disabled = last;
+      const t = v.currentTime || 0;
+      const beats = ep.beats || [];
+      let beat = beats[0] || { who: "", text: "" };
+      for (let i = 0; i < beats.length; i++) if (t >= beats[i].t) beat = beats[i];
+      document.getElementById("etitle").textContent = "Episode " + String(ep.n).padStart(2,"0") + " · " + ep.title + " · 5 min";
+      document.getElementById("who").textContent = beat.who;
+      document.getElementById("line").textContent = beat.text;
+      document.getElementById("pos").textContent = String(Math.floor(t/60)).padStart(2,"0") + ":" + String(Math.floor(t%60)).padStart(2,"0") + " / 05:00";
+      document.getElementById("prev").disabled = true;
+      document.getElementById("next").disabled = true;
     }
     fetch("episodes.json").then(r => r.json()).then(data => {
       show = data;
@@ -102,7 +101,7 @@
         `<figure><img src="${c.art.replace("/hornet/","")}" alt="${c.name}" /><figcaption><strong>${c.name}</strong><br/>${c.role}</figcaption></figure>`
       ).join("");
       document.getElementById("list").innerHTML = show.episodes.map(e =>
-        `<button class="ep" data-id="${e.id}"><img src="${e.still.replace("/hornet/","")}" alt="" /><span><span class="k">${String(e.n).padStart(2,"0")} · watch ${((e.cartoon||[]).reduce((n,c)=>n+(c.sec||10),0)||e.minutes*60)}s</span><br/><strong style="font-family:Fraunces,serif;color:var(--pine);font-size:1.15rem">${e.title}</strong></span></button>`
+        `<button class="ep" data-id="${e.id}"><img src="${e.still.replace("/hornet/","")}" alt="" /><span><span class="k">${String(e.n).padStart(2,"0")} · watch 5 min</span><br/><strong style="font-family:Fraunces,serif;color:var(--pine);font-size:1.15rem">${e.title}</strong></span></button>`
       ).join("");
       document.getElementById("list").addEventListener("click", ev => {
         const btn = ev.target.closest("[data-id]");
@@ -115,8 +114,8 @@
     });
     document.getElementById("close").onclick = () => dlg.close();
     document.getElementById("prev").onclick = () => { step = Math.max(0, step-1); paint(); };
-    document.getElementById("next").onclick = () => { step += 1; paint(); };
-    document.getElementById("efilm").onended = () => { step += 1; paint(); };
+    document.getElementById("efilm").ontimeupdate = () => { if (ep) paint(); };
+    document.getElementById("efilm").onended = () => {};
   </script>
 <script src="/read-aloud.js" defer></script>
 <script src="/sites.js" defer></script>
