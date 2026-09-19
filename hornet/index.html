@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hornet Bell — militia cartoon from Mecklenburg</title>
+  <meta name="description" content="Kids educational cartoon: Wilson, Davidson, Graham, Polk, Brevard, Osborne, Reese, Knox, Caldwell. Then Washington, Madison, Jackson, Polk, Lincoln." />
+  <link rel="canonical" href="https://pxd2.github.io/hornet/" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Nunito:wght@500;700&display=swap" />
+  <style>
+    :root { --cream:#f4ead6; --pine:#1e3a2f; --honey:#e6b84d; --clay:#c45c26; --ink:#1c1814; }
+    * { box-sizing: border-box; }
+    html, body { margin:0; background:var(--cream); color:var(--ink); font:500 16px/1.5 Nunito,system-ui,sans-serif; }
+    a { color:var(--clay); }
+    header { display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px; padding:14px 18px; border-bottom:1px solid color-mix(in oklab, var(--pine) 20%, transparent); }
+    header a { color:var(--pine); text-decoration:none; letter-spacing:.16em; text-transform:uppercase; font-size:12px; font-weight:700; }
+    h1, h2 { font-family:Fraunces,Georgia,serif; color:var(--pine); }
+    main { max-width:920px; margin:0 auto; padding:28px 18px 80px; }
+    .poster { width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:12px; }
+    .cast { display:grid; gap:12px; margin:1rem 0 2rem; }
+    @media(min-width:700px){ .cast{grid-template-columns:1fr 1fr 1fr} }
+    .cast figure { margin:0; background:#fff6; border:1px solid color-mix(in oklab, var(--pine) 16%, transparent); border-radius:12px; overflow:hidden; }
+    .cast img { width:100%; aspect-ratio:1; object-fit:cover; }
+    .cast figcaption { padding:10px 12px; }
+    .ep { display:flex; gap:12px; width:100%; text-align:left; background:#fff7; border:1px solid color-mix(in oklab, var(--pine) 16%, transparent); border-radius:12px; padding:10px; min-height:88px; cursor:pointer; color:inherit; font:inherit; }
+    .ep img { width:80px; height:80px; object-fit:cover; border-radius:8px; }
+    .list { display:grid; gap:10px; }
+    @media(min-width:700px){ .list{grid-template-columns:1fr 1fr} }
+    .k { letter-spacing:.16em; text-transform:uppercase; color:var(--clay); font-size:11px; font-weight:700; }
+    dialog { border:0; padding:0; background:var(--cream); color:var(--ink); max-width:640px; width:calc(100% - 24px); border-radius:12px; }
+    dialog::backdrop { background:#1c1814cc; }
+    .stage { padding:16px; }
+    .stage img { width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:10px; }
+    .nav { display:flex; justify-content:space-between; align-items:center; margin-top:12px; }
+    button.icon { min-width:44px; min-height:44px; border:1px solid color-mix(in oklab, var(--pine) 25%, transparent); background:var(--pine); color:var(--cream); border-radius:8px; cursor:pointer; }
+    button.icon:disabled { opacity:.3; }
+    button.ghost { background:transparent; color:var(--pine); border:0; min-height:44px; cursor:pointer; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="https://pxd2.github.io/">PXD2</a>
+    <strong style="font-family:Fraunces,serif;color:var(--pine);letter-spacing:0;text-transform:none;font-size:20px">Hornet Bell</strong>
+    <a href="https://pxd2.github.io/edu/">Edu</a>
+  </header>
+  <main>
+    <img class="poster" src="art/poster.jpg" alt="Hornet Bell by the Catawba" />
+    <p class="k" style="margin-top:14px">Ages 6–11 · militia cartoon</p>
+    <h1>Hornet Bell</h1>
+    <p>A militia educational cartoon from the North Carolina Piedmont. Wilson daughters, Davidson, Graham father and son, Polk, Brevard, Adlai Osborne, Reese, Knox, Caldwell — then Washington, Madison, Jackson, Cousin Polk, Lincoln’s books.</p>
+    <p style="color:color-mix(in oklab, var(--pine) 70%, transparent);font-size:15px">Bluey is the most-streamed title on earth. Cocomelon still earns on YouTube. We take short family episodes, not their characters. Liberty’s Kids is the history cousin. This show is original.</p>
+    <h2>Cast</h2>
+    <div class="cast" id="cast"></div>
+    <h2>Episodes</h2>
+    <div class="list" id="list"></div>
+    <h2>Family record</h2>
+    <p>Mary Wilson married Ezekiel Polk (President James Knox Polk’s line). Violet Wilson married Major John Davidson. Joseph Graham married their Isabella. Ephraim Brevard and Adlai Osborne, cousins, Princeton 1768. Gen. William Lee Davidson fell at Cowan’s Ford; the Rural Hill horse came home. Family talk sometimes says he was uncle to Major John and Adlai — we mark that as talk, not a printed proof. Brothers-in-arms, later marriage, Brevard and Osborne as guardians: those we teach.</p>
+  </main>
+  <dialog id="dlg">
+    <div class="stage">
+      <button class="ghost" id="close" type="button">← All episodes</button>
+      <p class="k" id="etitle"></p>
+      <img id="estill" alt="" />
+      <p class="k" id="who"></p>
+      <p id="line" style="font-size:1.15rem"></p>
+      <div class="nav">
+        <button class="icon" id="prev" type="button">←</button>
+        <span class="k" id="pos"></span>
+        <button class="icon" id="next" type="button">→</button>
+      </div>
+    </div>
+  </dialog>
+  <script>
+    let show, ep, step = 0;
+    const dlg = document.getElementById("dlg");
+    function paint() {
+      const total = ep.panels.length + 1;
+      const last = step >= ep.panels.length;
+      document.getElementById("etitle").textContent = "Episode " + String(ep.n).padStart(2,"0") + " · " + ep.title;
+      document.getElementById("estill").src = ep.still.replace("/hornet/", "");
+      document.getElementById("who").textContent = last ? "What we learned" : ep.panels[step].who;
+      document.getElementById("line").textContent = last ? ep.learn : ep.panels[step].text;
+      document.getElementById("pos").textContent = Math.min(step+1,total) + " / " + total;
+      document.getElementById("prev").disabled = step === 0;
+      document.getElementById("next").disabled = last;
+    }
+    fetch("episodes.json").then(r => r.json()).then(data => {
+      show = data;
+      document.getElementById("cast").innerHTML = show.cast.map(c =>
+        `<figure><img src="${c.art.replace("/hornet/","")}" alt="${c.name}" /><figcaption><strong>${c.name}</strong><br/>${c.role}</figcaption></figure>`
+      ).join("");
+      document.getElementById("list").innerHTML = show.episodes.map(e =>
+        `<button class="ep" data-id="${e.id}"><img src="${e.still.replace("/hornet/","")}" alt="" /><span><span class="k">${String(e.n).padStart(2,"0")} · ${e.minutes} min</span><br/><strong style="font-family:Fraunces,serif;color:var(--pine);font-size:1.15rem">${e.title}</strong></span></button>`
+      ).join("");
+      document.getElementById("list").addEventListener("click", ev => {
+        const btn = ev.target.closest("[data-id]");
+        if (!btn) return;
+        ep = show.episodes.find(x => x.id === btn.dataset.id);
+        step = 0;
+        paint();
+        dlg.showModal();
+      });
+    });
+    document.getElementById("close").onclick = () => dlg.close();
+    document.getElementById("prev").onclick = () => { step = Math.max(0, step-1); paint(); };
+    document.getElementById("next").onclick = () => { step = Math.min(ep.panels.length, step+1); paint(); };
+  </script>
+</body>
+</html>
