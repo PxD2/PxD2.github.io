@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Studio A — Hornet Bell animator</title>
+  <link rel="canonical" href="https://pxd2.github.io/studioa/" />
+  <style>
+    :root { --bg:#0a0a0b; --fg:#e8e6e3; --muted:#9aa4ae; --honey:#e6b84d; --pine:#1e3a2f; --line:#2a2a2e; }
+    * { box-sizing: border-box; }
+    html, body { margin:0; background:var(--bg); color:var(--fg); font:16px/1.5 system-ui,sans-serif; }
+    header { display:flex; justify-content:space-between; gap:12px; padding:14px 18px; border-bottom:1px solid var(--line); }
+    a { color:var(--honey); }
+    main { max-width:920px; margin:0 auto; padding:28px 18px 80px; }
+    video, img { width:100%; aspect-ratio:16/9; object-fit:cover; background:#000; border-radius:8px; }
+    .k { letter-spacing:.16em; text-transform:uppercase; color:var(--muted); font-size:11px; font-weight:700; }
+    .grid { display:grid; gap:10px; margin-top:16px; }
+    @media(min-width:700px){ .grid{grid-template-columns:1fr 1fr 1fr} }
+    button { min-height:44px; cursor:pointer; background:var(--honey); color:#1c1814; border:0; border-radius:8px; padding:0 16px; font-weight:700; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="https://pxd2.github.io/">PXD2</a>
+    <strong>Studio A</strong>
+    <a href="https://pxd2.github.io/hornet/">Hornet Bell</a>
+  </header>
+  <main>
+    <p class="k">8:00 reel · 48 × 10s · character-locked CGI</p>
+    <h1>Studio A</h1>
+    <p>Animator for Hornet Bell. Vee, Lee, and Bell stay locked. Each shot is ten seconds. Forty-eight shots are eight minutes. Not Toy Story’s toys — our family, CGI-grade.</p>
+    <video id="v" controls playsinline src="shots/e01-s01.mp4"></video>
+    <p style="margin-top:12px"><button type="button" id="play">Play filled reel</button></p>
+    <div class="grid" id="grid"></div>
+  </main>
+  <script>
+    const clips = ["shots/e01-s01.mp4","shots/e01-s02.mp4","shots/e04-s01.mp4"];
+    const titles = ["Catawba golden hour","Bell in the meeting house","The horse comes home"];
+    document.getElementById("grid").innerHTML = clips.map((c,i) =>
+      `<button type="button" data-src="${c}" style="background:transparent;color:var(--fg);border:1px solid var(--line);text-align:left;padding:10px">${String(i+1).padStart(2,"0")} · ${titles[i]}</button>`
+    ).join("");
+    const v = document.getElementById("v");
+    document.getElementById("grid").onclick = (e) => {
+      const b = e.target.closest("[data-src]");
+      if (!b) return;
+      v.src = b.dataset.src; v.play();
+    };
+    let i = 0;
+    document.getElementById("play").onclick = () => { i = 0; v.src = clips[0]; v.play(); };
+    v.onended = () => { i += 1; if (i < clips.length) { v.src = clips[i]; v.play(); } };
+  </script>
+</body>
+</html>
