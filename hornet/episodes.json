@@ -4,7 +4,7 @@
   "model": "Bluey for family-length; Liberty's Kids for founding witnesses. Original show. Not those licenses.",
   "age": "6–11",
   "cast": [
-    {"id": "bell", "name": "Bell", "role": "Hopewell meeting-house bell. Rings the story. Not the Philadelphia Liberty Bell.", "art": "/hornet/art/bell.jpg"},
+    {"id": "bell", "name": "Bell", "role": "Hopewell meeting-house bell. Cousin in the story to Philadelphia’s Liberty Bell, which a Polk of this house saved.", "art": "/hornet/art/bell.jpg"},
     {"id": "vee", "name": "Vee", "role": "A girl named for Violet Wilson, whose marriages knit the command family.", "art": "/hornet/art/vee.jpg"},
     {"id": "lee", "name": "Lee", "role": "A boy named for General William Lee Davidson. Coat too big on purpose.", "art": "/hornet/art/lee.jpg"}
   ],
@@ -15,13 +15,13 @@
       "title": "The Bell of Hopewell",
       "minutes": 7,
       "still": "/hornet/art/poster.jpg",
-      "learn": "This Bell lives at a meeting house on the Catawba. Philadelphia has a famous cracked bell too. Ours rings Piedmont stories.",
+      "learn": "Hopewell’s Bell rings this river. Philadelphia’s Liberty Bell is her cousin. Col. Thomas Polk of this house was tasked to save that cousin.",
       "panels": [
-        {"who": "Bell", "text": "I hang in the pines of Mecklenburg. When I ring, the families come: Wilson, Davidson, Polk, Brevard, Alexander, Reese, Knox, Caldwell, Graham. They married each other so often the militia was almost one household."},
+        {"who": "Bell", "text": "I hang in the pines of Mecklenburg. When I ring, the families come: Wilson, Davidson, Polk, Brevard, Alexander, Reese, Knox, Caldwell, Graham. They married each other so often the militia was almost one household — and they kept the court and the governor’s chair too."},
         {"who": "Vee", "text": "Are you the Liberty Bell from Philadelphia?"},
-        {"who": "Bell", "text": "No, child. That bell rang for a whole country. I ring for a river and a nest of hornets. Same liberty. Smaller steeple."},
-        {"who": "Lee", "text": "Then tell us the presidents who grew from this nest — Washington, Madison, Jackson, Polk, Lincoln."},
-        {"who": "Bell", "text": "I will. But first the families, or the presidents will sound like they fell from the sky. They did not."}
+        {"who": "Bell", "text": "I am her cousin in the story. That bell rang for a whole country. A Polk of this house was tasked to get her out of Philadelphia so the British would not melt her into cannon. I ring for a river and a nest of hornets."},
+        {"who": "Lee", "text": "Then tell us the presidents who grew from this nest — Washington, Madison, Jackson, Polk, Lincoln — and every office in between."},
+        {"who": "Bell", "text": "I will. First the families, or the offices will sound like they fell from the sky. They did not."}
       ]
     },
     {
@@ -74,12 +74,12 @@
       "title": "Graham in the Pines",
       "minutes": 7,
       "still": "/hornet/art/lee.jpg",
-      "learn": "Joseph Graham, militia, was shot near Charlotte in 1780 and left. Aunt Susie Alexander found him. He lived, married Isabella Davidson, and their son William A. Graham served North Carolina.",
+      "learn": "Joseph Graham: sheriff, senator, justice of the peace, militia general — not governor. His son William A. Graham was Governor of North Carolina, U.S. Senator, Secretary of the Navy.",
       "panels": [
         {"who": "Bell", "text": "Father and son: Joseph Graham in the war; William Alexander Graham in the peace — governor, senator. The cartoon is the father’s night in the pines."},
         {"who": "Vee", "text": "Tarleton’s men dropped him. Aunt Susie Alexander, hunting cows, found him and got him home."},
         {"who": "Lee", "text": "He married Isabella, Major John’s daughter. So Graham is not a guest. He is Wilson and Davidson too."},
-        {"who": "Bell", "text": "When a family finds you in the pines, that is militia. Not a costume. A cousin with a lantern."}
+        {"who": "Bell", "text": "When a family finds you in the pines, that is militia. Not a costume. A cousin with a lantern. After the war he was first sheriff of Mecklenburg, a senator, a justice of the peace for forty years, a general again in 1814. The governor’s chair waited for his boy."}
       ]
     },
     {
@@ -164,6 +164,37 @@
         {"who": "Bell", "text": "No. He is in this show because he learned like our meeting house: few books, copied, recited. That is the method of the bigger school on this git."},
         {"who": "Vee", "text": "He said the Lyceum must be law, not the mob. Our general died at a ford under law, not under a riot."},
         {"who": "Bell", "text": "Copy one proposition. Recite one speech. Then you have watched this episode for real. Films do not pass a Lincoln class. Neither do cartoons, unless you copy."}
+      ]
+    },
+    {
+      "id": "e12",
+      "n": 12,
+      "title": "Polk Saves the Bell",
+      "minutes": 8,
+      "still": "/hornet/art/allentown.jpg",
+      "learn": "24 September 1777: Col. Thomas Polk of Mecklenburg was tasked to get Philadelphia’s bells — including the Liberty Bell — to Allentown so they would not be melted for cannon. His son William, later Lt. Col., served in that same North Carolina line.",
+      "panels": [
+        {"who": "Bell", "text": "Philadelphia, 1777. The British are coming. Bells make cannon if you melt them. The State House Bell — the one you call Liberty — had to leave town in a wagon, under straw."},
+        {"who": "Lee", "text": "Who was tasked?"},
+        {"who": "Bell", "text": "Colonel Thomas Polk of Charlotte. North Carolina’s 4th Continental. He had already called the Mecklenburg meeting. On the twenty-fourth of September he arrived in Allentown with the bells still bells."},
+        {"who": "Vee", "text": "And Lt. Col. Polk?"},
+        {"who": "Bell", "text": "That is his son William, later lieutenant colonel after Guilford. Same house, same line, Germantown wound in the mouth, then Cowan’s Ford and Eutaw. The father was tasked with the wagons. The son wore the later rank. One Polk house kept my cousin from becoming a gun."},
+        {"who": "Lee", "text": "So our Bell and that Bell are kin in the story."},
+        {"who": "Bell", "text": "Yes. And James Knox Polk, president, comes down from Ezekiel, Thomas’s brother, and Mary Wilson. Militia, council, bank, university, White House — that is the Polk stack. Look at the House tab."}
+      ]
+    },
+    {
+      "id": "e13",
+      "n": 13,
+      "title": "The House They Made",
+      "minutes": 8,
+      "still": "/hornet/art/princeton.jpg",
+      "learn": "Local office, judicial bench, militia, state executive, presidency: one intermarried house. Joseph Graham was not governor; William A. Graham was. Copy the table.",
+      "panels": [
+        {"who": "Vee", "text": "Did they only fight?"},
+        {"who": "Bell", "text": "No. Major John was magistrate and commons. Adlai was clerk of the Rowan court. John Brevard was justice from Anson on. Joseph Graham was sheriff, senator, and justice — a general twice. His son was governor, senator, Secretary of the Navy."},
+        {"who": "Lee", "text": "And a president."},
+        {"who": "Bell", "text": "James Knox Polk. The house runs from a county court to a White House without becoming a palace. That is the point of the House tab. Copy one office. Recite who held it."}
       ]
     }
   ]
