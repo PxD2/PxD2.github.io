@@ -1,0 +1,27 @@
+{
+  "college": "Reform College at PXD2",
+  "degree": "Bachelor of Arts in the Reformed Liberal Arts",
+  "credits": 120,
+  "motto": "Lex rex",
+  "rival": "Witherspoon's College of New Jersey (Princeton), not the later research university",
+  "accredited": false,
+  "blocks": {
+    "core": 60,
+    "languages": 16,
+    "concentration": 36,
+    "thesis": 8
+  },
+  "concentrations": [
+    "Moral philosophy, law, and arms",
+    "Mathematics and natural philosophy",
+    "Divinity and biblical languages",
+    "History, letters, and statesmanship"
+  ],
+  "halls": {
+    "civics": "/civics/",
+    "founding": "/civics/founding.html",
+    "resistance": "/civics/resistance.html",
+    "stem": "/stem/",
+    "coalitions": "/coalitions/master-amicus-brief.html"
+  }
+}
