@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PXD2 STEM — math, physics, chemistry, life</title>
+  <meta name="description" content="STEM hall: Euclid and logic, calculus, mechanics, chemistry. Cited lectures, not copied. Hillsdale math and chemistry enroll for free." />
+  <link rel="canonical" href="https://pxd2.github.io/stem/" />
+  <meta name="theme-color" content="#07080c" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" />
+  <style>
+    :root { --bg:#07080c; --ink:#e8e6df; --dim:#8b93a3; --gold:#f5c14a; --cyan:#00d4ea; --line:#1c2230; --panel:#0e1118; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.55 Barlow, system-ui, sans-serif; }
+    a { color: var(--cyan); }
+    .bar { display:flex; flex-wrap:wrap; gap:12px 22px; align-items:center; justify-content:space-between; padding:14px 20px; border-bottom:1px solid var(--line); font:600 11px/1 Barlow,sans-serif; letter-spacing:.2em; text-transform:uppercase; color:var(--dim); }
+    .bar a { color: var(--gold); text-decoration:none; }
+    .wrap { max-width: 980px; margin: 0 auto; padding: 36px 20px 96px; }
+    .kicker { letter-spacing:.22em; text-transform:uppercase; color:var(--gold); font:600 11px/1 Barlow,sans-serif; }
+    h1 { font:700 40px/1.05 Oswald,sans-serif; margin:10px 0 12px; }
+    h2 { font:600 22px/1.2 Oswald,sans-serif; margin:2.2rem 0 .6rem; letter-spacing:.04em; }
+    .lede { color:var(--dim); max-width:42rem; }
+    .tabs { display:flex; flex-wrap:wrap; gap:8px; margin: 22px 0; }
+    .tabs button { min-height:44px; background:var(--panel); color:var(--dim); border:1px solid var(--line); padding:0 16px; font:600 13px/1 Barlow,sans-serif; letter-spacing:.08em; text-transform:uppercase; cursor:pointer; }
+    .tabs button.on { color:var(--ink); border-color:var(--gold); }
+    .grid { display:grid; gap:22px; }
+    @media (min-width:800px) { .grid { grid-template-columns:1fr 1fr; } }
+    .lesson { background:var(--panel); border:1px solid var(--line); overflow:hidden; }
+    .frame { aspect-ratio:16/9; background:#000; }
+    iframe { width:100%; height:100%; border:0; }
+    .meta { padding:14px 16px 16px; }
+    .tag { font:600 11px/1 Barlow,sans-serif; letter-spacing:.16em; text-transform:uppercase; color:var(--gold); }
+    .meta h3 { font:600 18px/1.25 Oswald,sans-serif; margin:8px 0; }
+    .meta p { margin:0; color:var(--dim); font-size:14px; }
+    .src { margin-top:8px; font-size:12px; }
+    .pane { display:none; }
+    .pane.on { display:block; }
+    .row { display:flex; flex-wrap:wrap; justify-content:space-between; gap:8px; padding:14px 0; border-bottom:1px solid var(--line); }
+    .row .k { font:600 11px/1 Barlow,sans-serif; letter-spacing:.16em; text-transform:uppercase; color:var(--gold); }
+    nav.rooms { position:fixed; left:12px; bottom:12px; z-index:50; display:flex; gap:10px; flex-wrap:wrap; font:600 11px/1 Barlow,sans-serif; letter-spacing:.22em; text-transform:uppercase; }
+    nav.rooms a { color:#8b93a3; text-decoration:none; }
+  </style>
+</head>
+<body>
+  <div class="bar">
+    <a href="https://pxd2.github.io/">PXD2 · floor</a>
+    <span>STEM · Euclid first</span>
+    <a href="https://pxd2.github.io/civics/">Civics</a>
+  </div>
+  <main class="wrap">
+    <p class="kicker">Math · physics · chemistry · life</p>
+    <h1>STEM hall</h1>
+    <p class="lede">Not a dump of every modern course. Euclid and Newton first — proof, force, measure — then MIT, Yale, and Hillsdale films that still teach that way. Cited, not copied. Drop original .mp4 files in this folder to host your own labs.</p>
+    <div class="tabs">
+      <button type="button" class="on" data-tab="math">Math</button>
+      <button type="button" data-tab="physics">Physics</button>
+      <button type="button" data-tab="chem">Chemistry</button>
+      <button type="button" data-tab="life">Life</button>
+      <button type="button" data-tab="paths">Full paths</button>
+    </div>
+    <div id="math" class="pane on"></div>
+    <div id="physics" class="pane"></div>
+    <div id="chem" class="pane"></div>
+    <div id="life" class="pane"></div>
+    <div id="paths" class="pane"></div>
+  </main>
+  <nav class="rooms">
+    <a href="https://pxd2.github.io/">Floor</a>
+    <a href="https://pxd2.github.io/civics/">Civics</a>
+    <a href="https://pxd2.github.io/stem/">STEM</a>
+  </nav>
+  <script src="hall.js"></script>
+</body>
+</html>
