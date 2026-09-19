@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PXD2 Open Builds — index of public Comparee Hub listings</title>
+  <meta name="description" content="PXD2-held index of 348 public open-source builds listed on Comparee Hub. Originals stay on comparee.ai. Source repos link out to GitHub." />
+  <link rel="canonical" href="https://pxd2.github.io/sites/open-builds/" />
+  <meta name="theme-color" content="#07080c" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" />
+  <style>
+    :root { --bg:#07080c; --ink:#e8e6df; --dim:#8b93a3; --gold:#f5c14a; --cyan:#00d4ea; --line:#1c2230; }
+    * { box-sizing: border-box; }
+    html, body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.45 Barlow, system-ui, sans-serif; }
+    header { padding:28px 20px 12px; max-width:1100px; margin:0 auto; }
+    .kicker { letter-spacing:.22em; text-transform:uppercase; color:var(--gold); font:600 11px/1 Barlow, sans-serif; }
+    h1 { font:700 34px/1 Oswald, sans-serif; margin:8px 0 6px; }
+    p.lead { color:var(--dim); max-width:62ch; }
+    a { color:var(--cyan); }
+    .bar { display:flex; gap:10px; flex-wrap:wrap; max-width:1100px; margin:0 auto; padding:0 20px 16px; }
+    input, select { background:#10131a; color:var(--ink); border:1px solid var(--line); border-radius:8px; padding:10px 12px; font:15px Barlow, sans-serif; }
+    input { flex:1; min-width:220px; }
+    .meta { max-width:1100px; margin:0 auto 8px; padding:0 20px; color:var(--dim); font-size:13px; }
+    .grid { max-width:1100px; margin:0 auto; padding:0 20px 80px; display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:12px; }
+    article { border:1px solid var(--line); border-radius:12px; padding:14px 14px 12px; background:#0c0f16; display:flex; flex-direction:column; gap:8px; }
+    article h2 { font:600 16px/1.25 Barlow, sans-serif; margin:0; }
+    article p { margin:0; color:var(--dim); font-size:13px; flex:1; }
+    .chips { display:flex; flex-wrap:wrap; gap:6px; }
+    .chip { font:600 10px/1 Barlow, sans-serif; letter-spacing:.08em; text-transform:uppercase; border:1px solid var(--line); color:var(--dim); padding:4px 6px; border-radius:999px; }
+    .links { font-size:13px; }
+    nav.rooms { position:fixed; left:12px; bottom:12px; z-index:50; display:flex; gap:10px; flex-wrap:wrap; font:600 11px/1 Barlow,system-ui,sans-serif; letter-spacing:.22em; text-transform:uppercase; }
+    nav.rooms a { color:#8b93a3; text-decoration:none; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="kicker">PXD2 · Web Systems · held index</div>
+    <h1>Open builds</h1>
+    <p class="lead">Public catalog of Comparee Hub listings. We did not write the reviews. We indexed titles, source repos, and links so PXD2 can host and search the map. Full write-ups stay on <a href="https://comparee.ai/projects">comparee.ai/projects</a>.</p>
+  </header>
+  <div class="bar">
+    <input id="q" type="search" placeholder="Search title, slug, repo…" />
+    <select id="gh">
+      <option value="all">All sources</option>
+      <option value="github">Has GitHub</option>
+      <option value="none">No GitHub in page</option>
+    </select>
+  </div>
+  <div class="meta" id="meta">Loading…</div>
+  <div class="grid" id="grid"></div>
+  <nav class="rooms" aria-label="PXD2 rooms">
+    <a href="/">Floor</a>
+    <a href="/company/">Company</a>
+    <a href="/sites/">Sites</a>
+    <a href="/cad2/">Helix CAD</a>
+    <a href="/pxd2spaces/">Hackspace</a>
+  </nav>
+  <script>
+    const grid = document.getElementById('grid');
+    const meta = document.getElementById('meta');
+    const q = document.getElementById('q');
+    const gh = document.getElementById('gh');
+    let data = { projects: [] };
+    function render() {
+      const term = q.value.trim().toLowerCase();
+      const mode = gh.value;
+      const rows = data.projects.filter(p => {
+        if (mode === 'github' && !(p.github||[]).length) return false;
+        if (mode === 'none' && (p.github||[]).length) return false;
+        if (!term) return true;
+        const hay = [p.title, p.slug, (p.categories||[]).join(' '), (p.github||[]).join(' ')].join(' ').toLowerCase();
+        return hay.includes(term);
+      });
+      meta.textContent = rows.length + ' of ' + data.count + ' · scraped ' + (data.scraped_at || '') + ' · source Comparee Hub';
+      grid.innerHTML = rows.map(p => {
+        const chips = (p.categories||[]).map(c => '<span class="chip">' + c + '</span>').join('');
+        const gits = (p.github||[]).slice(0,2).map(u => '<a href="' + u + '">' + u.replace('https://github.com/','') + '</a>').join(' · ');
+        return '<article><h2>' + (p.title || p.slug) + '</h2><div class="chips">' + chips + '</div><div class="links"><a href="' + p.comparee + '">Comparee</a>' + (gits ? ' · ' + gits : '') + '</div></article>';
+      }).join('');
+    }
+    fetch('./data.json').then(r => r.json()).then(j => { data = j; render(); });
+    q.addEventListener('input', render);
+    gh.addEventListener('change', render);
+  </script>
+</body>
+</html>
