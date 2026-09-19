@@ -45,10 +45,10 @@
   </header>
   <main>
     <video class="poster" src="cartoons/together.mp4" poster="art/poster.jpg" autoplay muted loop playsinline></video>
-    <p class="k" style="margin-top:14px">Ages 6–11 · militia cartoon · watch</p>
+    <p class="k" style="margin-top:14px">Ages 6–11 · militia cartoon · 5 min spoken</p>
     <h1>Hornet Bell</h1>
-    <p>A militia educational cartoon from the North Carolina Piedmont. Wilson daughters, Davidson, Graham father and son, Polk, Brevard, Adlai Osborne, Reese, Knox, Caldwell — then Washington, Madison, Jackson, Cousin Polk, Lincoln’s books.</p>
-    <p style="color:color-mix(in oklab, var(--pine) 70%, transparent);font-size:15px">Bluey is the most-streamed title on earth. Cocomelon still earns on YouTube. We take short family episodes, not their characters. Liberty’s Kids is the history cousin. This show is original.</p>
+    <p>A militia educational cartoon from the North Carolina Piedmont. Bell, Vee, and Lee say each story aloud for five minutes — records from Davidson, Chapel Hill, and Nassau Hall — so children can love the cousins, not the statues.</p>
+    <p style="color:color-mix(in oklab, var(--pine) 70%, transparent);font-size:15px">Wilson daughters, Davidson, Graham father and son, Polk, Brevard, Adlai Osborne, Reese, Knox, Caldwell — then Washington, Madison, Jackson, Cousin Polk, Lincoln’s books. Open an episode and they speak.</p>
     <h2>Cast</h2>
     <div class="cast" id="cast"></div>
     <h2>Episodes</h2>
@@ -64,36 +64,75 @@
       <button class="ghost" id="close" type="button">← All episodes</button>
       <p class="k" id="etitle"></p>
       <video id="efilm" controls playsinline></video>
-      <p class="k" id="who"></p>
-      <p id="line" style="font-size:1.15rem"></p>
       <div class="nav">
-        <button class="icon" id="prev" type="button">←</button>
         <span class="k" id="pos"></span>
-        <button class="icon" id="next" type="button">→</button>
+        <button class="icon" id="speakbtn" type="button">Quiet</button>
       </div>
+      <div style="display:flex;gap:12px;margin-top:14px;align-items:flex-start">
+        <img id="whoart" alt="" width="80" height="80" style="width:80px;height:80px;object-fit:cover;border-radius:8px;flex-shrink:0" />
+        <div>
+          <p class="k" id="who"></p>
+          <p id="line" style="font-size:1.15rem;margin:8px 0 0"></p>
+        </div>
+      </div>
+      <p id="learn" style="margin-top:14px;font-size:14px"></p>
+      <p id="records" class="k" style="margin-top:8px;letter-spacing:.08em;text-transform:none;font-weight:500;line-height:1.45"></p>
     </div>
   </dialog>
   <script>
-    let show, ep, step = 0;
+    let show, ep, spokenT = -1, listen = true, utter = null;
     const dlg = document.getElementById("dlg");
+    function voiceFor(who) {
+      const w = (who || "").toLowerCase();
+      if (w.indexOf("vee") >= 0) return { rate: 0.98, pitch: 1.35 };
+      if (w.indexOf("lee") >= 0) return { rate: 1.0, pitch: 1.16 };
+      return { rate: 0.86, pitch: 0.76 };
+    }
+    function stopTalk() {
+      if (window.speechSynthesis) window.speechSynthesis.cancel();
+      utter = null;
+    }
+    function say(beat) {
+      stopTalk();
+      if (!listen || !beat || !beat.text || !window.speechSynthesis) return;
+      const u = new SpeechSynthesisUtterance(beat.text);
+      const v = voiceFor(beat.who);
+      u.rate = v.rate;
+      u.pitch = v.pitch;
+      utter = u;
+      window.speechSynthesis.speak(u);
+    }
+    function artFor(who) {
+      const w = (who || "").toLowerCase();
+      if (w.indexOf("vee") >= 0) return "art/vee.jpg";
+      if (w.indexOf("lee") >= 0) return "art/lee.jpg";
+      return "art/bell.jpg";
+    }
     function paint() {
       const film = (ep.cartoon && ep.cartoon[0] && ep.cartoon[0].src || "").replace("/hornet/", "");
       const v = document.getElementById("efilm");
       if (v.dataset.ep !== ep.id) {
         v.dataset.ep = ep.id;
         v.src = film;
+        spokenT = -1;
         v.play();
       }
       const t = v.currentTime || 0;
       const beats = ep.beats || [];
-      let beat = beats[0] || { who: "", text: "" };
+      let beat = beats[0] || { t: 0, who: "", text: "" };
       for (let i = 0; i < beats.length; i++) if (t >= beats[i].t) beat = beats[i];
-      document.getElementById("etitle").textContent = "Episode " + String(ep.n).padStart(2,"0") + " · " + ep.title + " · 5 min";
-      document.getElementById("who").textContent = beat.who;
-      document.getElementById("line").textContent = beat.text;
+      document.getElementById("etitle").textContent = "Episode " + String(ep.n).padStart(2,"0") + " · " + ep.title + " · 5 min · spoken";
+      document.getElementById("who").textContent = (beat.who || "") + " says";
+      document.getElementById("line").textContent = beat.text || "";
+      document.getElementById("whoart").src = artFor(beat.who);
       document.getElementById("pos").textContent = String(Math.floor(t/60)).padStart(2,"0") + ":" + String(Math.floor(t%60)).padStart(2,"0") + " / 05:00";
-      document.getElementById("prev").disabled = true;
-      document.getElementById("next").disabled = true;
+      document.getElementById("learn").innerHTML = ep.learn ? "<strong>Copy tonight.</strong> " + ep.learn : "";
+      document.getElementById("records").textContent = ep.records ? "Where the paper lives · " + ep.records : "";
+      document.getElementById("speakbtn").textContent = listen ? "Quiet" : "Let them speak";
+      if (beat.t !== spokenT) {
+        spokenT = beat.t;
+        say(beat);
+      }
     }
     fetch("episodes.json").then(r => r.json()).then(data => {
       show = data;
@@ -101,21 +140,29 @@
         `<figure><img src="${c.art.replace("/hornet/","")}" alt="${c.name}" /><figcaption><strong>${c.name}</strong><br/>${c.role}</figcaption></figure>`
       ).join("");
       document.getElementById("list").innerHTML = show.episodes.map(e =>
-        `<button class="ep" data-id="${e.id}"><img src="${e.still.replace("/hornet/","")}" alt="" /><span><span class="k">${String(e.n).padStart(2,"0")} · watch 5 min</span><br/><strong style="font-family:Fraunces,serif;color:var(--pine);font-size:1.15rem">${e.title}</strong></span></button>`
+        `<button class="ep" data-id="${e.id}"><img src="${e.still.replace("/hornet/","")}" alt="" /><span><span class="k">${String(e.n).padStart(2,"0")} · listen 5 min</span><br/><strong style="font-family:Fraunces,serif;color:var(--pine);font-size:1.15rem">${e.title}</strong></span></button>`
       ).join("");
       document.getElementById("list").addEventListener("click", ev => {
         const btn = ev.target.closest("[data-id]");
         if (!btn) return;
         ep = show.episodes.find(x => x.id === btn.dataset.id);
-        step = 0;
+        spokenT = -1;
+        listen = true;
         paint();
         dlg.showModal();
       });
     });
-    document.getElementById("close").onclick = () => dlg.close();
-    document.getElementById("prev").onclick = () => { step = Math.max(0, step-1); paint(); };
+    document.getElementById("close").onclick = () => { stopTalk(); dlg.close(); };
+    document.getElementById("speakbtn").onclick = () => {
+      listen = !listen;
+      if (!listen) stopTalk();
+      else spokenT = -1;
+      if (ep) paint();
+    };
     document.getElementById("efilm").ontimeupdate = () => { if (ep) paint(); };
-    document.getElementById("efilm").onended = () => {};
+    document.getElementById("efilm").onpause = () => { if (window.speechSynthesis) window.speechSynthesis.pause(); };
+    document.getElementById("efilm").onplay = () => { if (listen && window.speechSynthesis) window.speechSynthesis.resume(); };
+    dlg.addEventListener("close", stopTalk);
   </script>
 <script src="/read-aloud.js" defer></script>
 <script src="/sites.js" defer></script>
