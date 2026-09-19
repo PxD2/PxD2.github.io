@@ -28,7 +28,7 @@
       "id": "e01",
       "n": 1,
       "title": "The Bell of Hopewell",
-      "minutes": 1,
+      "minutes": 5,
       "still": "/hornet/art/poster.jpg",
       "learn": "Hopewell\u2019s Bell rings this river. Philadelphia\u2019s Liberty Bell is her cousin. Col. Thomas Polk of this house was tasked to save that cousin.",
       "panels": [
@@ -55,16 +55,45 @@
       ],
       "cartoon": [
         {
-          "src": "/hornet/cartoons/together.mp4",
-          "sec": 10
+          "src": "/hornet/cartoons/e01.mp4",
+          "sec": 300
+        }
+      ],
+      "beats": [
+        {
+          "t": 0.0,
+          "who": "Hornet Bell",
+          "text": "The Bell of Hopewell"
         },
         {
-          "src": "/hornet/cartoons/bell.mp4",
-          "sec": 10
+          "t": 12.0,
+          "who": "Bell",
+          "text": "I hang in the pines of Mecklenburg. When I ring, the families come: Wilson, Davidson, Polk, Brevard, Alexander, Reese, Knox, Caldwell, Graham. They married each other so often the militia was almost one household \u2014 and they kept the court and the governor\u2019s chair too."
         },
         {
-          "src": "/hornet/cartoons/river.mp4",
-          "sec": 10
+          "t": 64.8,
+          "who": "Vee",
+          "text": "Are you the Liberty Bell from Philadelphia?"
+        },
+        {
+          "t": 117.6,
+          "who": "Bell",
+          "text": "I am her cousin in the story. That bell rang for a whole country. A Polk of this house was tasked to get her out of Philadelphia so the British would not melt her into cannon. I ring for a river and a nest of hornets."
+        },
+        {
+          "t": 170.4,
+          "who": "Lee",
+          "text": "Then tell us the presidents who grew from this nest \u2014 Washington, Madison, Jackson, Polk, Lincoln \u2014 and every office in between."
+        },
+        {
+          "t": 223.2,
+          "who": "Bell",
+          "text": "I will. First the families, or the offices will sound like they fell from the sky. They did not."
+        },
+        {
+          "t": 276.0,
+          "who": "What we learned",
+          "text": "Hopewell\u2019s Bell rings this river. Philadelphia\u2019s Liberty Bell is her cousin. Col. Thomas Polk of this house was tasked to save that cousin."
         }
       ]
     },
@@ -72,7 +101,7 @@
       "id": "e02",
       "n": 2,
       "title": "Samuel Wilson\u2019s Daughters",
-      "minutes": 1,
+      "minutes": 5,
       "still": "/hornet/art/vee.jpg",
       "learn": "Mary Wilson married Ezekiel Polk \u2014 grandfather line of President James Knox Polk. Violet Wilson married Major John Davidson of Rural Hill.",
       "panels": [
@@ -99,16 +128,45 @@
       ],
       "cartoon": [
         {
-          "src": "/hornet/cartoons/vee.mp4",
-          "sec": 10
+          "src": "/hornet/cartoons/e02.mp4",
+          "sec": 300
+        }
+      ],
+      "beats": [
+        {
+          "t": 0.0,
+          "who": "Hornet Bell",
+          "text": "Samuel Wilson\u2019s Daughters"
         },
         {
-          "src": "/hornet/cartoons/together.mp4",
-          "sec": 10
+          "t": 12.0,
+          "who": "Bell",
+          "text": "Samuel Wilson farmed on this river. His daughters\u2019 marriages are the map of the command family."
         },
         {
-          "src": "/hornet/cartoons/listen.mp4",
-          "sec": 10
+          "t": 64.8,
+          "who": "Vee",
+          "text": "Mary married Ezekiel Polk. Their line runs to a boy named James Knox Polk \u2014 Knox for his other grandfather, who carried a captain\u2019s name."
+        },
+        {
+          "t": 117.6,
+          "who": "Lee",
+          "text": "Violet married Major John Davidson. He signed Mecklenburg\u2019s paper and kept Rural Hill. Their girl Isabella married Joseph Graham, the militia major who would not stay down."
+        },
+        {
+          "t": 170.4,
+          "who": "Bell",
+          "text": "Samuel\u2019s son married Hannah Knox \u2014 daughter of Captain Patrick Knox, killed at Ramsour\u2019s Mill. So Knox is not a stranger in this cartoon. He is in the house."
+        },
+        {
+          "t": 223.2,
+          "who": "Vee",
+          "text": "And Sarah Davidson married Alexander Caldwell, son of Dr. David Caldwell, who kept a school. Teachers in the blood, even when we are only enrolled."
+        },
+        {
+          "t": 276.0,
+          "who": "What we learned",
+          "text": "Mary Wilson married Ezekiel Polk \u2014 grandfather line of President James Knox Polk. Violet Wilson married Major John Davidson of Rural Hill."
         }
       ]
     },
@@ -116,7 +174,7 @@
       "id": "e03",
       "n": 3,
       "title": "The Hornet Nest",
-      "minutes": 1,
+      "minutes": 5,
       "still": "/hornet/art/poster.jpg",
       "learn": "Cornwallis called Mecklenburg a hornet nest. The families stung and scattered and came back.",
       "panels": [
@@ -139,16 +197,40 @@
       ],
       "cartoon": [
         {
-          "src": "/hornet/cartoons/nest.mp4",
-          "sec": 10
+          "src": "/hornet/cartoons/e03.mp4",
+          "sec": 300
+        }
+      ],
+      "beats": [
+        {
+          "t": 0.0,
+          "who": "Hornet Bell",
+          "text": "The Hornet Nest"
         },
         {
-          "src": "/hornet/cartoons/river.mp4",
-          "sec": 10
+          "t": 12.0,
+          "who": "Lee",
+          "text": "Why do people call us hornets?"
         },
         {
-          "src": "/hornet/cartoons/lee.mp4",
-          "sec": 10
+          "t": 78.0,
+          "who": "Bell",
+          "text": "Because a British general found Charlotte was not a place you sit down in. The militia of this family \u2014 Polk, Davidson, Graham, Alexander \u2014 kept stinging and flying."
+        },
+        {
+          "t": 144.0,
+          "who": "Vee",
+          "text": "Lt. Col. Thomas Polk called neighbors to the courthouse. Dr. Ephraim Brevard wrote. David Reese signed. The paper said the king\u2019s law was vacant here."
+        },
+        {
+          "t": 210.0,
+          "who": "Bell",
+          "text": "A nest is a family. That is the joke and the truth."
+        },
+        {
+          "t": 276.0,
+          "who": "What we learned",
+          "text": "Cornwallis called Mecklenburg a hornet nest. The families stung and scattered and came back."
         }
       ]
     },
@@ -156,7 +238,7 @@
       "id": "e04",
       "n": 4,
       "title": "The Horse Comes Home",
-      "minutes": 1,
+      "minutes": 5,
       "still": "/hornet/art/horse.jpg",
       "learn": "General William Lee Davidson, uncle to Major John and to Adlai Osborne \u2014 one family \u2014 fell at Cowan\u2019s Ford, 1 February 1781. The horse from Rural Hill came home without him. We do not draw the shot.",
       "panels": [
@@ -183,16 +265,45 @@
       ],
       "cartoon": [
         {
-          "src": "/hornet/cartoons/horse.mp4",
-          "sec": 10
+          "src": "/hornet/cartoons/e04.mp4",
+          "sec": 300
+        }
+      ],
+      "beats": [
+        {
+          "t": 0.0,
+          "who": "Hornet Bell",
+          "text": "The Horse Comes Home"
         },
         {
-          "src": "/hornet/cartoons/lee.mp4",
-          "sec": 10
+          "t": 12.0,
+          "who": "Bell",
+          "text": "William Lee Davidson was a militia general. He had been at Germantown and Valley Forge. He married a Brevard. His father\u2019s will named John Brevard and Alexander Osborne as guardians of the children \u2014 Adlai Osborne\u2019s house."
         },
         {
-          "src": "/hornet/cartoons/pines.mp4",
-          "sec": 10
+          "t": 64.8,
+          "who": "Lee",
+          "text": "He was uncle to Major John of Rural Hill, and uncle in the house of Adlai Osborne. One Davidson family, not two. The horse he rode that morning was from his nephew\u2019s barn."
+        },
+        {
+          "t": 117.6,
+          "who": "Vee",
+          "text": "Major John lent him a horse from Rural Hill to ride to the Catawba, to stop Cornwallis at Cowan\u2019s Ford."
+        },
+        {
+          "t": 170.4,
+          "who": "Bell",
+          "text": "The general fell in the river fog. The horse came home. That is how Major John knew. We ring once, and we do not make a game of it."
+        },
+        {
+          "t": 223.2,
+          "who": "Lee",
+          "text": "His baby son, also William Lee, was not yet a month old. That boy later married Betsy Lee Davidson, Major John\u2019s daughter. Kin by marriage after the river."
+        },
+        {
+          "t": 276.0,
+          "who": "What we learned",
+          "text": "General William Lee Davidson, uncle to Major John and to Adlai Osborne \u2014 one family \u2014 fell at Cowan\u2019s Ford, 1 February 1781. The horse from Rural Hill came home without him. We do not draw the shot."
         }
       ]
     },
@@ -200,7 +311,7 @@
       "id": "e05",
       "n": 5,
       "title": "Graham in the Pines",
-      "minutes": 1,
+      "minutes": 5,
       "still": "/hornet/art/lee.jpg",
       "learn": "Joseph Graham: sheriff, senator, justice of the peace, militia general \u2014 not governor. His son William A. Graham was Governor of North Carolina, U.S. Senator, Secretary of the Navy.",
       "panels": [
@@ -223,16 +334,40 @@
       ],
       "cartoon": [
         {
-          "src": "/hornet/cartoons/pines.mp4",
-          "sec": 10
+          "src": "/hornet/cartoons/e05.mp4",
+          "sec": 300
+        }
+      ],
+      "beats": [
+        {
+          "t": 0.0,
+          "who": "Hornet Bell",
+          "text": "Graham in the Pines"
         },
         {
-          "src": "/hornet/cartoons/lee.mp4",
-          "sec": 10
+          "t": 12.0,
+          "who": "Bell",
+          "text": "Father and son: Joseph Graham in the war; William Alexander Graham in the peace \u2014 governor, senator. The cartoon is the father\u2019s night in the pines."
         },
         {
-          "src": "/hornet/cartoons/together.mp4",
-          "sec": 10
+          "t": 78.0,
+          "who": "Vee",
+          "text": "Tarleton\u2019s men dropped him. Aunt Susie Alexander, hunting cows, found him and got him home."
+        },
+        {
+          "t": 144.0,
+          "who": "Lee",
+          "text": "He married Isabella, Major John\u2019s daughter. So Graham is not a guest. He is Wilson and Davidson too."
+        },
+        {
+          "t": 210.0,
+          "who": "Bell",
+          "text": "When a family finds you in the pines, that is militia. Not a costume. A cousin with a lantern. After the war he was first sheriff of Mecklenburg, a senator, a justice of the peace for forty years, a general again in 1814. The governor\u2019s chair waited for his boy."
+        },
+        {
+          "t": 276.0,
+          "who": "What we learned",
+          "text": "Joseph Graham: sheriff, senator, justice of the peace, militia general \u2014 not governor. His son William A. Graham was Governor of North Carolina, U.S. Senator, Secretary of the Navy."
         }
       ]
     },
@@ -240,7 +375,7 @@
       "id": "e06",
       "n": 6,
       "title": "Ephraim and Adlai",
-      "minutes": 1,
+      "minutes": 5,
       "still": "/hornet/art/princeton.jpg",
       "learn": "One Davidson family: General William Lee is uncle to Major John and Adlai Osborne. Dr. Ephraim Brevard and Adlai, cousins, finished Princeton in 1768 under Witherspoon. Ephraim wrote Mecklenburg\u2019s resolves and married a Polk.",
       "panels": [
@@ -263,16 +398,40 @@
       ],
       "cartoon": [
         {
-          "src": "/hornet/cartoons/princeton.mp4",
-          "sec": 10
+          "src": "/hornet/cartoons/e06.mp4",
+          "sec": 300
+        }
+      ],
+      "beats": [
+        {
+          "t": 0.0,
+          "who": "Hornet Bell",
+          "text": "Ephraim and Adlai"
         },
         {
-          "src": "/hornet/cartoons/listen.mp4",
-          "sec": 10
+          "t": 12.0,
+          "who": "Bell",
+          "text": "John Brevard\u2019s boy Ephraim and Alexander Osborne\u2019s boy Adlai walked to the same grammar, then to Nassau Hall, year 1768."
         },
         {
-          "src": "/hornet/cartoons/together.mp4",
-          "sec": 10
+          "t": 78.0,
+          "who": "Vee",
+          "text": "That is Witherspoon\u2019s Princeton \u2014 the college our big hall wants to compete with. They learned moral philosophy, then came home."
+        },
+        {
+          "t": 144.0,
+          "who": "Lee",
+          "text": "Ephraim became the doctor who wrote. He married Col. Thomas Polk\u2019s daughter. Adlai became the lawyer of Rowan, clerk of the court, a man of the committee."
+        },
+        {
+          "t": 210.0,
+          "who": "Bell",
+          "text": "General Davidson is uncle to Major John and to Adlai Osborne. One family. Ephraim and Adlai, cousins, walked to Princeton together. The guardians in the old will \u2014 John Brevard and Alexander Osborne \u2014 are that same house."
+        },
+        {
+          "t": 276.0,
+          "who": "What we learned",
+          "text": "One Davidson family: General William Lee is uncle to Major John and Adlai Osborne. Dr. Ephraim Brevard and Adlai, cousins, finished Princeton in 1768 under Witherspoon. Ephraim wrote Mecklenburg\u2019s resolves and married a Polk."
         }
       ]
     },
@@ -280,7 +439,7 @@
       "id": "e07",
       "n": 7,
       "title": "Washington Goes Home",
-      "minutes": 1,
+      "minutes": 5,
       "still": "/hornet/art/poster.jpg",
       "learn": "Washington commanded the army, then went home. Energy in the office, not a king in the man.",
       "panels": [
@@ -303,16 +462,40 @@
       ],
       "cartoon": [
         {
-          "src": "/hornet/cartoons/river.mp4",
-          "sec": 10
+          "src": "/hornet/cartoons/e07.mp4",
+          "sec": 300
+        }
+      ],
+      "beats": [
+        {
+          "t": 0.0,
+          "who": "Hornet Bell",
+          "text": "Washington Goes Home"
         },
         {
-          "src": "/hornet/cartoons/listen.mp4",
-          "sec": 10
+          "t": 12.0,
+          "who": "Lee",
+          "text": "Did our militia belong to Washington?"
         },
         {
-          "src": "/hornet/cartoons/bell.mp4",
-          "sec": 10
+          "t": 78.0,
+          "who": "Bell",
+          "text": "They belonged to the law and to North Carolina, and they answered when the Continental line needed a crossing held. Washington was the commander who would not keep the sword."
+        },
+        {
+          "t": 144.0,
+          "who": "Vee",
+          "text": "A king stays. A president goes home. That is the first lesson of presidents in this show."
+        },
+        {
+          "t": 210.0,
+          "who": "Bell",
+          "text": "Ring it once. We will need it when later men forget."
+        },
+        {
+          "t": 276.0,
+          "who": "What we learned",
+          "text": "Washington commanded the army, then went home. Energy in the office, not a king in the man."
         }
       ]
     },
@@ -320,7 +503,7 @@
       "id": "e08",
       "n": 8,
       "title": "Madison\u2019s Notebook",
-      "minutes": 1,
+      "minutes": 5,
       "still": "/hornet/art/princeton.jpg",
       "learn": "Madison learned under Witherspoon too. The Constitution is a form to keep the Declaration\u2019s end. He wrote notes so we could see the argument.",
       "panels": [
@@ -343,16 +526,40 @@
       ],
       "cartoon": [
         {
-          "src": "/hornet/cartoons/princeton.mp4",
-          "sec": 10
+          "src": "/hornet/cartoons/e08.mp4",
+          "sec": 300
+        }
+      ],
+      "beats": [
+        {
+          "t": 0.0,
+          "who": "Hornet Bell",
+          "text": "Madison\u2019s Notebook"
         },
         {
-          "src": "/hornet/cartoons/listen.mp4",
-          "sec": 10
+          "t": 12.0,
+          "who": "Vee",
+          "text": "Madison went to the same Princeton as Ephraim and Adlai, a few years later."
         },
         {
-          "src": "/hornet/cartoons/bell.mp4",
-          "sec": 10
+          "t": 78.0,
+          "who": "Bell",
+          "text": "He kept a notebook at the Convention like a boy who knows he will have to explain it. Publius and Brutus both get a hearing in our big hall. Here we say: he wrote so the people could read."
+        },
+        {
+          "t": 144.0,
+          "who": "Lee",
+          "text": "Is the Constitution the bell or the steeple?"
+        },
+        {
+          "t": 210.0,
+          "who": "Bell",
+          "text": "The Declaration is why I ring. The Constitution is the yoke I hang from. Without a yoke, a bell falls. Without a reason, a yoke is only iron."
+        },
+        {
+          "t": 276.0,
+          "who": "What we learned",
+          "text": "Madison learned under Witherspoon too. The Constitution is a form to keep the Declaration\u2019s end. He wrote notes so we could see the argument."
         }
       ]
     },
@@ -360,7 +567,7 @@
       "id": "e09",
       "n": 9,
       "title": "Jackson and the People",
-      "minutes": 1,
+      "minutes": 5,
       "still": "/hornet/art/lee.jpg",
       "learn": "Jackson was a Carolina boy who said the people are the sovereign. Bank, Union, a hard hand. We teach the office, not a saint.",
       "panels": [
@@ -383,16 +590,40 @@
       ],
       "cartoon": [
         {
-          "src": "/hornet/cartoons/lee.mp4",
-          "sec": 10
+          "src": "/hornet/cartoons/e09.mp4",
+          "sec": 300
+        }
+      ],
+      "beats": [
+        {
+          "t": 0.0,
+          "who": "Hornet Bell",
+          "text": "Jackson and the People"
         },
         {
-          "src": "/hornet/cartoons/nest.mp4",
-          "sec": 10
+          "t": 12.0,
+          "who": "Lee",
+          "text": "Jackson is loud."
         },
         {
-          "src": "/hornet/cartoons/listen.mp4",
-          "sec": 10
+          "t": 78.0,
+          "who": "Bell",
+          "text": "He is. He came from this same backcountry idea: the people, not a caucus of clerks. He broke a bank and held a Union and used a hard hand. This show will not make him a stuffed angel."
+        },
+        {
+          "t": 144.0,
+          "who": "Vee",
+          "text": "Our civics hall already keeps Jacksonian lessons. Here we only say: a president is still under the law, even a popular one."
+        },
+        {
+          "t": 210.0,
+          "who": "Bell",
+          "text": "Lex rex, children. The law is king. Even when the people cheer."
+        },
+        {
+          "t": 276.0,
+          "who": "What we learned",
+          "text": "Jackson was a Carolina boy who said the people are the sovereign. Bank, Union, a hard hand. We teach the office, not a saint."
         }
       ]
     },
@@ -400,7 +631,7 @@
       "id": "e10",
       "n": 10,
       "title": "Cousin Polk",
-      "minutes": 1,
+      "minutes": 5,
       "still": "/hornet/art/vee.jpg",
       "learn": "James Knox Polk, eleventh president, comes down from Mary Wilson and Ezekiel Polk. Knox is the middle name on purpose.",
       "panels": [
@@ -423,16 +654,40 @@
       ],
       "cartoon": [
         {
-          "src": "/hornet/cartoons/vee.mp4",
-          "sec": 10
+          "src": "/hornet/cartoons/e10.mp4",
+          "sec": 300
+        }
+      ],
+      "beats": [
+        {
+          "t": 0.0,
+          "who": "Hornet Bell",
+          "text": "Cousin Polk"
         },
         {
-          "src": "/hornet/cartoons/together.mp4",
-          "sec": 10
+          "t": 12.0,
+          "who": "Vee",
+          "text": "The boy from Mary Wilson\u2019s line sat in the White House."
         },
         {
-          "src": "/hornet/cartoons/listen.mp4",
-          "sec": 10
+          "t": 78.0,
+          "who": "Bell",
+          "text": "James Knox Polk. Mecklenburg blood, Tennessee house, a Knox in the name for the captain\u2019s people. Lt. Col. Polk\u2019s kin. This is why we taught the daughters first."
+        },
+        {
+          "t": 144.0,
+          "who": "Lee",
+          "text": "So a president can be a cousin from Rural Hill\u2019s web."
+        },
+        {
+          "t": 210.0,
+          "who": "Bell",
+          "text": "A republic is supposed to work like that. Not a palace. A family that learned to read and to muster."
+        },
+        {
+          "t": 276.0,
+          "who": "What we learned",
+          "text": "James Knox Polk, eleventh president, comes down from Mary Wilson and Ezekiel Polk. Knox is the middle name on purpose."
         }
       ]
     },
@@ -440,7 +695,7 @@
       "id": "e11",
       "n": 11,
       "title": "Lincoln\u2019s Books",
-      "minutes": 1,
+      "minutes": 5,
       "still": "/hornet/art/bell.jpg",
       "learn": "Lincoln had no college. He copied Euclid, Shakespeare, the Bible, Blackstone. Slow to scratch, slow to forget. We do not make a war of this episode.",
       "panels": [
@@ -463,16 +718,40 @@
       ],
       "cartoon": [
         {
-          "src": "/hornet/cartoons/bell.mp4",
-          "sec": 10
+          "src": "/hornet/cartoons/e11.mp4",
+          "sec": 300
+        }
+      ],
+      "beats": [
+        {
+          "t": 0.0,
+          "who": "Hornet Bell",
+          "text": "Lincoln\u2019s Books"
         },
         {
-          "src": "/hornet/cartoons/listen.mp4",
-          "sec": 10
+          "t": 12.0,
+          "who": "Lee",
+          "text": "Lincoln is not from Mecklenburg."
         },
         {
-          "src": "/hornet/cartoons/princeton.mp4",
-          "sec": 10
+          "t": 78.0,
+          "who": "Bell",
+          "text": "No. He is in this show because he learned like our meeting house: few books, copied, recited. That is the method of the bigger school on this git."
+        },
+        {
+          "t": 144.0,
+          "who": "Vee",
+          "text": "He said the Lyceum must be law, not the mob. Our general died at a ford under law, not under a riot."
+        },
+        {
+          "t": 210.0,
+          "who": "Bell",
+          "text": "Copy one proposition. Recite one speech. Then you have watched this episode for real. Films do not pass a Lincoln class. Neither do cartoons, unless you copy."
+        },
+        {
+          "t": 276.0,
+          "who": "What we learned",
+          "text": "Lincoln had no college. He copied Euclid, Shakespeare, the Bible, Blackstone. Slow to scratch, slow to forget. We do not make a war of this episode."
         }
       ]
     },
@@ -480,7 +759,7 @@
       "id": "e12",
       "n": 12,
       "title": "Polk Saves the Bell",
-      "minutes": 1,
+      "minutes": 5,
       "still": "/hornet/art/allentown.jpg",
       "learn": "24 September 1777: Col. Thomas Polk of Mecklenburg was tasked to get Philadelphia\u2019s bells \u2014 including the Liberty Bell \u2014 to Allentown so they would not be melted for cannon. His son William, later Lt. Col., served in that same North Carolina line.",
       "panels": [
@@ -515,16 +794,55 @@
       ],
       "cartoon": [
         {
-          "src": "/hornet/cartoons/allentown.mp4",
-          "sec": 10
+          "src": "/hornet/cartoons/e12.mp4",
+          "sec": 300
+        }
+      ],
+      "beats": [
+        {
+          "t": 0.0,
+          "who": "Hornet Bell",
+          "text": "Polk Saves the Bell"
         },
         {
-          "src": "/hornet/cartoons/bell.mp4",
-          "sec": 10
+          "t": 12.0,
+          "who": "Bell",
+          "text": "Philadelphia, 1777. The British are coming. Bells make cannon if you melt them. The State House Bell \u2014 the one you call Liberty \u2014 had to leave town in a wagon, under straw."
         },
         {
-          "src": "/hornet/cartoons/river.mp4",
-          "sec": 10
+          "t": 49.7,
+          "who": "Lee",
+          "text": "Who was tasked?"
+        },
+        {
+          "t": 87.4,
+          "who": "Bell",
+          "text": "Colonel Thomas Polk of Charlotte. North Carolina\u2019s 4th Continental. He had already called the Mecklenburg meeting. On the twenty-fourth of September he arrived in Allentown with the bells still bells."
+        },
+        {
+          "t": 125.1,
+          "who": "Vee",
+          "text": "And Lt. Col. Polk?"
+        },
+        {
+          "t": 162.9,
+          "who": "Bell",
+          "text": "That is his son William, later lieutenant colonel after Guilford. Same house, same line, Germantown wound in the mouth, then Cowan\u2019s Ford and Eutaw. The father was tasked with the wagons. The son wore the later rank. One Polk house kept my cousin from becoming a gun."
+        },
+        {
+          "t": 200.6,
+          "who": "Lee",
+          "text": "So our Bell and that Bell are kin in the story."
+        },
+        {
+          "t": 238.3,
+          "who": "Bell",
+          "text": "Yes. And James Knox Polk, president, comes down from Ezekiel, Thomas\u2019s brother, and Mary Wilson. Militia, council, bank, university, White House \u2014 that is the Polk stack. Look at the House tab."
+        },
+        {
+          "t": 276.0,
+          "who": "What we learned",
+          "text": "24 September 1777: Col. Thomas Polk of Mecklenburg was tasked to get Philadelphia\u2019s bells \u2014 including the Liberty Bell \u2014 to Allentown so they would not be melted for cannon. His son William, later Lt. Col., served in that same North Carolina line."
         }
       ]
     },
@@ -532,7 +850,7 @@
       "id": "e13",
       "n": 13,
       "title": "The House They Made",
-      "minutes": 1,
+      "minutes": 5,
       "still": "/hornet/art/princeton.jpg",
       "learn": "Local office, judicial bench, militia, state executive, presidency: one intermarried house. Joseph Graham was not governor; William A. Graham was. Copy the table.",
       "panels": [
@@ -555,16 +873,40 @@
       ],
       "cartoon": [
         {
-          "src": "/hornet/cartoons/listen.mp4",
-          "sec": 10
+          "src": "/hornet/cartoons/e13.mp4",
+          "sec": 300
+        }
+      ],
+      "beats": [
+        {
+          "t": 0.0,
+          "who": "Hornet Bell",
+          "text": "The House They Made"
         },
         {
-          "src": "/hornet/cartoons/princeton.mp4",
-          "sec": 10
+          "t": 12.0,
+          "who": "Vee",
+          "text": "Did they only fight?"
         },
         {
-          "src": "/hornet/cartoons/together.mp4",
-          "sec": 10
+          "t": 78.0,
+          "who": "Bell",
+          "text": "No. Major John was magistrate and commons. Adlai was clerk of the Rowan court. John Brevard was justice from Anson on. Joseph Graham was sheriff, senator, and justice \u2014 a general twice. His son was governor, senator, Secretary of the Navy."
+        },
+        {
+          "t": 144.0,
+          "who": "Lee",
+          "text": "And a president."
+        },
+        {
+          "t": 210.0,
+          "who": "Bell",
+          "text": "James Knox Polk. The house runs from a county court to a White House without becoming a palace. That is the point of the House tab. Copy one office. Recite who held it."
+        },
+        {
+          "t": 276.0,
+          "who": "What we learned",
+          "text": "Local office, judicial bench, militia, state executive, presidency: one intermarried house. Joseph Graham was not governor; William A. Graham was. Copy the table."
         }
       ]
     }
