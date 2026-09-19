@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Digital Alexandria — a library on git</title>
+  <meta name="description" content="Encarta-shaped encyclopedia on git: shelves, find, articles. PXD2 halls plus public-domain stacks. Not Microsoft Encarta." />
+  <link rel="canonical" href="https://pxd2.github.io/alexandria/" />
+  <meta name="theme-color" content="#07080c" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Oswald:wght@500;600;700&family=Libre+Baskerville:ital,wght@0,400;1,400&display=swap" />
+  <style>
+    :root { --bg:#07080c; --ink:#e8e6df; --dim:#8b93a3; --gold:#f5c14a; --cyan:#00d4ea; --line:#1c2230; --panel:#0e1118; }
+    * { box-sizing: border-box; }
+    html, body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.5 Barlow,system-ui,sans-serif; }
+    a { color:var(--cyan); }
+    .bar { display:flex; flex-wrap:wrap; gap:10px 18px; align-items:center; justify-content:space-between; padding:12px 18px; border-bottom:1px solid var(--line); font:600 11px/1 Barlow,sans-serif; letter-spacing:.2em; text-transform:uppercase; color:var(--dim); }
+    .bar a { color:var(--gold); text-decoration:none; }
+    .find { display:flex; gap:8px; flex-wrap:wrap; align-items:center; padding:12px 18px; border-bottom:1px solid var(--line); }
+    .find input { flex:1; min-width:200px; min-height:44px; background:var(--panel); color:var(--ink); border:1px solid var(--line); padding:0 12px; font:16px Barlow,sans-serif; }
+    .find input:focus { outline:2px solid var(--gold); outline-offset:1px; }
+    .shelves { display:flex; flex-wrap:wrap; gap:8px; padding:12px 18px; border-bottom:1px solid var(--line); }
+    .shelves button { min-height:40px; background:var(--panel); color:var(--dim); border:1px solid var(--line); padding:0 12px; font:600 12px/1 Barlow,sans-serif; letter-spacing:.08em; text-transform:uppercase; cursor:pointer; }
+    .shelves button.on { color:var(--ink); border-color:var(--gold); }
+    main { max-width:920px; margin:0 auto; padding:24px 18px 96px; }
+    h1 { font:700 36px/1.05 Oswald,sans-serif; margin:0 0 8px; }
+    .lede { color:var(--dim); max-width:40rem; }
+    .count { font:600 11px/1 Barlow,sans-serif; letter-spacing:.16em; text-transform:uppercase; color:var(--gold); margin:1.5rem 0 .6rem; }
+    .list { display:grid; gap:10px; }
+    @media (min-width:720px) { .list { grid-template-columns:1fr 1fr; } }
+    .card { display:block; background:var(--panel); border:1px solid var(--line); padding:14px 16px; text-decoration:none; color:var(--ink); }
+    .card:hover { border-color:var(--gold); }
+    .card .s { font:600 11px/1 Barlow,sans-serif; letter-spacing:.14em; text-transform:uppercase; color:var(--gold); }
+    .card h2 { font:600 18px/1.25 Oswald,sans-serif; margin:6px 0 6px; }
+    .card p { margin:0; color:var(--dim); font-size:14px; }
+    .empty { color:var(--dim); font-style:italic; }
+    nav.rooms { position:fixed; left:12px; bottom:12px; z-index:50; display:flex; gap:10px; flex-wrap:wrap; font:600 11px/1 Barlow,sans-serif; letter-spacing:.18em; text-transform:uppercase; }
+    nav.rooms a { color:#8b93a3; text-decoration:none; }
+  </style>
+</head>
+<body>
+  <div class="bar">
+    <a href="https://pxd2.github.io/">PXD2 · floor</a>
+    <span>Digital Alexandria</span>
+    <a href="https://github.com/PxD2/PxD2.github.io/tree/main/alexandria">on git</a>
+  </div>
+  <div class="find">
+    <label class="kicker" for="q" style="letter-spacing:.2em;text-transform:uppercase;color:#f5c14a;font:600 11px/1 Barlow,sans-serif;">Find</label>
+    <input id="q" type="search" placeholder="Euclid, Bruen, Latin, IRAC…" autocomplete="off" />
+  </div>
+  <div class="shelves" id="shelves"></div>
+  <main>
+    <h1>Digital Alexandria</h1>
+    <p class="lede">A library on git, Encarta-shaped: shelves, find, an article. Larger in this one way — it can grow without a disc. Not Microsoft’s encyclopedia. Not a Wikipedia dump. Our halls, our works, and doors into 1911 Britannica, Gutenberg, and the Archive.</p>
+    <p class="lede"><a href="this-library.html">Read the article on this library</a> · <a href="catalog.json">catalog.json</a></p>
+    <p class="count" id="count"></p>
+    <div class="list" id="list"></div>
+  </main>
+  <nav class="rooms">
+    <a href="https://pxd2.github.io/">Floor</a>
+    <a href="https://pxd2.github.io/edu/">Edu</a>
+    <a href="https://pxd2.github.io/alexandria/">Alexandria</a>
+  </nav>
+  <script>
+    let catalog = { shelves: [], articles: [] };
+    let shelf = "all";
+    const q = document.getElementById("q");
+    function render() {
+      const query = (q.value || "").trim().toLowerCase();
+      const rows = catalog.articles.filter((a) => {
+        if (shelf !== "all" && a.shelf !== shelf) return false;
+        if (!query) return true;
+        return (a.title + " " + a.summary + " " + a.id).toLowerCase().includes(query);
+      });
+      document.getElementById("count").textContent =
+        rows.length + " article" + (rows.length === 1 ? "" : "s") + (shelf === "all" ? "" : " on this shelf");
+      document.getElementById("list").innerHTML = rows.length
+        ? rows
+            .map(
+              (a) =>
+                `<a class="card" href="${a.href}"><div class="s">${a.shelf}</div><h2>${a.title}</h2><p>${a.summary}</p></a>`,
+            )
+            .join("")
+        : `<p class="empty">Nothing on this shelf for that find.</p>`;
+    }
+    fetch("catalog.json")
+      .then((r) => r.json())
+      .then((data) => {
+        catalog = data;
+        const nav = document.getElementById("shelves");
+        nav.innerHTML =
+          `<button type="button" class="on" data-shelf="all">All</button>` +
+          catalog.shelves
+            .map((s) => `<button type="button" data-shelf="${s.id}">${s.title}</button>`)
+            .join("");
+        nav.querySelectorAll("button").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            nav.querySelectorAll("button").forEach((b) => b.classList.remove("on"));
+            btn.classList.add("on");
+            shelf = btn.dataset.shelf;
+            render();
+          });
+        });
+        render();
+      });
+    q.addEventListener("input", render);
+  </script>
+</body>
+</html>
