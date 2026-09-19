@@ -29,12 +29,11 @@ const extra = [
 const jackson = [
   extra[0],
   ["Crash Course", "Age of Jackson — Crash Course #14", "Mass politics, veto, spoils, Bank, Removal.", "beN4qE-e5O8"],
-  ["Khan", "Jacksonian Democracy", "White-male suffrage and who was locked out.", "mSzaJXR6MhA"],
+  ["Khan", "Jacksonian Democracy", "How expanded white-male suffrage remade parties.", "mSzaJXR6MhA"],
   ["TED-Ed", "History vs. Andrew Jackson", "Union-saver versus Worcester ignored.", "gx5IyumKmDI"],
   ["Lecture", "The Jacksonian Era", "Suffrage, Removal, Nullification, Panic of 1837.", "IomAC6-sJUg"],
   ["Party", "Democracy and the Mob", "Second Party System.", "niWD4WSJr_I"],
   ["Market", "The Market Revolution — Crash Course #12", "The world the Bank War was fought in.", "RNftCCwAol0"],
-  ["Slavery", "Slavery — Crash Course #13", "Jacksonian equality was not universal.", "Ajn9g5Gsv98"],
 ];
 const courses = [
   ["Politics", "Introduction to the Constitution", "The twelve films on the Hillsdale tab.", "https://online.hillsdale.edu/"],
