@@ -30,7 +30,7 @@
     dialog { border:0; padding:0; background:var(--cream); color:var(--ink); max-width:640px; width:calc(100% - 24px); border-radius:12px; }
     dialog::backdrop { background:#1c1814cc; }
     .stage { padding:16px; }
-    .stage img { width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:10px; }
+    .stage video, .poster { width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:10px; background:#1c1814; }
     .nav { display:flex; justify-content:space-between; align-items:center; margin-top:12px; }
     button.icon { min-width:44px; min-height:44px; border:1px solid color-mix(in oklab, var(--pine) 25%, transparent); background:var(--pine); color:var(--cream); border-radius:8px; cursor:pointer; }
     button.icon:disabled { opacity:.3; }
@@ -44,8 +44,8 @@
     <a href="https://pxd2.github.io/edu/">Edu</a>
   </header>
   <main>
-    <img class="poster" src="art/poster.jpg" alt="Hornet Bell by the Catawba" />
-    <p class="k" style="margin-top:14px">Ages 6–11 · militia cartoon</p>
+    <video class="poster" src="cartoons/together.mp4" poster="art/poster.jpg" autoplay muted loop playsinline></video>
+    <p class="k" style="margin-top:14px">Ages 6–11 · militia cartoon · watch</p>
     <h1>Hornet Bell</h1>
     <p>A militia educational cartoon from the North Carolina Piedmont. Wilson daughters, Davidson, Graham father and son, Polk, Brevard, Adlai Osborne, Reese, Knox, Caldwell — then Washington, Madison, Jackson, Cousin Polk, Lincoln’s books.</p>
     <p style="color:color-mix(in oklab, var(--pine) 70%, transparent);font-size:15px">Bluey is the most-streamed title on earth. Cocomelon still earns on YouTube. We take short family episodes, not their characters. Liberty’s Kids is the history cousin. This show is original.</p>
@@ -63,7 +63,7 @@
     <div class="stage">
       <button class="ghost" id="close" type="button">← All episodes</button>
       <p class="k" id="etitle"></p>
-      <img id="estill" alt="" />
+      <video id="efilm" controls playsinline></video>
       <p class="k" id="who"></p>
       <p id="line" style="font-size:1.15rem"></p>
       <div class="nav">
@@ -77,12 +77,21 @@
     let show, ep, step = 0;
     const dlg = document.getElementById("dlg");
     function paint() {
-      const total = ep.panels.length + 1;
-      const last = step >= ep.panels.length;
+      const clips = ep.cartoon || [];
+      const total = (clips.length || ep.panels.length) + 1;
+      const last = clips.length ? step >= clips.length : step >= ep.panels.length;
+      const panel = ep.panels[Math.min(step, ep.panels.length - 1)];
       document.getElementById("etitle").textContent = "Episode " + String(ep.n).padStart(2,"0") + " · " + ep.title;
-      document.getElementById("estill").src = ep.still.replace("/hornet/", "");
-      document.getElementById("who").textContent = last ? "What we learned" : ep.panels[step].who;
-      document.getElementById("line").textContent = last ? ep.learn : ep.panels[step].text;
+      const v = document.getElementById("efilm");
+      if (clips[step] && !last) {
+        v.src = clips[step].src.replace("/hornet/", "");
+        v.play();
+      } else {
+        v.removeAttribute("src");
+        v.poster = ep.still.replace("/hornet/","");
+      }
+      document.getElementById("who").textContent = last ? "What we learned" : panel.who;
+      document.getElementById("line").textContent = last ? ep.learn : panel.text;
       document.getElementById("pos").textContent = Math.min(step+1,total) + " / " + total;
       document.getElementById("prev").disabled = step === 0;
       document.getElementById("next").disabled = last;
@@ -93,7 +102,7 @@
         `<figure><img src="${c.art.replace("/hornet/","")}" alt="${c.name}" /><figcaption><strong>${c.name}</strong><br/>${c.role}</figcaption></figure>`
       ).join("");
       document.getElementById("list").innerHTML = show.episodes.map(e =>
-        `<button class="ep" data-id="${e.id}"><img src="${e.still.replace("/hornet/","")}" alt="" /><span><span class="k">${String(e.n).padStart(2,"0")} · ${e.minutes} min</span><br/><strong style="font-family:Fraunces,serif;color:var(--pine);font-size:1.15rem">${e.title}</strong></span></button>`
+        `<button class="ep" data-id="${e.id}"><img src="${e.still.replace("/hornet/","")}" alt="" /><span><span class="k">${String(e.n).padStart(2,"0")} · watch ${((e.cartoon||[]).reduce((n,c)=>n+(c.sec||10),0)||e.minutes*60)}s</span><br/><strong style="font-family:Fraunces,serif;color:var(--pine);font-size:1.15rem">${e.title}</strong></span></button>`
       ).join("");
       document.getElementById("list").addEventListener("click", ev => {
         const btn = ev.target.closest("[data-id]");
@@ -106,7 +115,8 @@
     });
     document.getElementById("close").onclick = () => dlg.close();
     document.getElementById("prev").onclick = () => { step = Math.max(0, step-1); paint(); };
-    document.getElementById("next").onclick = () => { step = Math.min(ep.panels.length, step+1); paint(); };
+    document.getElementById("next").onclick = () => { step += 1; paint(); };
+    document.getElementById("efilm").onended = () => { step += 1; paint(); };
   </script>
 <script src="/read-aloud.js" defer></script>
 <script src="/sites.js" defer></script>
