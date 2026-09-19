@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PXD2 education network — pxd2.github.io/edu</title>
+  <meta name="description" content="The entire PXD2 education network on git: civics, STEM, Reform College, resistance theory, Lincoln intensives, original works. Stored at pxd2.github.io/edu." />
+  <link rel="canonical" href="https://pxd2.github.io/edu/" />
+  <meta name="theme-color" content="#07080c" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" />
+  <style>
+    :root { --bg:#07080c; --ink:#e8e6df; --dim:#8b93a3; --gold:#f5c14a; --cyan:#00d4ea; --line:#1c2230; --panel:#0e1118; }
+    * { box-sizing: border-box; }
+    html, body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.55 Barlow,system-ui,sans-serif; }
+    a { color:var(--cyan); }
+    .bar { display:flex; flex-wrap:wrap; gap:12px 22px; align-items:center; justify-content:space-between; padding:14px 20px; border-bottom:1px solid var(--line); font:600 11px/1 Barlow,sans-serif; letter-spacing:.2em; text-transform:uppercase; color:var(--dim); }
+    .bar a { color:var(--gold); text-decoration:none; }
+    .wrap { max-width:980px; margin:0 auto; padding:36px 20px 96px; }
+    .kicker { letter-spacing:.22em; text-transform:uppercase; color:var(--gold); font:600 11px/1 Barlow,sans-serif; }
+    h1 { font:700 42px/1.05 Oswald,sans-serif; margin:10px 0 12px; }
+    h2 { font:600 20px/1.2 Oswald,sans-serif; margin:2.2rem 0 .7rem; letter-spacing:.04em; }
+    .lede { color:var(--dim); max-width:44rem; }
+    .net { display:grid; gap:12px; margin:1.5rem 0 2rem; }
+    @media (min-width:720px) { .net { grid-template-columns:1fr 1fr; } }
+    .node { display:block; background:var(--panel); border:1px solid var(--line); padding:16px 18px; text-decoration:none; color:var(--ink); min-height:88px; }
+    .node:hover { border-color:var(--gold); }
+    .node .k { font:600 11px/1 Barlow,sans-serif; letter-spacing:.16em; text-transform:uppercase; color:var(--gold); }
+    .node h3 { font:600 18px/1.2 Oswald,sans-serif; margin:8px 0 6px; }
+    .node p { margin:0; color:var(--dim); font-size:14px; }
+    table { width:100%; border-collapse:collapse; font-size:14px; }
+    th, td { border-bottom:1px solid var(--line); padding:.5rem .4rem; text-align:left; vertical-align:top; }
+    th { font:600 11px/1 Barlow,sans-serif; letter-spacing:.12em; text-transform:uppercase; color:var(--dim); }
+    code { font-size:12px; color:var(--gold); }
+    nav.rooms { position:fixed; left:12px; bottom:12px; z-index:50; display:flex; gap:10px; flex-wrap:wrap; font:600 11px/1 Barlow,sans-serif; letter-spacing:.22em; text-transform:uppercase; }
+    nav.rooms a { color:#8b93a3; text-decoration:none; }
+  </style>
+</head>
+<body>
+  <div class="bar">
+    <a href="https://pxd2.github.io/">PXD2 · floor</a>
+    <span>edu · network on git</span>
+    <a href="https://github.com/PxD2/PxD2.github.io/tree/main/edu">github.com/PxD2/…/edu</a>
+  </div>
+  <main class="wrap">
+    <p class="kicker">pxd2.github.io/edu</p>
+    <h1>Education network</h1>
+    <p class="lede">Every hall, track, and original work on this git, in one map. Civics, STEM, Reform College, resistance theory, Lincoln intensives. Cited doors to Hillsdale, MIT, and Yale. The graph is <a href="network.json">network.json</a> — store that file; it is the network.</p>
+
+    <h2>Halls</h2>
+    <div class="net">
+      <a class="node" href="/civics/"><div class="k">Hall</div><h3>Civics</h3><p>Hillsdale films, Fed/Anti-Fed, resistance, Jacksonian.</p></a>
+      <a class="node" href="/stem/"><div class="k">Hall</div><h3>STEM</h3><p>Euclid, calculus, Newton, chemistry, life. MIT, Yale, Hillsdale.</p></a>
+      <a class="node" href="/college/"><div class="k">Hall</div><h3>Reform College</h3><p>Complete 120-credit BA against Witherspoon’s Princeton.</p></a>
+      <a class="node" href="/college/accelerated.html"><div class="k">Track</div><h3>Lincoln method</h3><p>Hamilton pace. Copy, recite, demonstrate. LYC 01–12.</p></a>
+    </div>
+
+    <h2>Original works (on this git)</h2>
+    <div class="net">
+      <a class="node" href="/college/compact-withheld.html"><div class="k">I</div><h3>The Compact Withheld</h3><p>North Carolina, the Bill of Rights, first principles.</p></a>
+      <a class="node" href="/civics/resistance.html"><div class="k">II</div><h3>Resistance theory</h3><p>Knox, Rutherford, Craighead, Witherspoon. Heller to Cockerham.</p></a>
+      <a class="node" href="/civics/founding.html"><div class="k">III</div><h3>Two complete accounts</h3><p>Federalist and Anti-Federalist. Lincoln, Congress out.</p></a>
+      <a class="node" href="/coalitions/master-amicus-brief.html"><div class="k">IV</div><h3>Master amicus</h3><p>Arms brief for coalitions. HOLD deposit; open if hosted.</p></a>
+      <a class="node" href="/college/"><div class="k">V</div><h3>BA catalog</h3><p>Core, languages, four concentrations, thesis.</p></a>
+      <a class="node" href="/college/euclid-consent.html"><div class="k">VI</div><h3>Euclid as consent</h3><p>Common notions, postulates, withheld grants.</p></a>
+      <a class="node" href="/college/witherspoon.html"><div class="k">VII</div><h3>Witherspoon edition</h3><p>Moral philosophy capstone, notes from this hall.</p></a>
+      <a class="node" href="/college/octavo.html"><div class="k">VIII</div><h3>Octavo</h3><p>Print the book. Gift letter. Send once.</p></a>
+    </div>
+
+    <h2>Doors we cite, not host</h2>
+    <div class="net">
+      <a class="node" href="https://online.hillsdale.edu/courses"><div class="k">Door</div><h3>Hillsdale</h3><p>Enroll free. Finish the courses in your name.</p></a>
+      <a class="node" href="https://ocw.mit.edu/"><div class="k">Door</div><h3>MIT OCW</h3><p>18.01, 18.06, 8.01, 5.111, 7.01SC.</p></a>
+      <a class="node" href="https://oyc.yale.edu/"><div class="k">Door</div><h3>Open Yale</h3><p>Shankar, PHYS 200–201.</p></a>
+      <a class="node" href="https://archive.org/details/lecturesonmoralp00with_1"><div class="k">Text</div><h3>Public domain</h3><p>Euclid, Lex Rex, Witherspoon 1912.</p></a>
+    </div>
+
+    <h2>Index of paths on git</h2>
+    <table>
+      <thead><tr><th>Path</th><th>What</th></tr></thead>
+      <tbody>
+        <tr><td><code>/edu/</code></td><td>This network</td></tr>
+        <tr><td><code>/edu/network.json</code></td><td>Machine graph</td></tr>
+        <tr><td><code>/civics/</code></td><td>Civic hall</td></tr>
+        <tr><td><code>/civics/founding.html</code></td><td>Fed / Anti-Fed</td></tr>
+        <tr><td><code>/civics/resistance.html</code></td><td>Resistance + cases</td></tr>
+        <tr><td><code>/stem/</code></td><td>STEM hall</td></tr>
+        <tr><td><code>/college/</code></td><td>BA catalog</td></tr>
+        <tr><td><code>/college/accelerated.html</code></td><td>LYC intensives</td></tr>
+        <tr><td><code>/college/dossier.html</code></td><td>Honest Hillsdale dossier</td></tr>
+        <tr><td><code>/college/compact-withheld.html</code></td><td>Work I</td></tr>
+        <tr><td><code>/college/euclid-consent.html</code></td><td>Work VI</td></tr>
+        <tr><td><code>/college/witherspoon.html</code></td><td>Work VII</td></tr>
+        <tr><td><code>/college/octavo.html</code></td><td>Work VIII</td></tr>
+        <tr><td><code>/college/ba.json</code></td><td>Degree machine record</td></tr>
+      </tbody>
+    </table>
+    <p class="lede" style="margin-top:1.5rem">Stored on <a href="https://github.com/PxD2/PxD2.github.io">github.com/PxD2/PxD2.github.io</a>. HOLD volume <code>/public_html/edu</code> mirrors this hub. Add a node by adding a page and a line in <code>network.json</code>.</p>
+  </main>
+  <nav class="rooms">
+    <a href="https://pxd2.github.io/">Floor</a>
+    <a href="https://pxd2.github.io/edu/">Edu</a>
+    <a href="https://pxd2.github.io/civics/">Civics</a>
+    <a href="https://pxd2.github.io/stem/">STEM</a>
+    <a href="https://pxd2.github.io/college/">College</a>
+  </nav>
+</body>
+</html>
