@@ -3,103 +3,68 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>PXD2 Civics — Jacksonian political ideals</title>
-  <meta name="description" content="Civic education hall: Jacksonian political ideals, video lessons, and primary-source excerpts. Hosted on the PXD2 floor." />
+  <title>PXD2 Civics — All the Hillsdale</title>
+  <meta name="description" content="Hillsdale College civic education hall: Introduction to the Constitution (12), Constitution 101, Jackson, and the free course catalog." />
   <link rel="canonical" href="https://pxd2.github.io/civics/" />
   <meta name="theme-color" content="#07080c" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" />
   <style>
     :root { --bg:#07080c; --ink:#e8e6df; --dim:#8b93a3; --gold:#f5c14a; --cyan:#00d4ea; --line:#1c2230; --panel:#0e1118; }
     * { box-sizing: border-box; }
-    html, body { margin: 0; background: var(--bg); color: var(--ink); }
-    body { font: 16px/1.55 Barlow, system-ui, sans-serif; }
+    html, body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.55 Barlow, system-ui, sans-serif; }
     a { color: var(--cyan); }
-    .bar { display: flex; flex-wrap: wrap; gap: 12px 22px; align-items: center; justify-content: space-between; padding: 14px 20px; border-bottom: 1px solid var(--line); font: 600 11px/1 Barlow, sans-serif; letter-spacing: .2em; text-transform: uppercase; color: var(--dim); }
-    .bar a { color: var(--gold); text-decoration: none; }
+    .bar { display:flex; flex-wrap:wrap; gap:12px 22px; align-items:center; justify-content:space-between; padding:14px 20px; border-bottom:1px solid var(--line); font:600 11px/1 Barlow,sans-serif; letter-spacing:.2em; text-transform:uppercase; color:var(--dim); }
+    .bar a { color: var(--gold); text-decoration:none; }
     .wrap { max-width: 980px; margin: 0 auto; padding: 36px 20px 96px; }
-    .kicker { letter-spacing: .22em; text-transform: uppercase; color: var(--gold); font: 600 11px/1 Barlow, sans-serif; }
-    h1 { font: 700 40px/1.05 Oswald, sans-serif; margin: 10px 0 12px; letter-spacing: .02em; }
-    .lede { color: var(--dim); max-width: 40rem; }
-    h2 { font: 600 22px/1.2 Oswald, sans-serif; margin: 2.4rem 0 .8rem; letter-spacing: .04em; }
-    .ideals { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 28px 0 8px; }
-    .ideal { background: var(--panel); border: 1px solid var(--line); padding: 16px 16px 14px; min-height: 7.5rem; }
-    .ideal strong { display: block; font: 600 13px/1.3 Oswald, sans-serif; letter-spacing: .08em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
-    .ideal span { color: var(--dim); font-size: 14px; }
-    .grid { display: grid; gap: 22px; }
-    @media (min-width: 800px) { .grid { grid-template-columns: 1fr 1fr; } }
-    article.lesson { background: var(--panel); border: 1px solid var(--line); overflow: hidden; display: flex; flex-direction: column; }
-    .frame { aspect-ratio: 16/9; background: #000; }
-    iframe { width: 100%; height: 100%; border: 0; }
-    .meta { padding: 14px 16px 16px; }
-    .meta .tag { font: 600 11px/1 Barlow, sans-serif; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); }
-    .meta h3 { font: 600 18px/1.25 Oswald, sans-serif; margin: 8px 0 8px; }
-    .meta p { margin: 0; color: var(--dim); font-size: 14px; }
-    .src { margin-top: 8px; font-size: 12px; color: var(--dim); }
-    blockquote { margin: 0 0 1rem; padding: 14px 16px; border-left: 2px solid var(--gold); color: var(--ink); background: var(--panel); }
-    .cite { font-size: 12px; color: var(--dim); margin: -0.5rem 0 1.25rem; }
-    .note { color: var(--dim); font-size: 14px; border: 1px solid var(--line); padding: 14px 16px; }
-    nav.rooms { position: fixed; left: 12px; bottom: 12px; z-index: 50; display: flex; gap: 10px; flex-wrap: wrap; font: 600 11px/1 Barlow, sans-serif; letter-spacing: .22em; text-transform: uppercase; }
-    nav.rooms a { color: #8b93a3; text-decoration: none; }
+    .kicker { letter-spacing:.22em; text-transform:uppercase; color:var(--gold); font:600 11px/1 Barlow,sans-serif; }
+    h1 { font:700 40px/1.05 Oswald,sans-serif; margin:10px 0 12px; }
+    h2 { font:600 22px/1.2 Oswald,sans-serif; margin:2.2rem 0 .6rem; letter-spacing:.04em; }
+    .lede { color:var(--dim); max-width:42rem; }
+    .tabs { display:flex; flex-wrap:wrap; gap:8px; margin: 22px 0; }
+    .tabs button { min-height:44px; background:var(--panel); color:var(--dim); border:1px solid var(--line); padding:0 16px; font:600 13px/1 Barlow,sans-serif; letter-spacing:.08em; text-transform:uppercase; cursor:pointer; }
+    .tabs button.on { color:var(--ink); border-color:var(--gold); }
+    .grid { display:grid; gap:22px; }
+    @media (min-width:800px) { .grid { grid-template-columns:1fr 1fr; } }
+    .lesson { background:var(--panel); border:1px solid var(--line); overflow:hidden; }
+    .frame { aspect-ratio:16/9; background:#000; }
+    iframe { width:100%; height:100%; border:0; }
+    .meta { padding:14px 16px 16px; }
+    .tag { font:600 11px/1 Barlow,sans-serif; letter-spacing:.16em; text-transform:uppercase; color:var(--gold); }
+    .meta h3 { font:600 18px/1.25 Oswald,sans-serif; margin:8px 0; }
+    .meta p { margin:0; color:var(--dim); font-size:14px; }
+    .src { margin-top:8px; font-size:12px; }
+    .pane { display:none; }
+    .pane.on { display:block; }
+    .row { display:flex; flex-wrap:wrap; justify-content:space-between; gap:8px; padding:14px 0; border-bottom:1px solid var(--line); }
+    .row .k { font:600 11px/1 Barlow,sans-serif; letter-spacing:.16em; text-transform:uppercase; color:var(--gold); }
+    nav.rooms { position:fixed; left:12px; bottom:12px; z-index:50; display:flex; gap:10px; flex-wrap:wrap; font:600 11px/1 Barlow,sans-serif; letter-spacing:.22em; text-transform:uppercase; }
+    nav.rooms a { color:#8b93a3; text-decoration:none; }
   </style>
 </head>
 <body>
   <div class="bar">
     <a href="https://pxd2.github.io/">PXD2 · floor</a>
-    <span>Civics · Jacksonian ideals</span>
-    <a href="https://pxd2.github.io/sites/">Sites</a>
+    <span>Civics · Hillsdale</span>
+    <a href="https://online.hillsdale.edu/courses">Enroll free</a>
   </div>
   <main class="wrap">
-    <p class="kicker">Civic education · video hall</p>
-    <h1>Jacksonian political ideals</h1>
-    <p class="lede">A class, not a shrine. Jacksonian democracy meant popular sovereignty, hostility to monopoly, rotation in office, and a hard union — and it meant an electorate of white men, Indian Removal, and a presidency that bent the Court. Watch, then read the sources. Drop your own lesson films in this folder when you have them; YouTube here is cited, not copied.</p>
-    <div class="ideals">
-      <div class="ideal"><strong>The people rule</strong><span>Mass parties and white-male suffrage. Consent is numbers in the open, not a caucus of the propertied.</span></div>
-      <div class="ideal"><strong>No moneyed aristocracy</strong><span>The Bank War: a national bank as privilege. Producers over speculators.</span></div>
-      <div class="ideal"><strong>Rotation in office</strong><span>Offices are not a class inheritance. Spoils as a theory of equal access — and as a machine.</span></div>
-      <div class="ideal"><strong>The Union is the covenant</strong><span>Nullification is refused. Jackson against Calhoun: the people of the United States, not a state convention, made the compact.</span></div>
-      <div class="ideal"><strong>Equal rights — named, then fenced</strong><span>Equal protection among those admitted as the people. Women, Black Americans, and Native nations were not in that sentence. Teach the fence.</span></div>
-      <div class="ideal"><strong>Executive energy</strong><span>Veto as a political tool. The magistrate as tribune. The same energy that kills a bank also ignores Worcester v. Georgia.</span></div>
+    <p class="kicker">Civic education · all the Hillsdale</p>
+    <h1>Hillsdale civic hall</h1>
+    <p class="lede">Twelve Introduction to the Constitution films, Constitution 101 lectures 1–2, Birzer on Jackson, then the free course catalog. Cited, not copied. Remaining lectures live on Hillsdale’s campus — this hall is the map and the public films.</p>
+    <div class="tabs">
+      <button type="button" class="on" data-tab="hillsdale">Hillsdale</button>
+      <button type="button" data-tab="courses">All courses</button>
+      <button type="button" data-tab="jackson">Jacksonian</button>
     </div>
-    <h2>Video lessons</h2>
-    <div class="grid" id="lessons"></div>
-    <h2>Primary sources (public domain)</h2>
-    <blockquote>“It is to be regretted that the rich and powerful too often bend the acts of government to their selfish purposes… When the laws undertake to add to these natural and just advantages artificial distinctions, to grant titles, gratuities, and exclusive privileges, to make the rich richer and the potent more powerful, the humble members of society — the farmers, mechanics, and laborers — who have neither the time nor the means of securing like favors to themselves, have a right to complain of the injustice of their Government.”</blockquote>
-    <p class="cite">Andrew Jackson, Veto Message, Second Bank of the United States, 10 July 1832.</p>
-    <blockquote>“I consider, then, the power to annul a law of the United States, assumed by one State, incompatible with the existence of the Union, contradicted expressly by the letter of the Constitution, unauthorized by its spirit, inconsistent with every principle on which it was founded, and destructive of the great object for which it was formed.”</blockquote>
-    <p class="cite">Andrew Jackson, Proclamation Regarding Nullification, 10 December 1832.</p>
-    <blockquote>The Court named a right in Worcester v. Georgia (1832); the executive and Georgia did not carry it. The Indian Removal Act (28 May 1830) is part of this class, not a footnote. Civic education does not sand this down.</blockquote>
-    <p class="cite">Indian Removal Act, 1830; Worcester v. Georgia, 31 U.S. 515 (1832).</p>
-    <p class="note">Host your own films: put .mp4 files in this directory (HOLD volume /public_html/civics or git drop on PxD2.github.io/civics/). This page will not steal other people’s files. It only embeds lessons their authors already published for classrooms.</p>
+    <div id="hillsdale" class="pane on"></div>
+    <div id="courses" class="pane"></div>
+    <div id="jackson" class="pane"></div>
   </main>
   <nav class="rooms">
     <a href="https://pxd2.github.io/">Floor</a>
     <a href="https://pxd2.github.io/sites/">Sites</a>
-    <a href="https://pxd2.github.io/sites/open-builds/">Open builds</a>
     <a href="https://pxd2.github.io/civics/">Civics</a>
   </nav>
-  <script>
-    const lessons = [
-      ["The Age of Jackson", "Crash Course US History #14 — Age of Jackson", "Mass politics, the 1828 electorate, executive power, veto, spoils, Bank War, and Indian Removal in one classroom pass.", "beN4qE-e5O8", "Crash Course"],
-      ["Popular sovereignty", "Khan Academy — Jacksonian Democracy", "How expanded white-male suffrage and the common-man claim remade parties — and who was still locked out.", "mSzaJXR6MhA", "Khan Academy"],
-      ["Judgment", "TED-Ed — History vs. Andrew Jackson", "Union-saver and Bank-killer versus removal and the refusal to carry Worcester v. Georgia.", "gx5IyumKmDI", "TED-Ed"],
-      ["The full era", "The Jacksonian Era — lecture", "Suffrage, Removal, Trail of Tears, Bank War, Nullification, Van Buren, Panic of 1837.", "IomAC6-sJUg", "Professor Casey"],
-      ["Party and franchise", "Jacksonian Era: Democracy and the Mob", "Second Party System. Critics heard a mob; Jacksonians heard the people.", "niWD4WSJr_I", "The Cynical Historian"],
-      ["Producers vs monopoly", "Crash Course US History #12 — The Market Revolution", "The economic world the Bank War was fought in.", "RNftCCwAol0", "Crash Course"],
-      ["Who the people did not include", "Crash Course US History #13 — Slavery", "Jacksonian equality was not universal. A class that skips this is a eulogy.", "Ajn9g5Gsv98", "Crash Course"]
-    ];
-    const root = document.getElementById("lessons");
-    for (const [ideal, title, why, id, source] of lessons) {
-      const el = document.createElement("article");
-      el.className = "lesson";
-      el.innerHTML =
-        '<div class="frame"><iframe src="https://www.youtube-nocookie.com/embed/' + id +
-        '" title="' + title.replace(/"/g, "") +
-        '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe></div>' +
-        '<div class="meta"><div class="tag">' + ideal + "</div><h3>" + title + "</h3><p>" + why +
-        '</p><p class="src">' + source + " · youtube-nocookie embed</p></div>";
-      root.appendChild(el);
-    }
-  </script>
+  <script src="hall.js"></script>
 </body>
 </html>
