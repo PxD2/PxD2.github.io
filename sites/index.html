@@ -3,55 +3,54 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>PXD2 Sites — hall annex</title>
-  <meta name="description" content="Sites PXD2 holds and hosts. GitHub Pages on the hall, FTP/rsync onto client boxes." />
+  <title>PXD2 — list of sites</title>
+  <meta name="description" content="Every PXD2 site: HOLD, school halls, Studio A, company, GitHub." />
   <link rel="canonical" href="https://pxd2.github.io/sites/" />
-  <meta name="theme-color" content="#07080c" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Libre+Baskerville:wght@400;700&display=swap" />
   <style>
-    :root { --bg:#07080c; --ink:#e8e6df; --dim:#8b93a3; --gold:#f5c14a; --cyan:#00d4ea; --line:#1c2230; }
+    :root { --bg:#0a0a0b; --fg:#e8e6e3; --muted:#9aa4ae; --line:color-mix(in oklab,#e8e6e3 14%,transparent); --accent:#c8ccd4; }
     * { box-sizing: border-box; }
-    body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.5 Barlow, system-ui, sans-serif; }
-    main { max-width:820px; margin:0 auto; padding:36px 20px 96px; }
-    .kicker { letter-spacing:.22em; text-transform:uppercase; color:var(--gold); font:600 11px/1 Barlow, sans-serif; }
-    h1 { font:700 36px/1 Oswald, sans-serif; margin:10px 0 8px; }
-    p { color:var(--dim); }
-    a { color:var(--cyan); }
-    table { width:100%; border-collapse:collapse; margin-top:22px; font-size:14px; }
-    th, td { text-align:left; padding:10px 8px; border-bottom:1px solid var(--line); vertical-align:top; }
-    th { color:var(--gold); font:600 11px/1 Barlow, sans-serif; letter-spacing:.16em; text-transform:uppercase; }
-    nav.rooms { position:fixed; left:12px; bottom:12px; z-index:50; display:flex; gap:10px; flex-wrap:wrap; font:600 11px/1 Barlow,system-ui,sans-serif; letter-spacing:.22em; text-transform:uppercase; }
-    nav.rooms a { color:#8b93a3; text-decoration:none; }
-    code { color:var(--gold); font-size:13px; }
+    html, body { margin:0; background:var(--bg); color:var(--fg); font:16px/1.55 "IBM Plex Sans",system-ui,sans-serif; }
+    a { color:var(--accent); }
+    .bar { display:flex; flex-wrap:wrap; gap:12px 24px; align-items:center; justify-content:space-between; padding:14px 20px; border-bottom:1px solid var(--line); font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); }
+    .bar a { color:var(--fg); text-decoration:none; }
+    .wrap { max-width:46rem; margin:0 auto; padding:3.5rem 1.25rem 6rem; }
+    .kicker { font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:var(--muted); }
+    h1 { font-family:"Libre Baskerville",Georgia,serif; font-size:clamp(1.6rem,3vw,2.2rem); margin:.5rem 0 1rem; }
+    h2 { font-family:"Libre Baskerville",Georgia,serif; font-size:1.05rem; margin:2.2rem 0 .8rem; }
+    .lede { color:var(--muted); margin:0 0 1rem; }
+    .net { display:grid; gap:10px; }
+    .node { display:block; border:1px solid var(--line); padding:16px 18px; text-decoration:none; color:var(--fg); min-height:84px; }
+    .node:hover { border-color:var(--accent); }
+    .node .k { font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); }
+    .node h3 { font-family:"Libre Baskerville",Georgia,serif; font-size:1.1rem; margin:6px 0 4px; font-weight:700; }
+    .node p { margin:0; color:var(--muted); font-size:14px; }
   </style>
 </head>
 <body>
-  <main>
-    <div class="kicker">PXD2 · Web Systems</div>
-    <h1>Sites we hold</h1>
-    <p>The live hall stays at <a href="/">pxd2.github.io</a>. This annex is the board for many sites — Pages on GitHub, FTP/rsync onto boxes we hold. Control plane repo: <a href="https://github.com/PxD2/web-systems">PxD2/web-systems</a>.</p>
-    <table>
-      <thead><tr><th>Site</th><th>Live</th><th>How it ships</th></tr></thead>
-      <tbody>
-        <tr><td>Floor</td><td><a href="/">pxd2.github.io</a></td><td>User Pages · PxD2.github.io</td></tr>
-        <tr><td>Civics</td><td><a href="/civics/">/civics/</a></td><td>Jacksonian civic-education video hall</td></tr>
-        <tr><td>Company</td><td><a href="/company/">/company/</a></td><td>Same hall</td></tr>
-        <tr><td>Helix CAD</td><td><a href="/cad2/">/cad2/</a></td><td>Same hall</td></tr>
-        <tr><td>Hackspace</td><td><a href="/pxd2spaces/">/pxd2spaces/</a></td><td>Same hall · PxD2/pxd2spaces</td></tr>
-        <tr><td>Open builds index</td><td><a href="/sites/open-builds/">/sites/open-builds/</a></td><td>This annex · Comparee Hub map</td></tr>
-        <tr><td>Tipsy Hippy</td><td><a href="https://github.com/PxD2/tipsyhippy">PxD2/tipsyhippy</a></td><td>Client site repo — Pages or FTP</td></tr>
-        <tr><td>Next client</td><td>—</td><td>Add a row in <code>web-systems/sites.json</code>, drop files, pick Pages or FTP</td></tr>
-      </tbody>
-    </table>
-    <p>FTP secrets never live in git. Copy <code>ftp/.env.example</code> locally or set Actions secrets. Book: <a href="https://github.com/PxD2/web-systems/blob/main/HOSTING.md">HOSTING.md</a>.</p>
+  <div class="bar">
+    <a href="https://pxd2.github.io/">PXD2 · floor</a>
+    <span>list of sites</span>
+    <a href="https://github.com/PxD2">github.com/PxD2</a>
+  </div>
+  <main class="wrap">
+    <p class="kicker">pxd2.github.io/sites</p>
+    <h1>Every site we hold</h1>
+    <p class="lede">One list. Every hall links here. HOLD is the FTP. Studio A is the floor. School is the rest.</p>
+    <div id="groups"></div>
   </main>
-  <nav class="rooms">
-    <a href="/">Floor</a>
-    <a href="/civics/">Civics</a>
-    <a href="/company/">Company</a>
-    <a href="/sites/">Sites</a>
-    <a href="/cad2/">Helix CAD</a>
-    <a href="/pxd2spaces/">Hackspace</a>
-  </nav>
+  <script>
+    fetch("sites.json").then(r => r.json()).then(d => {
+      document.getElementById("groups").innerHTML = d.groups.map(g =>
+        "<h2>" + g.title + "</h2><div class=\"net\">" +
+        g.sites.map(s =>
+          "<a class=\"node\" href=\"" + s.href + "\"><div class=\"k\">" + s.id + "</div><h3>" + s.name + "</h3><p>" + s.blurb + "</p></a>"
+        ).join("") + "</div>"
+      ).join("");
+    });
+  </script>
+  <script src="/read-aloud.js" defer></script>
+  <script src="/sites.js" defer></script>
 </body>
 </html>
