@@ -1,0 +1,41 @@
+{
+  "title": "PXD2 sites",
+  "home": "https://pxd2.github.io/sites/",
+  "github": "https://github.com/PxD2",
+  "pages": "https://pxd2.github.io/",
+  "groups": [
+    {
+      "id": "floor",
+      "title": "Floor",
+      "sites": [
+        {"id": "hold", "name": "HOLD", "href": "/", "blurb": "Git that acts like FTP."},
+        {"id": "sites", "name": "Sites", "href": "/sites/", "blurb": "This list."},
+        {"id": "open-builds", "name": "Open builds", "href": "/sites/open-builds/", "blurb": "Index of public Comparee listings we hold."},
+        {"id": "github", "name": "GitHub", "href": "https://github.com/PxD2", "blurb": "PxD2 profile and repos."}
+      ]
+    },
+    {
+      "id": "school",
+      "title": "School",
+      "sites": [
+        {"id": "edu", "name": "Edu", "href": "/edu/", "blurb": "Education network on git."},
+        {"id": "civics", "name": "Civics", "href": "/civics/", "blurb": "Hillsdale, Fed/Anti-Fed, Jackson, resistance."},
+        {"id": "stem", "name": "STEM", "href": "/stem/", "blurb": "Euclid first, then MIT, Yale, Hillsdale."},
+        {"id": "college", "name": "College", "href": "/college/", "blurb": "Reform BA against Witherspoon’s Princeton."},
+        {"id": "hornet", "name": "Hornet Bell", "href": "/hornet/", "blurb": "Militia cartoon. Mecklenburg house."},
+        {"id": "alexandria", "name": "Alexandria", "href": "/alexandria/", "blurb": "Digital library. Encarta-shaped."},
+        {"id": "amicus", "name": "Amicus", "href": "/coalitions/master-amicus-brief.html", "blurb": "Master brief for firearm policy coalitions."}
+      ]
+    },
+    {
+      "id": "works",
+      "title": "Works and floor",
+      "sites": [
+        {"id": "studioa", "name": "Studio A", "href": "/studioa/", "blurb": "The 5080 floor. Not HOLD."},
+        {"id": "cad2", "name": "Helix CAD", "href": "/cad2/", "blurb": "CAD hall."},
+        {"id": "spaces", "name": "Hackspace", "href": "/pxd2spaces/", "blurb": "PXD2 spaces."},
+        {"id": "company", "name": "Company", "href": "/company/", "blurb": "Company, contact, investors."}
+      ]
+    }
+  ]
+}
