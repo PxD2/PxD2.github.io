@@ -1,18 +1,14 @@
-PXD2 Civics — Jacksonian political ideals
-=========================================
+PXD2 Civics — All the Hillsdale
+================================
 
 Live:  https://pxd2.github.io/civics/
-HOLD:  /public_html/civics
 
-Classroom video hall. Embeds are cited lessons (Crash Course, Khan, TED-Ed).
-Drop original .mp4 files here to host your own civic-education films.
+Hillsdale College civic education, cited not copied.
 
-Ideals taught (and fenced):
-- Popular sovereignty / mass white-male suffrage
-- Anti-monopoly (Bank War)
-- Rotation in office
-- Union against nullification
-- Equal rights as Jackson named them — and who was excluded
-- Executive energy, including Indian Removal and Worcester v. Georgia
+Public films:
+- Introduction to the Constitution (12 lessons)
+- Constitution 101 lectures 1–2 + trailer
+- Birzer on General Jackson
+- Rights, Founders, administrative state, Barr
 
-This is civic education, not a shrine.
+Full courses: https://online.hillsdale.edu/courses
