@@ -1,0 +1,13 @@
+{
+  "title": "HOLD Civics — Jacksonian political ideals",
+  "note": "Classroom embeds. Drop your own .mp4 files in this folder to host them on the hall. YouTube lessons are cited, not copied.",
+  "lessons": [
+    {"id": "age-of-jackson", "ideal": "The Age of Jackson", "title": "Crash Course US History #14 — Age of Jackson", "youtube": "beN4qE-e5O8", "source": "Crash Course"},
+    {"id": "khan-jacksonian", "ideal": "Popular sovereignty", "title": "Khan Academy — Jacksonian Democracy", "youtube": "mSzaJXR6MhA", "source": "Khan Academy"},
+    {"id": "history-vs-jackson", "ideal": "Judgment", "title": "TED-Ed — History vs. Andrew Jackson", "youtube": "gx5IyumKmDI", "source": "TED-Ed"},
+    {"id": "narrative-era", "ideal": "The full era", "title": "The Jacksonian Era — lecture", "youtube": "IomAC6-sJUg", "source": "Professor Casey"},
+    {"id": "democracy-and-the-mob", "ideal": "Party and franchise", "title": "Jacksonian Era: Democracy and the Mob", "youtube": "niWD4WSJr_I", "source": "The Cynical Historian"},
+    {"id": "market-revolution", "ideal": "Producers vs monopoly", "title": "Crash Course US History #12 — The Market Revolution", "youtube": "RNftCCwAol0", "source": "Crash Course"},
+    {"id": "slavery-context", "ideal": "Who the people did not include", "title": "Crash Course US History #13 — Slavery", "youtube": "Ajn9g5Gsv98", "source": "Crash Course"}
+  ]
+}
