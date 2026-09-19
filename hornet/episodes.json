@@ -62,40 +62,136 @@
       "beats": [
         {
           "t": 0.0,
-          "who": "Hornet Bell",
-          "text": "The Bell of Hopewell"
-        },
-        {
-          "t": 12.0,
           "who": "Bell",
-          "text": "I hang in the pines of Mecklenburg. When I ring, the families come: Wilson, Davidson, Polk, Brevard, Alexander, Reese, Knox, Caldwell, Graham. They married each other so often the militia was almost one household \u2014 and they kept the court and the governor\u2019s chair too."
+          "text": "Ring once, children. I hang in the pines of Hopewell, on the Catawba. I am a meeting-house bell. When I ring, a whole family of families comes walking: Wilson, Davidson, Polk, Brevard, Alexander, Reese, Knox, Caldwell, Graham. They married each other until the militia was almost one household. They did not arrive as posters. They arrived with muddy shoes and names you can copy."
         },
         {
-          "t": 64.8,
+          "t": 23.2,
           "who": "Vee",
-          "text": "Are you the Liberty Bell from Philadelphia?"
+          "text": "Bell, are you the Liberty Bell? The one in the pictures? The crack and the big city?"
         },
         {
-          "t": 117.6,
+          "t": 29.3,
           "who": "Bell",
-          "text": "I am her cousin in the story. That bell rang for a whole country. A Polk of this house was tasked to get her out of Philadelphia so the British would not melt her into cannon. I ring for a river and a nest of hornets."
+          "text": "Bless you. I am her cousin in this story. She rang for a country. I ring for a river and a nest of hornets. A Polk of this house was tasked to save her, so she would not be melted into a gun. We will get there. First you must love the people, or the offices will sound like they fell from the sky."
         },
         {
-          "t": 170.4,
+          "t": 52.5,
           "who": "Lee",
-          "text": "Then tell us the presidents who grew from this nest \u2014 Washington, Madison, Jackson, Polk, Lincoln \u2014 and every office in between."
+          "text": "I want to love them. My coat is too big because it is a general\u2019s coat. William Lee Davidson. People named a college after him. Is that showing off?"
         },
         {
-          "t": 223.2,
+          "t": 63.0,
           "who": "Bell",
-          "text": "I will. First the families, or the offices will sound like they fell from the sky. They did not."
+          "text": "It is remembering. Davidson College sits on land his own baby boy later gave, at a house called Beaver Dam. The records live at Davidson, and at Chapel Hill, and in a brick hall far away called Nassau. We will walk those papers like a path in the woods. No running. No shouting at the river."
         },
         {
-          "t": 276.0,
-          "who": "What we learned",
-          "text": "Hopewell\u2019s Bell rings this river. Philadelphia\u2019s Liberty Bell is her cousin. Col. Thomas Polk of this house was tasked to save that cousin."
+          "t": 83.3,
+          "who": "Vee",
+          "text": "Start with a small thing. I like small things."
+        },
+        {
+          "t": 86.6,
+          "who": "Bell",
+          "text": "Small: Hopewell\u2019s people buried their general at the church in a hurry, so the other army would not find him. They loved him that much. His name was William Lee. Lee wears his coat. Vee is named for Violet Wilson, who married into Rural Hill. You two are the children of this cartoon. I am the bell who will not let you forget they were cousins, not statues."
+        },
+        {
+          "t": 111.2,
+          "who": "Lee",
+          "text": "Cousins are better than statues. Statues don\u2019t lend you a horse."
+        },
+        {
+          "t": 115.2,
+          "who": "Vee",
+          "text": "Or walk you to school. Or hang a coat on a peg."
+        },
+        {
+          "t": 119.6,
+          "who": "Bell",
+          "text": "Exactly. Five presidents will visit us \u2014 Washington, Madison, Jackson, Cousin Polk, Lincoln with his books. But they do not get the first chair. The first chair is a family that kept a court, a militia, a college, and a bell. Copy one name tonight. Recite it in the morning. Then you have watched this episode for real."
+        },
+        {
+          "t": 140.6,
+          "who": "Lee",
+          "text": "William Lee Davidson."
+        },
+        {
+          "t": 141.7,
+          "who": "Vee",
+          "text": "Violet Wilson."
+        },
+        {
+          "t": 142.4,
+          "who": "Bell",
+          "text": "And Hopewell\u2019s Bell, who loves you. Ring twice, and sit. Before we go, I want you to see the church as a child would. Beatties Ford Road. Pines. A meeting house that is not a palace. Friends carried a general there in the dark. They did not wait for a sculptor. They waited for morning, and they kept the secret of where he lay so the other army could not boast."
+        },
+        {
+          "t": 168.1,
+          "who": "Vee",
+          "text": "I would have held the lantern and tried not to cry."
+        },
+        {
+          "t": 172.1,
+          "who": "Lee",
+          "text": "I would have held the horse and tried not to run."
+        },
+        {
+          "t": 176.1,
+          "who": "Bell",
+          "text": "Both are love. The college that wears his name still keeps letters and ledgers. Chapel Hill keeps Graham\u2019s own handwriting in the Colonial Records. Nassau Hall keeps the 1768 cousins in a biographical book called Princetonians. None of that is a statue. It is paper you could hold. When I ring, I am calling you to paper, and to people who lent horses."
+        },
+        {
+          "t": 198.9,
+          "who": "Vee",
+          "text": "I will hold the paper carefully. I will not fold a corner."
+        },
+        {
+          "t": 203.3,
+          "who": "Lee",
+          "text": "I will not run with the horse in the hallway."
+        },
+        {
+          "t": 206.9,
+          "who": "Bell",
+          "text": "Then you already love them. Good. Episode one is a handshake. Imagine walking into Hopewell on a Sunday. You would not see generals first. You would see uncles. You would see daughters who were hinges. You would see a boy whose coat was too big, which is how every good office begins \u2014 too big, and then you grow."
+        },
+        {
+          "t": 228.3,
+          "who": "Lee",
+          "text": "When will the coat fit?"
+        },
+        {
+          "t": 230.1,
+          "who": "Bell",
+          "text": "When your love is as wide as the sleeves. Not when you shout. Not when you pretend to be marble. When you can say a cousin\u2019s name without making him a saint, and still want to lend him a horse. That is the whole show, hidden in the first ring."
+        },
+        {
+          "t": 248.2,
+          "who": "Vee",
+          "text": "I like that the presidents have to wait."
+        },
+        {
+          "t": 251.1,
+          "who": "Bell",
+          "text": "They wait because a republic is supposed to start in a meeting house, not in a cloud. Washington will go home. Madison will keep a notebook. Jackson will be loud under the law. Cousin Polk will come from Mary Wilson\u2019s kitchen. Lincoln will copy by a fire. None of them get to skip the family. Copy tonight: Hopewell\u2019s Bell rings this river. Recite in the morning: the Liberty Bell is her cousin, and a Polk of this house was tasked to save that cousin."
+        },
+        {
+          "t": 281.5,
+          "who": "Lee",
+          "text": "Hopewell\u2019s Bell rings this river."
+        },
+        {
+          "t": 283.3,
+          "who": "Vee",
+          "text": "A Polk saved her cousin so she would still be a bell."
+        },
+        {
+          "t": 287.7,
+          "who": "Bell",
+          "text": "Good children. I am going to ring three times, very softly. Sit like a nest. Tomorrow we meet the daughters, who were the hinge. The rest is supper. You are already in the house."
         }
-      ]
+      ],
+      "records": "Hopewell Presbyterian Church, Beatties Ford Road. Davidson College Archives \u2014 the general, Beaver Dam, the 1835 naming. UNC Colonial Records. Nassau Hall, Princetonians 1748\u20131768."
     },
     {
       "id": "e02",
@@ -135,40 +231,116 @@
       "beats": [
         {
           "t": 0.0,
-          "who": "Hornet Bell",
-          "text": "Samuel Wilson\u2019s Daughters"
-        },
-        {
-          "t": 12.0,
           "who": "Bell",
-          "text": "Samuel Wilson farmed on this river. His daughters\u2019 marriages are the map of the command family."
+          "text": "Samuel Wilson farmed on this river. His daughters\u2019 marriages are a map. If you can love a map, you can love a country. Maps are not cold. A map is how a girl knows which ford her cousin will use, and which kitchen still has a peg for a coat."
         },
         {
-          "t": 64.8,
+          "t": 20.7,
           "who": "Vee",
-          "text": "Mary married Ezekiel Polk. Their line runs to a boy named James Knox Polk \u2014 Knox for his other grandfather, who carried a captain\u2019s name."
+          "text": "I am named for Violet. Tell me about her like she is sitting here, not like a caption."
         },
         {
-          "t": 117.6,
+          "t": 28.2,
+          "who": "Bell",
+          "text": "Violet Wilson married Major John Davidson of Rural Hill. He signed Mecklenburg\u2019s paper. He kept a farm that was almost a fort of cousins. Their parlor was a council. If you had been a child there, you would have thought every adult was an uncle, because almost every adult was. Their girl Isabella later married Joseph Graham \u2014 the boy who would not stay down. So Graham is not a guest. He is Wilson and Davidson too."
+        },
+        {
+          "t": 60.1,
           "who": "Lee",
-          "text": "Violet married Major John Davidson. He signed Mecklenburg\u2019s paper and kept Rural Hill. Their girl Isabella married Joseph Graham, the militia major who would not stay down."
+          "text": "And Mary? I like Mary because presidents hide in quiet names."
         },
         {
-          "t": 170.4,
+          "t": 64.6,
           "who": "Bell",
-          "text": "Samuel\u2019s son married Hannah Knox \u2014 daughter of Captain Patrick Knox, killed at Ramsour\u2019s Mill. So Knox is not a stranger in this cartoon. He is in the house."
+          "text": "Mary Wilson married Ezekiel Polk. Their line runs to a boy named James Knox Polk. Knox is the middle name on purpose \u2014 for Captain Patrick Knox, whose daughter Hannah married Samuel Wilson\u2019s son. So when a president carried Knox in his name, he carried a captain who had already been a neighbor. Knox is in the house. Reese is in the house. Caldwell is in the house. Sarah Davidson married Alexander Caldwell, son of Dr. David Caldwell, who kept a school. Teachers in the blood."
         },
         {
-          "t": 223.2,
+          "t": 100.3,
           "who": "Vee",
-          "text": "And Sarah Davidson married Alexander Caldwell, son of Dr. David Caldwell, who kept a school. Teachers in the blood, even when we are only enrolled."
+          "text": "So if I say Wilson, I have already said Polk, Davidson, Graham, Knox, Caldwell."
         },
         {
-          "t": 276.0,
-          "who": "What we learned",
-          "text": "Mary Wilson married Ezekiel Polk \u2014 grandfather line of President James Knox Polk. Violet Wilson married Major John Davidson of Rural Hill."
+          "t": 106.1,
+          "who": "Bell",
+          "text": "You have said a militia. The records at Davidson and in the old county papers are full of these names stacked like plates. No one rode to war as a stranger. They rode to a cousin\u2019s ford. The daughters did not marry famous posters. They married the boys next creek."
+        },
+        {
+          "t": 126.8,
+          "who": "Lee",
+          "text": "Did they like each other?"
+        },
+        {
+          "t": 128.9,
+          "who": "Bell",
+          "text": "They argued like families. Then they mustered like families. That is the joke and the kindness. Violet\u2019s people kept Rural Hill. Mary\u2019s people kept a president. Hannah\u2019s people kept a Knox in a White House name. You do not have to be a president to be the hinge. The daughters were the hinge."
+        },
+        {
+          "t": 150.8,
+          "who": "Vee",
+          "text": "I want to be a hinge. Hinges look small and then a whole door moves."
+        },
+        {
+          "t": 157.0,
+          "who": "Lee",
+          "text": "I want to lend a horse. And hang coats. Where did they put all the coats?"
+        },
+        {
+          "t": 163.7,
+          "who": "Bell",
+          "text": "On a peg by the door, too big, like yours. Love a peg. Love a creek. Love a daughter who was a hinge. One more from the farm books: Samuel\u2019s son married Hannah Knox after Captain Patrick Knox fell at Ramsour\u2019s Mill. Grief in one kitchen became a middle name in another house years later. That is how a republic is supposed to work. Not a palace. A family that learned to read and to muster."
+        },
+        {
+          "t": 195.2,
+          "who": "Vee",
+          "text": "That sounds crowded and perfect. Did they all talk at once?"
+        },
+        {
+          "t": 199.7,
+          "who": "Bell",
+          "text": "Of course. Then someone rang a bell, which is me, and they sat. Copy Mary, Violet, Hannah. Recite who they married. Ezekiel. Major John. Samuel\u2019s son. The cartoon counted only if you can say the daughters first."
+        },
+        {
+          "t": 215.1,
+          "who": "Lee",
+          "text": "Mary married Ezekiel Polk. Violet married Major John. Hannah married Samuel\u2019s son."
+        },
+        {
+          "t": 220.0,
+          "who": "Vee",
+          "text": "Isabella married Joseph Graham. I like that she married the boy who would not stay down."
+        },
+        {
+          "t": 226.7,
+          "who": "Bell",
+          "text": "Rebecca married Captain Alexander Brevard, brother of the doctor Ephraim. Sarah married a Caldwell. Betsy Lee married William Lee the second, the general\u2019s own baby, at Beaver Dam. Violet\u2019s girls braided the house until militia, court, college, and a presidency were one web. Start from the kitchen and you will not get lost in the marble."
+        },
+        {
+          "t": 249.9,
+          "who": "Lee",
+          "text": "Kitchen first. Then the river. Then the college."
+        },
+        {
+          "t": 253.2,
+          "who": "Bell",
+          "text": "Yes. If you ever stand in Mecklenburg and say Wilson, do not skip the girls. The records will wait at Davidson. Rural Hill\u2019s parlor will wait in the story. I will wait on my beam. Copy tonight: Mary Wilson married Ezekiel Polk. Recite: Violet Wilson married Major John Davidson of Rural Hill. Then you have loved a map that is really a family."
+        },
+        {
+          "t": 279.3,
+          "who": "Vee",
+          "text": "I will draw the map with creeks, not borders."
+        },
+        {
+          "t": 283.0,
+          "who": "Lee",
+          "text": "I will put a peg on the map for coats."
+        },
+        {
+          "t": 287.2,
+          "who": "Bell",
+          "text": "Good cartographers. Ring once. Tomorrow the nest stings, and we will still begin with cousins. That is enough Wilson for one night. Sleep like a hinge that knows it is needed."
         }
-      ]
+      ],
+      "records": "Rural Hill and Wilson marriages in Mecklenburg family papers. Davidson archives for Major John and Violet. Polk line from Mary Wilson and Ezekiel. Hannah Knox after Ramsour\u2019s Mill."
     },
     {
       "id": "e03",
@@ -204,35 +376,106 @@
       "beats": [
         {
           "t": 0.0,
-          "who": "Hornet Bell",
-          "text": "The Hornet Nest"
-        },
-        {
-          "t": 12.0,
           "who": "Lee",
-          "text": "Why do people call us hornets?"
+          "text": "Why do people call us hornets? Did we sting somebody?"
         },
         {
-          "t": 78.0,
+          "t": 4.2,
           "who": "Bell",
-          "text": "Because a British general found Charlotte was not a place you sit down in. The militia of this family \u2014 Polk, Davidson, Graham, Alexander \u2014 kept stinging and flying."
+          "text": "A British general found Charlotte was not a chair. On the twenty-sixth of September, 1780, Cornwallis\u2019s army came up the street that is now Tryon. Colonel Davie had horsemen at the courthouse. Captain Joseph Graham was there \u2014 eighteen, twenty, a Mecklenburg boy. They fired, they fell back, they fired again. Cornwallis later called this country a hornet nest."
         },
         {
-          "t": 144.0,
+          "t": 28.7,
           "who": "Vee",
-          "text": "Lt. Col. Thomas Polk called neighbors to the courthouse. Dr. Ephraim Brevard wrote. David Reese signed. The paper said the king\u2019s law was vacant here."
+          "text": "Was Graham scared? Tell me like he is a boy, not a statue."
         },
         {
-          "t": 210.0,
+          "t": 34.1,
           "who": "Bell",
-          "text": "A nest is a family. That is the joke and the truth."
+          "text": "He was brave and he was a boy. He had been born the thirteenth of October, 1759, in Chester County, Pennsylvania. When he was about ten his mother brought the children to this river. He went to Queen\u2019s Museum in Charlotte and was a good scholar of mannerly bearing. The papers his son later printed \u2014 General Joseph Graham and His Papers, Chapel Hill keeps the trail \u2014 say he had been plowing his mother\u2019s field when he heard the British were coming, and he left the plow. That is how you love a country: you put down the handle and you go."
         },
         {
-          "t": 276.0,
-          "who": "What we learned",
-          "text": "Cornwallis called Mecklenburg a hornet nest. The families stung and scattered and came back."
+          "t": 76.9,
+          "who": "Lee",
+          "text": "I would forget my hat."
+        },
+        {
+          "t": 78.9,
+          "who": "Bell",
+          "text": "He forgot more than a hat. Near the cross roads the other horsemen caught him. He was hurt nine times \u2014 six by saber, three by lead \u2014 and left. We do not make a game of that. We say: a cousin hunting cows found him. Aunt Susie Alexander. She got him home. She washed and dressed the hurts and kept him until he could stand. Militia is a cousin with a lantern."
+        },
+        {
+          "t": 109.3,
+          "who": "Vee",
+          "text": "I love Aunt Susie. She is my favorite soldier and she was not even mustered."
+        },
+        {
+          "t": 115.5,
+          "who": "Bell",
+          "text": "Love her. Love the fifty neighbors who collected in the night when Davie rode in. Love the courthouse that was not a palace. A nest is a family. That is the joke and the truth. Two months to stand. Then he raised a company of fifty-five in two weeks, their own horses, their own swords. No wagon of biscuits. That is in his declaration."
+        },
+        {
+          "t": 142.1,
+          "who": "Lee",
+          "text": "Hornets go home. Then they come back. Did he write it down?"
+        },
+        {
+          "t": 147.1,
+          "who": "Bell",
+          "text": "Yes. Listen to how he told it when he was old, seventy-three, in Lincoln County, the thirtieth of October, 1832, in open court, to obtain a pension. He enlisted in May 1778 under Captain Gooden in the Fourth North Carolina. Orderly sergeant. Quartermaster sergeant. He was in Charlotte on the twentieth of May, 1775, a boy, a looker-on, when the committee spoke, more than a year before Philadelphia. He never forgot. That is why we trust him. He was there, and he wrote it, and his son printed it in 1904."
+        },
+        {
+          "t": 184.9,
+          "who": "Vee",
+          "text": "A man who will still tell the truth fifty years later without making himself a knight."
+        },
+        {
+          "t": 191.6,
+          "who": "Bell",
+          "text": "Exactly. Copy one sentence: a nest is a family. Recite it. Then sting only what is unjust, and fly home. Chapel Hill keeps the Colonial Records, volume twenty-two, and the Southern Historical Collection keeps the Joseph Graham Papers. If you walk those rooms you are walking through a father\u2019s memory that a son refused to lose."
+        },
+        {
+          "t": 214.8,
+          "who": "Lee",
+          "text": "I will write down today so I do not become a knight by accident."
+        },
+        {
+          "t": 220.6,
+          "who": "Vee",
+          "text": "I will draw Aunt Susie\u2019s lantern and no swords. And a plow standing alone in a field."
+        },
+        {
+          "t": 227.7,
+          "who": "Bell",
+          "text": "Good hornets. Picture him as a lad about half grown in May of seventy-five, watching men speak. Picture him leaving a plow. Picture a lantern. Picture a court in Lincoln County and an old man who will not decorate. That is how you bring him to life. Not with a cheer. With a page."
+        },
+        {
+          "t": 250.1,
+          "who": "Lee",
+          "text": "I want to be a looker-on who later tells the truth."
+        },
+        {
+          "t": 254.7,
+          "who": "Bell",
+          "text": "Then you are already in his school. He fought in fifteen small fights, private to major. We do not list them like a drum. We keep Charlotte, the lantern, the fifty-five, the oath at seventy-three. The nest is closed for the night. Buzz softly. Copy: Cornwallis called Mecklenburg a hornet nest. Recite: the families stung and scattered and came back."
+        },
+        {
+          "t": 279.6,
+          "who": "Vee",
+          "text": "A nest is a family. Aunt Susie had the lantern."
+        },
+        {
+          "t": 283.8,
+          "who": "Lee",
+          "text": "Joseph left the plow. He did not stay a knight."
+        },
+        {
+          "t": 288.0,
+          "who": "Bell",
+          "text": "Ring twice. Sleep like hornets who know the way home. Tomorrow a horse comes home without a rider, and we will still begin with love, not with a shot."
         }
-      ]
+      ],
+      "records": "Joseph Graham pension S6937, Lincoln County, 30 October 1832. Colonial Records of North Carolina vol. 22. NCpedia Graham. Aunt Susan Alexander, who found him after Charlotte, 26 September 1780."
     },
     {
       "id": "e04",
@@ -272,40 +515,96 @@
       "beats": [
         {
           "t": 0.0,
-          "who": "Hornet Bell",
-          "text": "The Horse Comes Home"
-        },
-        {
-          "t": 12.0,
           "who": "Bell",
-          "text": "William Lee Davidson was a militia general. He had been at Germantown and Valley Forge. He married a Brevard. His father\u2019s will named John Brevard and Alexander Osborne as guardians of the children \u2014 Adlai Osborne\u2019s house."
+          "text": "Speak softly. This is the horse episode. We do not draw a shot. We draw a barn door, and a horse coming home without a rider. If you remember only one picture from this whole show, let it be that horse."
         },
         {
-          "t": 64.8,
+          "t": 18.2,
           "who": "Lee",
-          "text": "He was uncle to Major John of Rural Hill, and uncle in the house of Adlai Osborne. One Davidson family, not two. The horse he rode that morning was from his nephew\u2019s barn."
+          "text": "The coat is heavy today. Tell me about the man who wore it first, like he could still borrow a cup of something."
         },
         {
-          "t": 117.6,
+          "t": 28.5,
+          "who": "Bell",
+          "text": "William Lee Davidson was a militia general. Valley Forge. Germantown. He married a Brevard. His father\u2019s will named John Brevard and Alexander Osborne as guardians of the children \u2014 Adlai Osborne\u2019s house. One Davidson family, not two. He was uncle to Major John of Rural Hill, and uncle in Adlai\u2019s house. Uncles are how this nest holds."
+        },
+        {
+          "t": 53.9,
           "who": "Vee",
-          "text": "Major John lent him a horse from Rural Hill to ride to the Catawba, to stop Cornwallis at Cowan\u2019s Ford."
+          "text": "The horse was from Rural Hill. A nephew\u2019s horse."
         },
         {
-          "t": 170.4,
+          "t": 57.9,
           "who": "Bell",
-          "text": "The general fell in the river fog. The horse came home. That is how Major John knew. We ring once, and we do not make a game of it."
+          "text": "Major John lent his uncle a horse from the nephew\u2019s barn, to ride to the Catawba, to hold Cowan\u2019s Ford against Cornwallis, the first of February, 1781. Fog on the river. The general fell. The horse came home. That is how Major John knew. They laid William Lee at Hopewell in a hurry, so the other army would not find him. Friends in the dark. A meeting house, not a monument."
         },
         {
-          "t": 223.2,
+          "t": 89.5,
           "who": "Lee",
-          "text": "His baby son, also William Lee, was not yet a month old. That boy later married Betsy Lee Davidson, Major John\u2019s daughter. Kin by marriage after the river."
+          "text": "Did the college know? How does a foggy river become a school?"
         },
         {
-          "t": 276.0,
-          "who": "What we learned",
-          "text": "General William Lee Davidson, uncle to Major John and to Adlai Osborne \u2014 one family \u2014 fell at Cowan\u2019s Ford, 1 February 1781. The horse from Rural Hill came home without him. We do not draw the shot."
+          "t": 94.8,
+          "who": "Bell",
+          "text": "The college is the love letter. The general\u2019s own baby \u2014 William Lee the second \u2014 was born when his father was already becoming a story. He later married Betsy Lee Davidson, Major John\u2019s girl. They built a house called Beaver Dam. On the thirteenth of May, 1835, a Presbyterian committee sat at that house at candlelight, after solemn and special prayer, and chose land for a school. Four hundred sixty-nine acres, two miles east of the house, some in Mecklenburg, some in Iredell."
+        },
+        {
+          "t": 132.2,
+          "who": "Vee",
+          "text": "Candlelight. I can see the table. Did they pass a plate?"
+        },
+        {
+          "t": 137.1,
+          "who": "Bell",
+          "text": "They passed a purpose. In August they named the school Davidson College as a tribute to the memory of that distinguished and excellent man, General William Davidson, who fell, universally lamented, at Cowan\u2019s Ford. The son sold the land \u2014 some say later gave it back in love. In 1839 he endowed a professorship with two thousand dollars. He sat vice-president of the first board, and treasurer. Students arrived in March 1837 and hauled debris and built fences. So every student is walking on a thank-you."
+        },
+        {
+          "t": 175.4,
+          "who": "Lee",
+          "text": "So the horse came home, and a college stood up."
+        },
+        {
+          "t": 179.8,
+          "who": "Bell",
+          "text": "Yes. Copy that sentence. Recite it without shouting. Major John, old, died at Beaver Dam in 1832 and was carried back to Rural Hill. The archives at Davidson still hold this house. When you see the college name, you are seeing a foggy river, a borrowed horse, and a boy who would not let his father be only a rumor."
+        },
+        {
+          "t": 206.5,
+          "who": "Vee",
+          "text": "The horse is my favorite character after Aunt Susie. The horse has no lines."
+        },
+        {
+          "t": 212.8,
+          "who": "Bell",
+          "text": "That is why we love him. He came home. We rang. We built a school. Lee, you may keep the coat. It will fit when your love is as big as the sleeves. Be an uncle worth a college by first being a cousin worth a horse."
+        },
+        {
+          "t": 233.7,
+          "who": "Lee",
+          "text": "I will not let him be a rumor. I will try to be an uncle worth a college. I will start by being a cousin worth a horse."
+        },
+        {
+          "t": 246.1,
+          "who": "Bell",
+          "text": "Davidson\u2019s archives will not hug you. I will. If you go, ask for Beaver Dam and the general. Ask for the candlelight minute. Ask why a manual labor school took a fallen uncle\u2019s name. None of that is showing off. It is a family keeping a promise in brick and books."
+        },
+        {
+          "t": 268.8,
+          "who": "Vee",
+          "text": "I will copy: the horse came home, and a college stood up."
+        },
+        {
+          "t": 274.2,
+          "who": "Lee",
+          "text": "I will recite: one Davidson family. Uncle to Major John. Uncle to Adlai. Not two lines. One."
+        },
+        {
+          "t": 281.8,
+          "who": "Bell",
+          "text": "Good. Hang the coat gently. Ring once. Sit with the horse. That is enough for today. Tomorrow Graham in the pines, sheriff not governor, lantern still lit. Good night, Lee. Good night, Vee. The ford is quiet. The school is awake."
         }
-      ]
+      ],
+      "records": "Davidson College Archives and Davidson Encyclopedia: Beaver Dam, William Lee Davidson II, committee at candlelight 13 May 1835; college named 26 August 1835; students March 1837. Hopewell burial. Cowan\u2019s Ford, 1 February 1781. One Davidson family."
     },
     {
       "id": "e05",
@@ -341,35 +640,86 @@
       "beats": [
         {
           "t": 0.0,
-          "who": "Hornet Bell",
-          "text": "Graham in the Pines"
-        },
-        {
-          "t": 12.0,
-          "who": "Bell",
-          "text": "Father and son: Joseph Graham in the war; William Alexander Graham in the peace \u2014 governor, senator. The cartoon is the father\u2019s night in the pines."
-        },
-        {
-          "t": 78.0,
           "who": "Vee",
-          "text": "Tarleton\u2019s men dropped him. Aunt Susie Alexander, hunting cows, found him and got him home."
+          "text": "Aunt Susie again. I want the whole lantern, and the man she carried, and the boy who later sat in a chair."
         },
         {
-          "t": 144.0,
-          "who": "Lee",
-          "text": "He married Isabella, Major John\u2019s daughter. So Graham is not a guest. He is Wilson and Davidson too."
-        },
-        {
-          "t": 210.0,
+          "t": 9.5,
           "who": "Bell",
-          "text": "When a family finds you in the pines, that is militia. Not a costume. A cousin with a lantern. After the war he was first sheriff of Mecklenburg, a senator, a justice of the peace for forty years, a general again in 1814. The governor\u2019s chair waited for his boy."
+          "text": "Joseph Graham, born the thirteenth of October 1759 in Pennsylvania, raised on this river. Fifteen fights, private to major. Charlotte, the twenty-sixth of September 1780: hurt nine times, left, found by Susan Alexander hunting cows. Two months to stand. Then he raised a company of fifty-five in two weeks. His own papers say so \u2014 the declaration in the Colonial Records, volume twenty-two, Chapel Hill. Later his son William A. Graham printed the book: General Joseph Graham and His Papers on North Carolina Revolutionary History, 1904. That is a son loving a father with ink."
         },
         {
-          "t": 276.0,
-          "who": "What we learned",
-          "text": "Joseph Graham: sheriff, senator, justice of the peace, militia general \u2014 not governor. His son William A. Graham was Governor of North Carolina, U.S. Senator, Secretary of the Navy."
+          "t": 50.4,
+          "who": "Lee",
+          "text": "Was he governor? I always mix them up."
+        },
+        {
+          "t": 53.9,
+          "who": "Bell",
+          "text": "No. And that is how you tell the truth, which is how you love him. Joseph was first sheriff of Mecklenburg, a senator, a justice of the peace for forty years, a brigadier in 1814, major general of militia, elder at Unity Church. He made iron. He sat as councillor of state. The governor\u2019s chair waited for his boy. William Alexander Graham: Governor of North Carolina, United States Senator, Secretary of the Navy, Whig vice-presidential nominee in 1852. Father filled the pines. Son filled the chair. Do not mix up their jobs."
+        },
+        {
+          "t": 93.5,
+          "who": "Vee",
+          "text": "I like that the father stayed a neighbor. Sheriffs know everyone\u2019s dogs."
+        },
+        {
+          "t": 98.7,
+          "who": "Bell",
+          "text": "He wrote accounts for Archibald Murphey, who wanted a state history. The book was never finished. Graham\u2019s pages became the archive. That is how UNC still knows the nest. A man who had been a boy at the courthouse wrote it down so you would not have to guess. If you ever walk the North Carolina collection at Chapel Hill, you are walking through a father\u2019s memory that a son refused to lose."
+        },
+        {
+          "t": 130.2,
+          "who": "Lee",
+          "text": "Did he marry Isabella? The hinge from Rural Hill?"
+        },
+        {
+          "t": 134.1,
+          "who": "Bell",
+          "text": "Isabella Davidson, Major John\u2019s daughter. So the lantern and the horse and the college are one house. Copy: sheriff, not governor. Recite: a cousin hunting cows. Then you have loved him correctly, not as a stuffed angel. Aunt Susie was not mustered. She was better. She looked where a person had fallen and she took him home."
+        },
+        {
+          "t": 158.6,
+          "who": "Vee",
+          "text": "Ring for her. I will draw the lantern larger than any sword."
+        },
+        {
+          "t": 163.8,
+          "who": "Bell",
+          "text": "After the war he still found time to write those pages. A militia general who became a historian of his own youth. Picture him at seventy-three in a Lincoln County court, swearing he has a record of his age, swearing he was present in Charlotte on the twentieth of May 1775 as a looker-on. Picture a son typesetting those sentences in 1904. Love them both."
+        },
+        {
+          "t": 191.8,
+          "who": "Lee",
+          "text": "Sheriff father. Governor son. I can keep that. I will write it inside the coat."
+        },
+        {
+          "t": 198.3,
+          "who": "Vee",
+          "text": "Lantern cousin. Plow in the field. Ink in Chapel Hill. I can keep that."
+        },
+        {
+          "t": 204.3,
+          "who": "Bell",
+          "text": "Then Graham is alive in you. That is all a paper wants. Sit with him one more minute as a neighbor, not a caption. Picture Unity Church on a Sunday. An elder with saber scars under a clean shirt. Picture a sheriff who knows which ford is up. Picture iron cooling. Picture Murphey asking for a state history and Graham sending pages instead of boasts. Picture a son in 1904 setting type and refusing to lose a plow, a lantern, a courthouse, a looker-on in May of seventy-five."
+        },
+        {
+          "t": 242.2,
+          "who": "Lee",
+          "text": "I will not mix their jobs even if someone else does. Sheriff in the pines. Governor in the chair."
+        },
+        {
+          "t": 250.4,
+          "who": "Vee",
+          "text": "I will keep the lantern larger than the chair. That is how a child loves a father and a son without stacking them into one pretend man."
+        },
+        {
+          "t": 262.1,
+          "who": "Bell",
+          "text": "The Southern Historical Collection will not make him a knight. Neither will we. Copy tonight: Joseph Graham, sheriff, senator, justice, militia general \u2014 not governor. Recite: his son William A. Graham was Governor of North Carolina, Senator, Secretary of the Navy. Ring for the pines. Ring for Unity Church. Ring for a boy who left a plow and an old man who would not decorate. Tomorrow two cousins walk out of Nassau Hall with the same year on their names. Bring your hats. I will bring the brick."
         }
-      ]
+      ],
+      "records": "Joseph Graham Papers, Southern Historical Collection, UNC Chapel Hill. Pension S6937, Lincoln County 30 Oct 1832. Colonial Records vol. 22. William A. Graham, General Joseph Graham and His Papers, 1904. NCpedia Joseph Graham. Unity Church."
     },
     {
       "id": "e06",
@@ -405,35 +755,101 @@
       "beats": [
         {
           "t": 0.0,
-          "who": "Hornet Bell",
-          "text": "Ephraim and Adlai"
-        },
-        {
-          "t": 12.0,
-          "who": "Bell",
-          "text": "John Brevard\u2019s boy Ephraim and Alexander Osborne\u2019s boy Adlai walked to the same grammar, then to Nassau Hall, year 1768."
-        },
-        {
-          "t": 78.0,
-          "who": "Vee",
-          "text": "That is Witherspoon\u2019s Princeton \u2014 the college our big hall wants to compete with. They learned moral philosophy, then came home."
-        },
-        {
-          "t": 144.0,
           "who": "Lee",
-          "text": "Ephraim became the doctor who wrote. He married Col. Thomas Polk\u2019s daughter. Adlai became the lawyer of Rowan, clerk of the court, a man of the committee."
+          "text": "Nassau Hall. Say it like a castle, then tell the truth so I do not think it is magic."
         },
         {
-          "t": 210.0,
+          "t": 7.1,
           "who": "Bell",
-          "text": "General Davidson is uncle to Major John and to Adlai Osborne. One family. Ephraim and Adlai, cousins, walked to Princeton together. The guardians in the old will \u2014 John Brevard and Alexander Osborne \u2014 are that same house."
+          "text": "Brick. Princeton. The College of New Jersey. In 1768 two Piedmont cousins walked out of that hall with the same year on their names: Ephraim Brevard and Adlai Osborne. Crowfield Academy first, near Belmont, the Osborne house \u2014 the old red house children still told about a hundred years on. Then a private school in Virginia. Then Nassau. John Witherspoon arrived that same year from Paisley in Scotland to be president. Moral philosophy. English lectures. A republican spirit in the brick."
         },
         {
-          "t": 276.0,
-          "who": "What we learned",
-          "text": "One Davidson family: General William Lee is uncle to Major John and Adlai Osborne. Dr. Ephraim Brevard and Adlai, cousins, finished Princeton in 1768 under Witherspoon. Ephraim wrote Mecklenburg\u2019s resolves and married a Polk."
+          "t": 37.6,
+          "who": "Vee",
+          "text": "Did they miss home? Did they pack too many hats?"
+        },
+        {
+          "t": 41.4,
+          "who": "Bell",
+          "text": "They came home on purpose. That is the courage of this episode \u2014 to learn first, then come home. Ephraim became the doctor in Charlotte. He wrote Mecklenburg\u2019s resolves \u2014 the paper that said the king\u2019s law was vacant here. He married a daughter of Colonel Thomas Polk. He was taken at Charleston and came home ill, and the river lost him. We do not make a game. We say: the doctor wrote, and then he was quiet, and the cousins kept the paper."
+        },
+        {
+          "t": 72.9,
+          "who": "Lee",
+          "text": "Adlai lived. Tell me the slow bravery."
+        },
+        {
+          "t": 75.6,
+          "who": "Bell",
+          "text": "Adlai became the lawyer of Rowan. Clerk of the court of pleas, 1772 until 1809 \u2014 think of that, children: thirty-seven years of ink. Committee of Safety. A trustee of the University of North Carolina. Belmont stayed a Presbyterian lamp. He married Margaret Lloyd in 1771. His son, another Ephraim Brevard Osborne, was named for the cousin. That is in the family papers, and NCpedia, and the Princetonians book that keeps Nassau\u2019s sons."
+        },
+        {
+          "t": 103.0,
+          "who": "Vee",
+          "text": "So Davidson and UNC and Nassau are not three strangers."
+        },
+        {
+          "t": 106.8,
+          "who": "Bell",
+          "text": "One house sent boys to Nassau, then built UNC, then named Davidson for an uncle. Copy: 1768, two cousins. Recite: clerk of Rowan. Love a man who kept a docket for thirty-seven years. That is as brave as a ford, only slower. Love a doctor who wrote a resolve and then grew quiet."
+        },
+        {
+          "t": 126.7,
+          "who": "Lee",
+          "text": "I could keep a docket if the coat had pockets. I will carry the books if Vee carries the hats."
+        },
+        {
+          "t": 134.2,
+          "who": "Vee",
+          "text": "I want to walk with a cousin to a brick hall and then walk home on purpose."
+        },
+        {
+          "t": 140.6,
+          "who": "Bell",
+          "text": "Deal. We will sew you pockets. First, walk the brick in your head. Witherspoon at the door. Two Carolina boys with new hats. The trustees thought they were getting one kind of minister and got a teacher who put lectures in English and put a spirit of liberty in the hall. Madison sat in those rooms later. Ephraim and Adlai sat in them first, from this river. Nassau was never a foreign country to this nest. It was a walk with a cousin."
+        },
+        {
+          "t": 171.8,
+          "who": "Lee",
+          "text": "Copy: Nassau 1768. Recite: two cousins, one river."
+        },
+        {
+          "t": 174.8,
+          "who": "Bell",
+          "text": "Yes. If you go to Nassau, ask for Princetonians, 1748 to 1768, Brevard and Osborne. If you go to Chapel Hill, remember Adlai sat a trustee. If you go to Davidson, remember Belmont was the lamp they walked back to, near the later college. None of those rooms will hug you. I will. The paper will wait."
+        },
+        {
+          "t": 196.2,
+          "who": "Vee",
+          "text": "Learn first. Then come home. I like that order more than any battle."
+        },
+        {
+          "t": 201.1,
+          "who": "Lee",
+          "text": "My notebook will be messy. My docket will have horse drawings in the margin."
+        },
+        {
+          "t": 206.4,
+          "who": "Bell",
+          "text": "Messy with purpose is scholarship. Sit in the brick a minute longer. Nassau Hall was one of the largest buildings in the colonies. All the college lived in it \u2014 sleep, class, meals, argument. Witherspoon put lectures in English so a boy from Rocky River could carry moral philosophy home in his own mouth. Madison would sit there later. Our cousins sat there first. Adlai\u2019s people still told children about Belmont, the old red house near what became Davidson, a hundred years on. That is how you know a school took. Not a plaque. A child still saying the house name."
+        },
+        {
+          "t": 244.4,
+          "who": "Vee",
+          "text": "I will say Belmont. I will say Crowfield. I will say two hats on a long road home."
+        },
+        {
+          "t": 251.1,
+          "who": "Lee",
+          "text": "I will say clerk of Rowan until 1809, which is a kind of horse that never comes home without its rider, because the rider is still at the desk."
+        },
+        {
+          "t": 262.0,
+          "who": "Bell",
+          "text": "Love a clerk. Love a doctor. Love a president who taught them both without knowing their river yet. If you go to Nassau, ask for Princetonians, 1748 to 1768, Brevard and Osborne. If you go to Chapel Hill, remember Adlai sat a trustee. If you go to Davidson, remember Belmont was the lamp they walked back to. None of those rooms will hug you. I will. Ring once. Tomorrow Washington goes home, which is the first presidency lesson, and a Polk of this house will have already sat in the snow with him. Bring a biscuit. I will bring the yoke."
         }
-      ]
+      ],
+      "records": "Princetonians 1748\u20131768 (James McLachlan): Ephraim Brevard and Adlai Osborne, Nassau Hall 1768. NCpedia Adlai Osborne. Crowfield Academy; Belmont. Witherspoon arrived 1768. UNC trustee. Rowan clerk 1772\u20131809."
     },
     {
       "id": "e07",
@@ -469,35 +885,91 @@
       "beats": [
         {
           "t": 0.0,
-          "who": "Hornet Bell",
-          "text": "Washington Goes Home"
-        },
-        {
-          "t": 12.0,
           "who": "Lee",
-          "text": "Did our militia belong to Washington?"
+          "text": "Did our militia belong to Washington? I do not want a king in a wig. I want to know who went home."
         },
         {
-          "t": 78.0,
+          "t": 9.5,
           "who": "Bell",
-          "text": "They belonged to the law and to North Carolina, and they answered when the Continental line needed a crossing held. Washington was the commander who would not keep the sword."
+          "text": "They belonged to the law and to North Carolina. They answered when the Continental line needed a crossing held. Davidson held fords so Greene could move. Polk wintered at Valley Forge with Washington\u2019s army. That is in the North Carolina Valley Forge story: the nineteenth of December, 1777, the North Carolina brigade walked into the snow, and young William Polk was there with a hurt mouth from Germantown, teeth gone, still a major."
         },
         {
-          "t": 144.0,
+          "t": 41.1,
           "who": "Vee",
-          "text": "A king stays. A president goes home. That is the first lesson of presidents in this show."
+          "text": "Valley Forge sounds like a sad song. Was it only sad?"
         },
         {
-          "t": 210.0,
+          "t": 45.8,
           "who": "Bell",
-          "text": "Ring it once. We will need it when later men forget."
+          "text": "It was a hard winter and a loyal one. Huts. Hunger. A commander who stayed with the men. A king stays on a throne. A president goes home. That is the first lesson of presidents in this show. Energy in the office, not a crown in the man. Washington had energy. He did not keep a crown."
         },
         {
-          "t": 276.0,
-          "who": "What we learned",
-          "text": "Washington commanded the army, then went home. Energy in the office, not a king in the man."
+          "t": 70.5,
+          "who": "Lee",
+          "text": "Did he come to Charlotte? Would I have hidden under the table?"
+        },
+        {
+          "t": 75.6,
+          "who": "Bell",
+          "text": "Years later, yes. Colonel Thomas Polk hosted Washington on the southern tour. The same Polk who had hauled bells. Imagine: the commander at your table, and you had already saved a bell for him without asking for a statue. You would bake too many biscuits. That is correct. Love is biscuits, not marble."
+        },
+        {
+          "t": 98.6,
+          "who": "Vee",
+          "text": "I would bake too many biscuits. I would save him the chair nearest the fire."
+        },
+        {
+          "t": 105.0,
+          "who": "Lee",
+          "text": "I would save Lafayette a biscuit too, if he came later."
+        },
+        {
+          "t": 109.8,
+          "who": "Bell",
+          "text": "William Polk\u2019s mouth was hurt at Germantown, the fourth of October 1777, while he shouted to his men. The North Carolina story at Valley Forge says he spent the winter getting well among the huts. He still went on \u2014 Cowan\u2019s Ford, Guilford, Eutaw. When he was old he was the last field officer of the North Carolina Line left alive. He ate breakfast with Lafayette in Raleigh, the same Lafayette who had been a boy at Brandywine with him. That is how you love Washington\u2019s world: you survive the snow, you go home, you keep a table for a friend."
+        },
+        {
+          "t": 153.5,
+          "who": "Vee",
+          "text": "A president goes home. Copy that. Recite it when anyone wants a king."
+        },
+        {
+          "t": 159.1,
+          "who": "Bell",
+          "text": "Yes. Our people did not wait to be asked. They held a ford. They hauled a bell. They sat in snow. Then they went home and kept courts and colleges. Washington is in this show because he left. That is the opposite of a fairy-tale king. Copy: a president goes home. Recite it in a meeting house voice, which is quieter than a parade."
+        },
+        {
+          "t": 186.7,
+          "who": "Lee",
+          "text": "A president goes home. Energy in the office, not a crown in the man."
+        },
+        {
+          "t": 192.8,
+          "who": "Bell",
+          "text": "Good. Picture the nineteenth of December: North Carolina walking into snow. Picture a hurt mouth learning to speak again in a hut. Picture a Charlotte table years later, too many biscuits, no statue requested. Picture Washington leaving the chair. That is the whole presidency lesson in a meeting house."
+        },
+        {
+          "t": 214.0,
+          "who": "Bell",
+          "text": "Save both biscuits. Then go home yourself. Sit at Valley Forge one more minute without making it a song only. Huts in rows. A hurt mouth learning words again. North Carolina in the snow on the nineteenth of December. A commander who could have taken a warmer house and did not. That is energy in the office. That is not a crown. Years later a Charlotte table, Thomas Polk hosting the southern tour, too many biscuits, no statue requested. William still carrying Germantown in his jaw and still keeping a table for Lafayette in Raleigh. Survive, go home, keep a table. That is the lesson."
+        },
+        {
+          "t": 259.4,
+          "who": "Vee",
+          "text": "I will not make him a cloud. I will make him a guest. I will still bake too many biscuits."
+        },
+        {
+          "t": 268.0,
+          "who": "Lee",
+          "text": "I will hang the coat after the snow. Coats dry. Crowns do not belong on pegs. A president goes home."
+        },
+        {
+          "t": 276.7,
+          "who": "Bell",
+          "text": "Copy: a president goes home. Recite: energy in the office, not a king in the man. Ring once. Tomorrow Madison\u2019s notebook, the yoke I hang from, and two kinds of cousins arguing without becoming monsters. Bring a pencil. I will bring the bell and the yoke and I will not let you skip either."
         }
-      ]
+      ],
+      "records": "North Carolina at Valley Forge, 19 December 1777. William Polk wounded at Germantown, 4 October 1777. Col. Thomas Polk hosted Washington on the southern tour. Davidson holding fords for Greene. Energy in the office, not a crown."
     },
     {
       "id": "e08",
@@ -533,35 +1005,71 @@
       "beats": [
         {
           "t": 0.0,
-          "who": "Hornet Bell",
-          "text": "Madison\u2019s Notebook"
-        },
-        {
-          "t": 12.0,
           "who": "Vee",
-          "text": "Madison went to the same Princeton as Ephraim and Adlai, a few years later."
+          "text": "Madison went to the same Princeton. Did he know our cousins? Did he keep his pencil too sharp?"
         },
         {
-          "t": 78.0,
+          "t": 8.7,
           "who": "Bell",
-          "text": "He kept a notebook at the Convention like a boy who knows he will have to explain it. Publius and Brutus both get a hearing in our big hall. Here we say: he wrote so the people could read."
+          "text": "A few years after Ephraim and Adlai. Class of 1771, Nassau Hall, Witherspoon still in the chair. Madison kept a notebook at the Convention like a boy who knows he will have to explain it. That is why we love him: not because he won every argument, but because he wrote so the people could read the argument. A notebook is a kind of lantern."
         },
         {
-          "t": 144.0,
+          "t": 40.2,
           "who": "Lee",
-          "text": "Is the Constitution the bell or the steeple?"
+          "text": "Is the Constitution the bell or the steeple? I always mix iron."
         },
         {
-          "t": 210.0,
+          "t": 46.0,
           "who": "Bell",
-          "text": "The Declaration is why I ring. The Constitution is the yoke I hang from. Without a yoke, a bell falls. Without a reason, a yoke is only iron."
+          "text": "The Declaration is why I ring. The Constitution is the yoke I hang from. Without a yoke, a bell falls. Without a reason, a yoke is only iron. Madison understood the yoke. The Anti-Federalists understood the fear of a yoke too tight. Our big hall lets both speak. This cartoon says: he wrote notes so you could see the fight was a fight of cousins, not of monsters. Publius and Brutus both get a hearing. We do not flatten either."
         },
         {
-          "t": 276.0,
-          "who": "What we learned",
-          "text": "Madison learned under Witherspoon too. The Constitution is a form to keep the Declaration\u2019s end. He wrote notes so we could see the argument."
+          "t": 84.7,
+          "who": "Vee",
+          "text": "I want a notebook. I want to write the fight down so nobody has to become a monster."
+        },
+        {
+          "t": 93.4,
+          "who": "Lee",
+          "text": "I will lend you a page if you lend me a pencil. My notebook will be messy."
+        },
+        {
+          "t": 101.6,
+          "who": "Bell",
+          "text": "Madison\u2019s was messy with purpose. Messy with purpose is scholarship. Witherspoon taught moral philosophy in English so a Carolina boy could carry it home. Madison carried it to a room of arguments. Copy: notebook. Recite: yoke and bell. Then you have watched Madison without turning him into a marble man."
+        },
+        {
+          "t": 125.8,
+          "who": "Vee",
+          "text": "Learn first. Then come home. Then write it down. That is three lanterns."
+        },
+        {
+          "t": 132.1,
+          "who": "Bell",
+          "text": "Witherspoon signed the Declaration. Nassau Hall even housed Congress for a moment in 1783. The brick has heard arguments and muskets and lectures. Our cousins walked out of it before the muskets, which is a kind of courage too. Madison walked out later and kept writing. If you only remember a wig, you have not done the episode. If you copy one line from a note, you have."
+        },
+        {
+          "t": 165.0,
+          "who": "Bell",
+          "text": "Yes. Copy: notebook. Recite the yoke and the bell. Sit in the room of arguments one more minute. Some men wanted a strong yoke so the wagon would not spill. Some men feared a yoke so tight the horse could not breathe. Both were cousins of a kind. Publius wrote for the yoke. Brutus wrote for the fear. Madison wrote so you could still sit at the table and see it was a fight, not a spell. Our civics hall keeps the longer fight and lets both speak. Here we only love the habit: write it down. Witherspoon at the door. Lectures in English. Nassau Hall housing Congress in 1783, brick that has heard muskets and motions. Our cousins walked out before the muskets. Madison walked out later with a notebook. If you only remember a wig, you have not done the episode. If you copy one line, you have. A small man. A large habit. A pencil that outlived a shout."
+        },
+        {
+          "t": 243.4,
+          "who": "Vee",
+          "text": "I like Brutus having a chair. Cousins argue. Then they still pass the biscuits. I will copy one line tonight. I will not skip the fear just because I like the ring."
+        },
+        {
+          "t": 258.9,
+          "who": "Lee",
+          "text": "If I cheer only one side I have skipped the notebook. Messy with purpose. Yoke and bell. Declaration why we ring. Constitution so we do not fall."
+        },
+        {
+          "t": 271.9,
+          "who": "Bell",
+          "text": "Copy: notebook. Recite: the Constitution is a form to keep the Declaration\u2019s end. Ring once. Tomorrow a loud Carolina boy, and we will not make him a stuffed angel either. Whisper practice would not hurt. The law is king, even when the people cheer. Bring your quiet voice. I will bring Jackson, and I will not flatten him."
         }
-      ]
+      ],
+      "records": "Princetonians 1769\u20131775, class of 1771, James Madison. Witherspoon at Nassau Hall. Notes of the Convention. Publius and Brutus both heard in the civics hall. Nassau Hall housed Congress, 1783. Declaration as why the bell rings; Constitution as the yoke."
     },
     {
       "id": "e09",
@@ -597,35 +1105,91 @@
       "beats": [
         {
           "t": 0.0,
-          "who": "Hornet Bell",
-          "text": "Jackson and the People"
-        },
-        {
-          "t": 12.0,
           "who": "Lee",
-          "text": "Jackson is loud."
+          "text": "Jackson is loud. Will he break my pencil? Will he break the yoke?"
         },
         {
-          "t": 78.0,
+          "t": 6.1,
           "who": "Bell",
-          "text": "He is. He came from this same backcountry idea: the people, not a caucus of clerks. He broke a bank and held a Union and used a hard hand. This show will not make him a stuffed angel."
+          "text": "He is loud. A Carolina backcountry boy who said the people are the sovereign. He broke a bank and held a Union and used a hard hand. This show will not make him a stuffed angel. Love is not flattery. He is in this show because the backcountry thought a president could be a neighbor with a hard hand. Our people already knew neighbors with hard hands."
         },
         {
-          "t": 144.0,
+          "t": 37.7,
           "who": "Vee",
-          "text": "Our civics hall already keeps Jacksonian lessons. Here we only say: a president is still under the law, even a popular one."
+          "text": "Can we still love a loud person? I like quiet lanterns."
         },
         {
-          "t": 210.0,
+          "t": 42.9,
           "who": "Bell",
-          "text": "Lex rex, children. The law is king. Even when the people cheer."
+          "text": "You can love the office and tell the truth about the man. Lex rex, children. The law is king. Even when the people cheer. Even when the man is popular. Our civics hall already keeps Jacksonian lessons. Here we only say: a president is still under the law. If the people are sovereign, they are sovereign under law. That is Jacksonian and it is Hopewell too."
         },
         {
-          "t": 276.0,
-          "who": "What we learned",
-          "text": "Jackson was a Carolina boy who said the people are the sovereign. Bank, Union, a hard hand. We teach the office, not a saint."
+          "t": 73.9,
+          "who": "Lee",
+          "text": "If I cheer too loud, will you ring at me?"
+        },
+        {
+          "t": 78.6,
+          "who": "Bell",
+          "text": "I will ring at anyone who forgets the yoke. Jackson came from the same idea as this nest: the people, not a caucus of clerks. Keep that. Leave the rest to older rooms. Copy: the law is king. Recite it in a whisper, which is louder than a cheer."
+        },
+        {
+          "t": 101.7,
+          "who": "Vee",
+          "text": "Whisper: the law is king. Whisper: even if I want to cheer."
+        },
+        {
+          "t": 107.4,
+          "who": "Lee",
+          "text": "Whisper: the people, not a caucus of clerks. Whisper: still under the law."
+        },
+        {
+          "t": 113.5,
+          "who": "Bell",
+          "text": "Good. Loud love is fine. Loud lawlessness is not. Picture a meeting house that rings for both the people and the law. Picture a bank as a giant purse some neighbors feared. Picture the Union as a wagon that must not split. Picture a hard hand and do not clap yet. First ask: is the hand under the law? Then you have finished Jackson without becoming a poster."
+        },
+        {
+          "t": 145.5,
+          "who": "Vee",
+          "text": "Madison was a page. Jackson was a shout. Both sit in the house. The yoke holds both."
+        },
+        {
+          "t": 153.5,
+          "who": "Bell",
+          "text": "That is the sentence. One last kindness: Jackson is in the civics hall with longer lessons if you want them. This cartoon only asks you to keep the people and the law in the same sentence. Hopewell rang for both. So do we. We do not flatten him. We do not crown him."
+        },
+        {
+          "t": 178.5,
+          "who": "Lee",
+          "text": "I will not become a poster. Posters do not fit on pegs."
+        },
+        {
+          "t": 184.1,
+          "who": "Vee",
+          "text": "I will keep my whisper even when the room gets loud."
+        },
+        {
+          "t": 189.3,
+          "who": "Bell",
+          "text": "Then you have watched this episode for real. Sit with the loudness without covering your ears, and without clapping yet. The backcountry thought a president could be a neighbor. That was the kindness. The hard hand was the danger. A giant purse some neighbors feared. A wagon called Union that must not split. A meeting house that already knew the people are not a caucus of clerks. Lex rex anyway. The law is king even when the neighbor is popular. Madison was a page. Jackson was a shout. Both sit in the house. The yoke holds both. We do not flatten him. We do not crown him. Hopewell rang for both the people and the law."
+        },
+        {
+          "t": 244.0,
+          "who": "Lee",
+          "text": "I will not become a poster. Posters do not fit on pegs. Whisper: the law is king."
+        },
+        {
+          "t": 252.0,
+          "who": "Vee",
+          "text": "I will keep my whisper even when the room gets loud. The people, and the law, in the same sentence."
+        },
+        {
+          "t": 261.4,
+          "who": "Bell",
+          "text": "Copy tonight: Jackson was a Carolina boy who said the people are the sovereign. Recite: we teach the office, not a saint. One last kindness: the civics hall has longer Jacksonian lessons if you want them. This cartoon only asks for one sentence kept whole. Ring once, softly, which will annoy anyone who wanted a parade, and that is all right. Tomorrow Cousin Polk from Mary Wilson\u2019s kitchen. Start from the kitchen and you will not get lost in the White House."
         }
-      ]
+      ],
+      "records": "Jacksonian lessons in the civics hall. Carolina backcountry. Lex rex \u2014 the law is king. People as sovereign under law, not a caucus of clerks, not a crown. This cartoon tells the truth without a saint."
     },
     {
       "id": "e10",
@@ -661,35 +1225,71 @@
       "beats": [
         {
           "t": 0.0,
-          "who": "Hornet Bell",
-          "text": "Cousin Polk"
-        },
-        {
-          "t": 12.0,
           "who": "Vee",
-          "text": "The boy from Mary Wilson\u2019s line sat in the White House."
+          "text": "The boy from Mary Wilson\u2019s line sat in the White House. Start in the kitchen anyway. I will not skip Mary."
         },
         {
-          "t": 78.0,
+          "t": 10.4,
           "who": "Bell",
-          "text": "James Knox Polk. Mecklenburg blood, Tennessee house, a Knox in the name for the captain\u2019s people. Lt. Col. Polk\u2019s kin. This is why we taught the daughters first."
+          "text": "Bless you. James Knox Polk. Mecklenburg blood, Tennessee house, a Knox in the name for the captain\u2019s people. Great-nephew of Colonel Thomas, who saved the bell. This is why we taught the daughters first. A republic is supposed to work like that. Not a palace. A family that learned to read and to muster. If you ever stand in Mecklenburg and say Polk, start with Mary and Thomas and William, then James. The White House is the last room, not the first."
         },
         {
-          "t": 144.0,
+          "t": 50.9,
           "who": "Lee",
-          "text": "So a president can be a cousin from Rural Hill\u2019s web."
+          "text": "Was he our cousin? In the wide cousin way?"
         },
         {
-          "t": 210.0,
+          "t": 55.4,
           "who": "Bell",
-          "text": "A republic is supposed to work like that. Not a palace. A family that learned to read and to muster."
+          "text": "Yes. Mary Wilson married Ezekiel, Thomas\u2019s brother. The records run through the Polk papers and the Wilson marriages like a creek you can step in twice. Speaker of the United States House. Governor of Tennessee. Eleventh president. He came from the same web that kept Rural Hill and Hopewell. He worked. That is the living part. Not a cloud. A desk."
         },
         {
-          "t": 276.0,
-          "who": "What we learned",
-          "text": "James Knox Polk, eleventh president, comes down from Mary Wilson and Ezekiel Polk. Knox is the middle name on purpose."
+          "t": 85.5,
+          "who": "Vee",
+          "text": "I will not be president. I will be Violet anyway. That feels braver today."
+        },
+        {
+          "t": 92.4,
+          "who": "Bell",
+          "text": "That is the bravest line in this episode. Copy: Mary Wilson. Recite: Knox in the name on purpose. Love a president who was a cousin from a river, not a prince from a cloud. The Polk stack in this house is militia, council, bank, university trustee, White House. Thomas saved a bell. William kept a bank and a college seat. James sat where laws are signed. None of that erases Violet\u2019s kitchen."
+        },
+        {
+          "t": 128.0,
+          "who": "Lee",
+          "text": "Kitchen first. Then the House. Then, maybe, a president, if the pegs are still on the wall."
+        },
+        {
+          "t": 136.4,
+          "who": "Vee",
+          "text": "Mary Wilson first. Then James. I will draw a kitchen table longer than a White House."
+        },
+        {
+          "t": 144.3,
+          "who": "Bell",
+          "text": "You have the order. That is how a child loves a president without becoming a courtier. Picture Mary. Picture Ezekiel. Picture a baby given Knox because a captain had already been a neighbor and had fallen at Ramsour\u2019s Mill. Picture Thomas wrapping a cousin-bell in straw. Picture James working late as Speaker. Start from the kitchen and you will not get lost in the marble."
+        },
+        {
+          "t": 176.4,
+          "who": "Bell",
+          "text": "Good house. Sit in Mary\u2019s kitchen one more minute until the White House feels like a later room, not a cloud. Picture a creek. Picture Ezekiel. Picture a baby given Knox because Captain Patrick had already been a neighbor and had fallen at Ramsour\u2019s Mill. Picture Thomas wrapping a cousin-bell in straw. Picture William with a hurt mouth still going on to a bank and a college seat for forty-two years. Picture James working late as Speaker, then Tennessee\u2019s governor\u2019s chair, then the eleventh presidency. None of that erases a peg on a kitchen wall. If the pegs are gone, the White House is only a cloud, and we do not love clouds in this show. A nest makes a president and still knows where the coats hang. Start from the kitchen. Recite Mary. Then you may say James without becoming a courtier."
+        },
+        {
+          "t": 247.1,
+          "who": "Vee",
+          "text": "Pegs, then presidents. I can keep that next to sheriff, then governor. Mary first. James after."
+        },
+        {
+          "t": 255.0,
+          "who": "Lee",
+          "text": "I will lend the horse even to a cousin who sat in a White House, as long as he still knows Mary. Copy: Mary Wilson married Ezekiel Polk. Recite: Knox is the middle name on purpose."
+        },
+        {
+          "t": 272.8,
+          "who": "Bell",
+          "text": "Davidson\u2019s papers and the old county marriages will wait. I will wait on my beam. Ring once. Tomorrow Lincoln\u2019s books \u2014 not our blood, our method. Few books, copied, recited. A fire instead of Nassau. You are already enrolled. Not certified. Enrolled. Bring a proposition you half hate. I will bring a hat to tip."
         }
-      ]
+      ],
+      "records": "Mary Wilson \u00d7 Ezekiel Polk, grandfather line of James Knox Polk. Knox for Capt. Patrick Knox. Col. Thomas Polk; Lt. Col. William Polk. Speaker of the House; Governor of Tennessee; eleventh president. Kitchen first."
     },
     {
       "id": "e11",
@@ -725,35 +1325,81 @@
       "beats": [
         {
           "t": 0.0,
-          "who": "Hornet Bell",
-          "text": "Lincoln\u2019s Books"
-        },
-        {
-          "t": 12.0,
           "who": "Lee",
-          "text": "Lincoln is not from Mecklenburg."
+          "text": "Lincoln is not from Mecklenburg. Why is he at our table? Is he a guest with muddy shoes too?"
         },
         {
-          "t": 78.0,
+          "t": 8.9,
           "who": "Bell",
-          "text": "No. He is in this show because he learned like our meeting house: few books, copied, recited. That is the method of the bigger school on this git."
+          "text": "No blood from this river. He is in this show because he learned like our meeting house: few books, copied, recited. Euclid. Shakespeare. The Bible. Blackstone. Slow to scratch, slow to forget. Davidson\u2019s library and UNC\u2019s library are full of books. Lincoln\u2019s library was his knees and a fire. That is why we put him with our people: not blood, method."
         },
         {
-          "t": 144.0,
+          "t": 37.3,
           "who": "Vee",
-          "text": "He said the Lyceum must be law, not the mob. Our general died at a ford under law, not under a riot."
+          "text": "That makes me want to copy something right now. May I use the floor?"
         },
         {
-          "t": 210.0,
+          "t": 43.8,
           "who": "Bell",
-          "text": "Copy one proposition. Recite one speech. Then you have watched this episode for real. Films do not pass a Lincoln class. Neither do cartoons, unless you copy."
+          "text": "Use the floor. Use a knee. Use a slate. He said the Lyceum must be law, not the mob. Our general died at a ford under law, not under a riot. Films do not pass a Lincoln class. Neither do cartoons, unless you copy. If you only watch this cartoon, you have not done the episode. If you copy one proposition, you have."
         },
         {
-          "t": 276.0,
-          "who": "What we learned",
-          "text": "Lincoln had no college. He copied Euclid, Shakespeare, the Bible, Blackstone. Slow to scratch, slow to forget. We do not make a war of this episode."
+          "t": 73.1,
+          "who": "Lee",
+          "text": "I will copy one proposition. I will hate it and then I will know it. That is the whole method."
+        },
+        {
+          "t": 82.5,
+          "who": "Bell",
+          "text": "That is the whole method. The bigger school on this git uses it. You are already enrolled. Not certified. Enrolled. Copy one sentence from Euclid or from a speech. Recite it tomorrow. Then this episode counted, and Lincoln would have tipped his hat to a Mecklenburg bell."
+        },
+        {
+          "t": 104.3,
+          "who": "Vee",
+          "text": "I will recite mine to the bell. I have been practicing whisper and kitchen and pegs. Now I will practice a line I do not yet love."
+        },
+        {
+          "t": 116.9,
+          "who": "Lee",
+          "text": "I copied a line in my head. I will write it when the coat comes off, because the sleeves eat pencils."
+        },
+        {
+          "t": 126.7,
+          "who": "Bell",
+          "text": "I am listening. I have been listening since Hopewell hung me. He had no Nassau Hall. He had no Davidson. He made a college of firelight. When you are older, walk a library. Davidson\u2019s. Chapel Hill\u2019s. A fire is a library if you copy. Lincoln would have understood a meeting-house bell. We understand a boy with three books. That is the friendship."
+        },
+        {
+          "t": 155.6,
+          "who": "Vee",
+          "text": "Copy. Recite. Demonstrate. I like demonstrate because it means show me with your hands."
+        },
+        {
+          "t": 162.1,
+          "who": "Bell",
+          "text": "Show me with your hands. Show me with a line you can still say in the morning. We do not make a war of this episode. We make a desk of knees. Slow to scratch, slow to forget. The Lyceum address said law must be the political religion. Our general at the ford was law, not a riot. Keep those in one house."
+        },
+        {
+          "t": 191.5,
+          "who": "Bell",
+          "text": "Good scholars. Sit by the fire one more minute. Three books. A knee for a desk. Euclid that you half hate until it stays. Shakespeare said aloud until it is yours. The Bible. Blackstone. Slow to scratch, slow to forget. He had no Nassau, no Davidson, no Crowfield. He made a college of firelight. Our libraries at Davidson and Chapel Hill are full, and they still only work if you copy. The Lyceum said law must be the political religion, not the mob. Our general at the ford was law, not a riot. We do not make a war of this episode. We make a friendship of method. Lincoln would have understood a meeting-house bell. We understand a boy with three books."
+        },
+        {
+          "t": 248.3,
+          "who": "Lee",
+          "text": "I will not skip the copy. Watching is not the class. I will write it when the coat comes off."
+        },
+        {
+          "t": 257.6,
+          "who": "Vee",
+          "text": "I will not skip the recite. The bell is the teacher who will not let me mumble. Copy. Recite. Demonstrate \u2014 show me with your hands."
+        },
+        {
+          "t": 269.7,
+          "who": "Bell",
+          "text": "Copy tonight: Lincoln had no college. He copied Euclid, Shakespeare, the Bible, Blackstone. Recite: slow to scratch, slow to forget. You are already enrolled. Not certified. Enrolled. Ring once. Tomorrow a wagon, straw, a broken wheel in Bethlehem, and a North Carolina colonel who chose to keep a voice instead of making a gun. Bring your quietest love. I will bring the cousin in Philadelphia."
         }
-      ]
+      ],
+      "records": "Lincoln\u2019s books: Euclid, Shakespeare, Bible, Blackstone. Lyceum address \u2014 law as political religion, not the mob. Method of copy, recite, demonstrate. Friendship of method with Davidson and UNC libraries, not blood. No war in this episode."
     },
     {
       "id": "e12",
@@ -801,50 +1447,76 @@
       "beats": [
         {
           "t": 0.0,
-          "who": "Hornet Bell",
-          "text": "Polk Saves the Bell"
-        },
-        {
-          "t": 12.0,
           "who": "Bell",
-          "text": "Philadelphia, 1777. The British are coming. Bells make cannon if you melt them. The State House Bell \u2014 the one you call Liberty \u2014 had to leave town in a wagon, under straw."
+          "text": "Philadelphia, 1777. The British are coming. Bells make cannon if you melt them. The State House Bell \u2014 the one you call Liberty \u2014 had to leave town in a wagon, under straw. Colonel Thomas Polk of Charlotte, Fourth North Carolina Continental, was tasked. Two hundred men, hundreds of wagons, all the brass bells. I ring for a river. She rang for a country. A Polk of this house kept her a bell."
         },
         {
-          "t": 49.7,
+          "t": 33.7,
           "who": "Lee",
-          "text": "Who was tasked?"
+          "text": "Did the wagon break? I hope somebody wrote that down, or I will think we made it up."
         },
         {
-          "t": 87.4,
+          "t": 42.0,
           "who": "Bell",
-          "text": "Colonel Thomas Polk of Charlotte. North Carolina\u2019s 4th Continental. He had already called the Mecklenburg meeting. On the twenty-fourth of September he arrived in Allentown with the bells still bells."
+          "text": "Somebody wrote it down. The Moravian diary at Bethlehem, the twenty-third and twenty-fourth of September, wrote: the wagon with the State House Bell broke in the street and had to be unloaded. The other bells went on. On the twenty-fourth, Polk arrived at Allentown. The bells were still bells. That is the record the state keeps, and Allentown still tells. Straw instead of glory."
         },
         {
-          "t": 125.1,
+          "t": 71.5,
           "who": "Vee",
-          "text": "And Lt. Col. Polk?"
+          "text": "I love a broken wagon that still saved a voice. Straw is a superpower."
         },
         {
-          "t": 162.9,
+          "t": 78.0,
           "who": "Bell",
-          "text": "That is his son William, later lieutenant colonel after Guilford. Same house, same line, Germantown wound in the mouth, then Cowan\u2019s Ford and Eutaw. The father was tasked with the wagons. The son wore the later rank. One Polk house kept my cousin from becoming a gun."
+          "text": "His son William, later lieutenant colonel, was in that same North Carolina line. Germantown: a ball through the mouth while he shouted orders. Teeth gone, jaw hurt. Valley Forge to get well. Then Cowan\u2019s Ford, Guilford, Eutaw. Last surviving field officer of the North Carolina Line when he died. He welcomed Lafayette years later to breakfast in Raleigh. The father hauled the cousin-bell. The son wore the later rank. One Polk house."
         },
         {
-          "t": 200.6,
+          "t": 111.2,
           "who": "Lee",
-          "text": "So our Bell and that Bell are kin in the story."
+          "text": "So our Bell and that Bell are kin. I will not melt a voice. I will wrap it."
         },
         {
-          "t": 238.3,
+          "t": 119.5,
+          "who": "Vee",
+          "text": "I will wrap my voice in straw if anyone tries to make it a gun."
+        },
+        {
+          "t": 126.5,
           "who": "Bell",
-          "text": "Yes. And James Knox Polk, president, comes down from Ezekiel, Thomas\u2019s brother, and Mary Wilson. Militia, council, bank, university, White House \u2014 that is the Polk stack. Look at the House tab."
+          "text": "That is the speech. Copy: the twenty-fourth of September, 1777. Recite: still a bell. Love a colonel who chose straw instead of glory. Allentown hid the bells by Zion\u2019s church, under the floor. When the British left Philadelphia, the bells came home still bells. A North Carolina colonel did that. Love him for straw, and for not melting, and for not abandoning a broken wagon in a street."
         },
         {
-          "t": 276.0,
-          "who": "What we learned",
-          "text": "24 September 1777: Col. Thomas Polk of Mecklenburg was tasked to get Philadelphia\u2019s bells \u2014 including the Liberty Bell \u2014 to Allentown so they would not be melted for cannon. His son William, later Lt. Col., served in that same North Carolina line."
+          "t": 157.8,
+          "who": "Lee",
+          "text": "Straw is a superpower. A broken wagon is not the end. Unload. Repair. Go on."
+        },
+        {
+          "t": 164.8,
+          "who": "Bell",
+          "text": "Thomas had already called Mecklenburg\u2019s meeting. He fought at Brandywine. He wintered at Valley Forge. Then the wagons. The Moravians watched the train pass, wrote the broken wagon into a diary, and went on with their work. That diary is why we do not have to guess. Picture two thousand pounds of bell, a cracked axle, men in a street who will not leave her. Picture floorboards. Picture me, her cousin, ringing for a river because she was still a bell."
+        },
+        {
+          "t": 202.2,
+          "who": "Bell",
+          "text": "Ring for the cousin in Philadelphia. Sit with the broken wagon one more minute until glory feels too shiny. Picture bells taken down so they would not be melted. Picture straw. Picture a street in Bethlehem and a Moravian with a diary who did not need to be a soldier to tell the truth. Picture two thousand pounds of State House Bell, an axle that failed, men who unloaded her instead of leaving her. Picture Allentown, Zion\u2019s church, floorboards. Picture Thomas of Charlotte tasked with the train. Picture William\u2019s hurt mouth in the same line. Picture me, her cousin on the Catawba, still ringing because she was still a bell."
+        },
+        {
+          "t": 252.9,
+          "who": "Vee",
+          "text": "Copy: 24 September 1777. Recite: still a bell. I will not skip the Moravians. Straw is a superpower."
+        },
+        {
+          "t": 261.2,
+          "who": "Lee",
+          "text": "I will not skip the straw. Glory can wait on a peg. Unload. Repair. Go on. A broken wagon is not the end."
+        },
+        {
+          "t": 271.8,
+          "who": "Bell",
+          "text": "Love a colonel who chose straw instead of glory. Ring for the wagon that broke and was not abandoned. Tomorrow the house they made \u2014 local, bench, militia, state, president \u2014 one intermarried family, and a college, and a docket, and a lantern, and you. Bring your growing. I will bring every office and I will not let Joseph be governor."
         }
-      ]
+      ],
+      "records": "DNCR: Thomas Polk arrived Allentown 24 September 1777 with Philadelphia\u2019s bells. Moravian diary, Bethlehem, 23\u201324 September: the wagon with the State House Bell broke and had to be unloaded. Zion\u2019s Reformed Church floorboards. William Polk, Germantown jaw, Valley Forge, last field officer of the N.C. Line."
     },
     {
       "id": "e13",
@@ -880,35 +1552,71 @@
       "beats": [
         {
           "t": 0.0,
-          "who": "Hornet Bell",
-          "text": "The House They Made"
-        },
-        {
-          "t": 12.0,
           "who": "Vee",
-          "text": "Did they only fight?"
+          "text": "Did they only fight? Please say no. I want the pegs and the dockets and the lantern to win."
         },
         {
-          "t": 78.0,
+          "t": 8.5,
           "who": "Bell",
-          "text": "No. Major John was magistrate and commons. Adlai was clerk of the Rowan court. John Brevard was justice from Anson on. Joseph Graham was sheriff, senator, and justice \u2014 a general twice. His son was governor, senator, Secretary of the Navy."
+          "text": "No. And this is the episode that makes children love them forever, if you let it. Major John: magistrate, commons, Rural Hill. Adlai: clerk of Rowan thirty-seven years, UNC trustee. John Brevard: justice from Anson on, guardian with Alexander Osborne of the Davidson children. Joseph Graham: sheriff, senator, justice, general twice \u2014 not governor. William A. Graham: governor, senator, Navy. Thomas Polk: council of state, hosted Washington. William Polk: first president of the State Bank, UNC trustee forty-two years. James Knox Polk: the House, then the White House."
         },
         {
-          "t": 144.0,
+          "t": 47.6,
           "who": "Lee",
-          "text": "And a president."
+          "text": "And a college. And a horse. And a coat that is still too big."
         },
         {
-          "t": 210.0,
+          "t": 53.9,
           "who": "Bell",
-          "text": "James Knox Polk. The house runs from a county court to a White House without becoming a palace. That is the point of the House tab. Copy one office. Recite who held it."
+          "text": "Davidson College, 1837, named for the uncle, land from the son at Beaver Dam, records in the archives there. UNC\u2019s Colonial Records keep Graham\u2019s own voice. Nassau Hall keeps the 1768 cousins in a book called Princetonians. You can love a person in a docket, in a wagon, in a lantern, in a notebook, in a horse coming home. That is how a child loves a house without becoming a courtier."
         },
         {
-          "t": 276.0,
-          "who": "What we learned",
-          "text": "Local office, judicial bench, militia, state executive, presidency: one intermarried house. Joseph Graham was not governor; William A. Graham was. Copy the table."
+          "t": 85.5,
+          "who": "Vee",
+          "text": "I love them. I love Mary and Violet and Hannah and Aunt Susie and the horse who had no lines."
+        },
+        {
+          "t": 94.4,
+          "who": "Lee",
+          "text": "I love them. My coat is still too big. That means I have growing to do. I will lend the horse. I will keep the docket. I will hang the coat where I can grow into it."
+        },
+        {
+          "t": 110.8,
+          "who": "Bell",
+          "text": "Grow. Copy one office. Recite who held it. The house runs from a county court to a White House without becoming a palace. That is the point. If you go to Davidson, ask the archives for Beaver Dam and the general. If you go to Chapel Hill, ask for Graham\u2019s papers and the Colonial Records, volume twenty-two. If you go to Nassau, ask for Princetonians 1748 to 1768, Brevard and Osborne. None of those rooms will hug you. I will. The paper will wait. The horse already came home. You are the children who make the paper warm again."
+        },
+        {
+          "t": 154.9,
+          "who": "Vee",
+          "text": "We love them. We will copy. We will recite. Kitchen first. Pegs, then presidents."
+        },
+        {
+          "t": 161.1,
+          "who": "Lee",
+          "text": "Sheriff, not governor. One Davidson family. A president goes home. The law is king. Still a bell."
+        },
+        {
+          "t": 168.7,
+          "who": "Bell",
+          "text": "Then the house they made is still open. Sit at the table of offices one more minute and love them as jobs, not costumes. Magistrate. Clerk. Sheriff. Justice. Trustee. Senator. Governor. Navy. Speaker. President. Bank. College. Lantern. Horse. Bell. One intermarried house. Joseph Graham was not governor; William A. Graham was. The general is uncle to Major John and to Adlai \u2014 one Davidson family. Ephraim and Adlai, Princeton 1768. Thomas saved a bell. Mary was a hinge. Lincoln copied. Washington went home. Madison kept a notebook. Jackson stayed under the law. You copy one office and recite who held it, as if they could hear you, because that is how you bring them to life. Not with a cheer. With a name, a job, a kindness."
+        },
+        {
+          "t": 225.2,
+          "who": "Vee",
+          "text": "Aunt Susie, I hear you. Lantern. Cows. Home. Mary, I hear you. Kitchen. Pegs. Then a president if the pegs stay."
+        },
+        {
+          "t": 234.6,
+          "who": "Lee",
+          "text": "William Lee, I hear you. Fog. Horse. Hopewell. College. Adlai, I hear you. Thirty-seven years of ink. Joseph, I hear you. Sheriff, not governor."
+        },
+        {
+          "t": 245.3,
+          "who": "Bell",
+          "text": "If you go to Davidson, ask the archives for Beaver Dam and the general. If you go to Chapel Hill, ask for Graham\u2019s papers and the Colonial Records, volume twenty-two. If you go to Nassau, ask for Princetonians 1748 to 1768, Brevard and Osborne. None of those rooms will hug you. I will. The paper will wait. The horse already came home. You are the children who make the paper warm again. I am going to ring three times, very softly, and you are going to sleep, and tomorrow you will remember a cousin, not a statue. That is a five-minute education. That is enough. Good night, hornets. Sleep like a nest. I will still be here when you copy in the morning."
         }
-      ]
+      ],
+      "records": "Davidson College Archives (Beaver Dam, 1837). UNC Colonial Records vol. 22 and Joseph Graham Papers. Nassau Hall, Princetonians 1748\u20131768. House of offices: Polk, Davidson, Graham father and son, Osborne, Brevard, Knox, Reese. One Davidson family."
     }
   ]
 }
