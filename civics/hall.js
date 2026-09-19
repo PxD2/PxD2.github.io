@@ -75,6 +75,14 @@ document.getElementById("founding").innerHTML =
   </div>
   <h2>Lincoln, in one paragraph</h2>
   <p class="lede">15 April 1861: troops called, Congress set for 4 July. Blockade 19 April. Habeas 27 April. Taney in Merryman: only Congress suspends. Lincoln does not produce the body. 6 August 1861: Congress declares the past “legalized… as if” it had already authorized it. Prize Cases 5–4 after the captures. Milligan after the war. The 37th Congress sat without eleven states. Retroactive legality is the statute’s own words.</p>`;
+document.getElementById("resistance").innerHTML =
+  `<h2>PxD2 resistance theory</h2>
+  <p class="lede">Four classes: Knox, Rutherford’s Lex Rex, Craighead in the Piedmont, Witherspoon. Then Heller, McDonald, Bruen, Reese v. ATF, Lara v. Evanchick, and Cockerham as applications — not the source of the right. Lesser magistrates first. Not a private war.</p>
+  <p><a href="resistance.html">Open the four classes and the cases →</a></p>
+  <div class="grid" style="margin-top:1.5rem">
+    <article class="lesson"><div class="meta"><div class="tag">I–IV</div><h3>Knox · Rutherford · Craighead · Witherspoon</h3><p>Office under law. Covenant withheld. Resistance last, through estates, not a mob.</p></div></article>
+    <article class="lesson"><div class="meta"><div class="tag">Cases</div><h3>Heller to Cockerham</h3><p>Individual right; incorporation; text-and-history; 18–20 among the people; as-applied lifetime disarmament for a paid debt fails in the Fifth.</p></div></article>
+  </div>`;
 document.getElementById("hillsdale").innerHTML =
   `<h2>Introduction to the Constitution</h2>` +
   grid(intro) +
