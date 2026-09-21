@@ -1,0 +1,46 @@
+{
+  "case_id": "PXD2-AIR-T2-PLANE-NACA0012-R6e6-Ap01.98",
+  "vehicle": "plane",
+  "medium": "air",
+  "geometry_ref": "NACA 0012 (2D section)",
+  "aoa_deg": 1.98,
+  "speed_m_s": 62.275976676384836,
+  "Re": 5970000.0,
+  "rho_kg_m3": 1.225,
+  "S_m2": 16.0,
+  "c_m": 1.4,
+  "Cl": 0.208,
+  "Cd": 0.0068,
+  "LD": 30.58823529411765,
+  "Lift_N": 7905.521157201566,
+  "Drag_N": 258.44973013928194,
+  "fidelity": "Tier 2 validated — experimental reference polar",
+  "source": "Ladson, C. L., NASA TM-4074 (1988), Table I, M=0.15 free transition. https://ntrs.nasa.gov/citations/19880019495",
+  "uncertainty": {
+    "notes": "Langley LTPT 2D section. Author notes elevated tunnel turbulence vs early LTPT. Repeatability near α=0: Cd ±0.0002, CN ±0.004 (TM-4074).",
+    "Cd_repeatability": 0.0002,
+    "CN_repeatability": 0.004
+  },
+  "tier": 2,
+  "validated": true,
+  "reference": {
+    "Cl": 0.208,
+    "Cd": 0.0068,
+    "dataset": "NASA-TM-4074 Table I free transition"
+  },
+  "estimate": {
+    "Cl": 0.2171312968239659,
+    "Cd": 0.030121570002720574,
+    "fidelity": "digital tunnel estimate — not a RANS proof",
+    "formulas": {
+      "Cl": "2*pi*alpha_rad stall-clamp",
+      "Cd": "Cd0=0.028+k=0.045*Cl^2"
+    }
+  },
+  "delta": {
+    "dCl": 0.009131296823965906,
+    "dCd": 0.023321570002720574,
+    "abs_dCl": 0.009131296823965906,
+    "abs_dCd": 0.023321570002720574
+  }
+}
