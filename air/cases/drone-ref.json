@@ -1,0 +1,1 @@
+{"id":"drone-ref","vehicle":"drone","fidelity":"validated","status":"pending_cfd_lead","source":null,"note":"CFD Lead fills AoA table; UI must not treat empty points as commercial","points":[]}

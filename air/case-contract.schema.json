@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pxd2.github.io/air/case-contract.schema.json",
+  "title": "PXD2 Air Tunnel Case Contract",
+  "description": "Fields for /air Export JSON and CFD Lead validation packs (CARD-AIR-T2).",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "vehicle": { "type": "string", "description": "Vehicle class: plane | drone | sea | sub" },
+    "medium": { "type": "string", "description": "air | water" },
+    "geometry_ref": { "type": ["string", "null"], "description": "Path or cite for geometry (airfoil, STL, published ref)" },
+    "AoA": { "type": "number", "description": "Angle of attack / pitch, degrees" },
+    "speed": { "type": "number", "description": "Freestream speed (m/s or kn per speed_unit)" },
+    "Re": { "type": "number", "description": "Reynolds number" },
+    "rho": { "type": "number", "description": "Fluid density kg/m3" },
+    "Cl": { "type": "number", "description": "Lift coefficient" },
+    "Cd": { "type": "number", "description": "Drag coefficient" },
+    "L/D": { "type": "number", "description": "Lift-to-drag ratio" },
+    "Lift": { "type": "number", "description": "Lift force, N" },
+    "Drag": { "type": "number", "description": "Drag force, N" },
+    "fidelity": { "type": "string", "description": "estimate | validated | solver (never mix labels)" },
+    "source": { "type": ["string", "null"], "description": "Citation or pack id for validated/solver numbers" },
+    "uncertainty": { "type": ["number", "string", "object", "null"], "description": "Stated uncertainty or DONE-BAR delta notes" }
+  },
+  "required": ["vehicle", "medium", "fidelity"]
+}
