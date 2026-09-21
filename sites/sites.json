@@ -34,7 +34,8 @@
         {"id": "studioa", "name": "Studio A", "href": "/studioa/", "blurb": "The 5080 floor. Not HOLD."},
         {"id": "cad2", "name": "Helix CAD", "href": "/cad2/", "blurb": "CAD hall."},
         {"id": "spaces", "name": "Hackspace", "href": "/pxd2spaces/", "blurb": "PXD2 spaces."},
-        {"id": "company", "name": "Company", "href": "/company/", "blurb": "Company, contact, investors."}
+        {"id": "company", "name": "Company", "href": "/company/", "blurb": "Company, contact, investors."},
+        {"id": "ternary-binary", "name": "Binary tern", "href": "https://github.com/PxD2/ternary-binary", "blurb": "Ternary (base-3) ↔ binary codec. Wire alphabet for thin hops; meaning stays in lex."}
       ]
     }
   ]
