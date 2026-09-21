@@ -1,1 +1,111 @@
-LOADING_FROM_FILE
+<!doctype html><html lang="en"><head><!-- Steve: Digital air/hydro tunnel test desk — set case, run estimate, export JSON for CFD Lead / YOLO1. Solution, not decor. -->
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>PXD2 — Air Tunnel</title><meta name="description" content="Digital air/hydro tunnel test system. Vehicle class, AoA, speed, streamlines, Cl/Cd estimate, case JSON export."/><link rel="canonical" href="https://pxd2.github.io/air/"/><meta name="theme-color" content="#05060a"/><meta property="og:title" content="PXD2 — Air Tunnel"/><meta property="og:description" content="Digital CFD testing tunnel. Plane, drone, sea, sub. Run case. Export JSON."/><meta property="og:url" content="https://pxd2.github.io/air/"/><meta property="og:image" content="https://pxd2.github.io/og.jpg"/><link rel="icon" type="image/svg+xml" href="/favicon.svg"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap"/><style>
+:root{--bg:#05060a;--fg:#e8eef5;--muted:#7a8494;--cyan:#00d4ea;--line:rgba(232,238,245,.12);--amber:#f5c14a}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.4 Barlow,system-ui,sans-serif}
+body{display:grid;grid-template-rows:auto 1fr auto;min-height:100dvh;max-height:100dvh;overflow:hidden}
+.mark{display:flex;align-items:center;justify-content:center;gap:10px;padding:12px;letter-spacing:.1em;text-transform:uppercase;font:700 13px/1 Oswald,sans-serif;color:var(--cyan);text-decoration:none}
+.layout{display:grid;grid-template-columns:minmax(220px,280px) 1fr minmax(220px,280px);gap:8px;padding:0 10px 8px;min-height:0;height:100%}
+@media(max-width:960px){body{max-height:none;overflow:auto}.layout{grid-template-columns:1fr;grid-template-rows:auto minmax(260px,40vh) auto;height:auto}}
+.panel{background:rgba(10,12,18,.9);border:1px solid var(--line);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:8px;overflow:auto;min-height:0}
+.panel h2{margin:0;font:600 11px/1 Oswald,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.seg{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;padding:4px;border-radius:8px;border:1px solid var(--line);background:rgba(0,0,0,.35)}
+.seg button{border:0;background:0;color:var(--muted);font:600 12px/1.2 Oswald,sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:10px 2px;border-radius:6px;cursor:pointer}
+.seg button[aria-selected="true"]{background:rgba(0,212,234,.18);color:var(--cyan);box-shadow:inset 0 0 0 1px rgba(0,212,234,.45)}
+.field label{display:flex;justify-content:space-between;font:600 10px/1 Barlow,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.field .val{color:var(--cyan)}.field input{width:100%;accent-color:var(--cyan)}
+.meta{font-size:12px;color:var(--muted);display:flex;justify-content:space-between}.meta b{color:var(--fg);font-weight:600}
+.btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:auto}
+.btn{border:1px solid var(--line);background:rgba(0,0,0,.4);color:var(--fg);font:600 12px/1 Oswald,sans-serif;letter-spacing:.1em;text-transform:uppercase;padding:12px 8px;border-radius:8px;cursor:pointer}
+.btn.p{background:rgba(0,212,234,.22);border-color:rgba(0,212,234,.55);color:var(--cyan)}.btn:disabled{opacity:.4}
+.vp{position:relative;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#030407;min-height:240px}
+.vp canvas{display:block;width:100%;height:100%;min-height:240px}
+.vb{position:absolute;top:8px;left:8px;z-index:2;font:600 10px/1 Barlow,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);background:rgba(5,6,10,.75);border:1px solid var(--line);padding:6px 8px;border-radius:6px}
+.vb em{font-style:normal;color:var(--cyan)}
+.disc{font-size:11px;color:var(--amber);border:1px solid rgba(245,193,74,.35);background:rgba(245,193,74,.08);padding:8px;border-radius:6px}
+.res{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.st{background:rgba(0,0,0,.35);border:1px solid var(--line);border-radius:8px;padding:8px}
+.st .k{font:600 9px/1 Barlow,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.st .v{margin-top:5px;font:600 1.05rem/1 Oswald,sans-serif}.st .c{color:var(--cyan)}
+.hint{color:var(--muted);font-size:12px;margin:0}.cid{font-size:11px;color:var(--muted);word-break:break-all}.cid code{color:var(--fg);font-family:ui-monospace,Menlo,monospace;font-size:11px}
+.chips{display:flex;justify-content:space-between;padding:4px 12px 10px}.chip{font:600 9px/1 Barlow,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);padding:4px 8px;border-radius:999px;opacity:.7}
+.chip.s{border-color:rgba(245,193,74,.4);color:#c9a45a}.chip.c{border-color:rgba(0,212,234,.4)}
+</style></head><body><a class="mark" href="https://pxd2.github.io/" aria-label="PXD2 home"><svg width="28" height="28" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" fill="#07080c"/><text x="16" y="22" text-anchor="middle" font-family="Arial Black,sans-serif" font-size="11" fill="#00d4ea">PXD</text></svg><span>PXD2</span></a><div class="layout"><aside class="panel" aria-label="Case controls"><h2>Vehicle class</h2><div class="seg" role="tablist" aria-label="Vehicle class"><button type="button" role="tab" data-v="plane" aria-selected="true">Plane</button><button type="button" role="tab" data-v="drone" aria-selected="false">Drone</button><button type="button" role="tab" data-v="sea" aria-selected="false">Sea</button><button type="button" role="tab" data-v="sub" aria-selected="false">Sub</button></div><div class="meta"><span>Medium</span><b id="med">air</b></div><div class="meta"><span>Fluid density</span><b id="dens">1.225 kg/m3</b></div><h2>Case</h2><div class="field"><label for="aoa">AoA / pitch <span class="val" id="aoaV">4.0 deg</span></label><input id="aoa" type="range" min="-15" max="25" step="0.5" value="4"/></div><div class="field"><label for="spd"><span id="spdN">Speed</span> <span class="val" id="spdV">40.0 m/s</span></label><input id="spd" type="range" min="1" max="120" step="0.5" value="40"/></div><div class="field"><label for="alt"><span id="altN">Altitude</span> <span class="val" id="altV">0 m</span></label><input id="alt" type="range" min="0" max="12000" step="50" value="0"/></div><p class="hint" id="note">ISA density note.</p><div class="btns"><button type="button" class="btn p" id="run">Run</button><button type="button" class="btn" id="exp" disabled>Export JSON</button></div></aside><section class="vp" aria-label="Tunnel viewport"><div class="vb">Test section · <em id="badge">air</em> · live</div><canvas id="cv" width="960" height="540" aria-label="Digital tunnel canvas"></canvas></section><aside class="panel" aria-label="Results"><h2>Results</h2><div class="disc">digital tunnel estimate — not a RANS proof</div><p class="hint" id="rHint">Set case, then Run.</p><div class="res" id="rGrid" hidden><div class="st"><div class="k">Cl</div><div class="v c" id="rCl">—</div></div><div class="st"><div class="k">Cd</div><div class="v c" id="rCd">—</div></div><div class="st"><div class="k">L/D</div><div class="v" id="rLD">—</div></div><div class="st"><div class="k">Lift</div><div class="v" id="rLift">—</div></div><div class="st"><div class="k">Drag</div><div class="v" id="rDrag">—</div></div><div class="st"><div class="k">q (dyn)</div><div class="v" id="rq">—</div></div><div class="st"><div class="k">Re</div><div class="v" id="rRe">—</div></div><div class="st"><div class="k">rho</div><div class="v" id="rRho">—</div></div></div><div class="cid" id="cidW" hidden>Case ID<br/><code id="cid">—</code></div><p class="hint" style="margin-top:auto">Cl~2*pi*a_rad (stall clamp); Cd=Cd0+k*Cl^2. Honest fidelity.</p></aside></div><div class="chips" aria-hidden="true"><span class="chip c">Chad</span><span class="chip s">Steve</span></div><script>
+(function(){
+"use strict";
+var V={plane:{m:"air",S:16,c:1.4,Cd0:.028,k:.045},drone:{m:"air",S:.35,c:.22,Cd0:.055,k:.08},sea:{m:"water",S:8,c:2.5,Cd0:.04,k:.06},sub:{m:"water",S:12,c:4,Cd0:.035,k:.05}};
+var RA=1.225,RW=1025,MA=1.789e-5,MW=1.08e-3,KN=.514444;
+var S={v:"plane",aoa:4,spd:40,alt:0,last:null};
+var cv=document.getElementById("cv"),ctx=cv.getContext("2d"),P=[],dpr=1,cw=0,ch=0;
+var tabs=document.querySelectorAll(".seg button");
+function wet(){return V[S.v].m==="water"}
+function rhoA(h){h=Math.max(0,Math.min(h,11000));var T=288.15-.0065*h,p=101325*Math.pow(T/288.15,9.80665/(287.05*.0065));return p/(287.05*T)}
+function props(){return wet()?{m:"water",rho:RW*(1+S.alt/2e5),mu:MW}:{m:"air",rho:rhoA(S.alt),mu:MA}}
+function U(){return wet()?S.spd*KN:S.spd}
+function f(n,d){return isFinite(n)?Number(n).toFixed(d):"—"}
+function labels(){
+ var p=props(),w=wet();
+ med.textContent=p.m;badge.textContent=p.m;dens.textContent=f(p.rho,w?1:3)+" kg/m3";aoaV.textContent=f(S.aoa,1)+" deg";
+ if(w){spdV.textContent=f(S.spd,1)+" kn ("+f(U(),2)+" m/s)";altN.textContent="Depth";altV.textContent=Math.round(S.alt)+" m";note.textContent="Seawater density note.";spd.min=".5";spd.max="40";alt.min="0";alt.max="600";alt.step="5"}
+ else{spdV.textContent=f(S.spd,1)+" m/s";altN.textContent="Altitude";altV.textContent=Math.round(S.alt)+" m";note.textContent="ISA troposphere note.";spd.min="1";spd.max="120";alt.min="0";alt.max="12000";alt.step="50"}
+}
+function estimate(){
+ var v=V[S.v],p=props(),u=U(),a=S.aoa*Math.PI/180,st=15*Math.PI/180,Cl,Cd;
+ if(Math.abs(a)<=st)Cl=2*Math.PI*a;else{var s=a>=0?1:-1,o=Math.abs(a)-st;Cl=s*(2*Math.PI*st)*Math.exp(-o*4.5)}
+ Cd=v.Cd0+v.k*Cl*Cl;if(Math.abs(S.aoa)>15)Cd+=.02*Math.min(1,(Math.abs(S.aoa)-15)/10);
+ var q=.5*p.rho*u*u;
+ return{vehicle:S.v,medium:p.m,aoa_deg:S.aoa,speed_input:S.spd,speed_unit:wet()?"kn":"m/s",speed_m_s:u,altitude_or_depth_m:S.alt,rho_kg_m3:p.rho,mu_Pa_s:p.mu,q_Pa:q,Re:p.rho*u*v.c/p.mu,S_m2:v.S,c_m:v.c,Cl:Cl,Cd:Cd,LD:Math.abs(Cd)>1e-9?Cl/Cd:0,Lift_N:q*v.S*Cl,Drag_N:q*v.S*Cd,fidelity:"digital tunnel estimate — not a RANS proof",formulas:{Cl:"2*pi*alpha_rad with stall clamp ~15 deg",Cd:"Cd0 + k*Cl^2 (+ post-stall bump)"}};
+}
+function cid(){var d=new Date(),p=function(n){return(n<10?"0":"")+n};return"PXD2-AIR-"+d.getFullYear()+p(d.getMonth()+1)+p(d.getDate())+"T"+p(d.getHours())+p(d.getMinutes())+p(d.getSeconds())}
+function show(r){
+ rHint.hidden=true;rGrid.hidden=false;cidW.hidden=false;
+ rCl.textContent=f(r.Cl,3);rCd.textContent=f(r.Cd,4);rLD.textContent=f(r.LD,2);
+ rLift.textContent=f(r.Lift_N,1)+" N";rDrag.textContent=f(r.Drag_N,1)+" N";
+ rq.textContent=f(r.q_Pa,1)+" Pa";rRe.textContent=r.Re.toExponential(2);rRho.textContent=f(r.rho_kg_m3,r.medium==="water"?1:3);
+ document.getElementById("cid").textContent=r.case_id;exp.disabled=false;
+}
+function doRun(){var r=estimate();r.case_id=cid();r.timestamp_iso=new Date().toISOString();S.last=r;show(r);console.log("[PXD2 Air] case "+r.case_id+" Cl="+f(r.Cl,3)+" Cd="+f(r.Cd,4))}
+function doExp(){if(!S.last)return;var b=new Blob([JSON.stringify(S.last,null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=S.last.case_id+".json";document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},0)}
+function resize(){var r=cv.parentElement.getBoundingClientRect();dpr=Math.min(devicePixelRatio||1,2);cw=Math.max(300,r.width|0);ch=Math.max(220,r.height|0);cv.width=(cw*dpr)|0;cv.height=(ch*dpr)|0;cv.style.width=cw+"px";cv.style.height=ch+"px";ctx.setTransform(dpr,0,0,dpr,0,0)}
+function box(){var x=cw*.06,y=ch*.14;return{x:x,y:y,w:cw-x*2,h:ch-y*2}}
+function spawn(p,b){var u=Math.max(1,U()),base=wet()?1.4:2.2;p.x=b.x-10-Math.random()*40;p.y=b.y+8+Math.random()*(b.h-16);p.vx=base*(.35+u/(wet()?25:60))*(.7+Math.random()*.6);p.vy=(Math.random()-.5)*.4;p.r=.7+Math.random()*1.5}
+function ensure(b){var t=Math.min(480,Math.max(180,(180+U()*(wet()?4:2))|0));while(P.length<t){var p={};spawn(p,b);p.x=b.x+Math.random()*b.w;P.push(p)}if(P.length>t)P.length=t}
+function drawVeh(cx,cy,sc,aoa){
+ ctx.save();ctx.translate(cx,cy);ctx.rotate((-aoa)*Math.PI/180);ctx.scale(sc,sc);ctx.lineWidth=2/sc;ctx.strokeStyle="#00d4ea";ctx.fillStyle="rgba(0,212,234,.12)";ctx.beginPath();
+ var v=S.v;
+ if(v==="plane"){ctx.moveTo(-90,0);ctx.lineTo(-50,-6);ctx.lineTo(40,-4);ctx.lineTo(70,-18);ctx.lineTo(78,-18);ctx.lineTo(72,0);ctx.lineTo(78,10);ctx.lineTo(40,6);ctx.lineTo(-40,8);ctx.lineTo(-70,22);ctx.lineTo(-78,22);ctx.lineTo(-70,4);ctx.closePath()}
+ else if(v==="drone"){ctx.rect(-28,-8,56,16);[-50,-28,50,-28,-50,28,50,28].forEach(function(x,i,a){if(i%2===0){ctx.moveTo(x,a[i+1]);ctx.arc(x,a[i+1],10,0,Math.PI*2)}});ctx.moveTo(-28,0);ctx.lineTo(-42,-22);ctx.moveTo(28,0);ctx.lineTo(42,-22);ctx.moveTo(-28,0);ctx.lineTo(-42,22);ctx.moveTo(28,0);ctx.lineTo(42,22)}
+ else if(v==="sea"){ctx.moveTo(-80,8);ctx.quadraticCurveTo(-40,-18,20,-12);ctx.lineTo(70,-4);ctx.lineTo(85,8);ctx.lineTo(60,18);ctx.quadraticCurveTo(0,28,-70,18);ctx.closePath()}
+ else{ctx.moveTo(-90,0);ctx.quadraticCurveTo(-60,-22,0,-20);ctx.quadraticCurveTo(50,-18,80,0);ctx.quadraticCurveTo(50,18,0,20);ctx.quadraticCurveTo(-60,22,-90,0);ctx.closePath();ctx.moveTo(-10,-20);ctx.lineTo(-10,-38);ctx.lineTo(18,-38);ctx.lineTo(18,-20)}
+ ctx.fill();ctx.stroke();ctx.restore();
+}
+function flow(x,y,b,cx,cy){
+ var u=Math.max(.5,U()),base=(wet()?1.2:2)*(.4+u/(wet()?28:70)),aoa=S.aoa*Math.PI/180;
+ var dx=x-cx,dy=y-cy,r=Math.sqrt(dx*dx+dy*dy)+1,def=180/(r+40),sep=Math.max(0,Math.abs(S.aoa)-12)/13;
+ var vx=base,vy=-Math.sin(aoa)*base*.35;vy+=(-dx/r)*def*.15*(S.aoa>=0?1:-1);vx+=(dy/r)*def*.08;
+ if(sep>0&&dx>-10){var wy=y-(cy-Math.sin(aoa)*40);if(Math.abs(wy)<50+40*sep){vx*=(1-.55*sep);vy+=(Math.random()-.5)*sep*2.2;if(S.aoa>0&&wy<0)vy-=sep*.8;if(S.aoa<0&&wy>0)vy+=sep*.8}}
+ if(y<b.y+6)vy+=.8;if(y>b.y+b.h-6)vy-=.8;return{vx:vx,vy:vy};
+}
+function rr(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath()}
+function frame(){
+ var b=box();ensure(b);ctx.fillStyle="rgba(3,4,7,.28)";ctx.fillRect(0,0,cw,ch);
+ ctx.strokeStyle="rgba(0,212,234,.28)";ctx.lineWidth=1.5;rr(ctx,b.x,b.y,b.w,b.h,12);ctx.stroke();
+ ctx.strokeStyle="rgba(232,238,245,.08)";ctx.beginPath();ctx.moveTo(b.x+20,b.y+16);ctx.lineTo(b.x+b.w-20,b.y+16);ctx.moveTo(b.x+20,b.y+b.h-16);ctx.lineTo(b.x+b.w-20,b.y+b.h-16);ctx.stroke();
+ var g=ctx.createRadialGradient(cw*.5,ch*.5,10,cw*.5,ch*.5,cw*.45);g.addColorStop(0,wet()?"rgba(0,140,200,.06)":"rgba(0,212,234,.05)");g.addColorStop(1,"rgba(0,0,0,0)");ctx.fillStyle=g;ctx.fillRect(0,0,cw,ch);
+ var cx=b.x+b.w*.48,cy=b.y+b.h*.52,sc=Math.min(b.w,b.h)/280,am=wet()?.45:.55;
+ for(var i=0;i<P.length;i++){var p=P[i],fl=flow(p.x,p.y,b,cx,cy);p.x+=fl.vx;p.y+=fl.vy+p.vy*.2;if(p.x>b.x+b.w+20||p.y<b.y-10||p.y>b.y+b.h+10)spawn(p,b);var along=(p.x-b.x)/b.w,a=am*(.2+.8*Math.sin(Math.max(0,Math.min(1,along))*Math.PI));ctx.beginPath();ctx.fillStyle="rgba(0,212,234,"+a.toFixed(3)+")";ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill()}
+ drawVeh(cx,cy,sc,S.aoa);ctx.fillStyle="rgba(122,132,148,.9)";ctx.font="600 11px Barlow,sans-serif";
+ ctx.fillText("AoA "+f(S.aoa,1)+" deg",b.x+14,b.y+b.h-14);ctx.fillText(wet()?"U "+f(S.spd,1)+" kn":"U "+f(S.spd,1)+" m/s",b.x+b.w-110,b.y+b.h-14);
+ requestAnimationFrame(frame);
+}
+tabs.forEach(function(btn){btn.addEventListener("click",function(){
+ S.v=btn.getAttribute("data-v");tabs.forEach(function(b){b.setAttribute("aria-selected",b===btn?"true":"false")});
+ if(wet()){if(S.spd>40)S.spd=12;spd.value=String(S.spd);if(S.alt>600)S.alt=50;alt.value=String(S.alt)}else{if(S.spd<1)S.spd=40;spd.value=String(S.spd)}
+ labels();
+})});
+aoa.addEventListener("input",function(){S.aoa=+aoa.value;labels()});
+spd.addEventListener("input",function(){S.spd=+spd.value;labels()});
+alt.addEventListener("input",function(){S.alt=+alt.value;labels()});
+run.addEventListener("click",doRun);exp.addEventListener("click",doExp);
+addEventListener("resize",resize);labels();resize();ctx.fillStyle="#030407";ctx.fillRect(0,0,cw,ch);requestAnimationFrame(frame);
+})();
+</script></body></html>
