@@ -9,6 +9,7 @@
       "title": "Floor",
       "sites": [
         {"id": "hold", "name": "HOLD", "href": "/", "blurb": "SFTP roots we host. Git publishes."},
+        {"id": "air", "name": "Air", "href": "/air/", "blurb": "Digital air tunnel. Chad and Steve."},
         {"id": "sites", "name": "Sites", "href": "/sites/", "blurb": "This list."},
         {"id": "open-builds", "name": "Open builds", "href": "/sites/open-builds/", "blurb": "Index of public Comparee listings we hold."},
         {"id": "github", "name": "GitHub", "href": "https://github.com/PxD2", "blurb": "PxD2 profile and repos."}

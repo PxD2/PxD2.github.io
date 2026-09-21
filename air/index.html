@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PXD2 — Air</title>
+  <meta name="description" content="Digital air tunnel. Chad and Steve. One room." />
+  <link rel="canonical" href="https://pxd2.github.io/air/" />
+  <meta name="theme-color" content="#05060a" />
+  <meta property="og:title" content="PXD2 — Air" />
+  <meta property="og:description" content="Digital air tunnel of the future." />
+  <meta property="og:url" content="https://pxd2.github.io/air/" />
+  <meta property="og:image" content="https://pxd2.github.io/og.jpg" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" />
+  <style>
+    :root {
+      --bg: #05060a;
+      --fg: #e8eef5;
+      --muted: #7a8494;
+      --cyan: #00d4ea;
+      --line: color-mix(in oklab, #e8eef5 12%, transparent);
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      height: 100%;
+      background: var(--bg);
+      color: var(--fg);
+      font: 15px/1.45 Barlow, system-ui, sans-serif;
+      overflow: hidden;
+    }
+    canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .mark {
+      position: fixed;
+      top: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      font: 700 13px/1 Oswald, Barlow, sans-serif;
+      color: var(--cyan);
+      text-decoration: none;
+      user-select: none;
+    }
+    .mark svg { display: block; }
+    .hud {
+      position: fixed;
+      left: 50%;
+      bottom: 28px;
+      transform: translateX(-50%);
+      z-index: 3;
+      text-align: center;
+      max-width: min(36rem, 92vw);
+      pointer-events: none;
+    }
+    .hud h1 {
+      margin: 0 0 8px;
+      font: 600 1.35rem/1.1 Oswald, Barlow, sans-serif;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    .hud p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .rails {
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      display: grid;
+      place-items: center;
+    }
+    .tunnel {
+      width: min(92vw, 1100px);
+      height: min(52vh, 420px);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      box-shadow:
+        inset 0 0 80px color-mix(in oklab, var(--cyan) 8%, transparent),
+        0 0 60px color-mix(in oklab, var(--cyan) 6%, transparent);
+    }
+    .seats {
+      position: fixed;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 clamp(16px, 6vw, 72px);
+    }
+    .seat {
+      width: min(160px, 22vw);
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      background: color-mix(in oklab, var(--bg) 72%, transparent);
+      backdrop-filter: blur(8px);
+    }
+    .seat .k {
+      font: 600 10px/1 Barlow, sans-serif;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .seat .n {
+      margin-top: 8px;
+      font: 600 1.05rem/1 Oswald, sans-serif;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .seat.chad { border-color: color-mix(in oklab, var(--cyan) 35%, var(--line)); }
+    .seat.steve { border-color: color-mix(in oklab, #f5c14a 35%, var(--line)); }
+    .seat.steve .n { color: #f5c14a; }
+    @media (max-width: 720px) {
+      .seats { align-items: flex-end; padding-bottom: 110px; }
+      .tunnel { height: 36vh; }
+    }
+  </style>
+</head>
+<body>
+  <a class="mark" href="https://pxd2.github.io/" aria-label="PXD2">
+    <svg width="28" height="28" viewBox="0 0 32 32" aria-hidden="true">
+      <rect width="32" height="32" fill="#07080c"/>
+      <text x="16" y="22" text-anchor="middle" font-family="Arial Black, sans-serif" font-size="11" fill="#00d4ea">PXD</text>
+    </svg>
+    <span>PXD2</span>
+  </a>
+
+  <canvas id="flow" aria-hidden="true"></canvas>
+  <div class="rails" aria-hidden="true"><div class="tunnel"></div></div>
+
+  <div class="seats">
+    <div class="seat chad">
+      <div class="k">Station</div>
+      <div class="n">Chad</div>
+    </div>
+    <div class="seat steve">
+      <div class="k">Station</div>
+      <div class="n">Steve</div>
+    </div>
+  </div>
+
+  <div class="hud">
+    <h1>Air</h1>
+    <p>Digital air tunnel. One room. Flow between us.</p>
+  </div>
+
+  <script>
+    (function () {
+      const canvas = document.getElementById("flow");
+      const ctx = canvas.getContext("2d");
+      let w = 0, h = 0, dpr = 1;
+      const N = 420;
+      const particles = [];
+
+      function resize() {
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        w = window.innerWidth;
+        h = window.innerHeight;
+        canvas.width = Math.floor(w * dpr);
+        canvas.height = Math.floor(h * dpr);
+        canvas.style.width = w + "px";
+        canvas.style.height = h + "px";
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+
+      function spawn(p) {
+        const cy = h * 0.5;
+        const amp = Math.min(h * 0.18, 140);
+        p.x = -20 - Math.random() * w * 0.2;
+        p.y = cy + (Math.random() * 2 - 1) * amp;
+        p.vx = 1.2 + Math.random() * 2.4;
+        p.vy = (Math.random() - 0.5) * 0.35;
+        p.life = 0.35 + Math.random() * 0.65;
+        p.r = 0.6 + Math.random() * 1.6;
+      }
+
+      for (let i = 0; i < N; i++) {
+        const p = {};
+        spawn(p);
+        p.x = Math.random() * w;
+        particles.push(p);
+      }
+
+      function frame(t) {
+        ctx.fillStyle = "rgba(5,6,10,0.18)";
+        ctx.fillRect(0, 0, w, h);
+
+        const cy = h * 0.5;
+        const amp = Math.min(h * 0.18, 140);
+
+        // soft tunnel glow
+        const g = ctx.createRadialGradient(w * 0.5, cy, 10, w * 0.5, cy, w * 0.55);
+        g.addColorStop(0, "rgba(0,212,234,0.05)");
+        g.addColorStop(1, "rgba(0,0,0,0)");
+        ctx.fillStyle = g;
+        ctx.fillRect(0, 0, w, h);
+
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+          const phase = (p.x / w) * Math.PI * 2 + t * 0.0004;
+          p.x += p.vx;
+          p.y += p.vy + Math.sin(phase) * 0.15;
+          // gentle confine toward tunnel center
+          p.y += (cy - p.y) * 0.004;
+
+          if (p.x > w + 30 || Math.abs(p.y - cy) > amp * 1.35) spawn(p);
+
+          const along = p.x / w;
+          const alpha = p.life * (0.25 + 0.75 * Math.sin(along * Math.PI));
+          ctx.beginPath();
+          ctx.fillStyle = "rgba(0,212,234," + (alpha * 0.55).toFixed(3) + ")";
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        requestAnimationFrame(frame);
+      }
+
+      window.addEventListener("resize", resize);
+      resize();
+      ctx.fillStyle = "#05060a";
+      ctx.fillRect(0, 0, w, h);
+      requestAnimationFrame(frame);
+    })();
+  </script>
+</body>
+</html>
