@@ -8,7 +8,7 @@
       "id": "floor",
       "title": "Floor",
       "sites": [
-        {"id": "hold", "name": "HOLD", "href": "/", "blurb": "Git that acts like FTP."},
+        {"id": "hold", "name": "HOLD", "href": "/", "blurb": "SFTP roots we host. Git publishes."},
         {"id": "sites", "name": "Sites", "href": "/sites/", "blurb": "This list."},
         {"id": "open-builds", "name": "Open builds", "href": "/sites/open-builds/", "blurb": "Index of public Comparee listings we hold."},
         {"id": "github", "name": "GitHub", "href": "https://github.com/PxD2", "blurb": "PxD2 profile and repos."}
