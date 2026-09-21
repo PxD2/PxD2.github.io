@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Davidson — Vee, Lee, and Bell on the Catawba</title>
+  <meta name="description" content="Kids series. The war as they lived it. Five seasons, twenty-five events. Hornet Bell is the spoken hall." />
+  <link rel="canonical" href="https://pxd2.github.io/davidson/" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Nunito:wght@500;700&display=swap" />
+  <style>
+    :root { --cream:#f4ead6; --pine:#1e3a2f; --honey:#e6b84d; --clay:#c45c26; --ink:#1c1814; }
+    * { box-sizing: border-box; }
+    html, body { margin:0; background:var(--cream); color:var(--ink); font:500 16px/1.55 Nunito,system-ui,sans-serif; }
+    a { color:var(--clay); }
+    header { display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px; padding:14px 18px; border-bottom:1px solid color-mix(in oklab, var(--pine) 20%, transparent); }
+    header a { color:var(--pine); text-decoration:none; letter-spacing:.16em; text-transform:uppercase; font-size:12px; font-weight:700; }
+    h1,h2,h3 { font-family:Fraunces,Georgia,serif; color:var(--pine); margin:0 0 .4em; }
+    main { max-width:1080px; margin:0 auto; padding:28px 18px 96px; }
+    .hero { width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:14px; background:#1c1814; }
+    .k { letter-spacing:.16em; text-transform:uppercase; color:var(--clay); font-size:11px; font-weight:700; }
+    .cast, .grid { display:grid; gap:12px; }
+    @media(min-width:720px){ .cast{grid-template-columns:1fr 1fr 1fr} .grid{grid-template-columns:1fr 1fr} }
+    figure { margin:0; background:#fff6; border:1px solid color-mix(in oklab, var(--pine) 16%, transparent); border-radius:12px; overflow:hidden; }
+    figure img { width:100%; aspect-ratio:1; object-fit:cover; display:block; }
+    figure figcaption { padding:10px 12px; }
+    .ep { display:flex; gap:12px; width:100%; text-align:left; background:#fff7; border:1px solid color-mix(in oklab, var(--pine) 16%, transparent); border-radius:12px; padding:10px; min-height:88px; cursor:pointer; color:inherit; font:inherit; }
+    .ep img { width:96px; height:64px; object-fit:cover; border-radius:8px; flex-shrink:0; }
+    .badge { display:inline-block; font-size:10px; letter-spacing:.12em; text-transform:uppercase; border:1px solid color-mix(in oklab, var(--pine) 25%, transparent); border-radius:99px; padding:2px 8px; margin-left:6px; }
+    .ready { background:var(--pine); color:var(--cream); border-color:var(--pine); }
+    .board { color:var(--pine); }
+    dialog { border:0; padding:0; background:var(--cream); color:var(--ink); max-width:760px; width:calc(100% - 24px); border-radius:12px; }
+    dialog::backdrop { background:#1c1814cc; }
+    .stage { padding:16px; }
+    .stage video, .stage img.still { width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:10px; background:#1c1814; }
+    button.ghost { background:transparent; color:var(--pine); border:0; min-height:44px; cursor:pointer; font:inherit; }
+    .season { margin:2.2rem 0 1rem; }
+    .note { font-size:15px; color:color-mix(in oklab, var(--pine) 72%, var(--ink)); }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">PXD2</a>
+    <strong style="font-family:Fraunces,serif;letter-spacing:0;text-transform:none;font-size:20px;color:var(--pine)">Davidson</strong>
+    <a href="/hornet/">Hornet Bell</a>
+  </header>
+  <main>
+    <video class="hero" src="/hornet/cartoons/together.mp4" poster="/hornet/art/poster.jpg" autoplay muted loop playsinline></video>
+    <p class="k" style="margin-top:14px">Ages 6–11 · two pews · one house</p>
+    <h1>The war as they lived it</h1>
+    <p>Vee, Lee, and Bell on the Catawba. Five seasons, twenty-five events. Hornet Bell is the five-minute spoken hall. This floor is the cut series.</p>
+    <p class="note">War rule: ice, table, path, still bell, river from the loft, horse, slate. No fight on screen. Children remain children.</p>
+    <h2>Cast</h2>
+    <div class="cast">
+      <figure>
+        <img src="/hornet/art/vee.jpg" alt="Vee" />
+        <figcaption><strong>Vee</strong><br/>Named for Violet Wilson, whose marriages knit the command family.</figcaption>
+      </figure>
+      <figure>
+        <img src="/hornet/art/lee.jpg" alt="Lee" />
+        <figcaption><strong>Lee</strong><br/>Named for General William Lee Davidson. Coat too big on purpose.</figcaption>
+      </figure>
+      <figure>
+        <img src="/hornet/art/bell.jpg" alt="Bell" />
+        <figcaption><strong>Bell</strong><br/>Hopewell’s meeting-house bell. Centre is the other pew of this house.</figcaption>
+      </figure>
+    </div>
+    <p style="margin:1.4rem 0">
+      <a href="/hornet/">Open Hornet Bell — 13 spoken cartoons</a>
+      · <a href="/studioa/">Studio A reel</a>
+      · <a href="/hornet/house.html">The house table</a>
+    </p>
+    <h2>Davidson — 25 events</h2>
+    <p class="note">Ready means a cartoon already plays on Hornet Bell. Board means the slate is written; the 5080 has not put it in the can yet.</p>
+    <div id="seasons"></div>
+  </main>
+  <dialog id="dlg">
+    <div class="stage">
+      <button class="ghost" id="close" type="button">← Back</button>
+      <p class="k" id="etitle"></p>
+      <video id="efilm" controls playsinline></video>
+      <img id="estill" class="still" alt="" hidden />
+      <p id="eline" style="font-size:1.15rem;margin:12px 0 0"></p>
+      <p id="elearn" class="note"></p>
+    </div>
+  </dialog>
+  <script>
+    const seasons = [
+      { id:"s01", title:"The Nest", years:"1770–1775", tag:"The war has not come. Their lives are the nest.",
+        eps:[
+          {id:"s01e01", n:1, title:"A Day on the Catawba", year:"1774", status:"ready", still:"/hornet/art/poster.jpg", film:"/hornet/cartoons/together.mp4", line:"Lee, the shutter is gold. The river is already awake.", learn:"Before any paper or ford, a household on this river already had a day."},
+          {id:"s01e02", n:2, title:"Copy the Names", year:"1774", status:"ready", still:"/hornet/art/vee.jpg", film:"/hornet/cartoons/e01.mp4", line:"Wilson. Davidson. Polk. Brevard.", learn:"They married each other until the militia was a household."},
+          {id:"s01e03", n:3, title:"Hopewell Rings", year:"1774", status:"board", still:"/hornet/art/bell.jpg", line:"I hang in the pines of Hopewell.", learn:"Hopewell is Bell’s house. Centre is the other pew."},
+          {id:"s01e04", n:4, title:"Rural Hill", year:"1774", status:"ready", still:"/hornet/art/horse.jpg", film:"/hornet/cartoons/horse.mp4", line:"The horse knows the road even when I do not.", learn:"The records kept the men. The children kept the horse."},
+          {id:"s01e05", n:5, title:"Centre", year:"1775", status:"board", still:"/hornet/art/princeton.jpg", line:"This house has no Bell in the gable.", learn:"Centre was home. He was buried at Hopewell after Cowan’s Ford."}
+        ]},
+      { id:"s02", title:"The Paper", years:"1775–1776", tag:"The river hears of a paper.",
+        eps:[
+          {id:"s02e01", n:1, title:"The Resolve", year:"1775", status:"board", still:"/hornet/art/vee.jpg", line:"A Brevard of this house held the pen.", learn:"May 1775. A paper now lives beside the names."},
+          {id:"s02e02", n:2, title:"Bell’s Cousin", year:"1775", status:"ready", still:"/hornet/art/bell.jpg", film:"/hornet/cartoons/bell.mp4", line:"I am her cousin in this story. I ring for a river.", learn:"A Polk of this house was tasked to save Philadelphia’s bells."},
+          {id:"s02e03", n:3, title:"Nassau Hall", year:"1768", status:"ready", still:"/hornet/art/princeton.jpg", film:"/hornet/cartoons/princeton.mp4", line:"Adlai and Ephraim finished Princeton in 1768.", learn:"Cousins, not statues."},
+          {id:"s02e04", n:4, title:"A Nest of Hornets", year:"1776", status:"ready", still:"/hornet/art/poster.jpg", film:"/hornet/cartoons/nest.mp4", line:"They hear they sting.", learn:"Cornwallis will say the word later."},
+          {id:"s02e05", n:5, title:"Washington’s Name", year:"1776", status:"board", still:"/hornet/art/lee.jpg", line:"A new name on the slate.", learn:"They copy him beside Davidson."}
+        ]},
+      { id:"s03", title:"Waiting", years:"1777–1780", tag:"The children’s war is waiting.",
+        eps:[
+          {id:"s03e01", n:1, title:"The Men Leave", year:"1777", status:"board", still:"/hornet/art/horse.jpg", line:"The path takes them. The children stay.", learn:"No close-up of leaving as glory."},
+          {id:"s03e02", n:2, title:"Letters", year:"1778", status:"board", still:"/hornet/art/vee.jpg", line:"Ink comes home slower than horses.", learn:"A letter is also a horse that took the long road."},
+          {id:"s03e03", n:3, title:"The Horse Comes Home", year:"1780", status:"ready", still:"/hornet/art/horse.jpg", film:"/hornet/cartoons/e04.mp4", line:"He comes home even when the men do not.", learn:"The Rural Hill horse is the war the children can see."},
+          {id:"s03e04", n:4, title:"Corn and Milk", year:"1780", status:"board", still:"/hornet/art/lee.jpg", line:"The household continues. That is also the war.", learn:"Supper is not a skippable beat."},
+          {id:"s03e05", n:5, title:"Winter Loft", year:"1780", status:"board", still:"/hornet/art/poster.jpg", line:"The shutter is white. The river looks like glass.", learn:"Waiting has weather."}
+        ]},
+      { id:"s04", title:"The Ford", years:"February 1781", tag:"Heard from the loft. Not shown as a fight.",
+        eps:[
+          {id:"s04e01", n:1, title:"Ice on the Catawba", year:"1781", status:"ready", still:"/hornet/art/poster.jpg", film:"/hornet/cartoons/river.mp4", line:"The first of February is coming. The river is glass.", learn:"The children see ice. That is the ford they are allowed."},
+          {id:"s04e02", n:2, title:"The Ford", year:"1 Feb 1781", status:"ready", still:"/hornet/art/lee.jpg", film:"/hornet/cartoons/e04.mp4", line:"We heard it as ice, and as a horse, and as Bell ringing slow.", learn:"General William Lee Davidson. No musket at camera."},
+          {id:"s04e03", n:3, title:"The Coat Too Big", year:"1781", status:"ready", still:"/hornet/art/lee.jpg", film:"/hornet/cartoons/lee.mp4", line:"The coat is the general’s size on purpose.", learn:"He grows into a name."},
+          {id:"s04e04", n:4, title:"Bell Rings Slow", year:"1781", status:"ready", still:"/hornet/art/bell.jpg", film:"/hornet/cartoons/bell.mp4", line:"Hopewell rings for a name, not for a fight.", learn:"Friends carried him in the dark."},
+          {id:"s04e05", n:5, title:"We Copy Davidson", year:"1781", status:"board", still:"/hornet/art/vee.jpg", line:"The name is the show.", learn:"The children write it again."}
+        ]},
+      { id:"s05", title:"The House", years:"After 1781", tag:"The names grow offices. The river stays.",
+        eps:[
+          {id:"s05e01", n:1, title:"After the Ford", year:"1781", status:"board", still:"/hornet/art/poster.jpg", line:"Morning again. The well. The slate. The horse in the yard.", learn:"The day is the sequel."},
+          {id:"s05e02", n:2, title:"Graham in the Pines", year:"1781", status:"ready", still:"/hornet/art/horse.jpg", film:"/hornet/cartoons/e05.mp4", line:"Isabella will marry Joseph Graham.", learn:"A new name on the slate is how the house grows."},
+          {id:"s05e03", n:3, title:"The House They Made", year:"1782", status:"ready", still:"/hornet/art/poster.jpg", film:"/hornet/cartoons/e13.mp4", line:"Court, militia, governor’s chair.", learn:"Offices grow from the pew."},
+          {id:"s05e04", n:4, title:"Names That Grew", year:"Later", status:"ready", still:"/hornet/art/vee.jpg", film:"/hornet/cartoons/e10.mp4", line:"Polk. Graham. Presidents copied like uncles.", learn:"They do not get the first chair."},
+          {id:"s05e05", n:5, title:"The River Stays", year:"Always", status:"ready", still:"/hornet/art/poster.jpg", film:"/hornet/cartoons/river.mp4", line:"Dawn shutter. Bell rings. The Catawba does not leave.", learn:"That is enough."}
+        ]}
+    ];
+    const seasonsEl = document.getElementById("seasons");
+    seasons.forEach(s => {
+      const wrap = document.createElement("section");
+      wrap.className = "season";
+      wrap.innerHTML = `<p class="k">${s.id.toUpperCase()} · ${s.years}</p><h3>${s.title}</h3><p class="note">${s.tag}</p><div class="grid"></div>`;
+      const grid = wrap.querySelector(".grid");
+      s.eps.forEach(e => {
+        const b = document.createElement("button");
+        b.className = "ep";
+        b.innerHTML = `<img src="${e.still}" alt=""/><span><span class="k">${s.id.toUpperCase()}E${String(e.n).padStart(2,"0")} · ${e.year}<span class="badge ${e.status}">${e.status}</span></span><br/><strong style="font-family:Fraunces,serif;color:var(--pine);font-size:1.12rem">${e.title}</strong></span>`;
+        b.onclick = () => openEp(e, s);
+        grid.appendChild(b);
+      });
+      seasonsEl.appendChild(wrap);
+    });
+    const dlg = document.getElementById("dlg");
+    const film = document.getElementById("efilm");
+    const still = document.getElementById("estill");
+    function openEp(e, s) {
+      document.getElementById("etitle").textContent = `${s.id.toUpperCase()}E${String(e.n).padStart(2,"0")} · ${e.title} · ${e.year}`;
+      document.getElementById("eline").textContent = e.line || "";
+      document.getElementById("elearn").innerHTML = e.learn ? "<strong>Copy tonight.</strong> " + e.learn : "";
+      if (e.film) {
+        still.hidden = true; film.hidden = false; film.src = e.film; film.play();
+      } else {
+        film.pause(); film.removeAttribute("src"); film.hidden = true;
+        still.hidden = false; still.src = e.still;
+      }
+      dlg.showModal();
+    }
+    document.getElementById("close").onclick = () => { film.pause(); dlg.close(); };
+    dlg.addEventListener("close", () => film.pause());
+  </script>
+  <script src="/read-aloud.js" defer></script>
+  <script src="/sites.js" defer></script>
+</body>
+</html>

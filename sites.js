@@ -7,6 +7,7 @@
     { name: "Civics", href: "/civics/" },
     { name: "STEM", href: "/stem/" },
     { name: "College", href: "/college/" },
+    { name: "Davidson", href: "/davidson/" },
     { name: "Hornet", href: "/hornet/" },
     { name: "House", href: "/hornet/house.html" },
     { name: "Lens", href: "/hornet/lens.html" },
