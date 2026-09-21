@@ -1,0 +1,26 @@
+{
+  "show": "Hornet Bell",
+  "rule": "The militia was almost one household. Children keep the cousins, not the statues. Founding-era rights are read through this pew — an endowment, not a grant from a later school.",
+  "lens": {
+    "title": "Endowment, not a later catalog",
+    "reformer": "John Witherspoon",
+    "school": "Nassau Hall, Princeton. Presidency begins 1768 — the year Ephraim Brevard and Adlai Osborne of this house are listed in Princetonians."
+  },
+  "cast": [
+    {"id": "bell", "name": "Bell", "house": "Hopewell", "art": "/hornet/art/bell.jpg", "named_for": "Hopewell meeting-house bell", "role": "Rings the nest. Cousin in the story to Philadelphia’s Liberty Bell."},
+    {"id": "vee", "name": "Vee", "house": "Wilson", "art": "/hornet/art/vee.jpg", "named_for": "Violet Wilson Davidson", "role": "Named for Violet Wilson, whose marriage to Major John Davidson of Rural Hill knits the command family."},
+    {"id": "lee", "name": "Lee", "house": "Davidson", "art": "/hornet/art/lee.jpg", "named_for": "William Lee Davidson", "role": "Named for General William Lee Davidson. Coat too big on purpose. Centre is his other pew."},
+    {"id": "mary", "name": "Mary", "house": "Wilson / Polk", "art": "/hornet/art/allentown.jpg", "named_for": "Mary Wilson Polk", "role": "Named for Mary Wilson, who married Ezekiel Polk. Hinge toward James Knox Polk."},
+    {"id": "isa", "name": "Isa", "house": "Davidson / Graham", "art": "/hornet/art/horse.jpg", "named_for": "Isabella Davidson Graham", "role": "Named for Isabella Davidson, who married Joseph Graham. Graham is not a guest."},
+    {"id": "eph", "name": "Eph", "house": "Brevard", "art": "/hornet/art/princeton.jpg", "named_for": "Ephraim Brevard", "role": "Named for Dr. Ephraim Brevard, Princeton 1768, who held the Mecklenburg pen."},
+    {"id": "adlai", "name": "Adlai", "house": "Osborne", "art": "/hornet/art/princeton.jpg", "named_for": "Adlai Osborne", "role": "Named for Adlai Osborne, Princeton 1768, cousin in this house. Ink for decades."},
+    {"id": "jo", "name": "Jo", "house": "Graham", "art": "/hornet/art/horse.jpg", "named_for": "Joseph Graham", "role": "Named for Joseph Graham — sheriff, senator, militia general. Not governor."},
+    {"id": "will", "name": "Will", "house": "Graham", "art": "/hornet/art/poster.jpg", "named_for": "William A. Graham", "role": "Named for William A. Graham: governor, senator, Navy. The later office sits on Jo’s bench."},
+    {"id": "knox", "name": "Knox", "house": "Knox", "art": "/hornet/art/poster.jpg", "named_for": "Patrick Knox", "role": "Named for Captain Patrick Knox. The middle name on a president was already a neighbor."},
+    {"id": "cal", "name": "Cal", "house": "Caldwell", "art": "/hornet/art/princeton.jpg", "named_for": "David / Alexander Caldwell", "role": "Named for the Caldwell school. Teachers in the blood."},
+    {"id": "reese", "name": "Reese", "house": "Reese", "art": "/hornet/art/poster.jpg", "named_for": "Reese of Mecklenburg", "role": "Reese of the nest. Copy the name so the pew stays full."},
+    {"id": "alex", "name": "Alex", "house": "Alexander", "art": "/hornet/art/poster.jpg", "named_for": "Alexander of Mecklenburg", "role": "Alexander of the nest. The paper and the militia both keep this name."},
+    {"id": "polk", "name": "Tom", "house": "Polk", "art": "/hornet/art/allentown.jpg", "named_for": "Thomas Polk", "role": "Named for Col. Thomas Polk, tasked to move Philadelphia’s bells to Allentown, 24 September 1777."},
+    {"id": "horse", "name": "Horse", "house": "Rural Hill", "art": "/hornet/art/horse.jpg", "named_for": "The record the children kept", "role": "Rural Hill horse. No lines. Comes home even when the men do not."}
+  ]
+}
