@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pxd2.github.io/air/cases/case-contract.schema.json",
+  "title": "PXD2 Air Tunnel Case Contract (CARD-AIR-T2)",
+  "type": "object",
+  "required": [
+    "case_id",
+    "vehicle",
+    "medium",
+    "geometry_ref",
+    "aoa_deg",
+    "speed_m_s",
+    "Re",
+    "rho_kg_m3",
+    "Cl",
+    "Cd",
+    "LD",
+    "Lift_N",
+    "Drag_N",
+    "fidelity",
+    "source",
+    "uncertainty",
+    "tier"
+  ],
+  "properties": {
+    "case_id": {
+      "type": "string"
+    },
+    "vehicle": {
+      "enum": [
+        "plane",
+        "drone",
+        "sea",
+        "sub"
+      ]
+    },
+    "medium": {
+      "enum": [
+        "air",
+        "water"
+      ]
+    },
+    "geometry_ref": {
+      "type": "string"
+    },
+    "aoa_deg": {
+      "type": "number"
+    },
+    "speed_m_s": {
+      "type": "number"
+    },
+    "Re": {
+      "type": "number"
+    },
+    "rho_kg_m3": {
+      "type": "number"
+    },
+    "Cl": {
+      "type": "number"
+    },
+    "Cd": {
+      "type": "number"
+    },
+    "LD": {
+      "type": "number"
+    },
+    "Lift_N": {
+      "type": "number"
+    },
+    "Drag_N": {
+      "type": "number"
+    },
+    "fidelity": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string"
+    },
+    "uncertainty": {
+      "type": "object"
+    },
+    "tier": {
+      "enum": [
+        1,
+        2
+      ]
+    },
+    "validated": {
+      "type": "boolean"
+    },
+    "reference": {
+      "type": "object"
+    },
+    "estimate": {
+      "type": "object"
+    },
+    "delta": {
+      "type": "object"
+    }
+  }
+}

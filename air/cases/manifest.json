@@ -1,0 +1,58 @@
+{
+  "card": "CARD-AIR-T2",
+  "updated": "2026-09-21",
+  "site": "https://pxd2.github.io/air/",
+  "schema": "cases/case-contract.schema.json",
+  "packs": {
+    "plane": {
+      "pack": "plane-naca0012-ladson",
+      "n_aoa": 6,
+      "aoa_deg": [
+        0.05,
+        1.98,
+        4.18,
+        6.2,
+        8.22,
+        10.18
+      ],
+      "max_abs_dCl": 0.02836192003432947,
+      "max_abs_dCd": 0.07358187714262307,
+      "source": "Ladson, C. L., NASA TM-4074 (1988), Table I, M=0.15 free transition. https://ntrs.nasa.gov/citations/19880019495",
+      "commercial_note": "Tier 1 estimate alone is NOT commercial CFD. Reviewer MUST fail commercial claims that only cite Tier 1.",
+      "files": [
+        "plane/PXD2-AIR-T2-PLANE-NACA0012-R6e6-Ap00.05.json",
+        "plane/PXD2-AIR-T2-PLANE-NACA0012-R6e6-Ap01.98.json",
+        "plane/PXD2-AIR-T2-PLANE-NACA0012-R6e6-Ap04.18.json",
+        "plane/PXD2-AIR-T2-PLANE-NACA0012-R6e6-Ap06.20.json",
+        "plane/PXD2-AIR-T2-PLANE-NACA0012-R6e6-Ap08.22.json",
+        "plane/PXD2-AIR-T2-PLANE-NACA0012-R6e6-Ap10.18.json"
+      ]
+    },
+    "drone": {
+      "pack": "drone-naca0012-ladson-proxy",
+      "n_aoa": 6,
+      "aoa_deg": [
+        0.0,
+        1.85,
+        4.25,
+        6.05,
+        8.15,
+        10.15
+      ],
+      "max_abs_dCl": 0.06807205190063326,
+      "max_abs_dCd": 0.14061435141778286,
+      "source": "Ladson, C. L., NASA TM-4074 (1988), Table I, M=0.15 free transition. https://ntrs.nasa.gov/citations/19880019495",
+      "commercial_note": "Tier 1 estimate alone is NOT commercial CFD. Reviewer MUST fail commercial claims that only cite Tier 1.",
+      "files": [
+        "drone/PXD2-AIR-T2-DRONE-NACA0012-R2e6-Ap00.00.json",
+        "drone/PXD2-AIR-T2-DRONE-NACA0012-R2e6-Ap01.85.json",
+        "drone/PXD2-AIR-T2-DRONE-NACA0012-R2e6-Ap04.25.json",
+        "drone/PXD2-AIR-T2-DRONE-NACA0012-R2e6-Ap06.05.json",
+        "drone/PXD2-AIR-T2-DRONE-NACA0012-R2e6-Ap08.15.json",
+        "drone/PXD2-AIR-T2-DRONE-NACA0012-R2e6-Ap10.15.json"
+      ],
+      "geometry_note": "Section validation at Re~2e6; full YOLO1/CAD STL geometry_ref waits CARD-002C scaled envelope."
+    }
+  },
+  "disclaimer": "Tier 1 = digital tunnel estimate. Tier 2 = validated against published experiment. Commercial path requires Tier 2."
+}
