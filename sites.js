@@ -8,6 +8,8 @@
     { name: "STEM", href: "/stem/" },
     { name: "College", href: "/college/" },
     { name: "Hornet", href: "/hornet/" },
+    { name: "House", href: "/hornet/house.html" },
+    { name: "Lens", href: "/hornet/lens.html" },
     { name: "Alexandria", href: "/alexandria/" },
     { name: "Studio A", href: "/studioa/" },
     { name: "GitHub", href: "https://github.com/PxD2" }
