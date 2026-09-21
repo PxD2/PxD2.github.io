@@ -15,6 +15,7 @@ Software as much as hardware. The future of defense, security, and prosperity is
 - [Helix CAD](https://pxd2.github.io/cad2/) — parametric workstation, JLCMC catalog, JLCPCB
 - [CAD v1](https://pxd2.github.io/cad/) — K2 Plus stamp, stack, laser-align
 - [Company](https://pxd2.github.io/company/)
+- Binary tern: [PxD2/ternary-binary](https://github.com/PxD2/ternary-binary) — ternary ↔ binary codec
 - Hosting pipes: [PxD2/web-systems](https://github.com/PxD2/web-systems)
 - Parts catalog: [github.com/PxD2/helix-cad-parts](https://github.com/PxD2/helix-cad-parts)
 - Profile: [github.com/PxD2](https://github.com/PxD2)
