@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PXD2 ops</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <style>
+    :root { --fg:#e8e6e3; --dim:#9aa4ae; --bg:#07080c; --gold:#f5c14a; --pine:#1e3a2f; }
+    body { margin:0; background:var(--bg); color:var(--fg); font:16px/1.45 Barlow,system-ui,sans-serif; }
+    header { padding:1.2rem 1.4rem; background:var(--pine); }
+    header h1 { margin:0; font:700 20px Oswald,sans-serif; letter-spacing:.12em; text-transform:uppercase; }
+    header p { margin:.3rem 0 0; color:#c9d4c4; font-size:13px; letter-spacing:.08em; }
+    main { padding:1.2rem 1.4rem 5rem; max-width:52rem; }
+    a { color:var(--gold); }
+    .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(16rem,1fr)); gap:12px; }
+    article { border:1px solid #2a2f3a; padding:12px 14px; }
+    article h2 { margin:0 0 6px; font:600 12px/1 system-ui; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); }
+    article p, article li { color:var(--dim); font-size:14px; }
+    code { color:#fd8; font-size:13px; }
+    table { border-collapse:collapse; width:100%; margin-top:1rem; }
+    th, td { border-bottom:1px solid #222; text-align:left; padding:.4rem .5rem; font-size:14px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Ops</h1>
+    <p>One hall. Every box opens this page.</p>
+  </header>
+  <main>
+    <div class="grid">
+      <article>
+        <h2>Hold · FTP</h2>
+        <p><a href="/hold/">pxd2.github.io/hold</a></p>
+        <p>Numbers in. Pages is read. Write is a git commit to <code>hold/ftp</code>.</p>
+      </article>
+      <article>
+        <h2>Hugs · modes</h2>
+        <p><a href="/hugs/">pxd2.github.io/hugs</a></p>
+        <p>Agents pull slots through us. <a href="/hugs/modes.json">modes.json</a> · <a href="/hugs/book/acr.json">acr.json</a></p>
+      </article>
+      <article>
+        <h2>Base1 · 5080</h2>
+        <p>On the plant: <code>http://127.0.0.1:8787</code></p>
+        <p>Fast = Mistral. Reason = DeepSeek-R1-Distill-14B Q4. Not on Pages.</p>
+      </article>
+      <article>
+        <h2>Pi 5 · door</h2>
+        <p>On the Pi: <code>http://127.0.0.1:4000</code></p>
+        <p>Switchboard + mesh 7736. No 14B on the Pi.</p>
+      </article>
+      <article>
+        <h2>Studio A</h2>
+        <p><a href="/studioa/">pxd2.github.io/studioa</a></p>
+        <p>10-second cutter. Offline after the snapshot is local.</p>
+      </article>
+      <article>
+        <h2>Token</h2>
+        <p><code>PXD2T1.&lt;id&gt;.&lt;crc&gt;.&lt;tick&gt;</code></p>
+        <p>36 = SITREP. 10 = PAIR. Wire is the number.</p>
+      </article>
+    </div>
+    <h2 style="margin-top:2rem;font:600 12px/1 system-ui;letter-spacing:.18em;text-transform:uppercase;color:#f5c14a">Seats</h2>
+    <table>
+      <tr><th>seat</th><th>id</th><th>opens</th><th>runs</th></tr>
+      <tr><td>ESP32</td><td>0</td><td>QR / UART</td><td>number only</td></tr>
+      <tr><td>Pi 5</td><td>1</td><td><code>/ops</code> + :4000</td><td>route + mesh</td></tr>
+      <tr><td>Base1</td><td>2</td><td><code>/ops</code> + :8787</td><td>R1 + Mistral + cut</td></tr>
+      <tr><td>Laptop</td><td>3</td><td><code>/ops</code></td><td>mint token, push hold</td></tr>
+    </table>
+    <p style="color:#9aa4ae;margin-top:1.2rem">Machine map: <a href="map.json">map.json</a>. Git: <a href="https://github.com/PxD2">github.com/PxD2</a>.</p>
+  </main>
+  <script src="/sites.js"></script>
+</body>
+</html>
