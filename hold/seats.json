@@ -1,0 +1,16 @@
+{
+  "site": "https://pxd2.github.io/hold",
+  "ftp": "https://pxd2.github.io/hold/ftp/",
+  "hugs": "https://pxd2.github.io/hugs/",
+  "pages": true,
+  "write": "git commit to PxD2/PxD2.github.io hold/ftp",
+  "hot": "laptop",
+  "pair_default": "AST-R2-HOLO",
+  "chain": ["esp32", "pi5", "laptop", "base1"],
+  "seats": {
+    "esp32": { "id": 0 },
+    "pi5": { "id": 1, "ns_port": 7736 },
+    "base1": { "id": 2, "ns_port": 7736 },
+    "laptop": { "id": 3, "ns_port": 7736 }
+  }
+}
