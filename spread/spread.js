@@ -50,6 +50,85 @@
     }
     $("body").innerHTML = html;
   }
+  function fromInventRow(r) {
+    if (!r || r.sold) return null;
+    var title = r.title || r.name || "";
+    if (!title) return null;
+    if (Number(r.quantity) === 0 || Number(r.qty) === 0) return null;
+    return {
+      sku: r.sku || r.customLabel || "",
+      title: title,
+      qty: String(r.qty || r.quantity || 1),
+      price: String(r.price || r.priceUsd || r.price_usd || "").replace(/[^0-9.]/g, ""),
+      pic: String(r.pic || r.photoUrls || r.photo_urls || "").split(",")[0].trim(),
+      pub: r.pub || r.publisher || ""
+    };
+  }
+  function mergeRows(extra) {
+    if (!extra || !extra.length) return 0;
+    var have = {};
+    var i, j, k, n = 0;
+    for (i = 0; i < rows.length; i++) have[(rows[i].sku || "") + "|" + (rows[i].title || "")] = true;
+    for (j = 0; j < extra.length; j++) {
+      k = (extra[j].sku || "") + "|" + (extra[j].title || "");
+      if (have[k]) continue;
+      rows.push(extra[j]);
+      have[k] = true;
+      n++;
+    }
+    if (n) { persist(); draw(); }
+    return n;
+  }
+  function listFromPayload(data) {
+    if (!data) return [];
+    if (Array.isArray(data)) return data;
+    if (data.state && (data.state.items || data.state.rows)) return data.state.items || data.state.rows;
+    return data.items || data.rows || [];
+  }
+  function readInventLocal() {
+    var keys = ["pxd2.invent.v1", "pxd2.invent.v2", "pxd2.invent.v3"];
+    var found = [], i, j, raw, data, list, row;
+    for (i = 0; i < keys.length; i++) {
+      raw = localStorage.getItem(keys[i]);
+      if (!raw) continue;
+      try { data = JSON.parse(raw); } catch (e) { continue; }
+      list = listFromPayload(data);
+      for (j = 0; j < list.length; j++) {
+        row = fromInventRow(list[j]);
+        if (row) found.push(row);
+      }
+    }
+    return found;
+  }
+  function mapList(list) {
+    var out = [], i, row;
+    for (i = 0; i < list.length; i++) {
+      row = fromInventRow(list[i]);
+      if (row) out.push(row);
+    }
+    return out;
+  }
+  function autoFromSite() {
+    var n = mergeRows(readInventLocal());
+    var urls = ["/invent/catalog.json", "/spread/catalog.json"];
+    var left = urls.length;
+    function done() {
+      if (rows.length) say("Loaded " + rows.length + " from Invent / this site.");
+      else say("Invent has no rows in this browser yet. Open Invent, import there, then click From Invent — or paste a CSV.");
+    }
+    urls.forEach(function (url) {
+      fetch(url, { cache: "no-store" }).then(function (res) {
+        if (!res.ok) return null;
+        return res.json();
+      }).then(function (data) {
+        if (data) n += mergeRows(mapList(listFromPayload(data)));
+      }).catch(function () {
+      }).then(function () {
+        left -= 1;
+        if (left <= 0) done();
+      });
+    });
+  }
   function splitLine(line) {
     var out = [], cur = "", q = false, i, c;
     for (i = 0; i < line.length; i++) {
@@ -122,9 +201,7 @@
       say("No listing rows in " + source + ". Need a Title column or one title per line.", true);
       return;
     }
-    rows = rows.concat(extra);
-    persist();
-    draw();
+    mergeRows(extra);
     say("Loaded " + extra.length + " from " + source + ". Grid now " + rows.length + ".");
   }
 
@@ -164,6 +241,7 @@
     reader.readAsText(f);
   };
   $("pastebtn").onclick = function () { loadText($("paste").value, "paste"); };
+  $("sitebtn").onclick = function () { autoFromSite(); };
   $("out").onclick = function () {
     var zip = $("zip").value.trim();
     var live = [];
@@ -199,5 +277,5 @@
   };
 
   draw();
-  say(rows.length ? rows.length + " rows in this browser." : "Ready. Import a CSV or paste titles.");
+  autoFromSite();
 })();
