@@ -25,7 +25,7 @@
     return t.slice(0, 77).replace(/\s+\S*$/, "").trim() + "...";
   }
   function attr(s) {
-    return String(s || "").split("&").join("&").split('"').join(""");
+    return String(s || "").split('"').join("'");
   }
   function persist() {
     localStorage.setItem(KEY, JSON.stringify(rows));
