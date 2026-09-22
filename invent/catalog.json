@@ -1,0 +1,26 @@
+{
+  "source": "angelasattics public shop titles",
+  "store": "angelwood-67",
+  "items": [
+    {"sku":"AW-001","title":"Miles Morales: Spider-Man #1 (Volume 2 / Legacy #283 — Federico Vicentini 1:25)","quantity":1,"price_usd":"15","publisher":"Marvel"},
+    {"sku":"AW-002","title":"Miles Morales: Spider-Man #5 (2023 — Mike Mayhew Studio Store Exclusive)","quantity":2,"price_usd":"35","publisher":"Marvel"},
+    {"sku":"AW-003","title":"Peter Parker: Spider-Man #32, #33, and #34 (Volume 2 / 2001)","quantity":1,"price_usd":"12","publisher":"Marvel"},
+    {"sku":"AW-004","title":"The Sensational Spider-Man #-1 (Volume 1 / 1997 Flashback Month)","quantity":1,"price_usd":"4","publisher":"Marvel"},
+    {"sku":"AW-005","title":"The Sensational Spider-Man #15 (Volume 1 / 1997 Cover A)","quantity":1,"price_usd":"4","publisher":"Marvel"},
+    {"sku":"AW-006","title":"Kingpin #1 (Volume 1 / 2003 Cover A)","quantity":1,"price_usd":"5","publisher":"Marvel"},
+    {"sku":"AW-007","title":"Signed Crashdown #3 (Whatnot Publishing / Massive — Mike Mayhew Cover B)","quantity":1,"price_usd":"20","publisher":"Whatnot Publishing"},
+    {"sku":"AW-008","title":"Batman: The Knight #1 (Cover A First Printing)","quantity":1,"price_usd":"4","publisher":"DC Comics"},
+    {"sku":"AW-009","title":"Harley Quinn #1 (Volume 3 / 2016 DC Rebirth Aspen B&W Exclusive)","quantity":1,"price_usd":"15","publisher":"DC Comics"},
+    {"sku":"AW-010","title":"Final Crisis #6 (Cover A First Printing Key)","quantity":1,"price_usd":"7","publisher":"DC Comics"},
+    {"sku":"AW-011","title":"Detective Comics #661 (Direct Edition Knightfall Chapter 6)","quantity":1,"price_usd":"4","publisher":"DC Comics"},
+    {"sku":"AW-012","title":"Detective Comics #657 (Newsstand Edition Key)","quantity":1,"price_usd":"10","publisher":"DC Comics"},
+    {"sku":"AW-013","title":"Catwoman #4 (Volume 4 New 52 Cover A)","quantity":1,"price_usd":"4","publisher":"DC Comics"},
+    {"sku":"AW-014","title":"Dark Knight III: The Master Race #1 (John Romita Jr Joker Exclusive)","quantity":3,"price_usd":"10","publisher":"DC Comics"},
+    {"sku":"AW-015","title":"Batman/Catwoman #5 (DC Black Label Jim Lee Cover B)","quantity":1,"price_usd":"6","publisher":"DC Comics"},
+    {"sku":"AW-016","title":"Batman #495 (Volume 1 Direct Edition Knightfall)","quantity":1,"price_usd":"5","publisher":"DC Comics"},
+    {"sku":"AW-017","title":"Batman #497 (Volume 1 Direct Edition Landmark Key)","quantity":1,"price_usd":"15","publisher":"DC Comics"},
+    {"sku":"AW-018","title":"Batman Beyond #27 (Volume 6 / 2016 Dave Johnson Cover B)","quantity":1,"price_usd":"5","publisher":"DC Comics"},
+    {"sku":"AW-019","title":"Batman #1 (Volume 4 / 2025 Gabriele Dell Otto Blind Bag Foil)","quantity":2,"price_usd":"15","publisher":"DC Comics"},
+    {"sku":"AW-020","title":"Wonder Woman: Rebirth #1 (Volume 5 / 2016 Liam Sharp Cover A)","quantity":1,"price_usd":"5","publisher":"DC Comics"}
+  ]
+}
