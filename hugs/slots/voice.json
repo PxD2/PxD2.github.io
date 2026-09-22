@@ -1,0 +1,11 @@
+{
+  "mode": "voice",
+  "via": "https://pxd2.github.io/hugs",
+  "lex": 76,
+  "task": "text-to-speech",
+  "window_gb": 4,
+  "queue": "after-video",
+  "ours": ["Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign"],
+  "pirateface": "https://pirateface.co/models?q=Qwen3-TTS-12Hz-1.7B",
+  "pull": "https://pxd2.github.io/hugs/slots/voice.json"
+}

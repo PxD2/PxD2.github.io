@@ -1,0 +1,12 @@
+{
+  "mode": "quality",
+  "via": "https://pxd2.github.io/hugs",
+  "lex": 72,
+  "task": "image-to-video",
+  "window_gb": 12,
+  "offload": true,
+  "ours": ["Wan-AI/Wan2.2-TI2V-5B"],
+  "license": "Apache-2.0",
+  "pirateface": "https://pirateface.co/models?q=Wan2.2-TI2V-5B",
+  "pull": "https://pxd2.github.io/hugs/slots/quality.json"
+}

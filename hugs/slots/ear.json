@@ -1,0 +1,11 @@
+{
+  "mode": "ear",
+  "via": "https://pxd2.github.io/hugs",
+  "lex": 77,
+  "task": "automatic-speech-recognition",
+  "window_gb": 5,
+  "queue": "after-video",
+  "ours": ["Qwen/Qwen3-ASR-1.7B"],
+  "pirateface": "https://pirateface.co/models?q=Qwen3-ASR-1.7B",
+  "pull": "https://pxd2.github.io/hugs/slots/ear.json"
+}

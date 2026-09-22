@@ -1,0 +1,10 @@
+{
+  "mode": "slate",
+  "via": "https://pxd2.github.io/hugs",
+  "lex": 70,
+  "task": "text-generation",
+  "window_gb": 8,
+  "ours": ["hermes3:8b", "Qwen/Qwen3-4B"],
+  "pirateface": "https://pirateface.co/models?q=Qwen3-4B",
+  "pull": "https://pxd2.github.io/hugs/slots/slate.json"
+}

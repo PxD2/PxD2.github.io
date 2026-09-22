@@ -1,0 +1,9 @@
+{
+  "mode": "still",
+  "via": "https://pxd2.github.io/hugs",
+  "lex": 74,
+  "task": "text-to-image",
+  "window_gb": 6,
+  "ours": ["stabilityai/sdxl-turbo"],
+  "pull": "https://pxd2.github.io/hugs/slots/still.json"
+}

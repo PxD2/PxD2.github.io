@@ -1,0 +1,10 @@
+{
+  "mode": "fallback",
+  "via": "https://pxd2.github.io/hugs",
+  "lex": 73,
+  "task": "text-to-video",
+  "window_gb": 6,
+  "ours": ["Wan-AI/Wan2.1-T2V-1.3B"],
+  "pirateface": "https://pirateface.co/models?q=Wan2.1-T2V-1.3B",
+  "pull": "https://pxd2.github.io/hugs/slots/fallback.json"
+}

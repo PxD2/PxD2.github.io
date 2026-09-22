@@ -1,0 +1,10 @@
+{
+  "mode": "preview",
+  "via": "https://pxd2.github.io/hugs",
+  "lex": 71,
+  "task": "text-to-video",
+  "window_gb": 8,
+  "ours": ["Lightricks/LTX-Video-2b-0.9.8-distilled"],
+  "pirateface": "https://pirateface.co/models?q=LTX-Video",
+  "pull": "https://pxd2.github.io/hugs/slots/preview.json"
+}
