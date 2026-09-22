@@ -1,0 +1,23 @@
+{
+  "site": "https://pxd2.github.io/hugs",
+  "ftp": "https://pxd2.github.io/hold",
+  "agent_pull": "https://pxd2.github.io/hugs/modes.json",
+  "book": "https://pxd2.github.io/hugs/book/hugs.lex.json",
+  "upstream_index": "https://pirateface.co/models",
+  "policy": "We take Pirate Face listings only in our modes. Agents pull through /hugs, not the swarm.",
+  "box": "5080",
+  "window_gb": 12,
+  "modes": {
+    "slate": {"lex": 70, "task": "text-generation", "window_gb": 8, "ours": ["hermes3:8b", "Qwen/Qwen3-4B"], "pirateface": "https://pirateface.co/models?q=Qwen3-4B", "pull": "https://pxd2.github.io/hugs/slots/slate.json"},
+    "preview": {"lex": 71, "task": "text-to-video", "window_gb": 8, "ours": ["Lightricks/LTX-Video-2b-0.9.8-distilled"], "pirateface": "https://pirateface.co/models?q=LTX-Video", "pull": "https://pxd2.github.io/hugs/slots/preview.json"},
+    "quality": {"lex": 72, "task": "image-to-video", "window_gb": 12, "offload": true, "ours": ["Wan-AI/Wan2.2-TI2V-5B"], "license": "Apache-2.0", "pirateface": "https://pirateface.co/models?q=Wan2.2-TI2V-5B", "pull": "https://pxd2.github.io/hugs/slots/quality.json"},
+    "fallback": {"lex": 73, "task": "text-to-video", "window_gb": 6, "ours": ["Wan-AI/Wan2.1-T2V-1.3B"], "pirateface": "https://pirateface.co/models?q=Wan2.1-T2V-1.3B", "pull": "https://pxd2.github.io/hugs/slots/fallback.json"},
+    "still": {"lex": 74, "task": "text-to-image", "window_gb": 6, "ours": ["stabilityai/sdxl-turbo"], "pull": "https://pxd2.github.io/hugs/slots/still.json"},
+    "motion": {"lex": 75, "task": "image-to-video", "window_gb": 10, "ours": ["stabilityai/stable-video-diffusion-img2vid-xt"], "pull": "https://pxd2.github.io/hugs/slots/motion.json"},
+    "voice": {"lex": 76, "task": "text-to-speech", "window_gb": 4, "queue": "after-video", "ours": ["Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign"], "pirateface": "https://pirateface.co/models?q=Qwen3-TTS-12Hz-1.7B", "pull": "https://pxd2.github.io/hugs/slots/voice.json"},
+    "ear": {"lex": 77, "task": "automatic-speech-recognition", "window_gb": 5, "queue": "after-video", "ours": ["Qwen/Qwen3-ASR-1.7B"], "pirateface": "https://pirateface.co/models?q=Qwen3-ASR-1.7B", "pull": "https://pxd2.github.io/hugs/slots/ear.json"},
+    "pack": {"lex": 45, "task": "ffmpeg", "window_gb": 0, "ours": [], "pull": null},
+    "book": {"lex": 85, "task": "lex", "window_gb": 0, "ours": ["pxd2-hugs-5080"], "pull": "https://pxd2.github.io/hugs/book/hugs.lex.json"}
+  },
+  "refuse": ["Wan 14B", "Hunyuan 13B", "765GB multimodal dumps", "closed Soul / DoP", "agent pull straight from pirateface.co during a cut"]
+}

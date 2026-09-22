@@ -1,0 +1,9 @@
+{
+  "mode": "motion",
+  "via": "https://pxd2.github.io/hugs",
+  "lex": 75,
+  "task": "image-to-video",
+  "window_gb": 10,
+  "ours": ["stabilityai/stable-video-diffusion-img2vid-xt"],
+  "pull": "https://pxd2.github.io/hugs/slots/motion.json"
+}
