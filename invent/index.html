@@ -4,58 +4,49 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Invent — PXD2</title>
-  <meta name="description" content="Owned inventory hall. Import CSV, mark sold, download eBay File Exchange for angelwood-67." />
   <link rel="canonical" href="https://pxd2.github.io/invent/" />
   <meta name="theme-color" content="#07080c" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" />
   <style>
-    :root { --bg:#07080c; --ink:#e8e6df; --dim:#8b93a3; --gold:#f5c14a; --cyan:#00d4ea; --line:#1c2230; --panel:#0e1118; --bad:#e35d5d; }
+    :root { --bg:#07080c; --ink:#e8e6df; --dim:#8b93a3; --gold:#f5c14a; --cyan:#00d4ea; --line:#1c2230; --panel:#0e1118; }
     * { box-sizing: border-box; }
-    html, body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.45 Barlow,system-ui,sans-serif; }
+    html, body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.45 system-ui,sans-serif; }
     a { color:var(--cyan); }
-    .bar { display:flex; flex-wrap:wrap; gap:10px 18px; align-items:center; justify-content:space-between; padding:12px 18px; border-bottom:1px solid var(--line); font:600 11px/1 Barlow,sans-serif; letter-spacing:.2em; text-transform:uppercase; color:var(--dim); }
+    .bar { display:flex; flex-wrap:wrap; gap:10px 18px; justify-content:space-between; padding:12px 18px; border-bottom:1px solid var(--line); font:600 11px/1 sans-serif; letter-spacing:.2em; text-transform:uppercase; color:var(--dim); }
     .bar a { color:var(--gold); text-decoration:none; }
     main { max-width:1180px; margin:0 auto; padding:22px 18px 96px; }
-    h1 { font:700 36px/1 Oswald,sans-serif; margin:0 0 6px; }
-    .lede { color:var(--dim); max-width:42rem; margin:0 0 18px; }
+    h1 { font:700 36px/1 sans-serif; margin:0 0 6px; }
+    .lede { color:var(--dim); max-width:42rem; }
     .stats { display:flex; gap:8px; flex-wrap:wrap; margin:0 0 16px; }
     .stat { background:var(--panel); border:1px solid var(--line); padding:10px 12px; min-width:110px; }
-    .stat b { display:block; font:700 22px/1 Oswald,sans-serif; color:var(--gold); }
-    .stat span { font:600 11px/1 Barlow,sans-serif; letter-spacing:.14em; text-transform:uppercase; color:var(--dim); }
-    .tools { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 14px; align-items:center; }
-    button, .file {
-      min-height:40px; background:var(--panel); color:var(--ink); border:1px solid var(--line);
-      padding:0 12px; font:600 12px/1 Barlow,sans-serif; letter-spacing:.08em; text-transform:uppercase; cursor:pointer;
-    }
+    .stat b { display:block; font:700 22px/1 sans-serif; color:var(--gold); }
+    .tools { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 14px; }
+    button, .file { min-height:40px; background:var(--panel); color:var(--ink); border:1px solid var(--line); padding:0 12px; font:600 12px/1 sans-serif; letter-spacing:.08em; text-transform:uppercase; cursor:pointer; }
     button.gold { border-color:var(--gold); color:var(--gold); }
-    button:hover { border-color:var(--gold); }
-    input[type=search], input[type=text], input[type=number], textarea {
-      background:var(--panel); color:var(--ink); border:1px solid var(--line); padding:8px 10px; font:15px Barlow,sans-serif;
-    }
+    input, textarea { background:var(--panel); color:var(--ink); border:1px solid var(--line); padding:8px 10px; }
     input[type=search] { min-height:40px; min-width:220px; flex:1; }
     table { width:100%; border-collapse:collapse; font-size:14px; }
-    th { text-align:left; font:600 11px/1 Barlow,sans-serif; letter-spacing:.14em; text-transform:uppercase; color:var(--dim); border-bottom:1px solid var(--line); padding:8px 6px; }
-    td { border-bottom:1px solid var(--line); padding:8px 6px; vertical-align:top; }
+    th { text-align:left; font:600 11px/1 sans-serif; letter-spacing:.14em; text-transform:uppercase; color:var(--dim); border-bottom:1px solid var(--line); padding:8px 6px; }
+    td { border-bottom:1px solid var(--line); padding:8px 6px; vertical-align:middle; }
     tr.sold td { color:var(--dim); text-decoration:line-through; }
-    tr.sold td:last-child, tr.sold button { text-decoration:none; }
     .wrap { overflow:auto; border:1px solid var(--line); }
-    .note { color:var(--dim); font-size:13px; margin-top:16px; }
-    nav.rooms { position:fixed; left:12px; bottom:12px; z-index:50; display:flex; gap:10px; flex-wrap:wrap; font:600 11px/1 Barlow,sans-serif; letter-spacing:.18em; text-transform:uppercase; }
+    .thumb { width:44px; height:64px; object-fit:cover; background:#111; display:block; }
+    .miss { width:44px; height:64px; border:1px solid var(--line); color:var(--dim); font:600 9px/64px sans-serif; text-align:center; }
+    .note { color:var(--dim); font-size:13px; }
+    nav.rooms { position:fixed; left:12px; bottom:12px; display:flex; gap:10px; font:600 11px/1 sans-serif; letter-spacing:.18em; text-transform:uppercase; }
     nav.rooms a { color:#8b93a3; text-decoration:none; }
     dialog { background:var(--panel); color:var(--ink); border:1px solid var(--gold); padding:18px; width:min(520px,94vw); }
-    dialog menu { padding:0; margin:14px 0 0; display:flex; gap:8px; }
-    label.k { display:block; font:600 11px/1 Barlow,sans-serif; letter-spacing:.14em; text-transform:uppercase; color:var(--gold); margin:10px 0 4px; }
+    label.k { display:block; font:600 11px/1 sans-serif; letter-spacing:.14em; text-transform:uppercase; color:var(--gold); margin:10px 0 4px; }
   </style>
 </head>
 <body>
   <div class="bar">
-    <a href="https://pxd2.github.io/">PXD2 · floor</a>
+    <a href="https://pxd2.github.io/">PXD2</a>
     <span>Invent</span>
-    <a href="https://github.com/PxD2/angelwood-inventory">mapper on git</a>
+    <a href="https://pxd2.github.io/spread/">Spread</a>
   </div>
   <main>
     <h1>Invent</h1>
-    <p class="lede">Your list, in this browser. Import a Whatnot Seller Hub / master CSV. Mark sold. Download an eBay File Exchange file for <b>angelwood-67</b>. This page does not scrape Whatnot and does not log into eBay.</p>
+    <p class="lede">List lives in this browser plus <code>catalog.json</code>. Photos show if the row has a URL or a file at <code>/invent/photos/SKU.jpg</code>.</p>
     <div class="stats">
       <div class="stat"><b id="nAll">0</b><span>skus</span></div>
       <div class="stat"><b id="nLive">0</b><span>live qty</span></div>
@@ -73,82 +64,71 @@
     <div class="wrap">
       <table>
         <thead>
-          <tr>
-            <th>SKU</th><th>Title</th><th>Cond</th><th>Qty</th><th>USD</th><th>Sold</th><th></th>
-          </tr>
+          <tr><th>Photo</th><th>SKU</th><th>Title</th><th>Cond</th><th>Qty</th><th>USD</th><th>Sold</th><th></th></tr>
         </thead>
         <tbody id="body"></tbody>
       </table>
     </div>
-    <p class="note">Storage key <code>pxd2.invent.v1</code>. Upload the eBay file in Seller Hub → listings. For API push use the private repo tools/ebay_push.py on your machine.</p>
+    <p class="note">Key <code>pxd2.invent.v1</code>. Cover files go in the repo folder <code>invent/photos/</code>.</p>
   </main>
   <dialog id="dlg">
     <form method="dialog" id="form">
-      <h2 style="font:700 22px/1 Oswald,sans-serif;margin:0 0 8px;">Item</h2>
-      <label class="k" for="sku">SKU</label>
-      <input id="sku" type="text" required />
-      <label class="k" for="title">Title</label>
-      <input id="title" type="text" required />
-      <label class="k" for="desc">Description</label>
-      <textarea id="desc" rows="3"></textarea>
-      <label class="k" for="cond">Condition</label>
-      <input id="cond" type="text" value="Used" />
-      <label class="k" for="qty">Qty</label>
-      <input id="qty" type="number" min="0" value="1" />
-      <label class="k" for="price">Price USD</label>
-      <input id="price" type="text" />
-      <label class="k" for="photos">Photo URLs ( | separated)</label>
-      <input id="photos" type="text" />
-      <menu>
-        <button value="cancel">Cancel</button>
-        <button class="gold" id="save" value="default">Save</button>
-      </menu>
+      <label class="k" for="sku">SKU</label><input id="sku" type="text" required />
+      <label class="k" for="title">Title</label><input id="title" type="text" required />
+      <label class="k" for="desc">Description</label><textarea id="desc" rows="3"></textarea>
+      <label class="k" for="cond">Condition</label><input id="cond" type="text" value="Used" />
+      <label class="k" for="qty">Qty</label><input id="qty" type="number" min="0" value="1" />
+      <label class="k" for="price">Price USD</label><input id="price" type="text" />
+      <label class="k" for="photos">Photo URL</label><input id="photos" type="text" />
+      <menu><button value="cancel">Cancel</button><button class="gold" value="default">Save</button></menu>
     </form>
   </dialog>
   <nav class="rooms">
-    <a href="https://pxd2.github.io/">Floor</a>
-    <a href="https://pxd2.github.io/invent/">Invent</a>
-    <a href="https://pxd2.github.io/alexandria/">Alexandria</a>
+    <a href="/">Floor</a>
+    <a href="/invent/">Invent</a>
+    <a href="/spread/">Spread</a>
   </nav>
 <script>
 const KEY = "pxd2.invent.v1";
 let rows = [];
 let editIndex = -1;
-
 const $ = (id) => document.getElementById(id);
 function load() {
-  try { rows = JSON.parse(localStorage.getItem(KEY) || "[]"); } catch { rows = []; }
+  try { rows = JSON.parse(localStorage.getItem(KEY) || "[]"); } catch (e) { rows = []; }
   if (!Array.isArray(rows)) rows = [];
 }
 function save() { localStorage.setItem(KEY, JSON.stringify(rows)); render(); }
-
+function coverOf(r) {
+  var u = String(r.photo_urls || r.pic || "").split("|")[0].split(",")[0].trim();
+  if (u) return u;
+  if (r.sku) return "/invent/photos/" + r.sku + ".jpg";
+  return "";
+}
 function csvEscape(v) {
-  const s = String(v ?? "");
+  var s = String(v == null ? "" : v);
   return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
 }
 function parseCSV(text) {
-  const lines = text.replace(/^\uFEFF/, "").split(/\r?\n/).filter((l) => l.trim());
+  var lines = text.replace(/^\uFEFF/, "").split(/\r?\n/).filter(function (l) { return l.trim(); });
   if (!lines.length) return [];
-  const split = (line) => {
-    const out = []; let cur = ""; let q = false;
-    for (let i = 0; i < line.length; i++) {
-      const c = line[i];
-      if (c === '"') { if (q && line[i+1] === '"') { cur += '"'; i++; } else q = !q; }
-      else if (c === ',' && !q) { out.push(cur); cur = ""; }
+  function split(line) {
+    var out = [], cur = "", q = false, i, c;
+    for (i = 0; i < line.length; i++) {
+      c = line.charAt(i);
+      if (c === '"') { if (q && line.charAt(i + 1) === '"') { cur += '"'; i++; } else q = !q; }
+      else if (c === "," && !q) { out.push(cur); cur = ""; }
       else cur += c;
     }
-    out.push(cur);
-    return out;
-  };
-  const headers = split(lines[0]).map((h) => h.trim().toLowerCase().replace(/\s+/g, "_"));
-  const pick = (obj, names) => {
-    for (const n of names) if (obj[n]) return obj[n];
+    out.push(cur); return out;
+  }
+  var headers = split(lines[0]).map(function (h) { return h.trim().toLowerCase().replace(/\s+/g, "_"); });
+  function pick(obj, names) {
+    var i; for (i = 0; i < names.length; i++) if (obj[names[i]]) return obj[names[i]];
     return "";
-  };
-  return lines.slice(1).map((line) => {
-    const cols = split(line);
-    const o = {};
-    headers.forEach((h, i) => o[h] = (cols[i] || "").trim());
+  }
+  return lines.slice(1).map(function (line) {
+    var cols = split(line), o = {}, i;
+    for (i = 0; i < headers.length; i++) o[headers[i]] = (cols[i] || "").trim();
     return {
       sku: pick(o, ["sku", "id", "product_id", "listing_id"]),
       title: pick(o, ["title", "name", "product_title", "item_title"]),
@@ -156,133 +136,108 @@ function parseCSV(text) {
       condition: pick(o, ["condition", "cond"]) || "Used",
       quantity: Number(pick(o, ["quantity", "qty", "inventory", "stock"]) || 1),
       price_usd: pick(o, ["price_usd", "price", "startprice", "amount"]),
-      photo_urls: pick(o, ["photo_urls", "photos", "image", "images", "picurl"]),
-      sold: String(pick(o, ["sold"])).toLowerCase() === "true" || Number(o.quantity) === 0 && String(o.sold) === "1",
+      photo_urls: pick(o, ["photo_urls", "photos", "image", "images", "picurl", "item_photo_url"]),
+      sold: String(pick(o, ["sold"])).toLowerCase() === "true"
     };
-  }).filter((r) => r.sku || r.title);
+  }).filter(function (r) { return r.sku || r.title; });
 }
-
 function download(name, text) {
-  const a = document.createElement("a");
+  var a = document.createElement("a");
   a.href = URL.createObjectURL(new Blob([text], { type: "text/csv" }));
-  a.download = name;
-  a.click();
-  URL.revokeObjectURL(a.href);
+  a.download = name; a.click();
 }
-
 function render() {
-  const q = ($("q").value || "").toLowerCase();
-  const view = rows.filter((r) => !q || (r.sku + " " + r.title).toLowerCase().includes(q));
-  $("body").innerHTML = view.map((r, i) => {
-    const idx = rows.indexOf(r);
-    return `<tr class="${r.sold || Number(r.quantity) === 0 ? "sold" : ""}">
-      <td>${r.sku || ""}</td>
-      <td>${r.title || ""}</td>
-      <td>${r.condition || ""}</td>
-      <td>${r.sold ? 0 : (r.quantity ?? 1)}</td>
-      <td>${r.price_usd || ""}</td>
-      <td>${r.sold ? "yes" : ""}</td>
-      <td>
-        <button type="button" data-edit="${idx}">Edit</button>
-        <button type="button" data-sold="${idx}">${r.sold ? "Unsold" : "Sold"}</button>
-        <button type="button" data-del="${idx}">Del</button>
-      </td></tr>`;
-  }).join("") || `<tr><td colspan="7" style="color:#8b93a3;padding:18px;">No rows. Import a CSV or add one.</td></tr>`;
-  const live = rows.filter((r) => !r.sold && Number(r.quantity) > 0);
+  var q = ($("q").value || "").toLowerCase();
+  var view = rows.filter(function (r) { return !q || (r.sku + " " + r.title).toLowerCase().indexOf(q) >= 0; });
+  $("body").innerHTML = view.map(function (r) {
+    var idx = rows.indexOf(r);
+    var src = coverOf(r);
+    var pic = src ? '<img class="thumb" alt="" src="' + src.replace(/"/g, "") + '" onerror="this.replaceWith(Object.assign(document.createElement(\'div\'),{className:\'miss\',textContent:\'\u2014\'}))">' : '<div class="miss">—</div>';
+    return '<tr class="' + (r.sold || Number(r.quantity) === 0 ? "sold" : "") + '">' +
+      "<td>" + pic + "</td><td>" + (r.sku || "") + "</td><td>" + (r.title || "") + "</td><td>" +
+      (r.condition || "") + "</td><td>" + (r.sold ? 0 : (r.quantity || 1)) + "</td><td>" +
+      (r.price_usd || "") + "</td><td>" + (r.sold ? "yes" : "") + "</td><td>" +
+      '<button type="button" data-edit="' + idx + '">Edit</button> ' +
+      '<button type="button" data-sold="' + idx + '">' + (r.sold ? "Unsold" : "Sold") + "</button> " +
+      '<button type="button" data-del="' + idx + '">Del</button></td></tr>';
+  }).join("") || '<tr><td colspan="8" style="color:#8b93a3;padding:18px">No rows.</td></tr>';
+  var live = rows.filter(function (r) { return !r.sold && Number(r.quantity) > 0; });
   $("nAll").textContent = rows.length;
-  $("nLive").textContent = live.reduce((s, r) => s + Number(r.quantity || 0), 0);
-  $("nSold").textContent = rows.filter((r) => r.sold).length;
-  const val = live.reduce((s, r) => s + Number(r.price_usd || 0) * Number(r.quantity || 0), 0);
-  $("nVal").textContent = "$" + val.toFixed(2);
+  $("nLive").textContent = live.reduce(function (s, r) { return s + Number(r.quantity || 0); }, 0);
+  $("nSold").textContent = rows.filter(function (r) { return r.sold; }).length;
+  $("nVal").textContent = "$" + live.reduce(function (s, r) { return s + Number(r.price_usd || 0) * Number(r.quantity || 0); }, 0).toFixed(2);
 }
-
 function openForm(i) {
   editIndex = i;
-  const r = i < 0 ? { sku:"", title:"", description:"", condition:"Used", quantity:1, price_usd:"", photo_urls:"" } : rows[i];
-  $("sku").value = r.sku || "";
-  $("title").value = r.title || "";
-  $("desc").value = r.description || "";
-  $("cond").value = r.condition || "Used";
-  $("qty").value = r.quantity ?? 1;
-  $("price").value = r.price_usd || "";
-  $("photos").value = r.photo_urls || "";
-  $("dlg").showModal();
+  var r = i < 0 ? {} : rows[i];
+  $("sku").value = r.sku || ""; $("title").value = r.title || "";
+  $("desc").value = r.description || ""; $("cond").value = r.condition || "Used";
+  $("qty").value = r.quantity == null ? 1 : r.quantity; $("price").value = r.price_usd || "";
+  $("photos").value = r.photo_urls || ""; $("dlg").showModal();
 }
-
-$("form").addEventListener("submit", (e) => {
+function mergeIn(list) {
+  var have = {}; var i, r, n = 0;
+  for (i = 0; i < rows.length; i++) have[(rows[i].sku || "") + "|" + (rows[i].title || "")] = true;
+  for (i = 0; i < list.length; i++) {
+    r = list[i];
+    if (!r || !(r.title || r.sku)) continue;
+    if (!r.price_usd && r.price) r.price_usd = r.price;
+    if (!r.quantity && r.qty) r.quantity = r.qty;
+    if (have[(r.sku || "") + "|" + (r.title || "")]) continue;
+    rows.push(r); n++;
+  }
+  if (n) save(); else render();
+}
+$("form").addEventListener("submit", function (e) {
   if (e.submitter && e.submitter.value === "cancel") return;
-  const rec = {
-    sku: $("sku").value.trim(),
-    title: $("title").value.trim(),
-    description: $("desc").value.trim(),
-    condition: $("cond").value.trim() || "Used",
-    quantity: Number($("qty").value || 1),
-    price_usd: $("price").value.trim(),
-    photo_urls: $("photos").value.trim(),
-    sold: false,
+  var rec = {
+    sku: $("sku").value.trim(), title: $("title").value.trim(),
+    description: $("desc").value.trim(), condition: $("cond").value.trim() || "Used",
+    quantity: Number($("qty").value || 1), price_usd: $("price").value.trim(),
+    photo_urls: $("photos").value.trim(), sold: editIndex >= 0 ? rows[editIndex].sold : false
   };
-  if (editIndex >= 0) rec.sold = rows[editIndex].sold;
   if (editIndex >= 0) rows[editIndex] = rec; else rows.push(rec);
   save();
 });
-
-$("body").addEventListener("click", (e) => {
-  const t = e.target;
-  if (t.dataset.edit != null) openForm(Number(t.dataset.edit));
-  if (t.dataset.sold != null) {
-    const i = Number(t.dataset.sold);
+$("body").addEventListener("click", function (e) {
+  var t = e.target;
+  if (t.getAttribute("data-edit") != null) openForm(Number(t.getAttribute("data-edit")));
+  if (t.getAttribute("data-sold") != null) {
+    var i = Number(t.getAttribute("data-sold"));
     rows[i].sold = !rows[i].sold;
-    if (rows[i].sold) rows[i].quantity = 0; else if (!rows[i].quantity) rows[i].quantity = 1;
+    rows[i].quantity = rows[i].sold ? 0 : (rows[i].quantity || 1);
     save();
   }
-  if (t.dataset.del != null) {
-    rows.splice(Number(t.dataset.del), 1);
-    save();
-  }
+  if (t.getAttribute("data-del") != null) { rows.splice(Number(t.getAttribute("data-del")), 1); save(); }
 });
-
-$("file").addEventListener("change", async (e) => {
-  const f = e.target.files[0];
-  if (!f) return;
-  const parsed = parseCSV(await f.text());
-  const bySku = new Map(rows.map((r) => [r.sku, r]));
-  parsed.forEach((p) => {
-    if (p.sku && bySku.has(p.sku)) Object.assign(bySku.get(p.sku), p);
-    else rows.push(p);
-  });
-  save();
-  e.target.value = "";
+$("file").addEventListener("change", function (e) {
+  var f = e.target.files && e.target.files[0]; if (!f) return;
+  var reader = new FileReader();
+  reader.onload = function () { mergeIn(parseCSV(String(reader.result || ""))); };
+  reader.readAsText(f); e.target.value = "";
 });
-
-$("add").onclick = () => openForm(-1);
+$("add").onclick = function () { openForm(-1); };
 $("q").oninput = render;
-$("wipe").onclick = () => { if (confirm("Clear all rows in this browser?")) { rows = []; save(); } };
-
-$("master").onclick = () => {
-  const head = ["sku","title","description","condition","quantity","price_usd","photo_urls","sold"];
-  const body = rows.map((r) => head.map((h) => csvEscape(r[h])).join(","));
-  download("invent-master.csv", head.join(",") + "\n" + body.join("\n"));
+$("wipe").onclick = function () { if (confirm("Clear rows in this browser?")) { rows = []; save(); } };
+$("master").onclick = function () {
+  var head = ["sku","title","description","condition","quantity","price_usd","photo_urls","sold"];
+  download("invent-master.csv", head.join(",") + "\n" + rows.map(function (r) {
+    return head.map(function (h) { return csvEscape(r[h]); }).join(",");
+  }).join("\n"));
 };
-
-$("ebay").onclick = () => {
-  const head = ["Action","SKU","Title","Description","ConditionID","Format","Duration","StartPrice","Quantity","PicURL"];
-  const cond = (c) => {
-    const k = (c || "used").toLowerCase();
-    if (k.includes("new")) return "1000";
-    if (k.includes("refurb")) return "2500";
-    if (k.includes("part")) return "7000";
-    return "3000";
-  };
-  const body = rows.filter((r) => r.sku && r.title).map((r) => [
-    "Add", r.sku, (r.title || "").slice(0,80), r.description || r.title, cond(r.condition),
-    "FixedPrice", "GTC", r.price_usd || "", r.sold ? 0 : (r.quantity ?? 1), r.photo_urls || ""
-  ].map(csvEscape).join(","));
-  download("invent-ebay-file-exchange.csv", head.join(",") + "\n" + body.join("\n"));
+$("ebay").onclick = function () {
+  var head = ["Action","SKU","Title","Description","ConditionID","Format","Duration","StartPrice","Quantity","PicURL"];
+  download("invent-ebay-file-exchange.csv", head.join(",") + "\n" + rows.filter(function (r) { return r.sku && r.title; }).map(function (r) {
+    return ["Add", r.sku, (r.title || "").slice(0, 80), r.description || r.title, "3000", "FixedPrice", "GTC", r.price_usd || "", r.sold ? 0 : (r.quantity || 1), coverOf(r)].map(csvEscape).join(",");
+  }).join("\n"));
 };
-
 load(); render();
+fetch("https://raw.githubusercontent.com/PxD2/PxD2.github.io/main/invent/catalog.json", { cache: "no-store" })
+  .then(function (res) { return res.ok ? res.json() : null; })
+  .then(function (data) {
+    if (!data) return;
+    mergeIn(Array.isArray(data) ? data : (data.items || data.rows || []));
+  }).catch(function () {});
 </script>
-<script src="/read-aloud.js" defer></script>
-<script src="/sites.js" defer></script>
 </body>
 </html>
