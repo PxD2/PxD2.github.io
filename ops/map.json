@@ -1,0 +1,29 @@
+{
+  "site": "https://pxd2.github.io/ops",
+  "hold": "https://pxd2.github.io/hold",
+  "hugs": "https://pxd2.github.io/hugs",
+  "modes": "https://pxd2.github.io/hugs/modes.json",
+  "agent": "https://pxd2.github.io/hugs/agent.json",
+  "acr": "https://pxd2.github.io/hugs/book/acr.json",
+  "studioa": "https://pxd2.github.io/studioa/",
+  "token": "PXD2T1.<wire>.<crc>.<tick>",
+  "loopback": {
+    "base1_gui": "http://127.0.0.1:8787",
+    "pi_switchboard": "http://127.0.0.1:4000",
+    "ollama": "http://127.0.0.1:11434",
+    "mesh": "udp/7736"
+  },
+  "seats": {
+    "esp32": {"id": 0, "does": "UART number"},
+    "pi5": {"id": 1, "does": "switchboard + mesh throat"},
+    "base1": {"id": 2, "does": "R1-14B Q4 + Mistral + GUI 8787"},
+    "laptop": {"id": 3, "does": "operator mint + Pages"}
+  },
+  "git": {
+    "pages": "PxD2/PxD2.github.io",
+    "studio": "PxD2/studioa-floor",
+    "cmd": "PxD2/cmd-bridge",
+    "pi": "PxD2/personal-pi-switchboard",
+    "window": "PxD2/5080-12gb-window"
+  }
+}

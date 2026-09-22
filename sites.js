@@ -2,6 +2,7 @@
 (function () {
   var SITES = [
     { name: "Sites", href: "/sites/" },
+    { name: "Ops", href: "/ops/" },
     { name: "HOLD", href: "/hold/" },
     { name: "Hugs", href: "/hugs/" },
     { name: "Edu", href: "/edu/" },
