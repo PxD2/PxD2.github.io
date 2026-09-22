@@ -110,7 +110,10 @@
   }
   function autoFromSite() {
     var n = mergeRows(readInventLocal());
-    var urls = ["/invent/catalog.json", "/spread/catalog.json"];
+    var urls = [
+      "https://raw.githubusercontent.com/PxD2/PxD2.github.io/main/invent/catalog.json",
+      "https://raw.githubusercontent.com/PxD2/PxD2.github.io/main/spread/catalog.json"
+    ];
     var left = urls.length;
     function done() {
       if (rows.length) say("Loaded " + rows.length + " from Invent / this site.");
