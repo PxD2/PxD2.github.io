@@ -4,211 +4,76 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Spread — PXD2</title>
-  <meta name="description" content="Lotus-style sheet that writes an eBay Seller Hub file eBay can identify." />
   <link rel="canonical" href="https://pxd2.github.io/spread/" />
   <meta name="theme-color" content="#03160e" />
   <style>
-    :root {
-      --bg:#03160e; --cell:#072015; --ink:#b8f0b0; --dim:#5d9a58;
-      --bar:#0a2a18; --hi:#d4ff6a; --line:#1a4a2a; --warn:#ffd36a;
-    }
+    :root { --bg:#03160e; --cell:#072015; --ink:#b8f0b0; --dim:#5d9a58; --bar:#0a2a18; --hi:#d4ff6a; --line:#1a4a2a; --bad:#ff7a6a; }
     * { box-sizing:border-box; }
-    html,body { margin:0; background:var(--bg); color:var(--ink); font:14px/1.4 \"IBM Plex Mono\", ui-monospace, Menlo, monospace; }
+    html,body { margin:0; background:var(--bg); color:var(--ink); font:14px/1.4 ui-monospace,Menlo,Consolas,monospace; }
     a { color:var(--hi); }
-    header {
-      display:flex; flex-wrap:wrap; gap:10px 16px; align-items:baseline;
-      justify-content:space-between; padding:10px 14px; background:var(--bar);
-      border-bottom:2px solid var(--hi); letter-spacing:.12em; text-transform:uppercase;
-      font-size:11px;
-    }
-    header b { color:var(--hi); letter-spacing:.2em; }
+    header { display:flex; flex-wrap:wrap; gap:10px 16px; justify-content:space-between; padding:10px 14px; background:var(--bar); border-bottom:2px solid var(--hi); letter-spacing:.12em; text-transform:uppercase; font-size:11px; }
+    header b { color:var(--hi); }
     main { padding:14px 14px 80px; max-width:1200px; margin:0 auto; }
-    h1 { font-size:22px; margin:0 0 8px; color:var(--hi); letter-spacing:.08em; }
-    .lede { color:var(--dim); max-width:46rem; margin:0 0 14px; }
-    .warn { border:1px solid var(--warn); color:var(--warn); padding:10px 12px; margin:0 0 14px; }
-    .row { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 10px; align-items:center; }
-    button, .file {
-      background:var(--cell); color:var(--ink); border:1px solid var(--line);
-      min-height:36px; padding:0 10px; font:600 11px/1 inherit; letter-spacing:.08em;
-      text-transform:uppercase; cursor:pointer;
-    }
+    h1 { font-size:22px; margin:0 0 8px; color:var(--hi); }
+    .lede { color:var(--dim); max-width:46rem; }
+    .msg { border:1px solid var(--line); padding:8px 10px; margin:0 0 12px; }
+    .msg.bad { border-color:var(--bad); color:var(--bad); }
+    .row { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 10px; align-items:end; }
+    button,.file { background:var(--cell); color:var(--ink); border:1px solid var(--line); min-height:36px; padding:0 10px; font:600 11px/1 inherit; letter-spacing:.08em; text-transform:uppercase; cursor:pointer; }
     button.go { border-color:var(--hi); color:var(--hi); }
-    input, textarea {
-      background:var(--cell); color:var(--ink); border:1px solid var(--line);
-      padding:7px 8px; font:13px inherit;
-    }
+    input,textarea { background:var(--cell); color:var(--ink); border:1px solid var(--line); padding:7px 8px; font:13px inherit; }
+    textarea { width:100%; min-height:90px; }
     label.k { font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--dim); display:grid; gap:4px; }
-    .gridwrap { overflow:auto; border:1px solid var(--line); max-height:60vh; }
+    .gridwrap { overflow:auto; border:1px solid var(--line); max-height:55vh; }
     table { border-collapse:collapse; min-width:960px; width:100%; }
-    th, td { border:1px solid var(--line); padding:4px 6px; }
-    th { background:#04180f; color:var(--dim); font-size:10px; letter-spacing:.1em; text-transform:uppercase; position:sticky; top:0; }
+    th,td { border:1px solid var(--line); padding:4px 6px; }
+    th { background:#04180f; color:var(--dim); font-size:10px; position:sticky; top:0; }
     td input { width:100%; border:0; padding:4px; background:transparent; }
     .formula { background:#04180f; border:1px solid var(--line); padding:8px 10px; margin:0 0 10px; color:var(--hi); }
-    nav.rooms { position:fixed; left:12px; bottom:12px; display:flex; gap:10px; flex-wrap:wrap; font:600 11px/1 inherit; letter-spacing:.18em; text-transform:uppercase; }
+    nav.rooms { position:fixed; left:12px; bottom:12px; display:flex; gap:10px; font:600 11px/1 inherit; letter-spacing:.18em; text-transform:uppercase; }
     nav.rooms a { color:#8b93a3; text-decoration:none; }
   </style>
 </head>
 <body>
   <header>
     <div><b>Spread 1-2-3</b> · pxd2.github.io/spread</div>
-    <div>angelwood-67 · comics 259104</div>
+    <div>angelwood-67 · 259104</div>
     <a href="https://pxd2.github.io/invent/">Invent</a>
   </header>
   <main>
     <h1>Sheet that eBay can read</h1>
-    <p class="lede">
-      eBay rejected the last file because line 1 was not their template id.
-      Line 1 here is locked: <code>Info,Version=1.0.0,Template=fx_category_template_EBAY_US</code>.
-      Do not open the CSV in Excel and save — Excel adds a BOM and eBay dies again.
-    </p>
-    <div class="warn">
-      The results file you downloaded only had a header. That means zero rows were parsed.
-      Download from this page, then upload as <b>Create new listings</b>.
-    </div>
-    <div class="formula" id="bar">A1 = Info,Version=1.0.0,Template=fx_category_template_EBAY_US</div>
+    <p class="lede">Import a CSV or paste rows. Download writes the locked first line. Hard refresh if this page looks old (Ctrl+Shift+R).</p>
+    <div class="formula">A1 = Info,Version=1.0.0,Template=fx_category_template_EBAY_US</div>
+    <div class="msg" id="msg">Ready.</div>
     <div class="row">
-      <label class="k">ZIP
-        <input id="zip" placeholder="12345" inputmode="numeric" />
-      </label>
-      <label class="k">City, ST
-        <input id="loc" placeholder="Phoenix, AZ" value="United States" />
-      </label>
-      <label class="k">Shipping policy
-        <input id="shipP" placeholder="exact eBay name" />
-      </label>
-      <label class="k">Payment policy
-        <input id="payP" placeholder="exact eBay name" />
-      </label>
-      <label class="k">Return policy
-        <input id="retP" placeholder="exact eBay name" />
-      </label>
+      <label class="k">ZIP<input id="zip" placeholder="85001" inputmode="numeric"></label>
+      <label class="k">City, ST<input id="loc" value="United States"></label>
+      <label class="k">Shipping policy<input id="shipP"></label>
+      <label class="k">Payment policy<input id="payP"></label>
+      <label class="k">Return policy<input id="retP"></label>
     </div>
     <div class="row">
-      <label class="file">Import CSV<input id="file" type="file" accept=".csv,text/csv" hidden /></label>
+      <label class="file">Import CSV<input id="file" type="file" accept=".csv,text/csv,.txt" hidden></label>
+      <button type="button" id="pastebtn">Load paste</button>
       <button type="button" id="add">Insert row</button>
       <button type="button" class="go" id="out">Download eBay CSV</button>
-      <a href="https://www.ebay.com/sh/reports/uploads">Seller Hub uploads</a>
-      <a href="https://www.ebay.com/bp/manage">Policies</a>
     </div>
+    <label class="k">Paste CSV or one title per line
+      <textarea id="paste" placeholder="SKU,Title,Price"></textarea>
+    </label>
     <p class="lede" id="stat">0 rows</p>
     <div class="gridwrap">
       <table>
-        <thead>
-          <tr>
-            <th>#</th><th>SKU</th><th>Title</th><th>Qty</th><th>USD</th><th>Photo URL</th><th>Publisher</th><th></th>
-          </tr>
-        </thead>
+        <thead><tr><th>#</th><th>SKU</th><th>Title</th><th>Qty</th><th>USD</th><th>Photo URL</th><th>Publisher</th><th></th></tr></thead>
         <tbody id="body"></tbody>
       </table>
     </div>
   </main>
-  <nav class="rooms" aria-label="PXD2 rooms">
+  <nav class="rooms">
     <a href="/">Floor</a>
     <a href="/invent/">Invent</a>
     <a href="/spread/">Spread</a>
-    <a href="/sites/">Sites</a>
   </nav>
-<script>
-const INFO = "Info,Version=1.0.0,Template=fx_category_template_EBAY_US";
-const HEAD = [
-  "Action","Custom label (SKU)","Category ID","Title","Start price","Quantity",
-  "Item photo URL","Condition ID","Description","Format","Duration","Location",
-  "Postal code","Max dispatch time","Shipping service 1 option","Shipping service 1 cost",
-  "Shipping service 1 priority","Returns accepted option","Returns within option",
-  "Refund option","Return shipping cost paid by","Shipping profile name",
-  "Payment profile name","Return profile name","C:Type","C:Publisher",
-  "C:Issue Number","C:Grade","C:Universe"
-];
-const KEY = "pxd2.spread.v1";
-let rows = JSON.parse(localStorage.getItem(KEY) || "[]");
-
-function esc(v){
-  const s = String(v ?? "");
-  return /[",\n]/.test(s) ? `"${s.replace(/"/g,'""')}"` : s;
-}
-function title80(t){
-  t = (t||"Comic").replace(/[^\x20-\x7E]/g," ").replace(/\s+/g," ").trim();
-  return t.length<=80 ? t : t.slice(0,77).replace(/\s+\S*$/,"").trim()+"...";
-}
-function save(){ localStorage.setItem(KEY, JSON.stringify(rows)); draw(); }
-function draw(){
-  document.getElementById("stat").textContent = rows.length + " rows";
-  const body = document.getElementById("body");
-  body.innerHTML = rows.map((r,i)=>`<tr>
-    <td>${i+1}</td>
-    <td><input data-i="${i}" data-k="sku" value="${(r.sku||"").replace(/"/g,""")}" /></td>
-    <td><input data-i="${i}" data-k="title" value="${(r.title||"").replace(/"/g,""")}" /></td>
-    <td><input data-i="${i}" data-k="qty" value="${r.qty||1}" /></td>
-    <td><input data-i="${i}" data-k="price" value="${r.price||""}" /></td>
-    <td><input data-i="${i}" data-k="pic" value="${(r.pic||"").replace(/"/g,""")}" /></td>
-    <td><input data-i="${i}" data-k="pub" value="${(r.pub||"").replace(/"/g,""")}" /></td>
-    <td><button data-del="${i}">Del</button></td>
-  </tr>`).join("");
-}
-function parseCsv(text){
-  const lines = text.replace(/^\uFEFF/,"").split(/\r?\n/).filter(l=>l.trim() && !/^#?INFO/i.test(l));
-  if(!lines.length) return [];
-  const split = (line)=>{
-    const out=[]; let cur="", q=false;
-    for(let i=0;i<line.length;i++){
-      const c=line[i];
-      if(c==='"'){ if(q && line[i+1]==='"'){cur+='"';i++;} else q=!q; }
-      else if(c===',' && !q){ out.push(cur); cur=""; }
-      else cur+=c;
-    }
-    out.push(cur); return out;
-  };
-  const h = split(lines[0]).map(s=>s.trim().toLowerCase());
-  const idx = (names)=> names.map(n=>h.indexOf(n)).find(i=>i>=0);
-  return lines.slice(1).map(line=>{
-    const c=split(line);
-    const get=(...n)=>{ const i=idx(n.map(x=>x.toLowerCase())); return i>=0?(c[i]||"").trim():""; };
-    return {
-      sku: get("sku","custom label (sku)","customlabel") || ("AW-"+Math.floor(Math.random()*9000+1000)),
-      title: get("title","item title","name"),
-      qty: get("quantity","qty") || "1",
-      price: get("start price","price","startprice","price_usd"),
-      pic: get("item photo url","picurl","photo_urls","photo"),
-      pub: get("c:publisher","publisher"),
-    };
-  }).filter(r=>r.title);
-}
-document.getElementById("body").addEventListener("input", e=>{
-  const t=e.target; if(!t.dataset.i) return;
-  rows[+t.dataset.i][t.dataset.k]=t.value; localStorage.setItem(KEY, JSON.stringify(rows));
-});
-document.getElementById("body").addEventListener("click", e=>{
-  if(e.target.dataset.del==null) return;
-  rows.splice(+e.target.dataset.del,1); save();
-});
-document.getElementById("add").onclick=()=>{ rows.push({sku:"AW-",title:"",qty:"1",price:"",pic:"",pub:""}); save(); };
-document.getElementById("file").onchange=async ev=>{
-  const f=ev.target.files[0]; if(!f) return;
-  const extra=parseCsv(await f.text());
-  rows = rows.concat(extra); save();
-};
-document.getElementById("out").onclick=()=>{
-  const zip=document.getElementById("zip").value.trim();
-  if(!/^\d{5}(-\d{4})?$/.test(zip)){ alert("ZIP first."); return; }
-  const loc=document.getElementById("loc").value.trim()||"United States";
-  const sp=document.getElementById("shipP").value.trim();
-  const pp=document.getElementById("payP").value.trim();
-  const rp=document.getElementById("retP").value.trim();
-  const live=rows.filter(r=>r.title);
-  const body=live.map(r=>[
-    "Add", r.sku||"", "259104", title80(r.title), r.price||"0", r.qty||"1",
-    (r.pic||"").split(",")[0].trim(), "3000", title80(r.title),
-    "FixedPrice","GTC", loc, zip, "1", "USPSMediaMail", "4.99", "1",
-    "ReturnsAccepted","Days_30","MoneyBack","Buyer",
-    sp, pp, rp, "Comic Book", r.pub||"", "", "Ungraded", r.pub||""
-  ].map(esc).join(","));
-  const csv = INFO + "\n" + HEAD.join(",") + "\n" + body.join("\n") + "\n";
-  const a=document.createElement("a");
-  a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));
-  a.download="angelwood-67-ebay-spread.csv";
-  a.click();
-};
-draw();
-</script>
+<script src="spread.js?v=2"></script>
 </body>
 </html>
