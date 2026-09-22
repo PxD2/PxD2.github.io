@@ -1,0 +1,8 @@
+{
+  "kind": "ftp-index",
+  "read": "https://pxd2.github.io/hold/ftp/",
+  "write": "git add hold/ftp && git commit && git push",
+  "inbox": {},
+  "outbox": {},
+  "note": "Pages serves the last pushed drop. Agents do not seed."
+}

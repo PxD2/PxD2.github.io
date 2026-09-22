@@ -1,0 +1,13 @@
+{
+  "name": "pxd2-hugs-agent",
+  "rule": "Agents pull modes through https://pxd2.github.io/hugs — not pirateface.co, not HF during a cut.",
+  "ftp": "https://pxd2.github.io/hold",
+  "steps": [
+    "GET https://pxd2.github.io/hugs/modes.json",
+    "GET the mode pull URL (slate|preview|quality|fallback|still|motion|voice|ear|book)",
+    "GET https://pxd2.github.io/hold/seats.json if speaking",
+    "GET https://pxd2.github.io/hold/ftp/index.json",
+    "HF_HUB_OFFLINE=1 after the snapshot is on disk"
+  ],
+  "write": "Pages is read. To drop a number: git commit hold/ftp on PxD2.github.io"
+}
