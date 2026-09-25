@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Quote — PXD2 RV Show Low</title>
+  <title>Quote — PXD2 RV sanitation</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Oswald:wght@500;600;700;800&display=swap" />
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -17,8 +17,8 @@
     </nav>
   </header>
   <main>
-    <p class="kicker">Quote card · cleaning only · not a tax invoice</p>
-    <h1>Build the clean, then mail it.</h1>
+    <p class="kicker">Quote · interior tank sanitation · no septic</p>
+    <h1>Quote the sanitation. Pedestal has to be live.</h1>
     <label for="who">Who pays</label>
     <select id="who">
       <option value="single">Single rig (owner pays)</option>
@@ -27,7 +27,7 @@
     </select>
     <label for="n">How many rigs</label>
     <input id="n" type="number" min="1" max="80" value="1" />
-    <label for="job">Clean per rig</label>
+    <label for="job">Interior tanks per rig</label>
     <select id="job">
       <option value="both">Black + gray</option>
       <option value="black">Black only</option>
@@ -35,25 +35,25 @@
     </select>
     <label for="parts">Printed parts (flat estimate)</label>
     <input id="parts" type="number" min="0" step="5" value="0" />
-    <label for="trip">Trip fee (0 inside Show Low / Pinetop corridor, or 3+ park rigs)</label>
+    <label for="trip">Trip fee (0 in corridor, or 3+ park rigs)</label>
     <input id="trip" type="number" min="0" step="5" value="0" />
     <p><button class="btn solid" type="button" id="go">Quote it</button></p>
     <div id="out" hidden></div>
     <section id="letter">
       <h2>Letter the office can receive tonight</h2>
-      <p>Copy, paste, send to <strong>k_barrvresort@yahoo.com</strong> and <strong>info@woodsidervresort.com</strong>.</p>
-      <pre class="letter">Subject: Park-paid tank cleaning as an amenity — 8 rigs for $799
+      <p>Send to <strong>k_barrvresort@yahoo.com</strong> and <strong>info@woodsidervresort.com</strong>.</p>
+      <pre class="letter">Subject: Park-paid interior tank sanitation — 8 rigs for $799
 
 K-Bar office —
 
-PXD2 RV is a Show Low tank-cleaning crew. We do not take clog jobs. Uncleaned tanks stink up the RV. We bring the pressure most toilets and onboard rinsers do not have and reset black and gray tanks on a schedule.
+PXD2 RV sanitizes the black and gray tanks inside the RV from the site pedestal. Uncleaned interior tanks stink up the coach. We are not a septic company. We do not pump anything in the ground.
 
-Offer for a first park account:
-• 8 dual-tank cleans on one weekday for $799 park-paid ($99.88 per rig vs $225 walk-up).
-• You may list it as a park amenity or post a guest price and keep the spread.
-• After the founder block, same-day bulk is 20 / 30 / 40% off at 3 / 6 / 12 rigs.
+First-park offer:
+• 8 dual-tank sanitations, one weekday, $799 park-paid ($99.88 vs $225 walk-up).
+• List it as an amenity or post a guest price and keep the spread.
+• After that, bulk is 20 / 30 / 40% off at 3 / 6 / 12 rigs.
 
-We need sewer at the pedestal, water, and a site list. If a site cannot be cleaned we do not bill it.
+Need live sewer and water at the pedestal and a site list. Dead pedestal = skip, no bill.
 
 Menu: https://pxd2.github.io/rv/
 Email: pxdsquared@gmail.com
@@ -80,17 +80,17 @@ Email: pxdsquared@gmail.com
       const job = document.getElementById("job").value;
       const parts = Math.max(0, parseFloat(document.getElementById("parts").value || "0"));
       const trip = Math.max(0, parseFloat(document.getElementById("trip").value || "0"));
-      let note = "Walk-up single clean.";
+      let note = "Walk-up interior tank sanitation.";
       let labor = 0;
       if (who === "founder") {
         labor = 799;
-        note = "Founder park block locked at $799 for 8 dual-tank cleans. Extra rigs quoted at bulk ladder.";
+        note = "Founder block $799 for 8 dual-tank sanitations.";
         if (n > 8) labor += Math.round((n - 8) * 225 * ladder(n));
-        if (n < 8) note += " Block is priced as 8. Running fewer still invoices $799 unless we rewrite it.";
+        if (n < 8) note += " Priced as 8 unless we rewrite it.";
       } else if (who === "park") {
         const m = ladder(n);
         labor = Math.round(rates[job] * m) * n;
-        note = "Park-paid same-day bulk. " + Math.round((1 - m) * 100) + "% off list.";
+        note = "Park-paid bulk. " + Math.round((1 - m) * 100) + "% off list.";
       } else {
         labor = rates[job] * n;
       }
@@ -98,12 +98,12 @@ Email: pxdsquared@gmail.com
       const el = document.getElementById("out");
       el.hidden = false;
       el.innerHTML =
-        "<h2>Quote</h2><p><strong>" + money(total) + "</strong> for " + n + " rig(s), " + job + " clean.</p>" +
-        "<p>Cleaning " + money(labor) + " · parts " + money(parts) + " · trip " + money(trip) + "</p>" +
-        "<p>" + note + " Cleaning only — no clog or unclog line. Valid 14 days. Sewer must work.</p>" +
+        "<h2>Quote</h2><p><strong>" + money(total) + "</strong> for " + n + " rig(s), " + job + " sanitation.</p>" +
+        "<p>Sanitation " + money(labor) + " · parts " + money(parts) + " · trip " + money(trip) + "</p>" +
+        "<p>" + note + " Interior tanks at a live pedestal only. No septic. Valid 14 days.</p>" +
         "<p><a class='btn solid' href='mailto:pxdsquared@gmail.com?subject=" +
-        encodeURIComponent("PXD2 RV clean quote " + money(total)) +
-        "&body=" + encodeURIComponent("Please book this clean: " + n + " rigs, " + job + ", total " + money(total) + ". Park/site: ") +
+        encodeURIComponent("PXD2 RV sanitation quote " + money(total)) +
+        "&body=" + encodeURIComponent("Book sanitation: " + n + " rigs, " + job + ", total " + money(total) + ". Park/site: ") +
         "'>Email this quote</a></p>";
     };
   </script>
