@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quote — PXD2 RV Show Low</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Oswald:wght@500;600;700;800&display=swap" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="top">
+    <a class="mark" href="/rv/">PXD2 RV</a>
+    <nav>
+      <a href="/rv/">Home</a>
+      <a href="parks.html">Parks</a>
+      <a href="#letter">Office letter</a>
+    </nav>
+  </header>
+  <main>
+    <p class="kicker">Quote card · not a tax invoice</p>
+    <h1>Build the number, then mail it.</h1>
+    <label for="who">Who pays</label>
+    <select id="who">
+      <option value="single">Single rig (owner pays)</option>
+      <option value="park">Park-paid amenity</option>
+      <option value="founder">Founder park block (8 dual-tanks / $799)</option>
+    </select>
+    <label for="n">How many rigs</label>
+    <input id="n" type="number" min="1" max="80" value="1" />
+    <label for="job">Job per rig</label>
+    <select id="job">
+      <option value="both">Black + gray</option>
+      <option value="black">Black only</option>
+      <option value="gray">Gray only</option>
+    </select>
+    <label for="clog">Clog add-on on how many of those rigs</label>
+    <input id="clog" type="number" min="0" max="80" value="0" />
+    <label for="parts">Printed parts (flat estimate)</label>
+    <input id="parts" type="number" min="0" step="5" value="0" />
+    <label for="trip">Trip fee (0 inside Show Low / Pinetop corridor, or 3+ park rigs)</label>
+    <input id="trip" type="number" min="0" step="5" value="0" />
+    <p><button class="btn solid" type="button" id="go">Quote it</button></p>
+    <div id="out" hidden></div>
+    <section id="letter">
+      <h2>Letter the office can receive tonight</h2>
+      <p>Copy, paste, send to <strong>k_barrvresort@yahoo.com</strong> and <strong>info@woodsidervresort.com</strong>. Change the park name on the second send.</p>
+      <pre class="letter">Subject: Park-paid tank reset as an amenity — 8 rigs for $799
+
+K-Bar office —
+
+PXD2 RV is a Show Low tank crew. Most toilets and onboard rinsers do not have the pressure to clear a black tank or wake dead sensors. We bring that pressure to the site.
+
+Offer for a first park account:
+• 8 dual-tank cleans (black + gray) on one weekday for $799 park-paid ($99.88 per rig vs $225 walk-up).
+• You may list it as a park amenity. You may also charge guests a posted price and keep the spread.
+• After the founder block, same-day bulk is 20 / 30 / 40% off at 3 / 6 / 12 rigs.
+
+We need sewer at the pedestal, water, and a site list. If a site cannot be done we do not bill it.
+
+Menu and quote builder: https://pxd2.github.io/rv/
+Email: pxdsquared@gmail.com
+Phone at the park: 928-537-2886
+
+— PXD2 RV, Show Low, Arizona</pre>
+    </section>
+  </main>
+  <footer>
+    <a href="/rv/">RV home</a>
+    <a href="/">Floor</a>
+  </footer>
+  <script>
+    const rates = { black: 165, gray: 115, both: 225 };
+    function ladder(n) {
+      if (n >= 12) return 0.60;
+      if (n >= 6) return 0.70;
+      if (n >= 3) return 0.80;
+      return 1;
+    }
+    function money(n) { return "$" + n.toFixed(2).replace(/\.00$/, ""); }
+    document.getElementById("go").onclick = function () {
+      const who = document.getElementById("who").value;
+      const n = Math.max(1, parseInt(document.getElementById("n").value || "1", 10));
+      const job = document.getElementById("job").value;
+      const clog = Math.max(0, parseInt(document.getElementById("clog").value || "0", 10));
+      const parts = Math.max(0, parseFloat(document.getElementById("parts").value || "0"));
+      const trip = Math.max(0, parseFloat(document.getElementById("trip").value || "0"));
+      let unit = rates[job];
+      let note = "Walk-up single rate.";
+      let labor = 0;
+      if (who === "founder") {
+        labor = 799;
+        note = "Founder park block locked at $799 for 8 dual-tank cleans. Extra rigs quoted at bulk ladder.";
+        if (n > 8) labor += Math.round((n - 8) * 225 * ladder(n));
+        if (n < 8) note += " Block is priced as 8. Running fewer still invoices $799 unless we rewrite it.";
+      } else if (who === "park") {
+        const m = ladder(n);
+        unit = Math.round(rates[job] * m);
+        labor = unit * n;
+        note = "Park-paid same-day bulk. Multiplier " + Math.round((1 - m) * 100) + "% off list.";
+      } else {
+        labor = unit * n;
+      }
+      const clogFee = clog * (who === "single" ? 90 : 70);
+      const total = labor + clogFee + parts + trip;
+      const el = document.getElementById("out");
+      el.hidden = false;
+      el.innerHTML =
+        "<h2>Quote</h2><p><strong>" + money(total) + "</strong> for " + n + " rig(s), " + job + ".</p>" +
+        "<p>Labor " + money(labor) + " · clog " + money(clogFee) + " · parts " + money(parts) + " · trip " + money(trip) + "</p>" +
+        "<p>" + note + " Valid 14 days. Not a licensed-contractor stamp. Sewer must work. Pay at service unless the park runs an account.</p>" +
+        "<p><a class='btn solid' href='mailto:pxdsquared@gmail.com?subject=" +
+        encodeURIComponent("PXD2 RV quote " + money(total)) +
+        "&body=" + encodeURIComponent("Please book this quote: " + n + " rigs, " + job + ", total " + money(total) + ". Park/site: ") +
+        "'>Email this quote</a></p>";
+    };
+  </script>
+</body>
+</html>
