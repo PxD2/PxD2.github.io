@@ -17,13 +17,13 @@
     </nav>
   </header>
   <main>
-    <p class="kicker">Quote · interior tank sanitation · no septic</p>
+    <p class="kicker">Quote · sanitation cleaning · not licensed or bonded</p>
     <h1>Quote the sanitation. Pedestal has to be live.</h1>
     <label for="who">Who pays</label>
     <select id="who">
       <option value="single">Single rig (owner pays)</option>
       <option value="park">Park-paid amenity</option>
-      <option value="founder">Founder park block (8 dual-tanks / $799)</option>
+      <option value="founder">Founder park block (8 dual-tanks / $599)</option>
     </select>
     <label for="n">How many rigs</label>
     <input id="n" type="number" min="1" max="80" value="1" />
@@ -42,16 +42,16 @@
     <section id="letter">
       <h2>Letter the office can receive tonight</h2>
       <p>Send to <strong>k_barrvresort@yahoo.com</strong> and <strong>info@woodsidervresort.com</strong>.</p>
-      <pre class="letter">Subject: Park-paid interior tank sanitation — 8 rigs for $799
+      <pre class="letter">Subject: Park-paid interior tank sanitation — 8 rigs for $599
 
 K-Bar office —
 
-PXD2 RV sanitizes the black and gray tanks inside the RV from the site pedestal. Uncleaned interior tanks stink up the coach. We are not a septic company. We do not pump anything in the ground.
+PXD2 RV is sanitation cleaning of the black and gray tanks inside the RV, from the site pedestal. We are not licensed or bonded. That is why this sits under the usual mobile-clean menus. We are not a septic company.
 
 First-park offer:
-• 8 dual-tank sanitations, one weekday, $799 park-paid ($99.88 vs $225 walk-up).
+• 8 dual-tank sanitations, one weekday, $599 park-paid ($74.88 vs $175 walk-up).
 • List it as an amenity or post a guest price and keep the spread.
-• After that, bulk is 20 / 30 / 40% off at 3 / 6 / 12 rigs.
+• After that, bulk is 20 / 30 / 40% off at 3 / 6 / 12 rigs ($140 / $123 / $105).
 
 Need live sewer and water at the pedestal and a site list. Dead pedestal = skip, no bill.
 
@@ -66,7 +66,7 @@ Email: pxdsquared@gmail.com
     <a href="/">Floor</a>
   </footer>
   <script>
-    const rates = { black: 165, gray: 115, both: 225 };
+    const rates = { black: 129, gray: 89, both: 175 };
     function ladder(n) {
       if (n >= 12) return 0.60;
       if (n >= 6) return 0.70;
@@ -80,17 +80,17 @@ Email: pxdsquared@gmail.com
       const job = document.getElementById("job").value;
       const parts = Math.max(0, parseFloat(document.getElementById("parts").value || "0"));
       const trip = Math.max(0, parseFloat(document.getElementById("trip").value || "0"));
-      let note = "Walk-up interior tank sanitation.";
+      let note = "Walk-up sanitation cleaning. Not licensed or bonded.";
       let labor = 0;
       if (who === "founder") {
-        labor = 799;
-        note = "Founder block $799 for 8 dual-tank sanitations.";
-        if (n > 8) labor += Math.round((n - 8) * 225 * ladder(n));
+        labor = 599;
+        note = "Founder block $599 for 8 dual-tank sanitations.";
+        if (n > 8) labor += Math.round((n - 8) * 175 * ladder(n));
         if (n < 8) note += " Priced as 8 unless we rewrite it.";
       } else if (who === "park") {
         const m = ladder(n);
         labor = Math.round(rates[job] * m) * n;
-        note = "Park-paid bulk. " + Math.round((1 - m) * 100) + "% off list.";
+        note = "Park-paid bulk. " + Math.round((1 - m) * 100) + "% off list. Not licensed or bonded.";
       } else {
         labor = rates[job] * n;
       }
@@ -100,7 +100,7 @@ Email: pxdsquared@gmail.com
       el.innerHTML =
         "<h2>Quote</h2><p><strong>" + money(total) + "</strong> for " + n + " rig(s), " + job + " sanitation.</p>" +
         "<p>Sanitation " + money(labor) + " · parts " + money(parts) + " · trip " + money(trip) + "</p>" +
-        "<p>" + note + " Interior tanks at a live pedestal only. No septic. Valid 14 days.</p>" +
+        "<p>" + note + " Interior tanks at a live pedestal. No septic. Valid 14 days.</p>" +
         "<p><a class='btn solid' href='mailto:pxdsquared@gmail.com?subject=" +
         encodeURIComponent("PXD2 RV sanitation quote " + money(total)) +
         "&body=" + encodeURIComponent("Book sanitation: " + n + " rigs, " + job + ", total " + money(total) + ". Park/site: ") +
