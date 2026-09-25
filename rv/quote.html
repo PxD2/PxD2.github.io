@@ -17,7 +17,7 @@
     </nav>
   </header>
   <main>
-    <p class="kicker">Quote · sanitation cleaning · not licensed or bonded</p>
+    <p class="kicker">Quote · sanitation cleaning · interior tanks</p>
     <h1>Quote the sanitation. Pedestal has to be live.</h1>
     <label for="who">Who pays</label>
     <select id="who">
@@ -46,7 +46,7 @@
 
 K-Bar office —
 
-PXD2 RV is sanitation cleaning of the black and gray tanks inside the RV, from the site pedestal. We are not licensed or bonded. That is why this sits under the usual mobile-clean menus. We are not a septic company.
+PXD2 RV sanitizes the black and gray tanks inside the RV from the site pedestal. Same class of work as cleaning a toilet — not installing one, not pumping septic.
 
 First-park offer:
 • 8 dual-tank sanitations, one weekday, $599 park-paid ($74.88 vs $175 walk-up).
@@ -80,7 +80,7 @@ Email: pxdsquared@gmail.com
       const job = document.getElementById("job").value;
       const parts = Math.max(0, parseFloat(document.getElementById("parts").value || "0"));
       const trip = Math.max(0, parseFloat(document.getElementById("trip").value || "0"));
-      let note = "Walk-up sanitation cleaning. Not licensed or bonded.";
+      let note = "Walk-up sanitation cleaning of interior tanks.";
       let labor = 0;
       if (who === "founder") {
         labor = 599;
@@ -90,7 +90,7 @@ Email: pxdsquared@gmail.com
       } else if (who === "park") {
         const m = ladder(n);
         labor = Math.round(rates[job] * m) * n;
-        note = "Park-paid bulk. " + Math.round((1 - m) * 100) + "% off list. Not licensed or bonded.";
+        note = "Park-paid bulk. " + Math.round((1 - m) * 100) + "% off list.";
       } else {
         labor = rates[job] * n;
       }
@@ -100,7 +100,7 @@ Email: pxdsquared@gmail.com
       el.innerHTML =
         "<h2>Quote</h2><p><strong>" + money(total) + "</strong> for " + n + " rig(s), " + job + " sanitation.</p>" +
         "<p>Sanitation " + money(labor) + " · parts " + money(parts) + " · trip " + money(trip) + "</p>" +
-        "<p>" + note + " Interior tanks at a live pedestal. No septic. Valid 14 days.</p>" +
+        "<p>" + note + " Interior tanks at a live pedestal. Not septic. Not a fixture install. Valid 14 days.</p>" +
         "<p><a class='btn solid' href='mailto:pxdsquared@gmail.com?subject=" +
         encodeURIComponent("PXD2 RV sanitation quote " + money(total)) +
         "&body=" + encodeURIComponent("Book sanitation: " + n + " rigs, " + job + ", total " + money(total) + ". Park/site: ") +
