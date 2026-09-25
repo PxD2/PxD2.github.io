@@ -1,0 +1,18 @@
+{
+  "kind": "pxd2.meshworks.catalog",
+  "version": 1,
+  "home": "https://pxd2.github.io/meshworks/",
+  "git": "https://github.com/PxD2/PxD2.github.io/tree/main/meshworks",
+  "hold_slug": "meshworks",
+  "note": "Cards live on Pages. Heavy meshes live on HOLD SFTP (/hold/meshworks/blobs/). Do not commit raw Revopoint dumps here.",
+  "jobs": [
+    {
+      "id": "MW-000",
+      "title": "Fixture card (empty hall)",
+      "created": "2026-09-25T04:50:00Z",
+      "href": "./jobs/MW-000.json",
+      "plates": [],
+      "blobs": []
+    }
+  ]
+}
