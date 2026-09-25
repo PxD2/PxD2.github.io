@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>PXD2 — Meshworks</title>
+  <link rel="canonical" href="https://pxd2.github.io/meshworks/"/>
+  <meta name="theme-color" content="#05060a"/>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+  <style>
+    :root{--bg:#05060a;--fg:#e8eef5;--muted:#7a8494;--cyan:#00d4ea;--line:rgba(232,238,245,.12);--amber:#f5c14a}
+    *{box-sizing:border-box}
+    html,body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.45 system-ui,Segoe UI,sans-serif}
+    a{color:var(--cyan);text-decoration:none}
+    header{padding:18px 22px;border-bottom:1px solid var(--line);display:flex;gap:14px;align-items:baseline;flex-wrap:wrap}
+    header b{letter-spacing:.14em;color:var(--cyan)}
+    header span{color:var(--muted);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+    main{max-width:980px;margin:0 auto;padding:22px}
+    .disc{border:1px solid rgba(245,193,74,.35);background:rgba(245,193,74,.08);color:var(--amber);padding:10px 12px;border-radius:8px;font-size:13px}
+    input{width:100%;margin:16px 0;padding:10px 12px;background:#0b0d12;border:1px solid var(--line);color:var(--fg)}
+    .job{border:1px solid var(--line);border-radius:10px;padding:14px;margin:10px 0;background:rgba(10,12,18,.9)}
+    .job h2{margin:0 0 6px;font-size:16px}
+    .meta{color:var(--muted);font-size:12px}
+    .refs{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;color:var(--fg);margin-top:8px}
+    footer{padding:20px 22px;color:var(--muted);font-size:12px;border-top:1px solid var(--line)}
+  </style>
+</head>
+<body>
+  <header>
+    <a href="https://pxd2.github.io/"><b>PXD2</b></a>
+    <span>Meshworks · scan recall</span>
+    <a href="./catalog.json">catalog.json</a>
+    <a href="./schema.json">schema</a>
+  </header>
+  <main>
+    <p class="disc">Git holds the card (ids, FRONT/BACK refs, hashes). HOLD / SFTP holds the heavy STL. GitHub is not the disk.</p>
+    <input id="q" placeholder="Find a job, plate, or F1 / B2 id"/>
+    <div id="list">Loading catalog…</div>
+  </main>
+  <footer>Pipe A: this page. Pipe B: HOLD tenant slug <code>meshworks</code>. See PxD2/web-systems HOLD-ICD.</footer>
+  <script>
+    const list = document.getElementById('list');
+    const q = document.getElementById('q');
+    let jobs = [];
+    fetch('./catalog.json').then(r => r.json()).then(cat => {
+      jobs = cat.jobs || [];
+      render('');
+    }).catch(() => { list.textContent = 'catalog.json missing'; });
+    function render(term) {
+      const t = term.trim().toLowerCase();
+      const rows = jobs.filter(j => !t || JSON.stringify(j).toLowerCase().includes(t));
+      if (!rows.length) { list.textContent = 'No jobs yet.'; return; }
+      list.innerHTML = rows.map(j => {
+        const plates = (j.plates || []).map(p => {
+          const ids = (p.ref_ids || []).join(' ');
+          return `<div class="refs">${p.id} [${p.face}] ${ids || 'no refs'} · ${p.sha256 ? p.sha256.slice(0,12) : 'no hash'}</div>`;
+        }).join('');
+        const blob = (j.blobs || [])[0];
+        const where = blob ? `${blob.store} ${blob.path || blob.url || ''}` : 'metadata only';
+        return `<article class="job">
+          <h2><a href="./jobs/${j.id}.json">${j.id}</a> — ${j.title || 'untitled'}</h2>
+          <div class="meta">${j.created || ''} · ${where}</div>
+          ${plates}
+        </article>`;
+      }).join('');
+    }
+    q.addEventListener('input', () => render(q.value));
+  </script>
+</body>
+</html>

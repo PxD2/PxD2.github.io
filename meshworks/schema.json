@@ -1,0 +1,44 @@
+{
+  "$id": "https://pxd2.github.io/meshworks/schema.json",
+  "title": "pxd2.meshworks.job",
+  "type": "object",
+  "required": ["kind", "id"],
+  "properties": {
+    "kind": { "const": "pxd2.meshworks.job" },
+    "id": { "type": "string", "pattern": "^MW-[0-9A-Z-]+$" },
+    "title": { "type": "string" },
+    "created": { "type": "string" },
+    "notes": { "type": "string" },
+    "plates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "id": { "type": "string" },
+          "face": { "type": "string" },
+          "group": { "type": "string" },
+          "sha256": { "type": "string" },
+          "bytes": { "type": "integer" },
+          "ref_ids": { "type": "array", "items": { "type": "string" } },
+          "refs": { "type": "object" }
+        }
+      }
+    },
+    "blobs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "plate": { "type": "string" },
+          "role": { "type": "string" },
+          "store": { "enum": ["hold", "https", "release", "local"] },
+          "path": { "type": "string" },
+          "url": { "type": "string" },
+          "sha256": { "type": "string" },
+          "bytes": { "type": "integer" }
+        }
+      }
+    }
+  }
+}
