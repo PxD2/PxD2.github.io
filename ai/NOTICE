@@ -1,0 +1,18 @@
+PXD2 Pinpoint
+Copyright (c) 2026 PXD2
+
+The hall page, pinpoint.py, and the path math in this folder are licensed
+under either the MIT License or the Apache License, Version 2.0, at your
+option. See LICENSE and LICENSE-APACHE.
+
+The sentence book is not covered by those licenses.
+
+book/book4500.json and book/sentences.tsv are a closed set of 4,500 glosses
+and the phrases that find them, derived from Princeton WordNet Release 3.1.
+Princeton University holds that copyright. The WordNet terms are in
+book/WORDNET.txt and must travel with every copy of the book.
+
+Princeton University is not affiliated with PXD2. The name Princeton may not
+be used in advertising this hall.
+
+This repository does not contain model weights.
