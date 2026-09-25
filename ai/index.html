@@ -1,0 +1,512 @@
+<!doctype html>
+<!-- SPDX-License-Identifier: MIT OR Apache-2.0 -->
+<!-- The sentence book is not under that license. See book/WORDNET.txt. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PXD2 Pinpoint</title>
+  <meta name="description" content="Pinpoint turns a sentence into a Mayan path and recalls the same sentence. Touch, voice, and keys." />
+  <meta name="theme-color" content="#070907" />
+  <link rel="icon" href="/favicon.svg" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Oswald:wght@500;600&display=swap" />
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #070907;
+      --surface: #121a12;
+      --fg: #e8f0e4;
+      --muted: #8ea08a;
+      --green: #8fce4a;
+      --ink: #10160c;
+      --line: #2a3a2a;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font: 16px/1.45 Barlow, "Segoe UI", sans-serif;
+      overflow: hidden;
+    }
+    button, a { cursor: pointer; }
+    .under {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .lane {
+      margin: 0;
+      padding-top: 12vh;
+      white-space: nowrap;
+      color: var(--green);
+      opacity: 0.14;
+      font: 600 26px/1.7 Oswald, "Arial Narrow", sans-serif;
+      letter-spacing: 0.03em;
+      animation: drift 90s linear infinite;
+    }
+    .lane:nth-child(2) { animation-duration: 120s; animation-direction: reverse; opacity: 0.09; }
+    .lane:nth-child(3) { animation-duration: 150s; opacity: 0.07; }
+    @keyframes drift { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .app {
+      position: relative;
+      z-index: 1;
+      height: 100dvh;
+      display: grid;
+      grid-template-rows: auto minmax(140px, 1fr) auto auto;
+      min-height: 0;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 18px 6px;
+    }
+    h1 {
+      margin: 2px 0 0;
+      font: 600 28px/1 Oswald, "Arial Narrow", sans-serif;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .tag {
+      margin: 0;
+      color: var(--green);
+      font: 600 11px/1 Barlow, sans-serif;
+      letter-spacing: 0.22em;
+    }
+    .status { flex: 1; color: var(--muted); font-size: 14px; }
+    .row {
+      display: flex;
+      gap: 14px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding: 8px 18px 12px;
+      min-height: 0;
+    }
+    .blade {
+      flex: 0 0 300px;
+      scroll-snap-align: center;
+      border: 1px solid var(--line);
+      background: rgba(18, 26, 18, 0.9);
+      color: inherit;
+      border-radius: 10px;
+      padding: 16px;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 100%;
+    }
+    .blade.on {
+      border-color: var(--green);
+      background: rgba(22, 36, 18, 0.96);
+      box-shadow: inset 4px 0 0 var(--green);
+    }
+    .blade b {
+      display: block;
+      margin-top: 12px;
+      font: 600 36px/1 Oswald, sans-serif;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .blade span.hint { color: var(--muted); font-size: 14px; }
+    .over {
+      margin: 0 18px;
+      border: 1px solid rgba(143, 206, 74, 0.45);
+      border-bottom: 0;
+      background: rgba(8, 12, 8, 0.94);
+      border-radius: 10px 10px 0 0;
+      padding: 14px;
+      max-height: 42vh;
+      overflow: auto;
+    }
+    .keys {
+      margin: 0;
+      padding: 8px 18px 12px;
+      color: var(--muted);
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      background: rgba(8, 12, 8, 0.94);
+    }
+    label { display: block; color: var(--muted); font-size: 13px; margin-bottom: 6px; }
+    textarea, input {
+      width: 100%;
+      background: var(--bg);
+      color: inherit;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font: inherit;
+    }
+    textarea:focus, input:focus { outline: 2px solid var(--green); border-color: transparent; }
+    .actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    button.go, button.alt {
+      min-height: 44px;
+      border-radius: 8px;
+      padding: 0 16px;
+      font: 600 14px/1 Barlow, sans-serif;
+    }
+    button.go { background: var(--green); color: var(--ink); border: 0; }
+    button.alt { background: transparent; color: var(--fg); border: 1px solid var(--green); }
+    .path {
+      margin: 8px 0 0;
+      color: var(--green);
+      font: 500 22px/1.35 ui-monospace, monospace;
+      word-break: break-all;
+    }
+    .glyphs { margin: 6px 0 0; font: 16px/1.4 ui-monospace, monospace; }
+    .heard { margin: 12px 0 0; }
+    .muted { color: var(--muted); font-size: 13px; }
+    .tiers { display: grid; gap: 8px; }
+    .tier {
+      text-align: left;
+      background: transparent;
+      color: inherit;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px 12px;
+      min-height: 44px;
+    }
+    .tier.on { border-color: var(--green); box-shadow: inset 3px 0 0 var(--green); }
+    a { color: var(--green); }
+    @media (max-width: 720px) {
+      .blade { flex-basis: 78vw; }
+      h1 { font-size: 22px; }
+      header { align-items: flex-start; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .lane { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="under" id="under" aria-hidden="true"></div>
+  <div class="app" id="app">
+    <header>
+      <div>
+        <p class="tag">PXD2 PINPOINT</p>
+        <h1>AI hall</h1>
+      </div>
+      <p class="status" id="status">Mounting the book…</p>
+      <button class="alt" id="mic" type="button">Voice</button>
+    </header>
+    <div class="row" id="row" role="tablist" aria-label="Blades"></div>
+    <section class="over" id="panel" aria-live="polite"></section>
+    <p class="keys" id="keys">Arrows move blades. Enter resolves. M is voice. Swipe the hall.</p>
+  </div>
+  <script>
+    const BLADES = [
+      ["Speak", "One sentence in."],
+      ["Path", "Mayan places and tren."],
+      ["Recall", "Path back to the sentence."],
+      ["Tier", "Pinpoint, Field, Core."]
+    ];
+    const BASE = 20;
+    let blade = 0;
+    let tier = "pin";
+    let text = "hapless miserable pathetic.";
+    let path = "0.0.1";
+    let heard = "";
+    let note = "";
+    let listening = false;
+    let ready = false;
+    const gloss = new Map();
+    const phrase = new Map();
+    const row = document.getElementById("row");
+    const panel = document.getElementById("panel");
+    const mic = document.getElementById("mic");
+
+    function places(id) {
+      let x = Math.max(0, Math.min(7999, id | 0));
+      const low = [];
+      for (let i = 0; i < 3; i++) { low.push(x % BASE); x = Math.floor(x / BASE); }
+      return low.reverse();
+    }
+    function idOf(p) { return p.reduce((n, d) => n * BASE + d, 0); }
+    function glyph(d) {
+      if (d <= 0) return "⌀";
+      const bars = Math.floor(d / 5);
+      const dots = d % 5;
+      return "•".repeat(dots) + (bars ? "━".repeat(bars) : "");
+    }
+    function trench(n) {
+      let x = n | 0;
+      if (!x) return "0";
+      const out = [];
+      while (x) {
+        let r = x % 3;
+        x = Math.trunc(x / 3);
+        if (r === 2) { r = -1; x++; }
+        else if (r === -2) { r = 1; x--; }
+        out.push(r);
+      }
+      return out.reverse().map((d) => (d < 0 ? "−" : d > 0 ? "+" : "0")).join("");
+    }
+    function pack(ids) {
+      const use = ids.length ? ids : [0];
+      return use.map((i) => places(i).join(".")).join("-");
+    }
+    function unpack(p) {
+      const groups = [];
+      for (const part of String(p).trim().split("-")) {
+        const ds = part.split(".").map(Number);
+        if (ds.length === 3 && ds.every((d) => Number.isInteger(d) && d >= 0 && d < BASE)) groups.push(idOf(ds));
+      }
+      return groups.length ? groups : [0];
+    }
+    function norm(s) {
+      return s.toLowerCase().replace(/[^a-z0-9\s'-]/g, " ").replace(/\s+/g, " ").trim().replace(/[.!?]+$/g, "").trim();
+    }
+    function readShelf() {
+      try { return JSON.parse(localStorage.getItem("pxd2-shelf") || "{}"); }
+      catch { return {}; }
+    }
+    function shelfId(sentence) {
+      let h = 2166136261;
+      for (let i = 0; i < sentence.length; i++) h = Math.imul(h ^ sentence.charCodeAt(i), 16777619);
+      return 4501 + ((h >>> 0) % 3499);
+    }
+    function lineOf(id, shelf) {
+      if (!id) return "Empty line. The shell still holds the path.";
+      return gloss.get(id) || shelf[String(id)] || ("No sentence for " + id);
+    }
+    function say(line) {
+      const parts = line.split(/(?<=[.!?])\s+/).map((s) => s.trim()).filter(Boolean);
+      const list = parts.length ? parts : (line.trim() ? [line.trim()] : []);
+      const shelf = readShelf();
+      const ids = [];
+      let missed = 0;
+      if (!list.length) ids.push(0);
+      for (const sentence of list) {
+        const key = norm(sentence);
+        if (phrase.has(key)) { ids.push(phrase.get(key)); continue; }
+        const words = key.split(" ").filter(Boolean);
+        let i = 0;
+        const hits = [];
+        while (i < words.length) {
+          let found = null;
+          let span = 1;
+          for (let n = Math.min(12, words.length - i); n >= 1; n--) {
+            const ph = words.slice(i, i + n).join(" ");
+            if (phrase.has(ph)) { found = phrase.get(ph); span = n; break; }
+          }
+          if (found == null) break;
+          hits.push(found);
+          i += span;
+        }
+        if (hits.length && i === words.length && new Set(hits).size === 1) ids.push(hits[0]);
+        else {
+          const id = shelfId(sentence);
+          shelf[String(id)] = sentence;
+          ids.push(id);
+          missed++;
+        }
+      }
+      if (missed) localStorage.setItem("pxd2-shelf", JSON.stringify(shelf));
+      path = pack(ids);
+      heard = ids.map((id) => lineOf(id, shelf)).join(" ");
+      note = missed ? "Not in the book. Shelved in this browser. The path is still full." : "Already in the book. No model woke up.";
+      draw();
+    }
+    function recall() {
+      const ids = unpack(path);
+      heard = ids.map((id) => lineOf(id, readShelf())).join(" ");
+      note = "Recalled from the path.";
+      draw();
+    }
+    function listen() {
+      const C = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!C) { note = "This browser has no speech recognition. Type the sentence."; draw(); return; }
+      const rec = new C();
+      rec.lang = "en-US";
+      listening = true;
+      draw();
+      rec.onresult = (e) => {
+        const said = e.results[0][0].transcript || "";
+        listening = false;
+        const low = said.toLowerCase().trim();
+        if (low.startsWith("recall ")) { blade = 2; path = said.slice(7).trim(); recall(); return; }
+        if (low === "pinpoint" || low === "field" || low === "core") {
+          tier = low === "field" ? "field" : low === "core" ? "core" : "pin";
+          blade = 3;
+          draw();
+          return;
+        }
+        text = said;
+        blade = 0;
+        say(said);
+      };
+      rec.onerror = rec.onend = () => { listening = false; draw(); };
+      rec.start();
+    }
+    function node(tag, cls, value) {
+      const n = document.createElement(tag);
+      if (cls) n.className = cls;
+      if (value != null) n.textContent = value;
+      return n;
+    }
+    function draw() {
+      row.replaceChildren();
+      BLADES.forEach(([name, hint], i) => {
+        const b = node("button", "blade" + (i === blade ? " on" : ""));
+        b.type = "button";
+        b.setAttribute("role", "tab");
+        b.setAttribute("aria-selected", i === blade ? "true" : "false");
+        b.append(node("span", "tag", String(i + 1).padStart(2, "0")));
+        b.append(node("b", "", name));
+        b.append(node("span", "hint", hint));
+        b.onclick = () => { blade = i; draw(); };
+        row.append(b);
+      });
+      panel.replaceChildren();
+      if (blade === 0) {
+        const lab = node("label", "", "Sentence");
+        lab.htmlFor = "line";
+        const ta = node("textarea");
+        ta.id = "line";
+        ta.rows = 3;
+        ta.value = text;
+        ta.oninput = () => { text = ta.value; };
+        ta.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) { e.preventDefault(); say(ta.value); }
+        });
+        const go = node("button", "go", "Resolve");
+        go.type = "button";
+        go.onclick = () => say(text);
+        const actions = node("div", "actions");
+        actions.append(go);
+        panel.append(lab, ta, actions);
+      } else if (blade === 1) {
+        const ids = unpack(path);
+        panel.append(node("p", "tag", "MAYAN PATH"));
+        panel.append(node("p", "path", path));
+        panel.append(node("p", "glyphs", ids.map((id) => places(id).map(glyph).join(" ")).join("   ·   ")));
+        panel.append(node("p", "muted", "tren " + ids.map(trench).join(" ")));
+      } else if (blade === 2) {
+        const lab = node("label", "", "Path");
+        lab.htmlFor = "pin";
+        const input = node("input");
+        input.id = "pin";
+        input.value = path;
+        input.spellcheck = false;
+        input.oninput = () => { path = input.value; };
+        const back = node("button", "go", "Recall");
+        back.type = "button";
+        back.onclick = () => { path = input.value; recall(); };
+        const actions = node("div", "actions");
+        actions.append(back);
+        panel.append(lab, input, actions);
+      } else {
+        const tiers = [
+          ["pin", "Pinpoint", "Pi. The book only. A known line stays here."],
+          ["field", "Field", "Laptop. Unknown lines sit on a shelf in this browser."],
+          ["core", "Core", "The public hall does not spend a model and ships no weights. A miss is shelved."]
+        ];
+        const grid = node("div", "tiers");
+        tiers.forEach(([id, name, hint]) => {
+          const b = node("button", "tier" + (tier === id ? " on" : ""));
+          b.type = "button";
+          b.append(node("strong", "", name));
+          b.append(document.createTextNode(" — " + hint));
+          b.onclick = () => { tier = id; draw(); };
+          grid.append(b);
+        });
+        const legal = node("p", "muted");
+        legal.append("Code is ");
+        const mit = node("a", "", "MIT");
+        mit.href = "LICENSE";
+        const apache = node("a", "", "Apache-2.0");
+        apache.href = "LICENSE-APACHE";
+        legal.append(mit, " or ", apache, ". The book stays ");
+        const wn = node("a", "", "WordNet");
+        wn.href = "book/WORDNET.txt";
+        legal.append(wn, ".");
+        panel.append(grid, legal);
+      }
+      if (heard) panel.append(node("p", "heard", heard));
+      if (note) panel.append(node("p", "muted", note));
+      mic.textContent = listening ? "Listening…" : "Voice";
+      const names = { pin: "Pinpoint", field: "Field", core: "Core" };
+      document.getElementById("keys").textContent =
+        names[tier] + "  ·  arrows move blades  ·  Enter resolves  ·  M voice  ·  swipe";
+      row.children[blade]?.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" });
+    }
+
+    mic.onclick = listen;
+    let x0 = 0, y0 = 0, swallow = false;
+    const app = document.getElementById("app");
+    app.addEventListener("pointerdown", (e) => { x0 = e.clientX; y0 = e.clientY; });
+    app.addEventListener("pointerup", (e) => {
+      if (e.target.closest("textarea, input, a")) return;
+      const dx = e.clientX - x0;
+      const dy = e.clientY - y0;
+      if (Math.abs(dx) < 64 || Math.abs(dx) < Math.abs(dy)) return;
+      swallow = true;
+      blade = dx < 0 ? Math.min(BLADES.length - 1, blade + 1) : Math.max(0, blade - 1);
+      draw();
+    });
+    app.addEventListener("click", (e) => {
+      if (!swallow) return;
+      e.preventDefault();
+      e.stopPropagation();
+      swallow = false;
+    }, true);
+    addEventListener("keydown", (e) => {
+      const tag = e.target.tagName;
+      if (tag === "TEXTAREA" || tag === "INPUT") {
+        if (e.key === "Escape") e.target.blur();
+        return;
+      }
+      if (e.key === "ArrowRight") blade = Math.min(BLADES.length - 1, blade + 1);
+      if (e.key === "ArrowLeft") blade = Math.max(0, blade - 1);
+      if (e.key === "ArrowDown") {
+        tier = tier === "pin" ? "field" : tier === "field" ? "core" : "pin";
+        blade = 3;
+      }
+      if (e.key === "Enter" && blade === 0) say(text);
+      if (e.key === "Enter" && blade === 2) recall();
+      if (e.key === "m" || e.key === "M") listen();
+      draw();
+    });
+
+    function lanes(entries) {
+      const under = document.getElementById("under");
+      under.replaceChildren();
+      for (let lane = 0; lane < 3; lane++) {
+        const bits = [];
+        for (let i = lane; i < entries.length && bits.length < 28; i += 160) bits.push(entries[i].gloss);
+        const line = bits.join("    ·    ");
+        under.append(node("p", "lane", line + "    ·    " + line));
+      }
+    }
+    async function boot() {
+      const res = await fetch("book/book4500.json");
+      if (!res.ok) throw new Error("book " + res.status);
+      const data = await res.json();
+      for (const e of data.entries) {
+        gloss.set(e.id, e.gloss);
+        const g = norm(e.gloss);
+        if (g && !phrase.has(g)) phrase.set(g, e.id);
+        for (const p of e.phrases) {
+          const k = String(p).toLowerCase();
+          if (k && !phrase.has(k)) phrase.set(k, e.id);
+        }
+      }
+      ready = true;
+      lanes(data.entries);
+      document.getElementById("status").textContent =
+        data.entries.length + " sentences · " + phrase.size.toLocaleString() + " phrases";
+      say(text);
+    }
+    draw();
+    boot().catch((err) => {
+      note = "The book did not mount. " + err.message;
+      document.getElementById("status").textContent = "Book failed.";
+      draw();
+    });
+  </script>
+</body>
+</html>
