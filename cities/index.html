@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PXD2 cities</title>
+<style>
+  :root { color-scheme: dark; --ink:#e8e4d8; --mute:#9a9484; --line:#3a382f; --bg:#12110e; --card:#1c1b16; }
+  body { margin:0; font:16px/1.45 system-ui,sans-serif; background:var(--bg); color:var(--ink); }
+  main { max-width: 52rem; margin: 2rem auto; padding: 0 1rem 4rem; }
+  h1 { font-size: 1.6rem; font-weight: 650; letter-spacing: .02em; }
+  p.mute, .mute { color: var(--mute); }
+  .grid { display:grid; grid-template-columns: repeat(auto-fill,minmax(14rem,1fr)); gap:.75rem; margin:1.25rem 0 2rem; }
+  article { background:var(--card); border:1px solid var(--line); padding:.85rem .9rem; min-height:7.5rem; }
+  article h2 { margin:0 0 .35rem; font-size:1rem; }
+  code { font-size:.85em; }
+  a { color: inherit; }
+  nav a { color: var(--mute); margin-right: 1rem; }
+</style>
+<main>
+  <nav><a href="/">Floor</a><a href="/sites/">Sites</a></nav>
+  <h1>PXD2 cities</h1>
+  <p>Ten halls. One Hermes sandbox. Card patterned on NVIDIA NemoClaw for Hermes Agent.</p>
+  <p class="mute">Not NVIDIA. Not Omniverse. Not the airframe radio. Public callsigns stay on their own halls.</p>
+  <div class="grid" id="g"></div>
+  <p class="mute">Contract: <code>NEMOCLAWCARD.yaml</code> · book: private town ledger · runtime: NemoClaw/OpenShell when installed.</p>
+</main>
+<script>
+const buildings = [
+  ["hotel","Bot Hotel","Makes agents and sends them."],
+  ["university","University","Local training floor."],
+  ["civics","Civics","Dictates the city order."],
+  ["spaceport","Spaceport","God view and departures."],
+  ["yard","Yard","Public PXD2 tickets."],
+  ["parts","Parts","Stocks the buildings."],
+  ["dock","Dock","Slips and transfers."],
+  ["dish","Dish","Cleans the book and dumps it."],
+  ["works","Works","Project floor."],
+  ["transit","Transit","Highways between buildings."]
+];
+document.getElementById('g').innerHTML = buildings.map(([id,n,l]) =>
+  `<article><h2>${n}</h2><p class="mute"><code>${id}</code> · <code>pxd2-city-${id}</code></p><p>${l}</p></article>`
+).join('');
+</script>
+</html>
