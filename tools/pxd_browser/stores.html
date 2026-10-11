@@ -38,6 +38,10 @@ h1 { font: 800 32px Impact, "Arial Narrow", sans-serif; letter-spacing: .03em; m
 (function () {
   "use strict";
   var REGISTRY = "https://pxd2.github.io/names.json", app = document.getElementById("app");
+  // Lit: inside the PXD Browser, ask our own network first; on the web, only if this device opted in
+  var litList = location.protocol === "file:" ? ["http://lit.pxd:7470", "http://127.0.0.1:7470"] : [];
+  try { var mine = JSON.parse(localStorage.getItem("pxd-lit") || "null"); if (Array.isArray(mine)) litList = mine; } catch (e) {}
+  PXDZ.lit(litList);
   var stores = [], reg = null, opened = {};
   function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
   function money(p, cur) { if (p == null || p === "") return "Price on request"; try { return new Intl.NumberFormat("en-US", { style: "currency", currency: cur || "USD" }).format(p); } catch (e) { return "$" + p; } }
@@ -83,7 +87,7 @@ h1 { font: 800 32px Impact, "Arial Narrow", sans-serif; letter-spacing: .03em; m
     }
     var meter = el("p", "sub"); app.appendChild(meter);
     function kb(n) { return n < 1e6 ? (n / 1024).toFixed(1) + " KB" : (n / 1048576).toFixed(2) + " MB"; }
-    setInterval(function () { meter.textContent = "Downloaded " + kb(PXDZ.stats.network) + " · reused from this device " + kb(PXDZ.stats.cache); }, 1000);
+    setInterval(function () { meter.textContent = "Downloaded " + kb(PXDZ.stats.network) + " · from your network (Lit) " + kb(PXDZ.stats.lit) + " · reused from this device " + kb(PXDZ.stats.cache); }, 1000);
     q.addEventListener("input", draw); draw();
     stores.forEach(function (s) { if (!opened[s.name]) openStore(s).then(draw).catch(function (e) { opened[s.name] = { catalog: {}, verify: { ok: false, checks: [{ check: "bundle", ok: false, detail: e.message }] } }; draw(); }); });
   }
