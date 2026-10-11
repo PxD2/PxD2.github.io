@@ -6,6 +6,7 @@ RTX GPU (CUDA, through the local Ollama embedding model) for COG meaning groupin
     python tools/gateway/pxd_gateway.py --authority pxd/authority.json --store "C:\\PXD Gateway\\bundles"
 
 Endpoints
+  GET  /                        PXD Stores: the buyer-facing page for every sub-store (data from all main repositories)
   GET  /api/status              GPU, Ollama and store status
   GET  /api/stores              every bundle with its merchant verification result
   GET  /b/<name>.pxdz[.sig]     bundle stream, with HTTP Range (a reader fetches one part at a time)
@@ -115,6 +116,9 @@ class H(BaseHTTPRequestHandler):
 
     def do_GET(self):
         p = self.path.split("?")[0]
+        if p in ("/", "/stores", "/stores/"):
+            page = os.path.join(os.path.dirname(HERE), "pxd_browser", "stores.html")
+            return self._send(200, open(page, "rb").read(), "text/html; charset=utf-8")
         if p == "/api/status":
             try:
                 models = [m["name"] for m in ollama("/api/tags", timeout=3).get("models", [])]

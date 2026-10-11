@@ -32,7 +32,7 @@ class Registry(QObject):
 
     def __init__(self):
         super().__init__()
-        self.names, self.groups, self.hubs, self.status = {}, [], [], "Loading registry…"
+        self.names, self.groups, self.hubs, self.status, self.mirrors = {}, [], [], "Loading registry…", []
         self._load_cache()
 
     def _load_cache(self):
@@ -40,6 +40,7 @@ class Registry(QObject):
             with open(CACHE, encoding="utf-8") as f:
                 d = json.load(f)
             self.names, self.groups, self.hubs = d["names"], d["groups"], d["hubs"]
+            self.mirrors = d.get("mirrors", [])
             self.status = f"{len(self.names)} .pxd names (saved copy)"
         except Exception:
             pass
@@ -57,10 +58,15 @@ class Registry(QObject):
             return json.load(r)
 
     def _fetch(self):
-        try:
-            main = self._get(MAIN_REGISTRY)
-        except Exception:
+        main = None
+        for src in [MAIN_REGISTRY] + [m for m in self.mirrors if m != MAIN_REGISTRY]:
+            try:
+                main = self._get(src); break
+            except Exception:
+                continue
+        if main is None:
             self.status = (self.status if self.names else "Offline: no registry yet"); self.changed.emit(); return
+        self.mirrors = (main.get("mirrors") or {}).get("registry", []) or self.mirrors
         names = {}
         for k, e in main.get("names", {}).items():
             names[k] = dict(e, hub="pxd2", url=urljoin(SITE, e["to"]))
@@ -82,7 +88,7 @@ class Registry(QObject):
         try:
             os.makedirs(os.path.dirname(CACHE), exist_ok=True)
             with open(CACHE, "w", encoding="utf-8") as f:
-                json.dump({"names": names, "groups": groups, "hubs": hubs}, f)
+                json.dump({"names": names, "groups": groups, "hubs": hubs, "mirrors": self.mirrors}, f)
         except Exception:
             pass
         self.changed.emit()
