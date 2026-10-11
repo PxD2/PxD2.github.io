@@ -180,6 +180,8 @@ def lookup(z, labels):
     m = re.fullmatch(r"ns(\d+)", labels[0])
     if len(labels) == 1 and m and 1 <= int(m.group(1)) <= len(CFG.ns_ips):
         return "ns", CFG.ns_ips[int(m.group(1)) - 1]
+    if labels == ["lit"] and CFG.lit_ip:  # the Lit node on this network
+        return "ns", CFG.lit_ip
     for i in range(len(labels)):  # longest registered suffix wins; anything left of it is a subdomain
         key = ".".join(labels[i:])
         if key in z.names:
@@ -390,6 +392,7 @@ def zone_text(tld):
              f"@ IN SOA ns1.{tld}. hostmaster.{tld}. ( {z.serial} 3600 600 604800 {NEG_TTL} )"]
     lines += [f"@ IN NS ns{i + 1}.{tld}." for i in range(len(CFG.ns_ips))]
     lines += [f"ns{i + 1} IN A {ip}" for i, ip in enumerate(CFG.ns_ips)]
+    lines += [f"lit IN A {CFG.lit_ip}"] if CFG.lit_ip else []
     lines += [f"@ IN A {ip}" for ip in CFG.edge_ips] + [f"@ IN AAAA {ip}" for ip in CFG.edge_ips6]
     for key in sorted(z.names):
         for owner in (key, f"*.{key}"):
@@ -518,6 +521,7 @@ def main():
     ap.add_argument("--edge-ip6", action="append", default=[], help="IPv6 that .pxd names point to")
     ap.add_argument("--ns-ip", action="append", default=[], help="IPv4 of each PXD root server, in order: ns1, ns2 ... (default: this machine)")
     ap.add_argument("--upstream", action="append", default=[], help="resolver for non-.pxd names (default 1.1.1.1, 9.9.9.9)")
+    ap.add_argument("--lit-ip", default="", help="answer lit.pxd with this Lit node address")
     ap.add_argument("--no-forward", action="store_true", help="answer .pxd only; refuse everything else")
     ap.add_argument("--host", default="0.0.0.0")
     ap.add_argument("--dns-port", type=int, default=53); ap.add_argument("--web-port", type=int, default=80)

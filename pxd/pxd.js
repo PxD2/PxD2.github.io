@@ -78,7 +78,29 @@
   }
 
   /* ---------- transfer: fetch only what is shown, keep every verified part ---------- */
-  var stats = { network: 0, cache: 0, requests: 0 };
+  var stats = { network: 0, cache: 0, lit: 0, requests: 0 };
+  /* Lit: ask nodes on your own network (lit.pxd, base1, a Pi, the shop's box) before the origin,
+     and give them what had to come from the origin, so the next device nearby gets it locally. */
+  var litNodes = [], litDead = {};
+  function lit(nodes) { litNodes = (nodes || []).map(function (n) { return String(n).replace(/\/+$/, ""); }); litDead = {}; return litNodes; }
+  async function litGet(h) {
+    for (var i = 0; i < litNodes.length; i++) {
+      var n = litNodes[i]; if (litDead[n]) continue;
+      try {
+        var ctl = new AbortController(), t = setTimeout(function () { ctl.abort(); }, 1500);
+        var r = await fetch(n + "/lit/s/" + h, { signal: ctl.signal }); clearTimeout(t);
+        if (r.status === 404) continue;
+        if (!r.ok) throw new Error(r.status);
+        var d = new Uint8Array(await r.arrayBuffer());
+        if (await sha256(d) === h) { stats.lit += d.length; return d; }  // a neighbor can carry data, never fake it
+      } catch (e) { litDead[n] = true; }
+    }
+    return null;
+  }
+  function litGive(h, d) {
+    var n = litNodes.find(function (x) { return !litDead[x]; });
+    if (n) fetch(n + "/lit/s/" + h, { method: "PUT", body: d }).catch(function () {});
+  }
   var whole = {};  // url -> bytes, for servers that ignore Range
   var partStore = null;
   async function parts() {
@@ -161,6 +183,11 @@
           var hit = await store.match(ckey);
           if (hit) { var c = new Uint8Array(await hit.arrayBuffer()); if (await sha256(c) === p.sha256) { stats.cache += c.length; return (mem[path] = c); } }
         }
+        var viaLit = shareable && p.sha256 && p.codec.indexOf("cog-json") < 0 && litNodes.length > 0;
+        if (viaLit) {
+          var near = await litGet(p.sha256);
+          if (near) { if (store) { try { await store.put(ckey, new Response(near)); } catch (e) {} } return (mem[path] = near); }
+        }
         var data = await undo(await slice(base + p.offset, p.length), p.codec);
         if (p.codec.indexOf("cog-json") > -1) {
           var obj = uncog(JSON.parse(dec.decode(data)), await look());
@@ -168,6 +195,7 @@
           data = enc.encode(JSON.stringify(obj, null, 2));
         } else if (await sha256(data) !== p.sha256) throw new Error("Integrity check failed: " + path);
         if (store && p.codec.indexOf("cog-json") < 0) { try { await store.put(ckey, new Response(data)); } catch (e) {} }
+        if (viaLit) litGive(p.sha256, data);
         return (mem[path] = data);
       },
       text: async function (path) { return dec.decode(await bundle.bytes(path)); },
@@ -216,5 +244,5 @@
     return out;
   }
 
-  root.PXDZ = { open: open, openLazy: openLazy, stats: stats, verify: verify, payLinks: collectPayLinks, fetchAny: fetchAny, version: 1 };
+  root.PXDZ = { open: open, openLazy: openLazy, lit: lit, stats: stats, verify: verify, payLinks: collectPayLinks, fetchAny: fetchAny, version: 1 };
 })(typeof window !== "undefined" ? window : self);
