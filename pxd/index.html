@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PXD Data Lab</title>
+<meta name="description" content="PXDZ, the .pxd data format: COG-coded text, compressed data, 3D models and a full SQL database in one verified, optionally sealed bundle.">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root { --bg:#0b0b0a; --panel:#161513; --line:#2e2a24; --fg:#e8dfc8; --muted:#a39a88; --tan:#c9a46a; --red:#c8282c; --ok:#7fbf7a; color-scheme: dark; }
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.55 "IBM Plex Sans", system-ui, sans-serif; }
+.wrap { max-width: 1100px; margin: 0 auto; padding: 28px 16px 70px; display: grid; gap: 22px; }
+h1 { font: 400 clamp(30px, 6vw, 48px)/1.05 "Black Ops One", Impact, sans-serif; margin: 0; letter-spacing: .02em; }
+h1 span { color: var(--red); }
+h2 { font: 400 20px "Black Ops One", Impact, sans-serif; margin: 0 0 10px; letter-spacing: .03em; }
+.lede { color: var(--muted); max-width: 70ch; margin: 6px 0 0; }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px; min-width: 0; }
+.row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+button, .file { font: 600 14px "IBM Plex Sans", sans-serif; padding: 9px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); color: var(--fg); cursor: pointer; }
+button.primary { background: var(--red); border-color: var(--red); color: #fff; }
+button[aria-pressed=true] { border-color: var(--tan); color: var(--tan); }
+input[type=password], input[type=text], textarea { font: 14px "IBM Plex Mono", monospace; padding: 9px 11px; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); color: var(--fg); min-width: 0; }
+textarea { width: 100%; min-height: 84px; resize: vertical; }
+button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px solid var(--tan); outline-offset: 2px; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr)); gap: 10px; margin-top: 12px; }
+.stat { border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; }
+.stat b { display: block; font: 600 22px "IBM Plex Mono", monospace; color: var(--tan); font-variant-numeric: tabular-nums; }
+.stat span { font-size: 12px; color: var(--muted); }
+.tbl { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+th { color: var(--muted); font-weight: 500; font-size: 12px; }
+td.num, th.num { text-align: right; }
+.ok { color: var(--ok); } .bad { color: var(--red); }
+code, pre { font-family: "IBM Plex Mono", monospace; }
+pre { background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 10px; overflow-x: auto; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 13px; margin: 6px 0 0; }
+.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 12px; }
+.lbl { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+.msg { font: 13px "IBM Plex Mono", monospace; color: var(--muted); min-height: 1.4em; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>PXD <span>Data Lab</span></h1>
+    <p class="lede">PXDZ is the .pxd data format: a whole site or dataset in one file. Text travels as COG addresses, data and 3D models compressed, a full SQL database inside, every part checked by SHA-256, and private bundles sealed with AES-256. This page opens real bundles right in your browser. Nothing is uploaded anywhere.</p>
+  </header>
+
+  <section class="panel" aria-labelledby="load-h">
+    <h2 id="load-h">Open a bundle</h2>
+    <div class="row">
+      <button type="button" id="b-open" aria-pressed="true">PXD Antiques (open)</button>
+      <button type="button" id="b-sealed" aria-pressed="false">PXD Antiques (sealed)</button>
+      <input type="password" id="key" placeholder="key (demo: demo passphrase)" aria-label="Key for sealed bundles" value="">
+      <label class="file">Your own .pxdz<input type="file" id="pick" accept=".pxdz" hidden></label>
+    </div>
+    <p class="msg" id="msg" aria-live="polite">Loading…</p>
+    <div class="stats" id="stats"></div>
+  </section>
+
+  <section class="panel" aria-labelledby="parts-h">
+    <h2 id="parts-h">What's inside</h2>
+    <div class="tbl"><table><thead><tr><th>Part</th><th class="num">Original</th><th class="num">On the wire</th><th>Codecs</th><th>Verified</th></tr></thead><tbody id="parts"></tbody></table></div>
+  </section>
+
+  <section class="panel" aria-labelledby="sql-h">
+    <h2 id="sql-h">SQL, inside the bundle</h2>
+    <p class="msg">Full SQLite running in your browser on the bundle's database. Try your own query.</p>
+    <div class="row" id="tables"></div>
+    <textarea id="q" aria-label="SQL query" spellcheck="false">SELECT title, category, era, json_extract(dims_cm, '$[1]') AS height_cm FROM items ORDER BY height_cm DESC;</textarea>
+    <div class="row" style="margin-top:8px"><button type="button" class="primary" id="run">Run query</button><span class="msg" id="qmsg"></span></div>
+    <div class="tbl" id="result"></div>
+  </section>
+
+  <section class="panel" aria-labelledby="cog-h">
+    <h2 id="cog-h">COG on the wire</h2>
+    <p class="msg">A description as it travels (addresses into the append-only book) and as you read it (rebuilt exactly).</p>
+    <div class="two">
+      <div><span class="lbl">On the wire</span><pre id="wire">—</pre></div>
+      <div><span class="lbl">Rebuilt</span><pre id="plain">—</pre></div>
+    </div>
+  </section>
+</div>
+
+<script src="vendor/sql-wasm.js"></script>
+<script src="pxd.js"></script>
+<script>
+(function () {
+  "use strict";
+  var $ = function (s) { return document.querySelector(s); }, fmt = new Intl.NumberFormat("en-US");
+  var bundle = null, db = null, raw = null;
+  function say(t, bad) { var m = $("#msg"); m.textContent = t; m.className = "msg" + (bad ? " bad" : ""); }
+  function cell(tr, v, cls) { var td = document.createElement("td"); if (cls) td.className = cls; td.textContent = v; tr.appendChild(td); return td; }
+  function stat(label, value) { var d = document.createElement("div"); d.className = "stat"; var b = document.createElement("b"); b.textContent = value; var s = document.createElement("span"); s.textContent = label; d.append(b, s); return d; }
+
+  async function load(src, key) {
+    say("Opening…"); db = null; $("#wire").textContent = "—"; $("#plain").textContent = "—"; $("#qmsg").textContent = ""; $("#parts").textContent = ""; $("#stats").textContent = ""; $("#result").textContent = ""; $("#tables").textContent = "";
+    try {
+      raw = src instanceof ArrayBuffer ? src : await (await fetch(src, { cache: "no-store" })).arrayBuffer();
+      bundle = await PXDZ.open(raw, { key: key });
+    } catch (e) { say(e.sealed ? "This bundle is sealed. Enter its key and press the sealed button again." : e.message, true); return; }
+    var m = bundle.manifest, total = 0;
+    say(m.name + " · " + m.parts.length + " parts · " + (m.encryption ? "sealed with " + m.encryption.alg : "open") + " · created " + m.created);
+    m.parts.forEach(function (p) { total += p.size; });
+    $("#stats").append(stat("original size", fmt.format(total) + " B"), stat("whole bundle on the wire", fmt.format(raw.byteLength) + " B"),
+      stat("smaller", (total / raw.byteLength).toFixed(1) + "×"), stat("COG-coded text values", String(m.stats.cog_strings)));
+    for (const p of m.parts) {
+      var tr = document.createElement("tr");
+      cell(tr, p.path); cell(tr, fmt.format(p.size), "num"); cell(tr, fmt.format(p.length), "num"); cell(tr, p.codec.join(" + ") || "store");
+      var v = cell(tr, "checking…"); $("#parts").appendChild(tr);
+      try { await bundle.bytes(p.path); v.textContent = "SHA-256 ✓"; v.className = "ok"; } catch (e) { v.textContent = e.message; v.className = "bad"; }
+    }
+    // SQL
+    var dbPart = m.parts.find(function (p) { return /\.(db|sqlite)$/.test(p.path); });
+    if (dbPart) {
+      try {
+        db = await bundle.sql(dbPart.path, { locateFile: function (f) { return "vendor/" + f; } });
+        var t = db.exec("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name")[0];
+        (t ? t.values : []).forEach(function (r) { var b = document.createElement("button"); b.type = "button"; b.textContent = r[0];
+          b.onclick = function () { $("#q").value = "SELECT * FROM \"" + r[0] + "\" LIMIT 50;"; run(); }; $("#tables").appendChild(b); });
+        run();
+      } catch (e) { $("#qmsg").textContent = "SQL engine: " + e.message; }
+    }
+    // COG sample
+    var cat = m.parts.find(function (p) { return p.codec.indexOf("cog-json") > -1; });
+    if (cat) {
+      var u8 = new Uint8Array(raw), base = 9 + new DataView(raw).getUint32(5, true);
+      var slice = u8.slice(base + cat.offset, base + cat.offset + cat.length);
+      if (!m.encryption) {
+        var ds = new Response(new Blob([slice]).stream().pipeThrough(new DecompressionStream("deflate-raw")));
+        var wireObj = JSON.parse(await ds.text()); var found = null;
+        (function walk(o) { if (found) return; if (typeof o === "string" && o.indexOf("§cog:") === 0) found = o; else if (o && typeof o === "object") Object.values(o).forEach(walk); })(wireObj);
+        $("#wire").textContent = found || "—";
+      } else $("#wire").textContent = "Sealed: only the key holder can read the addresses.";
+      var obj = await bundle.json(cat.path), plain = null;
+      (function walk(o) { if (plain) return; if (typeof o === "string" && o.length >= 40 && o.indexOf(" ") > -1 && !/^(http|models\/)/.test(o)) plain = o; else if (o && typeof o === "object") Object.values(o).forEach(walk); })(obj);
+      $("#plain").textContent = plain || "—";
+    }
+  }
+
+  function run() {
+    var out = $("#result"); out.textContent = "";
+    if (!db) { $("#qmsg").textContent = "No database in this bundle."; return; }
+    try {
+      var t0 = performance.now(), res = db.exec($("#q").value), ms = (performance.now() - t0).toFixed(1);
+      if (!res.length) { $("#qmsg").textContent = "Done in " + ms + " ms. No rows."; return; }
+      var r = res[0], table = document.createElement("table"), hr = document.createElement("tr");
+      r.columns.forEach(function (c) { var th = document.createElement("th"); th.textContent = c; hr.appendChild(th); });
+      var thead = document.createElement("thead"); thead.appendChild(hr); table.appendChild(thead);
+      var tb = document.createElement("tbody");
+      r.values.forEach(function (row) { var tr = document.createElement("tr"); row.forEach(function (v) { cell(tr, v == null ? "" : String(v)); }); tb.appendChild(tr); });
+      table.appendChild(tb); out.appendChild(table);
+      $("#qmsg").textContent = r.values.length + " row" + (r.values.length === 1 ? "" : "s") + " in " + ms + " ms";
+    } catch (e) { $("#qmsg").textContent = e.message; }
+  }
+  $("#run").addEventListener("click", run);
+  $("#q").addEventListener("keydown", function (e) { if ((e.ctrlKey || e.metaKey) && e.key === "Enter") run(); });
+  function press(id) { ["#b-open", "#b-sealed"].forEach(function (s) { $(s).setAttribute("aria-pressed", String(s === id)); }); }
+  $("#b-open").onclick = function () { press("#b-open"); load("demo/antiques.pxdz"); };
+  $("#b-sealed").onclick = function () { press("#b-sealed"); load("demo/antiques-sealed.pxdz", $("#key").value || null); };
+  $("#pick").addEventListener("change", async function () { var f = this.files[0]; if (!f) return; press(null); load(await f.arrayBuffer(), $("#key").value || null); });
+  load("demo/antiques.pxdz");
+})();
+</script>
+<script src="/sites.js" defer></script>
+</body>
+</html>
