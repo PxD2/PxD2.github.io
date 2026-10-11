@@ -1,0 +1,161 @@
+{
+  "registry": "PXD2 Names",
+  "base": "https://pxd2.github.io/",
+  "names": {
+    "mudforblood": {
+      "to": "/games/",
+      "title": "GLOBAL THEATERS: Mud for Blood",
+      "added": "2026-10-11"
+    },
+    "globaltheaters": {
+      "to": "/games/",
+      "title": "GLOBAL THEATERS franchise",
+      "added": "2026-10-11"
+    },
+    "pxd2games": {
+      "to": "/games/",
+      "title": "PXD2 Games",
+      "added": "2026-10-11"
+    },
+    "tunnelrats": {
+      "to": "/games/",
+      "title": "Tunnel Rats hero map",
+      "added": "2026-10-11"
+    },
+    "youtube": {
+      "to": "https://www.youtube.com/@PXD2Games",
+      "title": "PXD2 Games on YouTube",
+      "added": "2026-10-11"
+    },
+    "tiktok": {
+      "to": "https://www.tiktok.com/@pxd2.games",
+      "title": "PXD2 Games on TikTok",
+      "added": "2026-10-11"
+    },
+    "instagram": {
+      "to": "https://www.instagram.com/pxd2games",
+      "title": "PXD2 Games on Instagram",
+      "added": "2026-10-11"
+    },
+    "helixcad": {
+      "to": "/cad2/",
+      "title": "Helix CAD",
+      "added": "2026-10-11"
+    },
+    "pxd2": {
+      "to": "/",
+      "title": "PXD2 floor",
+      "added": "2026-10-11"
+    },
+    "pxd2studios": {
+      "to": "/",
+      "title": "PXD2 Studios",
+      "added": "2026-10-11"
+    },
+    "pxd2studio": {
+      "to": "/studioa/",
+      "title": "PXD2 Studio",
+      "added": "2026-10-11"
+    },
+    "geeg": {
+      "to": "/company/",
+      "title": "Glen Elder Entertainment Group",
+      "added": "2026-10-11"
+    },
+    "glenelder": {
+      "to": "/company/",
+      "title": "Glen Elder Entertainment Group",
+      "added": "2026-10-11"
+    },
+    "invest": {
+      "to": "/company/",
+      "title": "Company \u00b7 investors",
+      "added": "2026-10-11"
+    },
+    "investors": {
+      "to": "/company/",
+      "title": "Company \u00b7 investors",
+      "added": "2026-10-11"
+    },
+    "hornetbell": {
+      "to": "/hornet/",
+      "title": "Hornet Bell",
+      "added": "2026-10-11"
+    },
+    "digitalalexandria": {
+      "to": "/alexandria/",
+      "title": "Digital Alexandria",
+      "added": "2026-10-11"
+    },
+    "library": {
+      "to": "/alexandria/",
+      "title": "Digital Alexandria",
+      "added": "2026-10-11"
+    },
+    "civicslibrary": {
+      "to": "/civics/",
+      "title": "The People's Rights & Public Power",
+      "added": "2026-10-11"
+    },
+    "reform": {
+      "to": "/college/",
+      "title": "The Reform",
+      "added": "2026-10-11"
+    },
+    "amicus": {
+      "to": "/coalitions/master-amicus-brief.html",
+      "title": "Master amicus brief",
+      "added": "2026-10-11"
+    },
+    "hackspace": {
+      "to": "/pxd2spaces/",
+      "title": "PXD2 Hackspace",
+      "added": "2026-10-11"
+    },
+    "makerspace": {
+      "to": "/pxd2spaces/",
+      "title": "PXD2 Hackspace",
+      "added": "2026-10-11"
+    },
+    "pxd2cad": {
+      "to": "/cad2/",
+      "title": "Helix CAD",
+      "added": "2026-10-11"
+    },
+    "opencad": {
+      "to": "/cad2/",
+      "title": "Helix CAD",
+      "added": "2026-10-11"
+    },
+    "scans": {
+      "to": "/meshworks/",
+      "title": "Meshworks scans",
+      "added": "2026-10-11"
+    },
+    "props": {
+      "to": "/meshworks/",
+      "title": "Prop scans",
+      "added": "2026-10-11"
+    },
+    "fleet": {
+      "to": "/games/",
+      "title": "PXD2 Fleet",
+      "added": "2026-10-11"
+    },
+    "pxd2fleet": {
+      "to": "/games/",
+      "title": "PXD2 Fleet",
+      "added": "2026-10-11"
+    },
+    "github": {
+      "to": "https://github.com/PxD2",
+      "title": "PxD2 on GitHub",
+      "added": "2026-10-11"
+    },
+    "email": {
+      "to": "mailto:pxd2games@gmail.com",
+      "title": "Email PXD2 Games",
+      "added": "2026-10-11"
+    }
+  }
+}

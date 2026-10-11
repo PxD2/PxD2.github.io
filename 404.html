@@ -12,6 +12,17 @@
     <meta property="og:title" content="PXD2 — The floor is open" />
     <meta property="og:description" content="Software as much as hardware. First systems to mothball refit. Walk the hall." />
     <meta property="og:image" content="https://pxd2.github.io/og.jpg" />
+    <script>
+      /* PXD2 Names: any case, trailing bits, or a name added to names.json before its folder is built */
+      (function () {
+        var seg = location.pathname.replace(/^\/+|\/+$/g, "").split("/")[0].toLowerCase();
+        if (!seg) return;
+        fetch("/names.json", { cache: "no-store" }).then(function (r) { return r.json(); }).then(function (reg) {
+          var e = reg.names && reg.names[seg];
+          if (e && e.to) location.replace(e.to + location.hash);
+        }).catch(function () {});
+      })();
+    </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Oswald:wght@500;600;700;800&display=swap" />
     <script type="module" crossorigin src="/assets/index-D18w3Jts.js"></script>

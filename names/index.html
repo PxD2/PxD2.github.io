@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PXD2 Names</title>
+<meta name="description" content="PXD2's own name system. Every name is pxd2.github.io/name, free and permanent.">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root { --bg:#0b0b0a; --panel:#161513; --line:#2e2a24; --fg:#e8dfc8; --muted:#a39a88; --tan:#c9a46a; --blood:#c8282c; color-scheme: dark; }
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.55 "IBM Plex Sans", system-ui, sans-serif; }
+.wrap { max-width: 860px; margin: 0 auto; padding: 36px 16px 80px; display: grid; gap: 22px; }
+h1 { font: 400 clamp(34px, 7vw, 56px)/1 "Black Ops One", Impact, sans-serif; margin: 0; letter-spacing: .02em; }
+h1 span { color: var(--blood); }
+.lede { color: var(--muted); max-width: 62ch; margin: 0; }
+.addr { font: 500 clamp(18px, 3.4vw, 24px) "IBM Plex Mono", monospace; color: var(--tan); overflow-wrap: anywhere; }
+input { width: 100%; font: 500 18px "IBM Plex Sans", sans-serif; padding: 14px 16px; border: 2px solid var(--fg); border-radius: 6px; background: var(--panel); color: var(--fg); }
+input:focus-visible, a:focus-visible, button:focus-visible { outline: 2px solid var(--tan); outline-offset: 2px; }
+.list { display: grid; gap: 8px; }
+.row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; align-items: center; padding: 12px 14px; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; }
+.row a.nm { font: 500 17px "IBM Plex Mono", monospace; color: var(--fg); text-decoration: none; overflow-wrap: anywhere; }
+.row a.nm b { color: var(--tan); font-weight: 500; }
+.row .to { grid-column: 1 / -1; font-size: 13px; color: var(--muted); overflow-wrap: anywhere; }
+button { font: 600 13px "IBM Plex Sans", sans-serif; padding: 8px 12px; border-radius: 5px; border: 1px solid var(--line); background: var(--bg); color: var(--fg); cursor: pointer; }
+.free { border-top: 1px solid var(--line); padding-top: 18px; color: var(--muted); font-size: 14px; }
+.free b { color: var(--fg); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header style="display:grid;gap:12px">
+    <h1>PXD2 <span>Names</span></h1>
+    <p class="lede">PXD2's own name system. Every name is an address that never expires, never renews and never costs a cent.</p>
+    <div class="addr">pxd2.github.io/<span id="demo">mudforblood</span></div>
+  </header>
+  <input id="q" type="search" placeholder="Find a name" aria-label="Find a name">
+  <div class="list" id="list" aria-live="polite"><div class="row"><span class="to">Loading names…</span></div></div>
+  <p class="free"><b>How it works.</b> Names live in one file, <code>names.json</code>, in PXD2's GitHub site. Each name is built into its own address and forwards wherever it points: a page on this site, a store page, a social account. Running on GitHub Pages means HTTPS, no hosting bill and no registrar.</p>
+</div>
+<script>
+(function () {
+  var all = [], list = document.getElementById('list'), q = document.getElementById('q');
+  function render() {
+    var term = q.value.trim().toLowerCase();
+    var rows = all.filter(function (r) { return !term || r.name.indexOf(term) > -1 || (r.title || '').toLowerCase().indexOf(term) > -1; });
+    list.textContent = '';
+    if (!rows.length) { var e = document.createElement('div'); e.className = 'row'; var s = document.createElement('span'); s.className = 'to'; s.textContent = 'No name matches that.'; e.append(s); list.append(e); return; }
+    rows.forEach(function (r) {
+      var row = document.createElement('div'); row.className = 'row';
+      var a = document.createElement('a'); a.className = 'nm'; a.href = '/' + r.name + '/';
+      a.append(document.createTextNode('pxd2.github.io/')); var b = document.createElement('b'); b.textContent = r.name; a.append(b);
+      var btn = document.createElement('button'); btn.type = 'button'; btn.textContent = 'Copy';
+      btn.addEventListener('click', function () {
+        var url = 'https://pxd2.github.io/' + r.name;
+        (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject()).then(function () { btn.textContent = 'Copied'; }, function () { btn.textContent = url; });
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+      var to = document.createElement('span'); to.className = 'to'; to.textContent = (r.title ? r.title + ' · ' : '') + '→ ' + r.to;
+      row.append(a, btn, to); list.append(row);
+    });
+  }
+  fetch('/names.json', { cache: 'no-store' }).then(function (res) { return res.json(); }).then(function (reg) {
+    all = Object.keys(reg.names).sort().map(function (k) { var e = reg.names[k]; return { name: k, to: e.to, title: e.title }; });
+    render();
+  }).catch(function () { list.textContent = 'Could not load names.json.'; });
+  q.addEventListener('input', render);
+})();
+</script>
+<script src="/sites.js" defer></script>
+</body>
+</html>
