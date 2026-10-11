@@ -15,177 +15,381 @@
       "to": "/games/",
       "title": "GLOBAL THEATERS: Mud for Blood",
       "added": "2026-10-11",
-      "world": "page"
+      "world": "page",
+      "group": "Games"
     },
     "globaltheaters": {
       "to": "/games/",
       "title": "GLOBAL THEATERS franchise",
       "added": "2026-10-11",
-      "world": "page"
+      "world": "page",
+      "group": "Games"
     },
     "pxd2games": {
       "to": "/games/",
       "title": "PXD2 Games",
       "added": "2026-10-11",
-      "world": "page"
+      "world": "page",
+      "group": "Games"
     },
     "tunnelrats": {
       "to": "/games/",
       "title": "Tunnel Rats hero map",
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "group": "Games"
     },
     "youtube": {
       "to": "https://www.youtube.com/@PXD2Games",
       "title": "PXD2 Games on YouTube",
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "group": "Social & contact"
     },
     "tiktok": {
       "to": "https://www.tiktok.com/@pxd2.games",
       "title": "PXD2 Games on TikTok",
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "group": "Social & contact"
     },
     "instagram": {
       "to": "https://www.instagram.com/pxd2games",
       "title": "PXD2 Games on Instagram",
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "group": "Social & contact"
     },
     "helixcad": {
       "to": "/cad2/",
       "title": "Helix CAD",
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "group": "Tools & making"
     },
     "pxd2": {
       "to": "/",
       "title": "PXD2 floor",
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "group": "Studio & company"
     },
     "pxd2studios": {
       "to": "/",
       "title": "PXD2 Studios",
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "group": "Studio & company"
     },
     "pxd2studio": {
       "to": "/studioa/",
       "title": "PXD2 Studio",
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "group": "Studio & company"
     },
     "geeg": {
       "to": "/company/",
       "title": "Glen Elder Entertainment Group",
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "group": "Studio & company"
     },
     "glenelder": {
       "to": "/company/",
       "title": "Glen Elder Entertainment Group",
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "group": "Studio & company"
     },
     "invest": {
       "to": "/company/",
       "title": "Company \u00b7 investors",
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "group": "Studio & company"
     },
     "investors": {
       "to": "/company/",
       "title": "Company \u00b7 investors",
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "group": "Studio & company"
     },
     "hornetbell": {
       "to": "/hornet/",
       "title": "Hornet Bell",
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "group": "Learning"
     },
     "digitalalexandria": {
       "to": "/alexandria/",
       "title": "Digital Alexandria",
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "group": "Learning"
     },
     "library": {
       "to": "/alexandria/",
       "title": "Digital Alexandria",
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "group": "Learning"
     },
     "civicslibrary": {
       "to": "/civics/",
       "title": "The People's Rights & Public Power",
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "group": "Learning"
     },
     "reform": {
       "to": "/college/",
       "title": "The Reform",
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "group": "Learning"
     },
     "amicus": {
       "to": "/coalitions/master-amicus-brief.html",
       "title": "Master amicus brief",
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "group": "Learning"
     },
     "hackspace": {
       "to": "/pxd2spaces/",
       "title": "PXD2 Hackspace",
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "group": "Tools & making"
     },
     "makerspace": {
       "to": "/pxd2spaces/",
       "title": "PXD2 Hackspace",
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "group": "Tools & making"
     },
     "pxd2cad": {
       "to": "/cad2/",
       "title": "Helix CAD",
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "group": "Tools & making"
     },
     "opencad": {
       "to": "/cad2/",
       "title": "Helix CAD",
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "group": "Tools & making"
     },
     "scans": {
       "to": "/meshworks/",
       "title": "Meshworks scans",
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "group": "Tools & making"
     },
     "props": {
       "to": "/meshworks/",
       "title": "Prop scans",
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "group": "Tools & making"
     },
     "fleet": {
       "to": "/games/",
       "title": "PXD2 Fleet",
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "group": "Games"
     },
     "pxd2fleet": {
       "to": "/games/",
       "title": "PXD2 Fleet",
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "group": "Games"
     },
     "github": {
       "to": "https://github.com/PxD2",
       "title": "PxD2 on GitHub",
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "group": "Social & contact"
     },
     "email": {
       "to": "mailto:pxd2games@gmail.com",
       "title": "Email PXD2 Games",
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "group": "Social & contact"
     },
     "propshop": {
       "to": "/clients/propshop/",
       "title": "PXD2 Prop Shop (VR store)",
       "added": "2026-10-11",
       "client": true,
-      "world": "store"
+      "world": "store",
+      "group": "Stores & VR"
     },
     "vrstore": {
       "to": "/clients/propshop/",
       "title": "PXD2 VR store demo",
       "added": "2026-10-11",
-      "world": "store"
+      "world": "store",
+      "group": "Stores & VR"
     },
     "vrnet": {
       "to": "/vr/",
       "title": "PXD2 VR Net",
+      "added": "2026-10-11",
+      "group": "Stores & VR"
+    },
+    "games": {
+      "to": "/games/",
+      "title": "GLOBAL THEATERS: Mud for Blood",
+      "group": "Games",
+      "native": true,
+      "added": "2026-10-11"
+    },
+    "vr": {
+      "to": "/vr/",
+      "title": "PXD2 VR Net",
+      "group": "Stores & VR",
+      "native": true,
+      "added": "2026-10-11",
+      "world": "page"
+    },
+    "names": {
+      "to": "/names/",
+      "title": "PXD2 Names registry",
+      "group": "Studio & company",
+      "native": true,
+      "added": "2026-10-11"
+    },
+    "company": {
+      "to": "/company/",
+      "title": "Company \u00b7 investors",
+      "group": "Studio & company",
+      "native": true,
+      "added": "2026-10-11"
+    },
+    "sites": {
+      "to": "/sites/",
+      "title": "Sites board",
+      "group": "Studio & company",
+      "native": true,
+      "added": "2026-10-11"
+    },
+    "studioa": {
+      "to": "/studioa/",
+      "title": "Studio A \u2014 the 5080 floor",
+      "group": "Studio & company",
+      "native": true,
+      "added": "2026-10-11"
+    },
+    "hold": {
+      "to": "/hold/",
+      "title": "HOLD \u2014 SFTP roots we host",
+      "group": "Studio & company",
+      "native": true,
+      "added": "2026-10-11"
+    },
+    "cities": {
+      "to": "/cities/",
+      "title": "Cities",
+      "group": "Studio & company",
+      "native": true,
+      "added": "2026-10-11"
+    },
+    "ai": {
+      "to": "/ai/",
+      "title": "PXD2 AI",
+      "group": "Tools & making",
+      "native": true,
+      "added": "2026-10-11"
+    },
+    "air": {
+      "to": "/air/",
+      "title": "Air/hydro tunnel test desk",
+      "group": "Tools & making",
+      "native": true,
+      "added": "2026-10-11"
+    },
+    "cad": {
+      "to": "/cad/",
+      "title": "CAD v1",
+      "group": "Tools & making",
+      "native": true,
+      "added": "2026-10-11"
+    },
+    "cad2": {
+      "to": "/cad2/",
+      "title": "Helix CAD",
+      "group": "Tools & making",
+      "native": true,
+      "added": "2026-10-11"
+    },
+    "meshworks": {
+      "to": "/meshworks/",
+      "title": "Meshworks scan cards",
+      "group": "Tools & making",
+      "native": true,
+      "added": "2026-10-11"
+    },
+    "pxd2spaces": {
+      "to": "/pxd2spaces/",
+      "title": "PXD2 Hackspace",
+      "group": "Tools & making",
+      "native": true,
+      "added": "2026-10-11"
+    },
+    "edu": {
+      "to": "/edu/",
+      "title": "Education network",
+      "group": "Learning",
+      "native": true,
+      "added": "2026-10-11"
+    },
+    "civics": {
+      "to": "/civics/",
+      "title": "Civics",
+      "group": "Learning",
+      "native": true,
+      "added": "2026-10-11"
+    },
+    "stem": {
+      "to": "/stem/",
+      "title": "STEM",
+      "group": "Learning",
+      "native": true,
+      "added": "2026-10-11"
+    },
+    "college": {
+      "to": "/college/",
+      "title": "Reform college",
+      "group": "Learning",
+      "native": true,
+      "added": "2026-10-11"
+    },
+    "davidson": {
+      "to": "/davidson/",
+      "title": "Davidson",
+      "group": "Learning",
+      "native": true,
+      "added": "2026-10-11"
+    },
+    "hornet": {
+      "to": "/hornet/",
+      "title": "Hornet Bell",
+      "group": "Learning",
+      "native": true,
+      "added": "2026-10-11"
+    },
+    "alexandria": {
+      "to": "/alexandria/",
+      "title": "Digital Alexandria",
+      "group": "Learning",
+      "native": true,
+      "added": "2026-10-11"
+    },
+    "rv": {
+      "to": "/rv/",
+      "title": "RV",
+      "group": "Studio & company",
+      "native": true,
+      "added": "2026-10-11"
+    },
+    "coalitions": {
+      "to": "/coalitions/",
+      "title": "Coalitions",
+      "group": "Learning",
+      "native": true,
       "added": "2026-10-11"
     }
-  }
+  },
+  "groups": [
+    "Games",
+    "Stores & VR",
+    "Studio & company",
+    "Learning",
+    "Tools & making",
+    "Social & contact"
+  ]
 }
