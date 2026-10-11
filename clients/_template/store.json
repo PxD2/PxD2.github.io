@@ -1,0 +1,14 @@
+{
+  "name": "Client Store Name",
+  "tagline": "One line about the store",
+  "currency": "USD",
+  "contact": "owner@example.com",
+  "pay": {
+    "stripe": "", "paypal": "", "square": "", "cashapp": "", "venmo": "", "coinbase": "", "btcpay": ""
+  },
+  "wallets": { "btc": "", "eth": "", "sol": "", "usdc": "" },
+  "products": [
+    { "name": "Product one", "price": 25, "description": "What it is.", "shape": "box", "color": "#c9a46a",
+      "model": "", "pay": { "stripe": "" } }
+  ]
+}
