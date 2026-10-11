@@ -382,6 +382,21 @@
       "group": "Learning",
       "native": true,
       "added": "2026-10-11"
+    },
+    "antiques": {
+      "to": "/antiques/",
+      "title": "PXD Antiques: see it in your room before you buy",
+      "group": "Stores & VR",
+      "native": true,
+      "world": "store",
+      "added": "2026-10-11"
+    },
+    "shop": {
+      "to": "/antiques/",
+      "title": "PXD Antiques marketplace",
+      "group": "Stores & VR",
+      "world": "store",
+      "added": "2026-10-11"
     }
   },
   "groups": [

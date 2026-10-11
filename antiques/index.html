@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PXD Antiques</title>
+<meta name="description" content="Antique shops on .pxd. See every piece in your own room, at its real size, before you buy.">
+<meta property="og:title" content="PXD Antiques: see it in your room before you buy">
+<meta property="og:description" content="Real antiques from real shops, scanned in 3D. Place them in your room on your phone at true size.">
+<meta property="og:image" content="https://pxd2.github.io/games/og.jpg">
+<link rel="canonical" href="https://pxd2.github.io/antiques/">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<script type="module" src="vendor/model-viewer.min.js"></script>
+<style>
+:root { --bg:#0b0b0a; --panel:#161513; --line:#2e2a24; --fg:#e8dfc8; --muted:#a39a88; --tan:#c9a46a; --red:#c8282c; --ok:#7fbf7a; color-scheme: dark; }
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.55 "IBM Plex Sans", system-ui, sans-serif; }
+a { color: var(--tan); }
+.top { position: sticky; top: 0; z-index: 10; background: rgba(11,11,10,.94); border-bottom: 1px solid var(--line); }
+.top .in { max-width: 1120px; margin: 0 auto; padding: 10px 16px; display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+.brand { font: 400 22px "Black Ops One", Impact, sans-serif; letter-spacing: .03em; color: var(--fg); text-decoration: none; }
+.brand span { color: var(--red); }
+.top nav { display: flex; gap: 12px; margin-left: auto; font-size: 14px; }
+.top nav a { color: var(--muted); text-decoration: none; } .top nav a:hover { color: var(--fg); }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 24px 16px 70px; }
+.hero h1 { font: 400 clamp(30px, 6vw, 52px)/1.05 "Black Ops One", Impact, sans-serif; margin: 6px 0 8px; letter-spacing: .02em; text-wrap: balance; }
+.hero p { color: var(--muted); max-width: 60ch; margin: 0 0 18px; }
+#q { width: 100%; font: 500 17px "IBM Plex Sans", sans-serif; padding: 12px 14px; border: 2px solid var(--fg); border-radius: 8px; background: var(--panel); color: var(--fg); }
+#q:focus { outline: none; border-color: var(--tan); }
+.tabs { display: flex; gap: 6px; flex-wrap: wrap; margin: 14px 0 18px; }
+.tabs button { font: 600 14px "IBM Plex Sans", sans-serif; padding: 7px 13px; border-radius: 999px; border: 1px solid var(--line); background: var(--panel); color: var(--fg); cursor: pointer; }
+.tabs button[aria-pressed=true] { background: var(--tan); border-color: var(--tan); color: #14100a; }
+.tabs button b { font-weight: 400; opacity: .7; margin-left: 5px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); gap: 14px; }
+.card { display: grid; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; color: var(--fg); text-decoration: none; }
+.card:hover, .card:focus-visible { border-color: var(--tan); outline: none; }
+.card model-viewer { width: 100%; height: 220px; background: radial-gradient(circle at 50% 40%, #24211c, #121110); --poster-color: transparent; }
+.card .meta { padding: 12px 14px; display: grid; gap: 2px; }
+.card .t { font-weight: 600; } .card .s { font-size: 13px; color: var(--muted); }
+.price { font: 600 17px "IBM Plex Mono", monospace; color: var(--tan); }
+.tag { display: inline-block; font: 600 10px "IBM Plex Mono", monospace; letter-spacing: .08em; text-transform: uppercase; border: 1px solid currentColor; border-radius: 999px; padding: 1px 7px; color: var(--red); margin-right: 6px; }
+.tag.sold { color: var(--muted); } .tag.ar { color: var(--ok); }
+.item { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+.viewer { position: relative; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.viewer model-viewer { width: 100%; height: min(70vh, 560px); background: radial-gradient(circle at 50% 40%, #2a2620, #0f0e0d); }
+.arbtn { position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%); font: 600 16px "IBM Plex Sans", sans-serif; padding: 13px 22px; border-radius: 999px; border: 0; background: var(--tan); color: #14100a; cursor: pointer; box-shadow: 0 6px 24px rgba(0,0,0,.45); white-space: nowrap; }
+.noar { position: absolute; left: 12px; right: 12px; bottom: 12px; font-size: 13px; color: var(--muted); background: rgba(11,11,10,.8); padding: 8px 10px; border-radius: 8px; text-align: center; }
+.facts { display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; font-size: 14px; margin: 14px 0; }
+.facts dt { color: var(--muted); } .facts dd { margin: 0; font-family: "IBM Plex Mono", monospace; }
+.buy { display: grid; gap: 8px; margin-top: 14px; }
+.btn { display: block; text-align: center; font: 600 15px "IBM Plex Sans", sans-serif; padding: 12px 16px; border-radius: 8px; border: 1px solid var(--line); background: var(--panel); color: var(--fg); text-decoration: none; cursor: pointer; }
+.btn.primary { background: var(--red); border-color: var(--red); color: #fff; }
+.note { font-size: 13px; color: var(--muted); }
+.wallet { display: grid; gap: 4px; padding: 10px; border: 1px solid var(--line); border-radius: 8px; }
+.wallet code { font: 12px "IBM Plex Mono", monospace; overflow-wrap: anywhere; user-select: all; }
+.twin { margin-top: 18px; padding: 14px; border: 1px dashed var(--line); border-radius: 10px; font-size: 14px; color: var(--muted); }
+.twin b { color: var(--fg); }
+.shophead { margin-bottom: 18px; } .shophead h1 { font: 400 34px "Black Ops One", Impact, sans-serif; margin: 0; }
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 12px; margin: 18px 0; }
+.steps > div { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px; }
+.steps b { display: block; font: 400 18px "Black Ops One", Impact, sans-serif; color: var(--tan); margin-bottom: 4px; }
+.empty { color: var(--muted); padding: 24px 0; }
+.sec-h { font: 400 24px "Black Ops One", Impact, sans-serif; margin: 30px 0 4px; letter-spacing: .02em; }
+.inc { margin: 8px 0 0; padding-left: 18px; font-size: 14px; color: var(--muted); display: grid; gap: 3px; }
+.calc { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 12px; margin: 12px 0; }
+.calc label { display: grid; gap: 4px; font-size: 13px; color: var(--muted); }
+.calc input, .calc select { font: 500 16px "IBM Plex Sans", sans-serif; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); color: var(--fg); min-width: 0; }
+.calc-out { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; margin-bottom: 18px; }
+.calc-out dd.big { color: var(--ok); font-size: 18px; font-weight: 600; }
+button:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid var(--tan); outline-offset: 2px; }
+@media (max-width: 780px) { .item { grid-template-columns: 1fr; } .viewer model-viewer { height: 56vh; } }
+</style>
+</head>
+<body>
+<header class="top"><div class="in">
+  <a class="brand" href="#/">PXD <span>Antiques</span></a>
+  <nav><a href="#/">Browse</a><a href="#/shops">Shops</a><a href="#/sell">Sell with us</a><a href="/vr/">VR Net</a></nav>
+</div></header>
+<main class="wrap" id="app"><p class="empty">Loading the shops…</p></main>
+
+<script>
+(function () {
+  "use strict";
+  var C = null, tab = "All", app = document.getElementById("app");
+  var PAY = { stripe: "Pay by card", paypal: "PayPal", square: "Square", cashapp: "Cash App", venmo: "Venmo", coinbase: "Crypto (Coinbase Commerce)", btcpay: "Crypto (BTCPay)" };
+  var WAL = { btc: "Bitcoin", eth: "Ethereum", sol: "Solana", usdc: "USDC" };
+  function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+  function safe(u) { return /^(https:|mailto:)/i.test(u || "") ? u : ""; }
+  function money(p) { if (p == null || p === "") return "Price on request"; try { return new Intl.NumberFormat("en-US", { style: "currency", currency: C.currency || "USD" }).format(p); } catch (e) { return "$" + p; } }
+  function inches(cm) { return (cm / 2.54).toFixed(1); }
+  function shop(id) { return (C.shops || []).find(function (s) { return s.id === id; }) || { name: id }; }
+  function viewer(item, big) {
+    var mv = document.createElement("model-viewer");
+    mv.setAttribute("src", item.model); mv.setAttribute("alt", item.title);
+    mv.setAttribute("camera-controls", ""); mv.setAttribute("touch-action", "pan-y"); mv.setAttribute("shadow-intensity", "1");
+    mv.setAttribute("exposure", "1.05"); mv.setAttribute("environment-image", "neutral");
+    if (!big) { mv.setAttribute("auto-rotate", ""); mv.setAttribute("interaction-prompt", "none"); mv.setAttribute("disable-zoom", ""); }
+    if (big) {
+      mv.setAttribute("ar", ""); mv.setAttribute("ar-modes", "webxr scene-viewer quick-look"); mv.setAttribute("ar-scale", "fixed"); mv.setAttribute("ar-placement", "floor");
+      if (item.model_usdz) mv.setAttribute("ios-src", item.model_usdz);
+      var b = el("button", "arbtn", "View in your room"); b.setAttribute("slot", "ar-button"); mv.appendChild(b);
+    }
+    return mv;
+  }
+  function tags(item) {
+    var f = document.createDocumentFragment();
+    if (item.example) f.appendChild(el("span", "tag", "Example"));
+    if (item.status === "sold") f.appendChild(el("span", "tag sold", "Sold"));
+    if (item.model) f.appendChild(el("span", "tag ar", "AR"));
+    return f;
+  }
+  function card(item) {
+    var a = el("a", "card"); a.href = "#/item/" + encodeURIComponent(item.id);
+    if (item.model) a.appendChild(viewer(item, false));
+    var m = el("div", "meta"); var t = el("span", "t"); t.appendChild(tags(item)); t.appendChild(document.createTextNode(item.title));
+    m.append(t, el("span", "s", shop(item.shop).name + (item.era ? " · " + item.era : "")), el("span", "price", item.status === "sold" ? "Sold" : money(item.price)));
+    a.appendChild(m); return a;
+  }
+
+  function browse(shopId) {
+    app.textContent = "";
+    var items = (C.items || []).filter(function (i) { return !shopId || i.shop === shopId; });
+    if (shopId) { var s = shop(shopId), h = el("div", "shophead"); h.append(el("h1", null, s.name), el("p", "note", [s.town, s.about].filter(Boolean).join(" · "))); app.appendChild(h); }
+    else {
+      var hero = el("section", "hero"); hero.append(el("span", "tag ar", "New way to buy antiques"), el("h1", null, C.tagline), el("p", null, "Every piece is scanned in 3D at its true size. Tap View in your room on your phone to stand it in your home, walk around it, and see exactly how it fits before you buy. Your purchase comes with its digital twin."));
+      app.appendChild(hero);
+    }
+    var q = el("input"); q.id = "q"; q.type = "search"; q.placeholder = "Search lamps, trunks, militaria, shops…"; q.setAttribute("aria-label", "Search");
+    var tabs = el("div", "tabs"), grid = el("div", "grid");
+    app.append(q, tabs, grid);
+    function draw() {
+      var term = q.value.trim().toLowerCase();
+      var hits = items.filter(function (i) { return !term || (i.title + " " + i.category + " " + (i.era || "") + " " + shop(i.shop).name + " " + (i.description || "")).toLowerCase().indexOf(term) > -1; });
+      tabs.textContent = "";
+      ["All"].concat(C.categories || []).forEach(function (g) {
+        var n = g === "All" ? hits.length : hits.filter(function (i) { return i.category === g; }).length;
+        if (g !== "All" && !n) return;
+        var b = el("button", null, g); b.type = "button"; b.setAttribute("aria-pressed", String(g === tab)); var s = el("b", null, n); b.appendChild(s);
+        b.onclick = function () { tab = g; draw(); }; tabs.appendChild(b);
+      });
+      var show = hits.filter(function (i) { return tab === "All" || i.category === tab; });
+      grid.textContent = "";
+      if (!show.length) { grid.appendChild(el("p", "empty", "Nothing here yet. New pieces arrive as shops are scanned.")); return; }
+      show.forEach(function (i) { grid.appendChild(card(i)); });
+    }
+    q.addEventListener("input", draw); draw();
+  }
+
+  function item(id) {
+    var it = (C.items || []).find(function (i) { return i.id === id; });
+    app.textContent = "";
+    if (!it) { app.appendChild(el("p", "empty", "That piece isn't listed anymore.")); return; }
+    document.title = it.title + " · PXD Antiques";
+    var wrap = el("div", "item"), left = el("div", "viewer"), right = el("div");
+    if (it.model) { left.appendChild(viewer(it, true)); }
+    var mvEl = left.querySelector("model-viewer");
+    if (mvEl) mvEl.addEventListener("load", function () { if (!mvEl.canActivateAR) { var n = el("div", "noar", "Open this page on your phone to place it in your room at true size."); left.appendChild(n); } });
+    var h = el("h1", null); h.style.cssText = "font:400 32px 'Black Ops One',Impact,sans-serif;margin:0 0 4px"; h.appendChild(tags(it)); h.appendChild(document.createTextNode(it.title));
+    var shopA = el("a", null, shop(it.shop).name); shopA.href = "#/shop/" + encodeURIComponent(it.shop);
+    var by = el("p", "note"); by.append("From ", shopA, shop(it.shop).town ? " · " + shop(it.shop).town : "");
+    right.append(h, by, el("div", "price", it.status === "sold" ? "Sold" : money(it.price)));
+    if (it.description) right.appendChild(el("p", null, it.description));
+    var dl = el("dl", "facts");
+    function fact(k, v) { if (!v) return; dl.append(el("dt", null, k), el("dd", null, v)); }
+    if (it.dims_cm) fact("Size (W×H×D)", it.dims_cm.join(" × ") + " cm  ·  " + it.dims_cm.map(inches).join(" × ") + " in");
+    fact("Era", it.era); fact("Condition", it.condition); fact("Category", it.category);
+    right.appendChild(dl);
+    if (it.status !== "sold") {
+      var links = Object.assign({}, C.pay || {}, it.pay || {}), buy = el("div", "buy"), any = false;
+      Object.keys(PAY).forEach(function (k, n) { var u = safe(links[k]); if (!u) return; var a = el("a", "btn" + (any ? "" : " primary"), PAY[k]); a.href = u; a.target = "_blank"; a.rel = "noopener"; buy.appendChild(a); any = true; });
+      var w = Object.assign({}, C.wallets || {}, it.wallets || {});
+      Object.keys(WAL).forEach(function (k) { if (!(w[k] || "").trim()) return; any = true; var box = el("div", "wallet"); box.append(el("b", null, "Pay with " + WAL[k]), el("code", null, w[k].trim()), el("span", "note", "Send the price shown, then email your transaction ID with the item name.")); buy.appendChild(box); });
+      var ask = el("a", "btn" + (any ? "" : " primary"), any ? "Ask about this piece" : "Ask to buy this piece");
+      var who = shop(it.shop).contact || C.contact;
+      ask.href = "mailto:" + who + "?subject=" + encodeURIComponent("PXD Antiques: " + it.title) + "&body=" + encodeURIComponent("I'm interested in " + it.title + " (" + location.href + ").");
+      buy.appendChild(ask);
+      right.appendChild(buy);
+      right.appendChild(el("p", "note", "Sold and shipped by " + shop(it.shop).name + ". Contact: " + who + "."));
+    }
+    var twin = el("div", "twin"); var tb = el("b", null, "Your digital twin. "); twin.append(tb, "Every purchase includes the 3D scan of your piece: keep it, place it in your room again any time, and use it as a record of what you own.");
+    right.appendChild(twin);
+    wrap.append(left, right); app.appendChild(wrap);
+  }
+
+  function shops() {
+    app.textContent = ""; app.appendChild(el("h1", null, "Shops")).style.cssText = "font:400 34px 'Black Ops One',Impact,sans-serif;margin:0 0 14px";
+    var g = el("div", "grid");
+    (C.shops || []).forEach(function (s) {
+      var a = el("a", "card"); a.href = "#/shop/" + encodeURIComponent(s.id);
+      var m = el("div", "meta"); var t = el("span", "t"); if (s.example) t.appendChild(el("span", "tag", "Example")); t.appendChild(document.createTextNode(s.name));
+      var n = (C.items || []).filter(function (i) { return i.shop === s.id; }).length;
+      m.append(t, el("span", "s", (s.town || "") + " · " + n + " piece" + (n === 1 ? "" : "s")), el("span", "s", s.about || ""));
+      a.appendChild(m); g.appendChild(a);
+    });
+    app.appendChild(g);
+  }
+
+  function sell() {
+    app.textContent = "";
+    var h = el("section", "hero"); h.append(el("span", "tag ar", "For antique shops"), el("h1", null, "Sell your pieces to buyers who've already seen them in their homes."),
+      
+      el("p", null, "We build your shop its own .pxd store, come to your shop to scan your pieces in 3D, and list them on PXD Antiques too. Buyers stand each piece in their own room on their phone at its real size before they pay, so they buy with confidence."));
+    var st = el("div", "steps");
+    [["1 · Scan day", "We scan your pieces in your shop. No packing, no shipping, nothing leaves your floor."],
+     ["2 · Listed", "Each piece goes live with its 3D model, real measurements, and your shop page on .pxd."],
+     ["3 · Sold", "Buyers pay by card, PayPal or crypto, straight into your own accounts. No commission to us."],
+     ["4 · Delivered", "You hand the piece over for pickup or shipping. The buyer keeps its digital twin."]].forEach(function (s) {
+      var d = el("div"); d.append(el("b", null, s[0]), el("span", null, s[1])); st.appendChild(d); });
+    var c = el("a", "btn primary", "Book a scan day"); c.href = "mailto:" + C.contact + "?subject=" + encodeURIComponent("PXD Antiques: scan day for my shop");
+    c.style.maxWidth = "320px";
+    app.append(h, st);
+    var O = C.offer;
+    if (O) {
+      var fmt = function (n) { return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(n); };
+      app.appendChild(el("h2", "sec-h", "Your own store, paid for once"));
+      var pk = el("div", "steps");
+      O.packages.forEach(function (p) {
+        var d = el("div"); d.append(el("b", null, p.name), el("div", "price", fmt(p.price) + " one time"));
+        var ul = el("ul", "inc"); p.includes.forEach(function (x) { ul.appendChild(el("li", null, x)); }); d.appendChild(ul); pk.appendChild(d);
+      });
+      app.appendChild(pk);
+      app.appendChild(el("p", "note", "No monthly fee and no cut of your sales. You only pay your card processor's standard fee on each sale (" + (O.card_rate * 100).toFixed(1) + "% + " + Math.round(O.card_fixed * 100) + "¢ on cards), charged by the processor. Extra pieces " + fmt(O.extra_piece) + " each. Update your own inventory free, or we do it for " + fmt(O.inventory_update_done_for_you) + " a piece."));
+
+      app.appendChild(el("h2", "sec-h", "What switching saves you"));
+      var calc = el("div", "calc");
+      function field(label, id, val, step) { var l = el("label"); l.append(el("span", null, label)); var i = el("input"); i.type = "number"; i.min = "0"; i.step = step || "1"; i.value = val; i.id = id; l.appendChild(i); return l; }
+      var sel = el("select"); sel.id = "plat"; Object.keys(O.competitors).forEach(function (k) { var o = el("option", null, O.competitors[k].label); o.value = k; sel.appendChild(o); });
+      var lp = el("label"); lp.append(el("span", null, "Where you sell online now"), sel);
+      var pkSel = el("select"); pkSel.id = "pkg"; O.packages.forEach(function (p) { var o = el("option", null, p.name + " (" + fmt(p.price) + ")"); o.value = p.id; pkSel.appendChild(o); });
+      var lk = el("label"); lk.append(el("span", null, "PXD package"), pkSel);
+      calc.append(lp, field("Online sales per month ($)", "sales", 4000, "100"), field("Average order ($)", "avg", 180, "10"), lk);
+      var res = el("div", "calc-out"); res.setAttribute("aria-live", "polite");
+      app.append(calc, res);
+      function run() {
+        var s = +document.getElementById("sales").value || 0, a = Math.max(+document.getElementById("avg").value || 1, 1);
+        var comp = O.competitors[sel.value], pkg = O.packages.find(function (p) { return p.id === pkSel.value; });
+        var orders = s * 12 / a;
+        var theirs = s * 12 * comp.pct + orders * comp.fixed + comp.monthly * 12;
+        var ours1 = pkg.price + s * 12 * O.card_rate + orders * O.card_fixed;
+        var oursN = s * 12 * O.card_rate + orders * O.card_fixed;
+        var save1 = theirs - ours1, saveN = theirs - oursN, payback = theirs - oursN > 0 ? pkg.price / ((theirs - oursN) / 12) : Infinity;
+        res.textContent = "";
+        var rows = [["Fees on " + comp.label + " per year", fmt(theirs)], ["PXD year one (package + card fees)", fmt(ours1)], ["PXD every year after", fmt(oursN)],
+          ["You save in year one", save1 >= 0 ? fmt(save1) : "−" + fmt(-save1)], ["You save every year after", fmt(saveN)],
+          ["Package pays for itself in", isFinite(payback) ? (payback < 1 ? "under a month" : Math.ceil(payback) + " months") : "—"]];
+        var dl = el("dl", "facts"); rows.forEach(function (r, i) { var dt = el("dt", null, r[0]), dd = el("dd", i >= 3 ? "big" : null, r[1]); dl.append(dt, dd); }); res.appendChild(dl);
+        var src = el("p", "note"); var sa = el("a", null, comp.label + " fee source"); sa.href = comp.source; sa.target = "_blank"; sa.rel = "noopener";
+        src.append("Estimate only, using " + comp.label + "'s published fees (", sa, ") and standard card processing. Real totals depend on your mix of sales.");
+        res.appendChild(src);
+      }
+      [sel, pkSel, document.getElementById("sales"), document.getElementById("avg")].forEach(function (x) { x.addEventListener("input", run); });
+      run();
+    }
+    app.append(c, el("p", "note", "Or email " + C.contact));
+  }
+
+  function route() {
+    var h = location.hash.replace(/^#\/?/, "").split("/");
+    window.scrollTo(0, 0); document.title = "PXD Antiques";
+    if (h[0] === "item") item(decodeURIComponent(h[1] || ""));
+    else if (h[0] === "shop") browse(decodeURIComponent(h[1] || ""));
+    else if (h[0] === "shops") shops();
+    else if (h[0] === "sell") sell();
+    else browse(null);
+  }
+  fetch("catalog.json", { cache: "no-store" }).then(function (r) { return r.json(); }).then(function (c) { C = c; route(); addEventListener("hashchange", route); })
+    .catch(function () { app.textContent = "The catalog couldn't load. Refresh to try again."; });
+})();
+</script>
+<script src="/sites.js" defer></script>
+</body>
+</html>
