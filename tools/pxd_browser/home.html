@@ -68,7 +68,7 @@ a { color: var(--tan); }
 </style>
 </head>
 <body>
-<div class="top"><button class="cartbtn" id="licbtn" type="button" style="margin-right:8px">My licenses <b id="liccount">0</b></button><button class="cartbtn" id="cartbtn" type="button" aria-label="Open cart">Cart <b id="count">0</b></button></div>
+<div class="top"><a class="cartbtn" id="listshop" href="shopbuilder.html" style="margin-right:auto;text-decoration:none;color:inherit">List your shop</a><button class="cartbtn" id="licbtn" type="button" style="margin-right:8px">My licenses <b id="liccount">0</b></button><button class="cartbtn" id="cartbtn" type="button" aria-label="Open cart">Cart <b id="count">0</b></button></div>
 <div id="banner"></div>
 <section class="hero">
   <h1 class="mark">PX<span>D</span></h1>
@@ -320,7 +320,7 @@ a { color: var(--tan); }
     }
   }
   $("cartbtn").onclick = function () { document.querySelector("#drawer header b").textContent = "Your cart"; drawCart(); $("drawer").classList.add("open"); };
-  $("licbtn").onclick = showLicenses; $("liccount").textContent = myLicenses().length;
+  $("licbtn").onclick = showLicenses; if (served) $("listshop").href = "/build"; $("liccount").textContent = myLicenses().length;
   $("close").onclick = function () { $("drawer").classList.remove("open"); };
   $("qf").onsubmit = function (e) { e.preventDefault(); render(); };
   $("q").addEventListener("input", render);
