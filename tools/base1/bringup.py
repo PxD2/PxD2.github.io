@@ -111,7 +111,7 @@ def start_bat(model):
     lines = ["@echo off", "REM PXD on base1: each service opens in its own window. Close a window to stop that service.",
              f'cd /d "{REPO}"',
              f'start "PXD Gateway :8790" cmd /k {py} tools\\gateway\\pxd_gateway.py --authority "{auth}" --store "{gw}\\bundles" --port 8790',
-             f'start "PXD Root (DNS :5353, web :8053)" cmd /k {py} tools\\pxd2root\\pxd2root.py --registry names.json --authority "{auth}" --require-signed --dns-port 5353 --web-port 8053',
+             f'start "PXD Root (DNS :5300, web :8053)" cmd /k {py} tools\\pxd2root\\pxd2root.py --registry names.json --authority "{auth}" --require-signed --dns-port 5300 --web-port 8053',
              f'start "PXD Lit node :7470" cmd /k {py} tools\\lit\\lit.py',
              f'start "PXD Studio" cmd /k {py} tools\\studio\\build_store.py watch',
              f'start "PXD Operator :8793" cmd /k {py} tools\\operator\\pxd_operator.py --model {model}',
