@@ -6,6 +6,7 @@ Open builds index: **[pxd2.github.io/sites/open-builds](https://pxd2.github.io/s
 Helix CAD: **[pxd2.github.io/cad2](https://pxd2.github.io/cad2/)**  
 CAD v1: **[pxd2.github.io/cad](https://pxd2.github.io/cad/)**  
 Meshworks: **[pxd2.github.io/meshworks](https://pxd2.github.io/meshworks/)**  
+Games · Mud for Blood: **[pxd2.github.io/games](https://pxd2.github.io/games/)**  
 Company · investors: **[pxd2.github.io/company](https://pxd2.github.io/company/)**
 
 Software as much as hardware. The future of defense, security, and prosperity is autonomy. PXD2 will lead the way — by consistent, unyielding hard work.

@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>GLOBAL THEATERS: Mud for Blood — PXD2 Games</title>
+<meta name="description" content="A modern war for the straits. Subs, frigates, FLIR drones and the Tunnel Rats map, built by one developer off-grid in Arizona. Coming to the Epic Games Store.">
+<meta name="theme-color" content="#0b0b0a">
+<link rel="canonical" href="https://pxd2.github.io/games/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://pxd2.github.io/games/">
+<meta property="og:title" content="GLOBAL THEATERS: Mud for Blood">
+<meta property="og:description" content="Subs, frigates, FLIR drones and Tunnel Rats. Built solo, off-grid in Arizona. Coming to the Epic Games Store.">
+<meta property="og:image" content="https://pxd2.github.io/games/og.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://pxd2.github.io/games/og.jpg">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single-column campaign briefing — hero, trailer slot, then numbered mission sections read like an operations order; dark tactical look by choice. */
+:root {
+  --bg: #0b0b0a;
+  --panel: #161513;
+  --line: #2e2a24;
+  --fg: #e8dfc8;
+  --muted: #a39a88;
+  --accent: #c9a46a;
+  --accent-ink: #14100a;
+  --sonar: #c9a46a;
+  --blood: #b01e22;
+  --display: "Black Ops One", Impact, "Arial Narrow", sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+  color-scheme: dark;
+}
+html, body { margin: 0; }
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 16px; line-height: 1.6; }
+.wrap { max-width: 980px; margin: 0 auto; padding-inline: 20px; padding-block: 28px 64px; }
+a { color: var(--accent); }
+.mono { font-family: var(--mono); }
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--sonar); }
+
+header.top { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; border-bottom: 1px solid var(--line); padding-bottom: 14px; }
+.studio { font-family: var(--display); font-weight: 800; font-size: 22px; letter-spacing: .06em; }
+.status { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+.status b { color: var(--accent); font-weight: 500; }
+
+.hero { padding-block: 40px 28px; display: grid; gap: 18px; }
+.hero h1 { font-family: var(--display); font-weight: 900; text-transform: uppercase; line-height: .92; font-size: clamp(48px, 11vw, 112px); margin: 0; letter-spacing: .01em; text-wrap: balance; }
+.hero h1.logo { margin: 0 -2%; } .hero h1.logo img { display: block; width: 100%; height: auto; }
+.hero p.lede { font-size: clamp(17px, 2.4vw, 20px); max-width: 62ch; margin: 0; color: var(--fg); }
+.ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 6px; }
+.btn { font-family: var(--mono); font-size: 14px; letter-spacing: .06em; text-transform: uppercase; padding: 12px 18px; border: 1px solid var(--accent); text-decoration: none; display: inline-block; cursor: pointer; background: transparent; color: var(--accent); }
+.btn.primary { background: var(--blood); border-color: var(--blood); color: var(--fg); }
+.btn:focus-visible { outline: 2px solid var(--sonar); outline-offset: 3px; }
+
+.trailer { position: relative; aspect-ratio: 16 / 9; max-width: 100%; background: var(--panel); border: 1px solid var(--line); overflow: hidden; display: grid; place-items: center; }
+.trailer .keyart { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .55; }
+.trailer .tag { position: relative; text-align: center; padding: 16px; }
+.trailer .tag strong { display: block; font-family: var(--display); font-size: clamp(24px, 4vw, 36px); text-transform: uppercase; letter-spacing: .04em; }
+.trailer .tag span { font-family: var(--mono); font-size: 13px; color: var(--muted); }
+.hud { position: absolute; font-family: var(--mono); font-size: 11px; color: var(--sonar); letter-spacing: .08em; }
+.hud.tl { top: 10px; left: 12px; } .hud.br { bottom: 10px; right: 12px; }
+
+section.op { display: grid; grid-template-columns: 120px 1fr; gap: 20px; padding-block: 36px; border-top: 1px solid var(--line); }
+section.op > .num { font-family: var(--mono); font-size: 13px; color: var(--muted); padding-top: 6px; }
+section.op > .num b { display: block; color: var(--blood); font-family: var(--display); font-size: 30px; font-weight: 800; }
+section.op > div { min-width: 0; }
+h2 { font-family: var(--display); font-weight: 800; text-transform: uppercase; font-size: clamp(28px, 4.4vw, 40px); line-height: 1; margin: 0 0 14px; letter-spacing: .02em; text-wrap: balance; }
+section.op p { max-width: 65ch; margin: 0 0 12px; color: var(--fg); }
+.muted { color: var(--muted); }
+
+.units { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 18px; }
+.unit { border: 1px solid var(--line); padding: 14px; background: var(--panel); display: grid; gap: 6px; align-content: start; }
+.unit .k { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--sonar); }
+.unit .v { font-family: var(--display); font-size: 22px; font-weight: 800; text-transform: uppercase; }
+.unit p { font-size: 14px; color: var(--muted); margin: 0; }
+
+.ledger { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; margin-top: 8px; }
+.ledger td { padding: 9px 0; border-bottom: 1px dashed var(--line); }
+.ledger td:last-child { text-align: right; font-family: var(--mono); }
+.ledger.comps td { vertical-align: top; line-height: 1.4; }
+.ledger.comps td:last-child { color: var(--accent); padding-left: 12px; }
+.ledger tr.total td { border-bottom: 0; border-top: 1px solid var(--accent); font-weight: 600; color: var(--accent); }
+
+.goals { list-style: none; padding: 0; margin: 10px 0 0; display: grid; gap: 0; }
+.goals li { display: grid; grid-template-columns: 110px 1fr; gap: 14px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.goals li span:first-child { font-family: var(--mono); color: var(--accent); font-variant-numeric: tabular-nums; }
+
+.tiers { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 12px; margin-top: 16px; }
+.tier { border: 1px solid var(--line); padding: 14px; display: grid; gap: 4px; align-content: start; }
+.tier .price { font-family: var(--display); font-size: 28px; font-weight: 800; color: var(--accent); line-height: 1; }
+.tier .name { font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--sonar); }
+.tier p { margin: 4px 0 0; font-size: 14px; color: var(--muted); }
+
+.contact { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 10px; }
+.contact code { font-family: var(--mono); font-size: 15px; background: var(--panel); border: 1px solid var(--line); padding: 10px 12px; user-select: all; overflow-wrap: anywhere; }
+#copyMsg { font-family: var(--mono); font-size: 12px; color: var(--sonar); }
+
+.shot { margin: 18px 0 0; } .shot img { display:block; width:100%; height:auto; border:1px solid var(--line); filter: sepia(.35) saturate(.7) brightness(.85); } .shot figcaption { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-top: 6px; }
+footer { border-top: 1px solid var(--line); padding-top: 18px; font-family: var(--mono); font-size: 12px; color: var(--muted); }
+
+@media (max-width: 640px) {
+  section.op { grid-template-columns: 1fr; gap: 6px; }
+  section.op > .num b { display: inline; margin-right: 8px; }
+  .units { grid-template-columns: 1fr; }
+  .goals li { grid-template-columns: 1fr; gap: 2px; }
+}
+
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="studio">PXD2 STUDIOS</div>
+    <div class="status">Status: <b>Funding open</b> · Concho, Arizona · 100% off-grid studio</div>
+  </header>
+
+  <div class="hero">
+    <div class="eyebrow">Unreal Engine · PC · Epic Games Store</div>
+    <h1 class="logo"><img src="logo.png" alt="Global Theaters: Mud for Blood. A PXD2 Studios theater of war." width="2048" height="570"></h1>
+    <p class="lede">A modern war for the world's straits. Command a submarine, a mini frigate and FLIR-equipped drones in a combat game built by one developer in Arizona, from Blender models to Unreal.</p>
+    <div class="ctas">
+      <a class="btn primary" href="#back">Back the game</a>
+      <a class="btn" href="#follow">Follow the build</a>
+    </div>
+  </div>
+
+  <div class="trailer" aria-label="Gameplay trailer, coming soon">
+    <img class="keyart" src="drone.jpg" alt="" aria-hidden="true">
+    <div class="hud tl">REC · GAMEPLAY CAPTURE</div>
+    <div class="hud br">PXD2 // BUILD 0.x</div>
+    <div class="tag">
+      <strong>Gameplay trailer</strong>
+      <span>Real in-engine footage posting here soon</span>
+    </div>
+  </div>
+
+  <section class="op">
+    <div class="num"><b>01</b>Situation</div>
+    <div>
+      <h2>The fight for the straits</h2>
+      <p>US forces flying and sailing PXD2-designed systems face the Meridian Coalition's navy and air force for control of the chokepoints that move the world's shipping. The maps are naval-sim large. The action stays fast and readable, with clean explosions and destruction you fight through.</p>
+      <p><strong>Mud for Blood</strong> is the story campaign. It leads into online multiplayer on the same full-size maps, with community dedicated servers the way PC shooters used to run them.</p>
+      <figure class="shot"><img src="carrier.jpg" alt="PXD2 carrier, hull 79, Blender model from the game" loading="lazy"><figcaption>Hull 79 carrier · in-game model</figcaption></figure>
+      <div class="units">
+        <div class="unit"><span class="k">Subsurface</span><span class="v">Submarine</span><p>Run silent. You can actually see the boat underwater.</p></div>
+        <div class="unit"><span class="k">Surface</span><span class="v">Mini frigate</span><p>Every system on the hull modeled and in the fight.</p></div>
+        <div class="unit"><span class="k">Air</span><span class="v">Drones</span><p>Toggle FLIR, infrared and other vision modes mid-mission.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="op">
+    <div class="num"><b>02</b>Hero map</div>
+    <div>
+      <h2>Tunnel Rats</h2>
+      <p>A modern tunnel-warfare battlefield: close, dark, loud and unlike anything else in the genre. Above ground, long-range sniping rewards patience over twitch reflexes, so veteran players have a place to shine.</p>
+      <p class="muted">More theaters in the current build: Battle for LA · Fight for Japan · Operation Iron Furrow · Bandar · Drone Hunter. Modes: Mud for Blood campaign, fleet battles, FPS, and Battle Royale with a B-52 drop and ram-air parachute.</p>
+    </div>
+  </section>
+
+  <section class="op">
+    <div class="num"><b>03</b>The studio</div>
+    <div>
+      <h2>One developer. No publisher.</h2>
+      <p>PXD2 is Chad Peters: software developer, PCB and embedded engineer, and solo game builder, working from a fully off-grid studio in Concho, Arizona. Every ship, sub and drone was modeled in Blender and brought into Unreal Engine. The first playable build came together in about a week, and early public gameplay drew a strong response.</p>
+      <p>GLOBAL THEATERS is planned as a franchise. Vietnam and Global War on Terror titles follow, each kept focused, moddable and playable on ordinary PCs.</p>
+    </div>
+  </section>
+
+  <section class="op" id="proof">
+    <div class="num"><b>04</b>Precedent</div>
+    <div>
+      <h2>The proven path</h2>
+      <p>Military shooters and naval sims have been built this way before: crowdfunded first, then grown into hits.</p>
+      <table class="ledger comps" aria-label="Comparable crowdfunded games">
+        <tr><td><strong>Squad</strong><br><span class="muted">Kickstarter 2015 · over $200k in 5 days</span></td><td>6M+ copies</td></tr>
+        <tr><td><strong>Hell Let Loose</strong><br><span class="muted">Kickstarter 2017 · AU$308k, 227% of goal, 5,284 backers</span></td><td>Sold to Team17 for £31M+</td></tr>
+        <tr><td><strong>UBOAT</strong><br><span class="muted">Kickstarter 2016 · CA$38k on a CA$20k goal</span></td><td>Steam early access</td></tr>
+      </table>
+      <p class="muted" style="margin-top:12px">Each one showed real gameplay, brought players in early, and let the funding prove demand before a publisher stepped in. GLOBAL THEATERS follows the same plan.</p>
+    </div>
+  </section>
+
+  <section class="op" id="back">
+    <div class="num"><b>05</b>Backers</div>
+    <div>
+      <h2>Kickstarter campaign</h2>
+      <p>The campaign launches with a $40,000 goal. Every dollar goes into the game. Follow it now and you'll be notified on launch day. Recon backers and above play private builds while the game is still being made, and anyone who served can add their unit to the Veterans Wall at the in-game HQ.</p>
+      <table class="ledger" aria-label="Use of funds">
+        <tr><td>Second workstation for builds and testing</td><td>$5,000</td></tr>
+        <tr><td>Asset licenses and Fab packs</td><td>$6,000</td></tr>
+        <tr><td>Voice talent and audio</td><td>$8,000</td></tr>
+        <tr><td>First year of multiplayer servers</td><td>$4,000</td></tr>
+        <tr><td>Trailer and marketing</td><td>$3,000</td></tr>
+        <tr><td>Playtesting and QA</td><td>$2,000</td></tr>
+        <tr><td>Platform and payment fees</td><td>$4,000</td></tr>
+        <tr><td>Reward fulfillment and keys</td><td>$1,000</td></tr>
+        <tr><td>Contingency</td><td>$7,000</td></tr>
+        <tr class="total"><td>Funding goal</td><td>$40,000</td></tr>
+      </table>
+      <ul class="goals" aria-label="Stretch goals">
+        <li><span>$60,000</span><span>Tunnel Rats full polish plus a night variant</span></li>
+        <li><span>$100,000</span><span>Dedicated servers and expanded online multiplayer at launch</span></li>
+        <li><span>$150,000</span><span>Full professional voice cast for the campaign</span></li>
+        <li><span>$250,000</span><span>Playable Vietnam theater prototype</span></li>
+      </ul>
+      <div class="tiers">
+        <div class="tier"><span class="name">Early Bird · first 500</span><span class="price">$20</span><p>Digital copy on the Epic Games Store. $30 after the Early Birds are gone.</p></div>
+        <div class="tier"><span class="name">Founder</span><span class="price">$50</span><p>Game, beta access, founder badge in-game, name in the credits.</p></div>
+        <div class="tier"><span class="name">Recon</span><span class="price">$90</span><p>Founder plus private playtests during development and a vote on the next map.</p></div>
+        <div class="tier"><span class="name">Commander</span><span class="price">$150</span><p>Recon plus an exclusive vehicle skin, digital artbook and soundtrack.</p></div>
+        <div class="tier"><span class="name">Fireteam</span><span class="price">$180</span><p>Four copies, Founder perks on all four.</p></div>
+        <div class="tier"><span class="name">Clan · 15 only</span><span class="price">$1,000</span><p>Ten copies with Recon perks, your clan emblem in-game, and a private playtest with the developer.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="op" id="studio">
+    <div class="num"><b>06</b>Build-out</div>
+    <div>
+      <h2>Real props, real scans</h2>
+      <p>Funding expands the studio itself. New workstations and 3D scanners let PXD2 scan real military props and gear into the game, and 3D printers turn those same scans into physical props for trailers and film productions. The same pipeline, with AI tools on top, speeds up new theaters and DLC.</p>
+      <div class="units">
+        <div class="unit"><span class="k">Scan</span><span class="v">Real props</span><p>Revopoint scans of real gear become in-game models.</p></div>
+        <div class="unit"><span class="k">Print</span><span class="v">Prop shop</span><p>The same scans printed as physical props for productions.</p></div>
+        <div class="unit"><span class="k">Expand</span><span class="v">DLC theaters</span><p>Vietnam and GWOT theaters built on the same pipeline.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="op" id="invest">
+    <div class="num"><b>07</b>Partners</div>
+    <div>
+      <h2>Investors and partners</h2>
+      <p>PXD2 is preparing an investor round for people who want a stake in the studio's games. Terms will be offered only through a registered funding portal once filed. Until then, nothing on this page is an offer to sell securities.</p>
+      <p>Hardware, engine and platform partners, publishers and press: get in touch for a build walkthrough and the data roadmap behind the game.</p>
+      <div class="contact">
+        <code id="email">pxd2games@gmail.com</code>
+        <button class="btn" id="copyBtn" type="button">Copy email</button>
+        <span id="copyMsg" aria-live="polite"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="op" id="follow">
+    <div class="num"><b>08</b>Follow</div>
+    <div>
+      <h2>Follow the build</h2>
+      <div class="units">
+        <a class="unit" href="https://www.youtube.com/@PXD2Games" target="_blank" rel="noopener" style="text-decoration:none;color:inherit"><span class="k">YouTube</span><span class="v">@PXD2Games</span><p>Trailers and full gameplay.</p></a>
+        <a class="unit" href="https://www.tiktok.com/@pxd2.games" target="_blank" rel="noopener" style="text-decoration:none;color:inherit"><span class="k">TikTok</span><span class="v">@pxd2.games</span><p>Daily combat clips.</p></a>
+        <a class="unit" href="https://www.instagram.com/pxd2games" target="_blank" rel="noopener" style="text-decoration:none;color:inherit"><span class="k">Instagram · Threads</span><span class="v">@pxd2games</span><p>Screens, renders and dev notes.</p></a>
+      </div>
+    </div>
+  </section>
+
+  <footer>PXD2 ·Glen Elder Entertainment Group LLC · Concho, Arizona · GLOBAL THEATERS is in development; features may change.</footer>
+</div>
+
+<script>
+(function () {
+  var btn = document.getElementById('copyBtn'), msg = document.getElementById('copyMsg'), em = document.getElementById('email');
+  btn.addEventListener('click', function () {
+    var text = em.textContent;
+    function fallback() {
+      var r = document.createRange(); r.selectNodeContents(em);
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      msg.textContent = 'Selected. Press Ctrl+C to copy.';
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () { msg.textContent = 'Copied.'; }, fallback);
+    } else { fallback(); }
+  });
+
+  }
+  requestAnimationFrame(draw);
+})();
+</script>
+<script src="/sites.js" defer></script>
+</body>
+</html>
