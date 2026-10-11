@@ -1,0 +1,7 @@
+# PXD Operator: everything MIT, Apache-2.0 or BSD
+mss>=9            # screenshots (MIT)
+pyautogui>=0.9.54 # mouse and keyboard (BSD-3); on Linux without Tk the operator uses its own XTest driver (python-xlib)
+rapidocr_onnxruntime>=1.2.3  # OCR with bundled models, offline (Apache-2.0); onnxruntime (MIT)
+pillow>=10        # images (MIT-CMU)
+playwright>=1.45  # browser surface (Apache-2.0); then: python -m playwright install chromium
+uiautomation>=2.0.18; sys_platform == "win32"  # Windows accessibility tree (Apache-2.0)

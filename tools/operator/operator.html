@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PXD Operator</title>
+<style>
+:root { --bg:#0b0b0a; --panel:#151412; --panel2:#1c1a17; --line:#2e2a24; --fg:#ece4cf; --muted:#a39a88; --tan:#c9a46a; --red:#d0302f; --ok:#7fbf7a; --blue:#7aa7d8; color-scheme: dark; }
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.5 "Segoe UI", system-ui, -apple-system, sans-serif; }
+button, input, select, textarea { font: inherit; color: inherit; }
+.wrap { max-width: 1400px; margin: 0 auto; padding: 16px; display: grid; grid-template-columns: 340px minmax(0, 1fr); gap: 16px; align-items: start; }
+header { grid-column: 1 / -1; display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+h1 { font: 900 30px Impact, "Arial Narrow", sans-serif; letter-spacing: .02em; margin: 0; } h1 span { color: var(--red); }
+.status { font: 700 13px Consolas, monospace; letter-spacing: .06em; text-transform: uppercase; padding: 4px 12px; border-radius: 999px; border: 1px solid currentColor; color: var(--muted); }
+.status.running { color: var(--blue); } .status.waiting { color: var(--tan); } .status.done { color: var(--ok); } .status.failed, .status.stopped { color: var(--red); }
+.stop { margin-left: auto; background: var(--red); color: #fff; border: 0; border-radius: 12px; padding: 10px 22px; font-weight: 900; letter-spacing: .05em; cursor: pointer; }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px; margin-bottom: 12px; }
+.panel h2 { font: 700 12px Consolas, monospace; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+label.f { display: grid; gap: 4px; margin-bottom: 10px; font-size: 14px; font-weight: 600; }
+label.f small { color: var(--muted); font-weight: 400; }
+textarea, input[type=text], input[type=number], select { width: 100%; background: var(--bg); border: 1px solid var(--line); border-radius: 9px; padding: 8px 10px; }
+textarea { min-height: 90px; resize: vertical; }
+textarea:focus, input:focus, select:focus { outline: none; border-color: var(--tan); }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.btn { background: var(--panel2); border: 1px solid var(--line); border-radius: 10px; padding: 8px 14px; cursor: pointer; font-weight: 600; }
+.btn.red { background: var(--red); border-color: var(--red); color: #fff; } .btn.green { background: #2f5d1e; border-color: #4c8a2e; color: #fff; }
+.btn:disabled { opacity: .5; cursor: default; }
+.screen { background: #000; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; min-height: 240px; display: grid; place-items: center; }
+.screen img { width: 100%; display: block; }
+.ask { border: 2px solid var(--tan); background: #221d14; }
+.ask .what { font-size: 17px; font-weight: 700; margin: 4px 0 10px; }
+.row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.steps { display: grid; gap: 6px; max-height: 420px; overflow: auto; }
+.step { display: grid; grid-template-columns: 34px 1fr; gap: 8px; padding: 6px 8px; border-radius: 8px; background: var(--panel2); cursor: pointer; }
+.step:hover { outline: 1px solid var(--line); }
+.step .n { font: 700 12px Consolas, monospace; color: var(--muted); }
+.step .d { font: 13px Consolas, monospace; } .step .t { color: var(--muted); font-size: 13px; }
+.step.bad .d { color: var(--red); } .step.risky .d::after { content: "  ⚠ asked first"; color: var(--tan); }
+.wf { display: flex; justify-content: space-between; gap: 8px; align-items: center; padding: 6px 0; border-bottom: 1px dashed var(--line); font-size: 14px; }
+.muted { color: var(--muted); font-size: 13px; }
+.result { border-left: 4px solid var(--ok); padding: 6px 10px; background: var(--panel2); border-radius: 6px; white-space: pre-wrap; }
+@media (max-width: 900px) { .wrap { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header><h1>PX<span>D</span> Operator</h1><span class="status" id="status">idle</span><span class="muted" id="meta"></span>
+    <button class="stop" id="stop" type="button" title="Stops at once. On the desktop you can also throw the mouse into a screen corner.">STOP</button></header>
+  <div>
+    <div class="panel">
+      <h2>New task</h2>
+      <label class="f">What should it do?<textarea id="goal" placeholder="Open the PXD market, search for pizza, add a pepperoni pizza to the cart and stop before paying."></textarea></label>
+      <div class="two">
+        <label class="f">Where<select id="surface"><option value="browser">Browser (web pages)</option><option value="desktop">Whole desktop</option></select></label>
+        <label class="f">Permission<select id="autonomy"><option value="careful">Ask before risky steps</option><option value="ask">Ask every step</option><option value="auto">Don't ask</option></select></label>
+      </div>
+      <label class="f" id="urlRow">Start at<input type="text" id="url" placeholder="https://… or http://base1:8790/"></label>
+      <div class="two">
+        <label class="f">Model (Ollama)<select id="model"></select></label>
+        <label class="f">Step limit<input type="number" id="max" value="40" min="1" max="200"></label>
+      </div>
+      <label class="f" style="display:flex;gap:8px;align-items:center;font-weight:400"><input type="checkbox" id="vision"> Show it the screenshot too (vision model, e.g. qwen2.5vl)</label>
+      <button class="btn red" id="go" type="button">Start</button>
+      <p class="muted" id="goMsg"></p>
+    </div>
+    <div class="panel">
+      <h2>Workflows</h2>
+      <div id="wfs"></div>
+      <div class="row" style="margin-top:10px"><input type="text" id="wfName" placeholder="name-for-this-run" style="flex:1"><button class="btn" id="wfSave" type="button">Save last run</button></div>
+      <p class="muted">A saved run replays by finding each button by its label, so most replays use no model at all. Put <code>{{name}}</code> in a workflow's typed text to fill it in at run time.</p>
+    </div>
+  </div>
+  <div>
+    <div class="panel ask" id="askBox" hidden></div>
+    <div class="screen" id="screen"><span class="muted">The screen it sees appears here, with every clickable thing numbered.</span></div>
+    <div class="panel" style="margin-top:12px">
+      <h2>Steps</h2>
+      <div id="result"></div>
+      <div class="steps" id="steps"><p class="muted">No run yet.</p></div>
+    </div>
+  </div>
+</div>
+<script>
+(function () {
+  "use strict";
+  var TOKEN = new URLSearchParams(location.search).get("token") || "";
+  var $ = function (id) { return document.getElementById(id); };
+  function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+  function api(path, body) {
+    return fetch(path + (TOKEN && !body ? (path.indexOf("?") > -1 ? "&" : "?") + "token=" + encodeURIComponent(TOKEN) : ""), body ? { method: "POST", headers: { "Content-Type": "application/json", "X-Operator-Token": TOKEN }, body: JSON.stringify(body) } : {})
+      .then(function (r) { return r.json().then(function (d) { if (!r.ok) throw new Error(d.error || r.status); return d; }); });
+  }
+  function shotUrl(run, shot) { return "/api/shot/" + run + "/" + shot + (TOKEN ? "?token=" + encodeURIComponent(TOKEN) : ""); }
+
+  api("/api/models").then(function (d) {
+    var s = $("model"); s.textContent = "";
+    (d.models.length ? d.models : [d.default]).forEach(function (m) { s.appendChild(new Option(m, m)); });
+    s.value = d.models.indexOf(d.default) > -1 ? d.default : s.options[0].value;
+    if (d.error) $("goMsg").textContent = d.error;
+  });
+  $("surface").onchange = function () { $("urlRow").hidden = $("surface").value !== "browser"; };
+  $("go").onclick = function () {
+    $("goMsg").textContent = "";
+    api("/api/run", { goal: $("goal").value, surface: $("surface").value, start_url: $("url").value.trim(), model: $("model").value,
+      vision: $("vision").checked, autonomy: $("autonomy").value, max_steps: parseInt($("max").value, 10) })
+      .then(function () { viewing = null; }).catch(function (e) { $("goMsg").textContent = e.message; });
+  };
+  $("stop").onclick = function () { api("/api/stop", {}); };
+  $("wfSave").onclick = function () {
+    if (!last.id) return;
+    api("/api/workflows/save", { name: $("wfName").value.trim(), run: last.id }).then(function () { $("wfName").value = ""; loadWfs(); }).catch(function (e) { alert(e.message); });
+  };
+  function loadWfs() {
+    api("/api/workflows").then(function (d) {
+      var box = $("wfs"); box.textContent = "";
+      if (!d.workflows.length) box.appendChild(el("p", "muted", "None yet. Finish a run, then save it here."));
+      d.workflows.forEach(function (w) {
+        var row = el("div", "wf"), info = el("div"); info.append(el("b", null, w.name), el("div", "muted", w.steps + " steps · " + w.surface + (w.params.length ? " · fills: " + w.params.join(", ") : "")));
+        var b = el("button", "btn", "Run"); b.type = "button";
+        b.onclick = function () {
+          var params = {}; w.params.forEach(function (p) { params[p] = prompt("Value for " + p + "?") || ""; });
+          api("/api/workflows/run", { name: w.name, params: params, autonomy: $("autonomy").value, model: $("model").value }).catch(function (e) { $("goMsg").textContent = e.message; });
+        };
+        row.append(info, b); box.appendChild(row);
+      });
+    });
+  }
+
+  var last = {}, viewing = null, shownShot = "";
+  function draw(st) {
+    last = st;
+    var s = $("status"); s.textContent = st.status || "idle"; s.className = "status " + (st.status || "");
+    $("meta").textContent = st.goal ? (st.workflow ? "workflow " + st.workflow + " · " : "") + (st.steps || []).length + " steps" + (st.tokens ? " · " + st.tokens[0] + " in / " + st.tokens[1] + " out tokens, all local" : "") : "";
+    var steps = st.steps || [], box = $("steps");
+    box.textContent = "";
+    if (!steps.length) box.appendChild(el("p", "muted", st.status === "running" ? "Looking at the screen…" : "No run yet."));
+    steps.slice().reverse().forEach(function (x) {
+      var r = el("div", "step" + (x.ok === false ? " bad" : "") + (x.risky ? " risky" : ""));
+      var t = el("div"); t.append(el("div", "d", x.desc + (x.error ? "  ✗ " + x.error : x.declined ? "  ✗ you declined" : "") + (x.model === false ? "  (no model)" : "")), x.thought ? el("div", "t", x.thought) : "");
+      r.append(el("div", "n", "#" + x.n), t); r.onclick = function () { viewing = x.shot; show(st.id, x.shot); }; box.appendChild(r);
+    });
+    var res = $("result"); res.textContent = "";
+    if (st.status === "done") res.appendChild(el("div", "result", "Done: " + (st.result || "")));
+    if (st.error) res.appendChild(el("div", "result", st.error)).style.borderColor = "var(--red)";
+    var ask = $("askBox"), p = st.pending;
+    if (p) {
+      if (ask.dataset.key !== p.kind + p.text) {
+        ask.dataset.key = p.kind + p.text; ask.textContent = ""; ask.hidden = false;
+        ask.append(el("h2", null, p.kind === "approve" ? "It wants to do this. OK?" : "It needs you"), el("div", "what", p.text));
+        var row = el("div", "row");
+        if (p.kind === "approve") {
+          var yes = el("button", "btn green", "Yes, do it"), no = el("button", "btn", "No, do something else");
+          yes.type = no.type = "button"; yes.onclick = function () { api("/api/answer", { answer: "yes" }); }; no.onclick = function () { api("/api/answer", { answer: "no" }); };
+          row.append(yes, no);
+        } else {
+          var inp = el("input"); inp.type = "text"; inp.style.flex = "1"; inp.placeholder = "Your answer";
+          var send = el("button", "btn green", "Answer"); send.type = "button"; send.onclick = function () { api("/api/answer", { answer: inp.value }); };
+          inp.onkeydown = function (e) { if (e.key === "Enter") send.click(); };
+          row.append(inp, send);
+        }
+        ask.appendChild(row); if (p.kind !== "approve") setTimeout(function () { ask.querySelector("input").focus(); }, 50);
+        if (document.hidden && "Notification" in window && Notification.permission === "granted") new Notification("PXD Operator needs you", { body: p.text });
+      }
+    } else { ask.hidden = true; ask.dataset.key = ""; }
+    var shot = viewing || (p && p.shot) || (steps.length ? steps[steps.length - 1].shot : "");
+    if (st.id && shot) show(st.id, shot);
+  }
+  function show(run, shot) {
+    if (shownShot === run + shot) return; shownShot = run + shot;
+    var img = el("img"); img.alt = "What it sees, step " + shot; img.src = shotUrl(run, shot);
+    $("screen").textContent = ""; $("screen").appendChild(img);
+  }
+  (function poll() { api("/api/state").then(draw).catch(function () {}).then(function () { setTimeout(poll, 1000); }); })();
+  loadWfs();
+  if ("Notification" in window && Notification.permission === "default") document.addEventListener("click", function once() { Notification.requestPermission(); document.removeEventListener("click", once); });
+})();
+</script>
+</body>
+</html>
