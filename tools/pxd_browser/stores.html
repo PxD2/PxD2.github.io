@@ -45,16 +45,18 @@ h1 { font: 800 32px Impact, "Arial Narrow", sans-serif; letter-spacing: .03em; m
 
   async function openStore(s) {
     if (opened[s.name]) return opened[s.name];
-    var bytes = await PXDZ.fetchAny(s.store.bundle);
     var sig = s.store.sig ? await PXDZ.fetchAny(s.store.sig, "json").catch(function () { return null; }) : null;
-    var bundle = await PXDZ.open(bytes);
+    // signed manifests let us fetch only the parts a buyer looks at; older signatures need the whole file
+    var lazy = !!(sig && sig.sig && sig.sig.manifest_sha256);
+    var bytes = lazy ? null : await PXDZ.fetchAny(s.store.bundle);
+    var bundle = lazy ? await PXDZ.openLazy(s.store.bundle) : await PXDZ.open(bytes);
     var jsonParts = bundle.list().filter(function (p) { return /\.json$/.test(p.path); });
     var catPart = jsonParts.find(function (p) { return /catalog\.json$/.test(p.path); }) || jsonParts[0];
     var catalog = catPart ? await bundle.json(catPart.path) : {};
     var links = PXDZ.payLinks(catalog), result = { ok: false, checks: [{ check: "signature present", ok: false, detail: "unsigned bundle" }] };
     if (sig) {
       var auth = (reg.authorities || []).find(function (a) { return sig.cert && sig.cert.cert && a.kid === sig.cert.cert.issuer; });
-      result = auth ? await PXDZ.verify(bytes, sig, auth, links) : { ok: false, checks: [{ check: "known authority", ok: false, detail: "issuer not in registry" }] };
+      result = auth ? await PXDZ.verify(lazy ? bundle : bytes, sig, auth, links) : { ok: false, checks: [{ check: "known authority", ok: false, detail: "issuer not in registry" }] };
       if (auth) result.authority = auth;
     }
     return (opened[s.name] = { bundle: bundle, catalog: catalog, verify: result });
@@ -79,6 +81,9 @@ h1 { font: 800 32px Impact, "Arial Narrow", sans-serif; letter-spacing: .03em; m
       });
       if (!grid.children.length) grid.appendChild(el("p", "empty", "No store or item matches that."));
     }
+    var meter = el("p", "sub"); app.appendChild(meter);
+    function kb(n) { return n < 1e6 ? (n / 1024).toFixed(1) + " KB" : (n / 1048576).toFixed(2) + " MB"; }
+    setInterval(function () { meter.textContent = "Downloaded " + kb(PXDZ.stats.network) + " · reused from this device " + kb(PXDZ.stats.cache); }, 1000);
     q.addEventListener("input", draw); draw();
     stores.forEach(function (s) { if (!opened[s.name]) openStore(s).then(draw).catch(function (e) { opened[s.name] = { catalog: {}, verify: { ok: false, checks: [{ check: "bundle", ok: false, detail: e.message }] } }; draw(); }); });
   }

@@ -109,7 +109,9 @@ def issue(auth_dir, merchant_pub, mid, name, pay_hosts, days, out):
 
 def sign_bundle(bundle, key, cert):
     data = open(bundle, "rb").read()
+    mlen = int.from_bytes(data[5:9], "little")  # the manifest pins every part's hash, so readers can fetch parts one by one
     body = {"type": "pxd-bundle-sig/1", "bundle": os.path.basename(bundle), "sha256": hashlib.sha256(data).hexdigest(),
+            "manifest_sha256": hashlib.sha256(data[:9 + mlen]).hexdigest(),
             "signed": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")}
     sig = {"sig": body, "signature": sign(load_priv(json.load(open(key))), canon(body)), "cert": json.load(open(cert))}
     json.dump(sig, open(bundle + ".sig", "w"), indent=2)

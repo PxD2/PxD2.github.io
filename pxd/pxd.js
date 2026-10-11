@@ -6,7 +6,7 @@
  */
 (function (root) {
   "use strict";
-  var MAGIC = "PXDZ", MARK = "§cog:", PUBLIC_CATALOG = "https://pxd2.github.io/cog/books/catalog.json";
+  var MAGIC = "PXDZ", MARK = "\u00a7cog:", PUBLIC_CATALOG = "https://pxd2.github.io/cog/books/catalog.json";
   var dec = new TextDecoder(), enc = new TextEncoder();
 
   function hex(buf) { return Array.prototype.map.call(new Uint8Array(buf), function (b) { return b.toString(16).padStart(2, "0"); }).join(""); }
@@ -77,19 +77,60 @@
     throw last || new Error("No source answered.");
   }
 
+  /* ---------- transfer: fetch only what is shown, keep every verified part ---------- */
+  var stats = { network: 0, cache: 0, requests: 0 };
+  var whole = {};  // url -> bytes, for servers that ignore Range
+  var partStore = null;
+  async function parts() {
+    if (partStore !== null) return partStore;
+    try { partStore = ("caches" in root) ? await caches.open("pxd-parts") : false; } catch (e) { partStore = false; }
+    return partStore;
+  }
+  async function rangeGet(urls, a, b) {  // bytes a..b inclusive, from the first source that answers
+    var last = null;
+    for (var i = 0; i < urls.length; i++) {
+      var u = urls[i];
+      if (whole[u]) return whole[u].slice(a, b + 1);
+      try {
+        stats.requests++;
+        var r = await fetch(u, { headers: { Range: "bytes=" + a + "-" + b }, cache: "no-store" });
+        if (r.status === 206) { var part = new Uint8Array(await r.arrayBuffer()); stats.network += part.length; return part; }
+        if (!r.ok) throw new Error(r.status + " " + u);
+        var all = new Uint8Array(await r.arrayBuffer()); stats.network += all.length; whole[u] = all;
+        return all.slice(a, b + 1);
+      } catch (e) { last = e; }
+    }
+    throw last || new Error("No source answered.");
+  }
+  function concat(x, y) { var o = new Uint8Array(x.length + y.length); o.set(x); o.set(y, x.length); return o; }
+
+  /* open: whole bundle (ArrayBuffer, URL or URL list). openLazy: header first, each part on demand. */
   async function open(src, opts) {
-    opts = opts || {};
     var buf = src instanceof ArrayBuffer ? src : await fetchAny(src);
     var u8 = new Uint8Array(buf);
+    return build(u8, function (a, len) { return Promise.resolve(u8.slice(a, a + len)); }, opts || {}, false);
+  }
+  async function openLazy(src, opts) {
+    var urls = Array.isArray(src) ? src : [src];
+    var head = await rangeGet(urls, 0, 16383);  // header + manifest; small sites arrive whole
+    if (dec.decode(head.slice(0, 4)) !== MAGIC) throw new Error("Not a PXDZ file.");
+    var need = 9 + new DataView(head.buffer, head.byteOffset).getUint32(5, true);
+    if (head.length < need) head = concat(head, await rangeGet(urls, head.length, need - 1));
+    return build(head, function (a, len) {
+      return a + len <= head.length ? Promise.resolve(head.slice(a, a + len)) : rangeGet(urls, a, a + len - 1);
+    }, opts || {}, true);
+  }
+
+  async function build(u8, slice, opts, lazy) {
     if (dec.decode(u8.slice(0, 4)) !== MAGIC) throw new Error("Not a PXDZ file.");
-    var dv = new DataView(buf), mlen = dv.getUint32(5, true);
+    var mlen = new DataView(u8.buffer, u8.byteOffset).getUint32(5, true);
+    var header = u8.slice(0, 9 + mlen);
     var manifest = JSON.parse(dec.decode(u8.slice(9, 9 + mlen))), base = 9 + mlen, key = null;
     if (manifest.encryption) {
       if (!opts.key) { var err = new Error("This bundle is sealed. A key is required."); err.sealed = true; throw err; }
       key = await deriveKey(opts.key, manifest.encryption.salt, manifest.encryption.iter);
     }
-    async function undo(slice, codec) {
-      var data = slice;
+    async function undo(data, codec) {
       for (var i = codec.length - 1; i >= 0; i--) {
         if (codec[i] === "aes-gcm") data = await unseal(data, key);
         else if (codec[i] === "deflate") data = await inflateRaw(data);
@@ -98,7 +139,8 @@
     }
     var hubInfo = manifest.books.find(function (b) { return b.kind === "hub"; }), hub = {};
     if (hubInfo) {
-      var rows = JSON.parse(dec.decode(await undo(u8.slice(base + hubInfo.offset, base + hubInfo.offset + hubInfo.length), hubInfo.codec))).rows;
+      var rows = JSON.parse(dec.decode(await undo(await slice(base + hubInfo.offset, hubInfo.length), hubInfo.codec))).rows;
+      if (hubInfo.sha256 && await sha256(enc.encode(JSON.stringify(rows))) !== hubInfo.sha256) throw new Error("Integrity check failed: hub book");
       rows.forEach(function (r) { r[2].forEach(function (s, i) { hub["h" + r[0] + "." + (r[1][0] + i)] = s; }); });
     }
     var usesPublic = manifest.books.some(function (b) { return b.kind === "public"; }), pub = null;
@@ -106,21 +148,27 @@
       if (usesPublic && !pub) { try { pub = await loadPublic(); } catch (e) { pub = {}; } }
       return function (a) { return a.charAt(0) === "h" ? hub[a] : (pub || {})[a]; };
     }
-    var cache = {};
+    var mem = {}, shareable = !manifest.encryption;  // sealed parts never leave memory
     var bundle = {
-      manifest: manifest,
+      manifest: manifest, header: header, lazy: lazy,
       list: function () { return manifest.parts.slice(); },
       bytes: async function (path) {
-        if (cache[path]) return cache[path];
+        if (mem[path]) return mem[path];
         var p = manifest.parts.find(function (x) { return x.path === path; });
         if (!p) throw new Error("No part " + path);
-        var data = await undo(u8.slice(base + p.offset, base + p.offset + p.length), p.codec);
+        var store = shareable && p.sha256 ? await parts() : false, ckey = store && "https://parts.pxd/" + p.sha256;
+        if (store) {
+          var hit = await store.match(ckey);
+          if (hit) { var c = new Uint8Array(await hit.arrayBuffer()); if (await sha256(c) === p.sha256) { stats.cache += c.length; return (mem[path] = c); } }
+        }
+        var data = await undo(await slice(base + p.offset, p.length), p.codec);
         if (p.codec.indexOf("cog-json") > -1) {
           var obj = uncog(JSON.parse(dec.decode(data)), await look());
           if (await sha256(enc.encode(canon(obj))) !== p.sha256_json) throw new Error("Integrity check failed: " + path);
           data = enc.encode(JSON.stringify(obj, null, 2));
         } else if (await sha256(data) !== p.sha256) throw new Error("Integrity check failed: " + path);
-        return (cache[path] = data);
+        if (store && p.codec.indexOf("cog-json") < 0) { try { await store.put(ckey, new Response(data)); } catch (e) {} }
+        return (mem[path] = data);
       },
       text: async function (path) { return dec.decode(await bundle.bytes(path)); },
       json: async function (path) { return JSON.parse(await bundle.text(path)); },
@@ -147,7 +195,10 @@
     chk("authority signature on certificate", await ecVerify(authority.key, cert, sig.cert.sig));
     var today = new Date().toISOString().slice(0, 10);
     chk("certificate in date", cert.issued <= today && today <= cert.expires, cert.issued + " to " + cert.expires);
-    chk("bundle unchanged since signing", (await sha256(bytes instanceof Uint8Array ? bytes : new Uint8Array(bytes))) === sig.sig.sha256);
+    if (bytes && bytes.header) {  // a lazily opened bundle: the signed manifest pins every part's SHA-256
+      chk("manifest unchanged since signing", !!sig.sig.manifest_sha256 && (await sha256(bytes.header)) === sig.sig.manifest_sha256,
+          sig.sig.manifest_sha256 ? "each part checked against it as it arrives" : "signature has no manifest hash: re-sign, or open the whole bundle");
+    } else chk("bundle unchanged since signing", (await sha256(bytes instanceof Uint8Array ? bytes : new Uint8Array(bytes))) === sig.sig.sha256);
     chk("merchant signature on bundle", await ecVerify(cert.key, sig.sig, sig.signature));
     if (payLinks) {
       var bad = payLinks.filter(function (u) { return cert.pay_hosts.indexOf(hostOf(u)) < 0; });
@@ -165,5 +216,5 @@
     return out;
   }
 
-  root.PXDZ = { open: open, verify: verify, payLinks: collectPayLinks, fetchAny: fetchAny, version: 1 };
+  root.PXDZ = { open: open, openLazy: openLazy, stats: stats, verify: verify, payLinks: collectPayLinks, fetchAny: fetchAny, version: 1 };
 })(typeof window !== "undefined" ? window : self);
