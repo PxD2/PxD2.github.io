@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PXD Shop Builder</title>
+<style>
+:root { --bg:#0b0b0a; --panel:#151412; --panel2:#1c1a17; --line:#2e2a24; --fg:#ece4cf; --muted:#a39a88; --tan:#c9a46a; --red:#d0302f; --ok:#7fbf7a; color-scheme: dark; }
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.5 "Segoe UI", system-ui, -apple-system, sans-serif; }
+button, input, select, textarea { font: inherit; color: inherit; }
+.wrap { max-width: 980px; margin: 0 auto; padding: 18px 16px 90px; }
+h1 { font: 900 30px Impact, "Arial Narrow", sans-serif; letter-spacing: .02em; margin: 0; } h1 span { color: var(--red); }
+.lead { color: var(--muted); margin: 4px 0 16px; }
+.steps { display: flex; gap: 6px; flex-wrap: wrap; margin: 0 0 16px; }
+.steps button { background: var(--panel); border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; cursor: pointer; }
+.steps button[aria-current="step"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.steps button .n { font-weight: 800; margin-right: 6px; }
+section { display: none; } section.on { display: block; }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px; margin-bottom: 12px; }
+label.f { display: grid; gap: 4px; margin-bottom: 12px; font-weight: 600; font-size: 14px; }
+label.f small { color: var(--muted); font-weight: 400; }
+input[type=text], input[type=number], input[type=email], select, textarea { background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 9px 11px; width: 100%; }
+input:focus, select:focus, textarea:focus { outline: none; border-color: var(--tan); }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; } .row3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.btn { background: var(--panel2); border: 1px solid var(--line); border-radius: 10px; padding: 9px 16px; cursor: pointer; font-weight: 600; }
+.btn.red { background: var(--red); border-color: var(--red); color: #fff; } .btn:disabled { opacity: .5; cursor: default; }
+.drop { border: 2px dashed var(--line); border-radius: 12px; padding: 22px; text-align: center; color: var(--muted); cursor: pointer; }
+.drop:hover, .drop.over { border-color: var(--tan); color: var(--fg); }
+.thumbs { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; margin-top: 12px; }
+.thumb { background: var(--panel2); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.thumb img { width: 100%; height: 100px; object-fit: cover; display: block; }
+.thumb .m { padding: 8px; display: grid; gap: 6px; }
+.x { background: none; border: 1px solid var(--line); border-radius: 8px; padding: 3px 9px; cursor: pointer; color: var(--muted); font-size: 12px; }
+.world { width: 100%; height: min(62vh, 520px); border-radius: 12px; border: 1px solid var(--line); background: #000; }
+.tools { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin: 10px 0; }
+.tools select { width: auto; }
+.hint { color: var(--muted); font-size: 13px; }
+.mode { color: var(--tan); font-weight: 700; }
+.list { display: grid; gap: 6px; margin-top: 8px; } .list div { display: flex; justify-content: space-between; gap: 8px; align-items: center; font-size: 14px; border-bottom: 1px dashed var(--line); padding: 4px 0; }
+.bar { position: fixed; left: 0; right: 0; bottom: 0; background: rgba(11,11,10,.95); border-top: 1px solid var(--line); padding: 10px 16px; display: flex; justify-content: space-between; gap: 10px; }
+.status { display: grid; gap: 10px; }
+.state { font-size: 20px; font-weight: 800; } .state.ok { color: var(--ok); }
+.progress { height: 8px; background: var(--panel2); border-radius: 99px; overflow: hidden; } .progress i { display: block; height: 100%; width: 0; background: var(--red); transition: width .2s; }
+.mono { font: 13px Consolas, monospace; word-break: break-all; }
+@media (max-width: 620px) { .row2, .row3 { grid-template-columns: 1fr; } h1 { font-size: 26px; } }
+</style>
+</head>
+<body>
+<div class="wrap" id="app">
+  <h1>PX<span>D</span> Shop Builder</h1>
+  <p class="lead">Turn your real shop into a walk-in store on PXD. Add 360° photos of the shop and your best items, pin each item where it sits, and send it to the PXD studio.</p>
+  <nav class="steps" id="steps"></nav>
+
+  <section id="s1"><div class="panel">
+    <label class="f">Shop name<input type="text" id="name" placeholder="Smith's Antiques" autocomplete="organization"></label>
+    <div class="row2">
+      <label class="f">Type of store<select id="type">
+        <option value="eats">Food &amp; drink</option><option value="retail">Retail</option><option value="antiques">Antiques &amp; vintage</option>
+        <option value="services">Services</option><option value="auto">Auto</option><option value="home">Home &amp; garden</option>
+        <option value="games">Games &amp; hobby</option><option value="models">3D models</option></select></label>
+      <label class="f">Region<input type="text" id="region" placeholder="Apache County, AZ"><small>County and state, or city and country</small></label>
+    </div>
+    <div class="row2">
+      <label class="f">Contact email or phone<input type="text" id="contact" autocomplete="email"></label>
+      <label class="f">Street address<small>optional, shown to buyers</small><input type="text" id="address" autocomplete="street-address"></label>
+    </div>
+    <label class="f">Crypto wallet for USDC payments<small>optional: your own address (0x…). Buyers pay you directly; PXD never holds money.</small><input type="text" id="wallet" placeholder="0x…" spellcheck="false"></label>
+  </div></section>
+
+  <section id="s2"><div class="panel">
+    <p class="hint">Use your phone's 360° or panorama mode (or the Google Street View app's photo sphere). Stand in the middle of each spot: front door, main floor, back room. A full 360° photo is twice as wide as it is tall.</p>
+    <div class="drop" id="panoDrop" tabindex="0" role="button">Tap to add 360° shop photos, or drop them here</div>
+    <input type="file" id="panoIn" accept="image/*" multiple hidden>
+    <div class="thumbs" id="panoList"></div>
+  </div></section>
+
+  <section id="s3"><div class="panel">
+    <p class="hint">Your items of highest interest: what people come in for. Clear photos on a plain background sell best.</p>
+    <div class="row2">
+      <label class="f">Item name<input type="text" id="iTitle" placeholder="Brass table lamp"></label>
+      <label class="f">Price (USD)<small>leave empty for "price on request"</small><input type="number" id="iPrice" min="0" step="0.01"></label>
+    </div>
+    <label class="f">Description<textarea id="iDesc" rows="2"></textarea></label>
+    <div class="row3"><label class="f">Width cm<input type="number" id="iW" min="0"></label><label class="f">Height cm<input type="number" id="iH" min="0"></label><label class="f">Depth cm<input type="number" id="iD" min="0"></label></div>
+    <div class="row2">
+      <label class="f">Photos<input type="file" id="iPhotos" accept="image/*" multiple></label>
+      <label class="f">3D scan (.glb)<small>optional: lets buyers place it in their room</small><input type="file" id="iModel" accept=".glb,model/gltf-binary"></label>
+    </div>
+    <button class="btn red" type="button" id="addItem">Add item</button>
+    <div class="thumbs" id="itemList"></div>
+  </div></section>
+
+  <section id="s4"><div class="panel">
+    <div class="tools"><b>Spot:</b> <select id="sceneSel"></select>
+      <b>Pin:</b> <select id="pinSel"></select> <span class="mode" id="mode">Pick something to pin, then tap where it is in the photo</span></div>
+    <div class="world" id="world"></div>
+    <div class="list" id="pins"></div>
+  </div></section>
+
+  <section id="s5"><div class="panel status" id="submitBox">
+    <p>Walk your store as buyers will see it, then send it to the PXD studio. The studio builds it, PXD approves you as a merchant, and you sign it from this browser to go live.</p>
+    <div class="world" id="preview"></div>
+    <button class="btn red" type="button" id="send">Send to PXD studio</button>
+    <div class="progress" hidden id="prog"><i></i></div><p class="hint" id="sendMsg"></p>
+  </div></section>
+
+  <section id="sJob"><div class="panel status" id="jobBox"></div></section>
+</div>
+<div class="bar" id="bar"><button class="btn" type="button" id="back">Back</button><button class="btn red" type="button" id="next">Next</button></div>
+
+<script>/* on a PXD Gateway use its own files; in the PXD Browser use the bundled copies */
+(function () { var g = /^https?:$/.test(location.protocol) && !/github\.io$/.test(location.hostname), b = g ? "/" : "";
+  ["vendor/three.min.js", "world.js", g ? "pxd.js" : "https://pxd2.github.io/pxd/pxd.js"].forEach(function (s) { document.write('<script src="' + (/^https?:/.test(s) ? s : b + s) + '"><\/script>'); }); })();</script>
+<script>
+(function () {
+  "use strict";
+  var served = /^https?:$/.test(location.protocol) && !/github\.io$/.test(location.hostname);
+  var GATEWAY = served ? location.origin : (function () { try { return localStorage.getItem("pxd-gateway") || "http://127.0.0.1:8790"; } catch (e) { return "http://127.0.0.1:8790"; } })();
+  var $ = function (id) { return document.getElementById(id); };
+  function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+  function slug(s) { return String(s).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 60); }
+  function ext(f) { var m = /\.([a-z0-9]+)$/i.exec(f.name || ""); return (m ? m[1] : "jpg").toLowerCase().replace("jpeg", "jpg"); }
+  var scenes = [], items = [], step = 1, editor = null, preview = null, pinMode = null;
+  var STEPS = ["Your shop", "Shop photos", "Items", "Place items", "Review & send"];
+
+  // ---------- the owner's key: it signs the store; PXD's merchant certificate vouches for it ----------
+  function b64u(buf) { return btoa(String.fromCharCode.apply(null, new Uint8Array(buf))).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""); }
+  async function ownerKey() {
+    var jwk = null; try { jwk = JSON.parse(localStorage.getItem("pxd-owner-key") || "null"); } catch (e) {}
+    if (!jwk) { var kp = await crypto.subtle.generateKey({ name: "ECDSA", namedCurve: "P-256" }, true, ["sign", "verify"]);
+      jwk = await crypto.subtle.exportKey("jwk", kp.privateKey); try { localStorage.setItem("pxd-owner-key", JSON.stringify(jwk)); } catch (e) {} }
+    return { jwk: jwk, pub: { crv: "P-256", kty: "EC", x: jwk.x, y: jwk.y },
+      sign: async function (text) { var k = await crypto.subtle.importKey("jwk", jwk, { name: "ECDSA", namedCurve: "P-256" }, false, ["sign"]);
+        return b64u(await crypto.subtle.sign({ name: "ECDSA", hash: "SHA-256" }, k, new TextEncoder().encode(text))); } };
+  }
+  function canon(v) { if (Array.isArray(v)) return "[" + v.map(canon).join(",") + "]";
+    if (v && typeof v === "object") return "{" + Object.keys(v).sort().map(function (k) { return JSON.stringify(k) + ":" + canon(v[k]); }).join(",") + "}"; return JSON.stringify(v); }
+  async function sha(u8) { return Array.prototype.map.call(new Uint8Array(await crypto.subtle.digest("SHA-256", u8)), function (b) { return b.toString(16).padStart(2, "0"); }).join(""); }
+
+  // ---------- steps ----------
+  function drawSteps() {
+    var nav = $("steps"); nav.textContent = "";
+    STEPS.forEach(function (name, i) { var b = el("button"); b.type = "button"; b.append(el("span", "n", i + 1), name);
+      if (step === i + 1) b.setAttribute("aria-current", "step"); b.onclick = function () { show(i + 1); }; nav.appendChild(b); });
+  }
+  function show(n) {
+    step = Math.max(1, Math.min(5, n)); drawSteps();
+    for (var i = 1; i <= 5; i++) $("s" + i).classList.toggle("on", i === step);
+    $("back").disabled = step === 1; $("next").hidden = step === 5;
+    if (step === 4) openEditor(); if (step === 5) openPreview();
+  }
+  $("back").onclick = function () { show(step - 1); }; $("next").onclick = function () { show(step + 1); };
+
+  // ---------- panoramas ----------
+  function addPanos(files) {
+    Array.prototype.forEach.call(files, function (f) {
+      if (!/^image\//.test(f.type)) return;
+      var id = "spot-" + (scenes.length + 1) + "-" + Math.random().toString(36).slice(2, 6);
+      scenes.push({ id: id, name: scenes.length ? "Spot " + (scenes.length + 1) : "Front door", file: f, url: URL.createObjectURL(f), hotspots: [] });
+    });
+    drawPanos();
+  }
+  function drawPanos() {
+    var box = $("panoList"); box.textContent = "";
+    scenes.forEach(function (s, i) {
+      var t = el("div", "thumb"), img = el("img"); img.src = s.url; img.alt = s.name; t.appendChild(img);
+      var m = el("div", "m"), name = el("input"); name.type = "text"; name.value = s.name; name.setAttribute("aria-label", "Spot name");
+      name.oninput = function () { s.name = name.value; };
+      var row = el("div", "tools"), rm = el("button", "x", "Remove"); rm.type = "button";
+      rm.onclick = function () { scenes.splice(i, 1); scenes.forEach(function (o) { o.hotspots = o.hotspots.filter(function (h) { return h.to !== s.id; }); }); drawPanos(); };
+      var probe = new Image(); probe.onload = function () { var r = probe.naturalWidth / probe.naturalHeight; if (Math.abs(r - 2) > 0.15) row.prepend(el("span", "hint", "Not a full 360° (" + r.toFixed(1) + ":1): it will show as part of the view")); };
+      probe.src = s.url;
+      row.appendChild(rm); m.append(name, row); t.appendChild(m); box.appendChild(t);
+    });
+  }
+  var drop = $("panoDrop"), pin = $("panoIn");
+  drop.onclick = function () { pin.click(); }; drop.onkeydown = function (e) { if (e.key === "Enter" || e.key === " ") pin.click(); };
+  pin.onchange = function () { addPanos(pin.files); pin.value = ""; };
+  ["dragover", "dragenter"].forEach(function (ev) { drop.addEventListener(ev, function (e) { e.preventDefault(); drop.classList.add("over"); }); });
+  ["dragleave", "drop"].forEach(function (ev) { drop.addEventListener(ev, function (e) { e.preventDefault(); drop.classList.remove("over"); if (ev === "drop") addPanos(e.dataTransfer.files); }); });
+
+  // ---------- items ----------
+  $("addItem").onclick = function () {
+    var title = $("iTitle").value.trim(); if (!title) { $("iTitle").focus(); return; }
+    var photos = Array.prototype.slice.call($("iPhotos").files || []);
+    var id = slug(title) || "item"; while (items.some(function (x) { return x.id === id; })) id += "-2";
+    var p = $("iPrice").value;
+    items.push({ id: id, title: title, price: p === "" ? null : Math.round(parseFloat(p) * 100) / 100, description: $("iDesc").value.trim(),
+      dims: [$("iW").value, $("iH").value, $("iD").value].map(Number), photos: photos, model: ($("iModel").files || [])[0] || null,
+      thumb: photos[0] ? URL.createObjectURL(photos[0]) : "" });
+    ["iTitle", "iPrice", "iDesc", "iW", "iH", "iD", "iPhotos", "iModel"].forEach(function (k) { $(k).value = ""; });
+    drawItems(); $("iTitle").focus();
+  };
+  function drawItems() {
+    var box = $("itemList"); box.textContent = "";
+    items.forEach(function (it, i) {
+      var t = el("div", "thumb"); if (it.thumb) { var img = el("img"); img.src = it.thumb; img.alt = it.title; t.appendChild(img); }
+      var m = el("div", "m"); m.append(el("b", null, it.title), el("span", "hint", (it.price == null ? "Price on request" : "$" + it.price.toFixed(2)) + " · " + it.photos.length + " photo(s)" + (it.model ? " · 3D" : "")));
+      var rm = el("button", "x", "Remove"); rm.type = "button";
+      rm.onclick = function () { items.splice(i, 1); scenes.forEach(function (s) { s.hotspots = s.hotspots.filter(function (h) { return h.item !== it.id; }); }); drawItems(); };
+      m.appendChild(rm); t.appendChild(m); box.appendChild(t);
+    });
+  }
+
+  // ---------- place items and doorways in the photos ----------
+  function worldOf(useUrls) {
+    return { format: "pxd-world/1", title: $("name").value.trim(), start: scenes[0] && scenes[0].id,
+      scenes: scenes.map(function (s) { return { id: s.id, name: s.name, image: useUrls ? s.url : "pano/" + s.id + "." + ext(s.file),
+        hotspots: s.hotspots.map(function (h) { return Object.assign({}, h); }) }; }) };
+  }
+  function itemTitle(id) { var it = items.find(function (x) { return x.id === id; }); return it ? it.title : id; }
+  function openEditor() {
+    var sel = $("sceneSel"); sel.textContent = "";
+    scenes.forEach(function (s) { sel.appendChild(new Option(s.name, s.id)); });
+    var ps = $("pinSel"); ps.textContent = ""; ps.appendChild(new Option("Choose…", ""));
+    items.forEach(function (it) { ps.appendChild(new Option("Item: " + it.title, "item:" + it.id)); });
+    scenes.forEach(function (s) { ps.appendChild(new Option("Doorway to: " + s.name, "go:" + s.id)); });
+    ps.onchange = function () { pinMode = ps.value || null; $("mode").textContent = pinMode ? "Now tap the spot in the photo" : "Pick something to pin, then tap where it is in the photo"; };
+    if (!scenes.length) { $("world").textContent = ""; $("world").appendChild(el("p", "hint", "Add shop photos first (step 2).")); return; }
+    if (editor) editor.destroy();
+    editor = PXDWorld.mount($("world"), worldOf(true), {
+      onScene: function (id) { sel.value = id; drawPins(); },
+      onPick: function (yaw, pitch) {
+        if (!pinMode) return;
+        var s = scenes.find(function (x) { return x.id === editor.scene(); }), k = pinMode.split(":");
+        if (k[0] === "go" && k[1] === s.id) return;
+        s.hotspots.push(k[0] === "item" ? { kind: "item", item: k[1], label: itemTitle(k[1]), yaw: yaw, pitch: pitch }
+                                        : { kind: "go", to: k[1], label: (scenes.find(function (x) { return x.id === k[1]; }) || {}).name, yaw: yaw, pitch: pitch });
+        editor.setWorld(worldOf(true)); drawPins();
+      },
+      onItem: function () {}
+    });
+    sel.onchange = function () { editor.go(sel.value); };
+  }
+  function drawPins() {
+    var box = $("pins"); box.textContent = ""; if (!editor) return;
+    var s = scenes.find(function (x) { return x.id === editor.scene(); }); if (!s) return;
+    if (!s.hotspots.length) box.appendChild(el("p", "hint", "Nothing pinned in this spot yet."));
+    s.hotspots.forEach(function (h, i) {
+      var row = el("div"), rm = el("button", "x", "Remove"); rm.type = "button";
+      rm.onclick = function () { s.hotspots.splice(i, 1); editor.setWorld(worldOf(true)); drawPins(); };
+      row.append(el("span", null, (h.kind === "go" ? "Doorway → " : "Item: ") + h.label), rm); box.appendChild(row);
+    });
+  }
+  function openPreview() {
+    if (preview) preview.destroy();
+    if (!scenes.length) { $("preview").textContent = ""; $("preview").appendChild(el("p", "hint", "Add shop photos first.")); return; }
+    preview = PXDWorld.mount($("preview"), worldOf(true), { onItem: function (id) { var it = items.find(function (x) { return x.id === id; });
+      $("sendMsg").textContent = it ? it.title + " · " + (it.price == null ? "Price on request" : "$" + it.price.toFixed(2)) : ""; } });
+  }
+
+  // ---------- send to the studio ----------
+  $("send").onclick = async function () {
+    var name = $("name").value.trim(), region = $("region").value.trim(), msg = $("sendMsg");
+    if (!name || !region) { msg.textContent = "Add your shop name and region (step 1)."; return show(1); }
+    if (!scenes.length) { msg.textContent = "Add at least one shop photo (step 2)."; return; }
+    var wallet = $("wallet").value.trim();
+    if (wallet && !/^0x[0-9a-fA-F]{40}$/.test(wallet)) { msg.textContent = "That wallet address doesn't look right (0x + 40 characters)."; return show(1); }
+    var btn = $("send"), prog = $("prog"); btn.disabled = true; prog.hidden = false;
+    try {
+      var key = await ownerKey();
+      var job = (await post("/api/intake", {})).job;
+      var uploads = [];
+      scenes.forEach(function (s) { uploads.push(["pano/" + s.id + "." + ext(s.file), s.file]); });
+      items.forEach(function (it) { it.photos.forEach(function (f, n) { uploads.push(["items/" + it.id + "-" + (n + 1) + "." + ext(f), f]); });
+        if (it.model) uploads.push(["items/" + it.id + ".glb", it.model]); });
+      for (var i = 0; i < uploads.length; i++) {
+        msg.textContent = "Uploading " + (i + 1) + " of " + uploads.length + "…";
+        var r = await fetch(GATEWAY + "/api/intake/" + job + "/files/" + uploads[i][0], { method: "PUT", body: uploads[i][1] });
+        if (!r.ok) throw new Error((await r.json()).error || r.status);
+        prog.firstChild.style.width = Math.round((i + 1) / (uploads.length + 1) * 100) + "%";
+      }
+      await post("/api/intake/" + job + "/submit", {
+        owner: key.pub, shop: { name: name, type: $("type").value, region: region, contact: $("contact").value.trim(), address: $("address").value.trim(), wallet: wallet },
+        world: worldOf(false),
+        items: items.map(function (it) { return { id: it.id, title: it.title, price: it.price, description: it.description,
+          dims_cm: it.dims.some(Boolean) ? it.dims : null, photos: it.photos.map(function (f, n) { return "items/" + it.id + "-" + (n + 1) + "." + ext(f); }),
+          model: it.model ? "items/" + it.id + ".glb" : null }; }) });
+      prog.firstChild.style.width = "100%";
+      try { localStorage.setItem("pxd-shop-job", job); } catch (e) {}
+      location.search = "?job=" + job;
+    } catch (e) { msg.textContent = "Couldn't send: " + e.message + ". Nothing is lost; try again."; btn.disabled = false; }
+  };
+  async function post(path, body) {
+    var r = await fetch(GATEWAY + path, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+    var d = await r.json(); if (!r.ok) throw new Error(d.error || r.status); return d;
+  }
+
+  // ---------- after sending: follow the job through the studio, approval and publishing ----------
+  var STATES = { submitted: "In the PXD studio queue", building: "The studio is building your store", built: "Built: waiting for PXD merchant approval",
+    approved: "Approved: sign to go live", published: "Live on PXD", failed: "The studio hit a problem", rejected: "Not approved" };
+  async function jobView(job) {
+    $("steps").hidden = true; $("bar").hidden = true; $("sJob").classList.add("on");
+    var box = $("jobBox"), world = null, opened = null, last = null;
+    async function tick() {
+      var d; try { d = await (await fetch(GATEWAY + "/api/intake/" + job)).json(); } catch (e) { setTimeout(tick, 8000); return; }
+      if (d.state === last) { if (["published", "rejected", "failed", "approved"].indexOf(d.state) < 0) setTimeout(tick, 8000); return; }
+      last = d.state; if (world) { world.destroy(); world = null; }
+      box.textContent = "";
+      box.append(el("div", "state" + (d.state === "published" ? " ok" : ""), STATES[d.state] || d.state), el("div", "hint", (d.shop && d.shop.name || "") + " · job " + job));
+      if (d.message) box.appendChild(el("p", "hint", d.message));
+      if (["built", "approved", "published"].indexOf(d.state) > -1) {
+        var w = el("div", "world"); box.appendChild(w);
+        try {
+          opened = opened || await PXDZ.open(GATEWAY + "/api/intake/" + job + "/store.pxdz");
+          var wj = await opened.json("world.json"), cat = await opened.json("catalog.json");
+          var info = el("p", "hint", "Tap a red pin to see the item buyers will see."); box.appendChild(info);
+          world = PXDWorld.mount(w, wj, { image: function (p) { return opened.url(p, "image/jpeg"); },
+            onItem: function (id) { var it = (cat.items || []).find(function (x) { return x.id === id; }); info.textContent = it ? it.title + " · " + (it.price == null ? "Price on request" : "$" + it.price) : id; } });
+        } catch (e) { box.appendChild(el("p", "hint", "Preview unavailable: " + e.message)); }
+      }
+      if (d.state === "approved") {
+        var b = el("button", "btn red", "Sign and publish my store"); b.type = "button"; box.appendChild(b);
+        box.appendChild(el("p", "hint", "Your signature, made with the key saved in this browser, proves the store is yours. PXD's certificate vouches for your key."));
+        b.onclick = async function () {
+          b.disabled = true;
+          try {
+            var key = await ownerKey();
+            if (key.pub.x !== d.owner.x || key.pub.y !== d.owner.y) throw new Error("this browser doesn't hold the key that sent this store");
+            var bytes = new Uint8Array(await (await fetch(GATEWAY + "/api/intake/" + job + "/store.pxdz")).arrayBuffer());
+            var mlen = new DataView(bytes.buffer).getUint32(5, true);
+            var body = { type: "pxd-bundle-sig/1", bundle: d.slug + ".pxdz", sha256: await sha(bytes), manifest_sha256: await sha(bytes.slice(0, 9 + mlen)),
+                         signed: new Date().toISOString().replace(/\.\d+Z$/, "+00:00") };
+            await post("/api/intake/" + job + "/publish", { sig: body, signature: await key.sign(canon(body)) });
+            tick();
+          } catch (e) { b.disabled = false; box.appendChild(el("p", "hint", "Couldn't publish: " + e.message)); }
+        };
+      }
+      if (d.state === "published") {
+        var a = el("a", "btn red", "See it on PXD"); a.href = (served ? "/" : "home.html") + "?q=" + encodeURIComponent(d.shop.name); box.appendChild(a);
+      }
+      var back = el("button", "btn", "Back up my shop key"); back.type = "button";
+      back.onclick = async function () { var k = await ownerKey(), x = document.createElement("a");
+        x.href = URL.createObjectURL(new Blob([JSON.stringify(k.jwk, null, 1)], { type: "application/json" })); x.download = "pxd-shop-key.json"; x.click(); };
+      box.append(back, el("p", "hint", "Keep this page's link. Your shop key lives in this browser; back it up, and never share it."));
+      if (["published", "rejected", "failed"].indexOf(d.state) < 0 && d.state !== "approved") setTimeout(tick, 8000);
+    }
+    tick();
+  }
+
+  var q = new URLSearchParams(location.search);
+  if (q.get("job")) jobView(q.get("job")); else { show(1); ownerKey(); }
+})();
+</script>
+</body>
+</html>
