@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PXD2 VR Store</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap">
+<link rel="stylesheet" href="/clients/engine/vrstore.css">
+</head>
+<body>
+<header class="vs-head"><h1 class="vs-title"></h1><span class="vs-sub"></span></header>
+<div id="vs-stage" aria-label="3D store. Drag to look around, tap a product to see it and pay."></div>
+<p class="vs-hint">Drag to look around · tap a product · Enter VR on a headset</p>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/controls/OrbitControls.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/loaders/GLTFLoader.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="/clients/engine/vrstore.js"></script>
+<script>PXD2VRStore.boot("store.json");</script>
+<script src="/sites.js" defer></script>
+</body>
+</html>

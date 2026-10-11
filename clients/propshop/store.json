@@ -1,0 +1,16 @@
+{
+  "name": "PXD2 Prop Shop",
+  "tagline": "Scanned and 3D-printed props from the Mud for Blood studio",
+  "currency": "USD",
+  "contact": "pxd2games@gmail.com",
+  "pay": {},
+  "wallets": {},
+  "products": [
+    { "name": "Ammo crate", "example": true, "description": "Example item: shows how a scanned prop appears on its pedestal.", "shape": "box", "color": "#6b5a3a" },
+    { "name": "Field canteen", "example": true, "description": "Example item.", "shape": "cylinder", "color": "#4d5a3a" },
+    { "name": "Hornet drone", "example": true, "description": "Example item: the game's PXD2 Hornet drone as a printed desk model.", "shape": "box", "color": "#3a3d36" },
+    { "name": "Sonar buoy", "example": true, "description": "Example item.", "shape": "sphere", "color": "#9a8a6a" },
+    { "name": "Tunnel lantern", "example": true, "description": "Example item.", "shape": "cylinder", "color": "#c9a46a" },
+    { "name": "Dog tags", "example": true, "description": "Example item.", "shape": "box", "color": "#a39a88" }
+  ]
+}

@@ -156,6 +156,17 @@
       "to": "mailto:pxd2games@gmail.com",
       "title": "Email PXD2 Games",
       "added": "2026-10-11"
+    },
+    "propshop": {
+      "to": "/clients/propshop/",
+      "title": "PXD2 Prop Shop (VR store)",
+      "added": "2026-10-11",
+      "client": true
+    },
+    "vrstore": {
+      "to": "/clients/propshop/",
+      "title": "PXD2 VR store demo",
+      "added": "2026-10-11"
     }
   }
 }

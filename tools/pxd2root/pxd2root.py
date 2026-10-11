@@ -1,7 +1,7 @@
-"""PXD2 Root: our own top-level domain, .pxd2, run on our own machines.
+"""PXD2 Root: our own top-level domain, .pxd (alias .pxd2), run on our own machines.
 
-Every name in names.json also answers as <name>.pxd2 (mudforblood.pxd2,
-hornetbell.pxd2 ...) on any device that uses PXD2's DNS: base1, the laptops,
+Every name in names.json also answers as <name>.pxd (mudforblood.pxd,
+hornetbell.pxd ...) on any device that uses PXD2's DNS: base1, the laptops,
 the Pi 5 droids, the Hackspace network. Nobody else controls it and it never
 renews. Public visitors use https://pxd2.github.io/<name> instead.
 
@@ -17,7 +17,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 LOCAL_NAMES = os.path.join(HERE, "..", "..", "names.json")
 REMOTE_NAMES = "https://pxd2.github.io/names.json"
 SITE = "https://pxd2.github.io"
-TLD = "pxd2"
+TLDS = ("pxd", "pxd2")  # .pxd is the house ending; .pxd2 kept as an alias
+TLD = TLDS[0]
 
 def load_names():
     try:
@@ -60,7 +61,7 @@ class DNS(socketserver.BaseRequestHandler):
         except Exception:
             return
         parts = qname.split(".")
-        if parts[-1] == TLD:
+        if parts[-1] in TLDS:
             known = len(parts) >= 2 and parts[-2] in ROOT.names
             flags = 0x8580 if known else 0x8583  # authoritative answer / NXDOMAIN
             ans = 1 if known and qtype in (1, 255) else 0
@@ -81,10 +82,11 @@ class DNS(socketserver.BaseRequestHandler):
 class Web(BaseHTTPRequestHandler):
     def do_GET(self):
         host = (self.headers.get("Host") or "").split(":")[0].lower()
-        name = host[:-len(TLD) - 1].split(".")[-1] if host.endswith("." + TLD) else ""
+        tld = next((t for t in TLDS if host.endswith("." + t) or host == t), "")
+        name = host[:-len(tld) - 1].split(".")[-1] if tld and host != tld else ""
         e = ROOT.names.get(name)
         if not e:
-            if host == TLD or not name:
+            if host in TLDS or not name:
                 self.send_response(302); self.send_header("Location", SITE + "/names/"); self.end_headers(); return
             self.send_response(404); self.send_header("Content-Type", "text/plain"); self.end_headers()
             self.wfile.write(f"{host} is not registered. See {SITE}/names/".encode()); return

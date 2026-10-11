@@ -1,0 +1,25 @@
+:root { --vs-bg:#0b0b0a; --vs-panel:#161513; --vs-line:#2e2a24; --vs-fg:#e8dfc8; --vs-muted:#a39a88; --vs-accent:#c9a46a; --vs-red:#c8282c; color-scheme: dark; }
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: var(--vs-bg); color: var(--vs-fg); font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+.vs-head { position: fixed; top: 0; left: 0; right: 0; z-index: 5; padding: 14px 16px; display: flex; gap: 12px; align-items: baseline; flex-wrap: wrap; pointer-events: none; background: linear-gradient(var(--vs-bg), transparent); }
+.vs-title { font: 700 clamp(20px, 4vw, 30px) "Black Ops One", Impact, system-ui, sans-serif; letter-spacing: .02em; margin: 0; }
+.vs-sub { color: var(--vs-muted); }
+#vs-stage { position: fixed; inset: 0; }
+.vs-hint { position: fixed; left: 16px; bottom: 16px; z-index: 5; color: var(--vs-muted); font-size: 13px; pointer-events: none; }
+.vs-panel { position: fixed; z-index: 10; right: 16px; top: 72px; bottom: 16px; width: min(380px, calc(100vw - 32px)); overflow: auto; background: var(--vs-panel); border: 1px solid var(--vs-line); border-radius: 10px; padding: 16px; box-shadow: 0 12px 40px rgba(0,0,0,.5); }
+.vs-close { float: right; }
+.vs-name { font-size: 22px; margin: 6px 0 2px; }
+.vs-price { font: 600 20px ui-monospace, Consolas, monospace; color: var(--vs-accent); }
+.vs-desc, .vs-note { color: var(--vs-muted); margin: 10px 0 0; }
+.vs-tag { font: 600 11px ui-monospace, monospace; letter-spacing: .1em; text-transform: uppercase; color: var(--vs-red); border: 1px solid currentColor; border-radius: 999px; padding: 3px 8px; }
+.vs-h { font-size: 13px; text-transform: uppercase; letter-spacing: .1em; color: var(--vs-muted); margin: 16px 0 8px; }
+.vs-pay { display: grid; gap: 8px; }
+.vs-btn, button { display: block; text-align: center; font: 600 14px system-ui, sans-serif; padding: 11px 14px; border-radius: 6px; border: 1px solid var(--vs-line); background: var(--vs-bg); color: var(--vs-fg); text-decoration: none; cursor: pointer; }
+.vs-btn:first-child { background: var(--vs-red); border-color: var(--vs-red); color: #fff; }
+.vs-wallets { display: grid; gap: 12px; }
+.vs-wallet { display: grid; gap: 6px; padding: 10px; border: 1px solid var(--vs-line); border-radius: 6px; }
+.vs-wallet code { font: 12px ui-monospace, monospace; overflow-wrap: anywhere; user-select: all; }
+.vs-qr img, .vs-qr canvas { background: #fff; padding: 6px; border-radius: 4px; }
+.vs-vr { position: fixed; z-index: 6; left: 50%; bottom: 16px; transform: translateX(-50%); background: var(--vs-accent) !important; color: #14100a !important; border: 0; }
+button:focus-visible, a:focus-visible { outline: 2px solid var(--vs-accent); outline-offset: 2px; }
+@media (max-width: 560px) { .vs-panel { top: auto; height: 62vh; left: 16px; right: 16px; width: auto; } }
