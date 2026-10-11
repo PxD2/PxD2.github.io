@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PXD Stores</title>
+<script type="module" src="/antiques/vendor/model-viewer.min.js"></script>
+<style>
+:root { --bg:#0b0b0a; --panel:#161513; --line:#2e2a24; --fg:#e8dfc8; --muted:#a39a88; --tan:#c9a46a; --red:#c8282c; --ok:#7fbf7a; color-scheme: dark; }
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.5 "Segoe UI", system-ui, sans-serif; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 24px 18px 60px; }
+h1 { font: 800 32px Impact, "Arial Narrow", sans-serif; letter-spacing: .03em; margin: 0; } h1 span { color: var(--red); }
+.sub { color: var(--muted); margin: 4px 0 18px; font: 13px Consolas, monospace; }
+#q { width: 100%; font: 500 17px "Segoe UI", sans-serif; padding: 12px 14px; border: 2px solid var(--fg); border-radius: 8px; background: var(--panel); color: var(--fg); margin-bottom: 14px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; display: grid; color: var(--fg); text-decoration: none; cursor: pointer; text-align: left; font: inherit; padding: 0; }
+.card:hover, .card:focus-visible { border-color: var(--tan); outline: none; }
+.card .m { padding: 12px 14px; display: grid; gap: 3px; }
+.card model-viewer { width: 100%; height: 200px; background: radial-gradient(circle at 50% 40%, #24211c, #121110); }
+.badge { display: inline-flex; gap: 6px; align-items: center; font: 600 11px Consolas, monospace; letter-spacing: .06em; text-transform: uppercase; padding: 3px 9px; border-radius: 999px; border: 1px solid currentColor; }
+.badge.ok { color: var(--ok); } .badge.bad { color: var(--red); } .badge.wait { color: var(--muted); }
+.price { font: 600 16px Consolas, monospace; color: var(--tan); }
+.muted { color: var(--muted); font-size: 13px; }
+.checks { margin: 10px 0 18px; padding: 10px 14px; border: 1px solid var(--line); border-radius: 8px; font: 12px Consolas, monospace; display: grid; gap: 3px; }
+.checks .p { color: var(--ok); } .checks .f { color: var(--red); }
+.btn { display: inline-block; font: 600 14px "Segoe UI", sans-serif; padding: 9px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); color: var(--fg); text-decoration: none; cursor: pointer; }
+.btn.pay { background: var(--red); border-color: var(--red); color: #fff; }
+.pays { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+.back { margin-bottom: 14px; }
+.empty { color: var(--muted); padding: 20px 0; }
+</style>
+</head>
+<body>
+<div class="wrap" id="app"><p class="empty">Loading stores…</p></div>
+<script src="/pxd/pxd.js"></script>
+<script>
+(function () {
+  "use strict";
+  var REGISTRY = "/_stores_test/names.json", app = document.getElementById("app");
+  var stores = [], reg = null, opened = {};
+  function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+  function money(p, cur) { if (p == null || p === "") return "Price on request"; try { return new Intl.NumberFormat("en-US", { style: "currency", currency: cur || "USD" }).format(p); } catch (e) { return "$" + p; } }
+  function badge(state, text) { return el("span", "badge " + state, text); }
+
+  async function openStore(s) {
+    if (opened[s.name]) return opened[s.name];
+    var bytes = await (await fetch(s.store.bundle, { cache: "no-store" })).arrayBuffer();
+    var sig = s.store.sig ? await (await fetch(s.store.sig, { cache: "no-store" })).json().catch(function () { return null; }) : null;
+    var bundle = await PXDZ.open(bytes);
+    var jsonParts = bundle.list().filter(function (p) { return /\.json$/.test(p.path); });
+    var catPart = jsonParts.find(function (p) { return /catalog\.json$/.test(p.path); }) || jsonParts[0];
+    var catalog = catPart ? await bundle.json(catPart.path) : {};
+    var links = PXDZ.payLinks(catalog), result = { ok: false, checks: [{ check: "signature present", ok: false, detail: "unsigned bundle" }] };
+    if (sig) {
+      var auth = (reg.authorities || []).find(function (a) { return sig.cert && sig.cert.cert && a.kid === sig.cert.cert.issuer; });
+      result = auth ? await PXDZ.verify(bytes, sig, auth, links) : { ok: false, checks: [{ check: "known authority", ok: false, detail: "issuer not in registry" }] };
+      if (auth) result.authority = auth;
+    }
+    return (opened[s.name] = { bundle: bundle, catalog: catalog, verify: result });
+  }
+
+  function list() {
+    app.textContent = "";
+    app.append(el("h1")); app.firstChild.append("PXD ", el("span", null, "Stores"));
+    app.appendChild(el("p", "sub", stores.length + " store" + (stores.length === 1 ? "" : "s") + " on .pxd · every store checked against its merchant certificate before you see a price"));
+    var q = el("input"); q.id = "q"; q.type = "search"; q.placeholder = "Search every store and item"; app.appendChild(q);
+    var grid = el("div", "grid"); app.appendChild(grid);
+    function draw() {
+      var t = q.value.trim().toLowerCase(); grid.textContent = "";
+      stores.forEach(function (s) {
+        var o = opened[s.name], items = o ? (o.catalog.items || o.catalog.products || []) : [];
+        var hit = !t || (s.name + " " + (s.title || "")).toLowerCase().indexOf(t) > -1 || items.some(function (i) { return ((i.title || i.name || "") + " " + (i.description || "")).toLowerCase().indexOf(t) > -1; });
+        if (!hit) return;
+        var b = el("button", "card"); b.type = "button"; var m = el("div", "m");
+        m.append(o ? (o.verify.ok ? badge("ok", "✓ verified merchant") : badge("bad", "not verified")) : badge("wait", "checking"), el("b", null, s.name + ".pxd"), el("span", "muted", s.title || ""));
+        if (o) m.appendChild(el("span", "muted", items.length + " item" + (items.length === 1 ? "" : "s")));
+        b.appendChild(m); b.onclick = function () { store(s); }; grid.appendChild(b);
+      });
+      if (!grid.children.length) grid.appendChild(el("p", "empty", "No store or item matches that."));
+    }
+    q.addEventListener("input", draw); draw();
+    stores.forEach(function (s) { if (!opened[s.name]) openStore(s).then(draw).catch(function (e) { opened[s.name] = { catalog: {}, verify: { ok: false, checks: [{ check: "bundle", ok: false, detail: e.message }] } }; draw(); }); });
+  }
+
+  async function store(s) {
+    app.textContent = ""; var back = el("button", "btn back", "← All stores"); back.onclick = list; app.appendChild(back);
+    var o; try { o = await openStore(s); } catch (e) { app.appendChild(el("p", "empty", e.message)); return; }
+    var cat = o.catalog, v = o.verify, items = cat.items || cat.products || [];
+    var h = el("h1", null, cat.market || cat.name || s.title || s.name); app.appendChild(h);
+    var line = el("p", "sub"); line.append(v.ok ? badge("ok", "✓ verified merchant: " + v.merchant.name) : badge("bad", "not verified: payments disabled"));
+    if (v.ok && v.authority && v.authority.demo) line.append(" ", badge("wait", "test authority"));
+    app.appendChild(line);
+    var ck = el("div", "checks"); v.checks.forEach(function (c) { ck.appendChild(el("div", c.ok ? "p" : "f", (c.ok ? "PASS " : "FAIL ") + c.check + (c.detail ? " (" + c.detail + ")" : ""))); }); app.appendChild(ck);
+    var grid = el("div", "grid"); app.appendChild(grid);
+    for (const it of items) {
+      var card = el("div", "card"); card.style.cursor = "default";
+      if (it.model) {
+        var path = o.bundle.list().find(function (p) { return p.path === it.model || p.path.endsWith("/" + it.model.split("/").pop()); });
+        if (path) { var mv = document.createElement("model-viewer"); mv.setAttribute("src", await o.bundle.url(path.path, "model/gltf-binary"));
+          ["camera-controls", "auto-rotate", "ar"].forEach(function (a) { mv.setAttribute(a, ""); }); mv.setAttribute("ar-scale", "fixed"); mv.setAttribute("alt", it.title || ""); card.appendChild(mv); }
+      }
+      var m = el("div", "m"); m.append(el("b", null, it.title || it.name || ""), el("span", "price", money(it.price, cat.currency)), el("span", "muted", it.description || ""));
+      var pays = el("div", "pays"), links = Object.assign({}, cat.pay || {}, it.pay || {}), any = false;
+      Object.keys(links).forEach(function (k) {
+        var u = links[k]; if (!u) return;
+        var allowed = v.ok && v.merchant.pay_hosts.indexOf(new URL(u).hostname) > -1;
+        if (!allowed) return; any = true;
+        var a = el("a", "btn pay", "Pay · " + k); a.href = u; a.target = "_blank"; a.rel = "noopener"; pays.appendChild(a);
+      });
+      if (!any) pays.appendChild(el("span", "muted", v.ok ? "Ask the shop to buy" : "Payments disabled: merchant not verified"));
+      m.appendChild(pays); card.appendChild(m); grid.appendChild(card);
+    }
+    if (!items.length) grid.appendChild(el("p", "empty", "This store has no items yet."));
+  }
+
+  fetch(REGISTRY, { cache: "no-store" }).then(function (r) { return r.json(); }).then(function (r) {
+    reg = r; stores = Object.keys(r.names).filter(function (k) { return r.names[k].store && r.names[k].store.bundle; }).map(function (k) { return Object.assign({ name: k }, r.names[k]); });
+    list();
+  }).catch(function () { app.textContent = "Couldn't reach the .pxd registry."; });
+})();
+</script>
+</body>
+</html>
