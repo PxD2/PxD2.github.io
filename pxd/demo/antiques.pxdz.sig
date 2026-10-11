@@ -3,9 +3,10 @@
     "type": "pxd-bundle-sig/1",
     "bundle": "antiques.pxdz",
     "sha256": "6696ea2aba38f05bc8bacfc6ef5bf22facf98e14ea5ca35d39e5c0ffb8567a4a",
-    "signed": "2026-10-11T06:16:04+00:00"
+    "manifest_sha256": "9ce74d0336564ad313ae38b31f48813f98e14c0aa89b679d3ab4d24bf7df03cd",
+    "signed": "2026-10-11T07:01:03+00:00"
   },
-  "signature": "4weaRnUhshP8g7BPWILTGRtHu7OeNNgcm3G6I18t7YKOEmUcrimmhiUSq_qiitne1z5eR5Manpuc_DG2dV9uLw",
+  "signature": "i65oehm-aHHeF8AckwY2UIJJWvMmUnap-9qjLftZEq047RANp9aIVL7LYnukqLoaoP7ezA_l-TAGVacXYY-KDg",
   "cert": {
     "cert": {
       "type": "pxd-merchant-cert/1",
