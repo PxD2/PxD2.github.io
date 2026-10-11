@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PXD Mini</title>
+<style>
+:root { --bg:#0b0b0a; --panel:#151412; --panel2:#1c1a17; --line:#2e2a24; --fg:#ece4cf; --muted:#a39a88; --tan:#c9a46a; --red:#d0302f; --ok:#7fbf7a; --blue:#7aa7d8; color-scheme: dark; }
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.5 "Segoe UI", system-ui, -apple-system, sans-serif; }
+button, input, select, textarea { font: inherit; color: inherit; }
+.wrap { max-width: 1180px; margin: 0 auto; padding: 18px 16px 40px; display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 16px; align-items: start; }
+header { grid-column: 1 / -1; display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+h1 { font: 900 30px Impact, "Arial Narrow", sans-serif; letter-spacing: .02em; margin: 0; } h1 span { color: var(--red); }
+.sub { color: var(--muted); }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px; }
+textarea { width: 100%; background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; resize: vertical; min-height: 84px; }
+textarea:focus, select:focus { outline: none; border-color: var(--tan); }
+.row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 8px; }
+.btn { background: var(--panel2); border: 1px solid var(--line); border-radius: 10px; padding: 8px 14px; cursor: pointer; font-weight: 600; }
+.btn.red { background: var(--red); border-color: var(--red); color: #fff; }
+.btn.sm { padding: 3px 10px; font-size: 13px; font-weight: 500; }
+select { background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 7px 10px; }
+.tasks { display: grid; gap: 10px; margin-top: 14px; }
+.task { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; display: grid; gap: 8px; }
+.task .q { white-space: pre-wrap; max-height: 4.5em; overflow: hidden; }
+.task .a { white-space: pre-wrap; background: var(--bg); border-radius: 8px; padding: 8px 10px; border: 1px solid var(--line); }
+.chip { display: inline-flex; gap: 6px; align-items: center; font: 600 11px Consolas, monospace; letter-spacing: .05em; text-transform: uppercase; padding: 2px 9px; border-radius: 999px; border: 1px solid currentColor; }
+.chip.mini { color: var(--ok); } .chip.big { color: var(--blue); } .chip.wait { color: var(--muted); } .chip.err { color: var(--red); }
+.meta { color: var(--muted); font-size: 12px; font-family: Consolas, monospace; }
+.side { display: grid; gap: 12px; position: sticky; top: 12px; }
+.side h2 { font: 700 12px Consolas, monospace; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 8px; }
+.seg { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.seg button { background: var(--bg); border: 0; padding: 7px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--fg); color: var(--bg); font-weight: 700; }
+.bar { height: 6px; background: var(--panel2); border-radius: 99px; overflow: hidden; margin-top: 6px; } .bar i { display: block; height: 100%; width: 0; background: var(--ok); }
+.stat { display: flex; justify-content: space-between; font-size: 14px; padding: 3px 0; border-bottom: 1px dashed var(--line); } .stat b { font-family: Consolas, monospace; }
+label.ck { display: flex; gap: 8px; align-items: center; font-size: 14px; margin-top: 8px; }
+.hint { color: var(--muted); font-size: 13px; margin: 6px 0 0; }
+.empty { color: var(--muted); padding: 14px 4px; }
+@media (max-width: 860px) { .wrap { grid-template-columns: 1fr; } .side { position: static; order: -1; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header><h1>PX<span>D</span> Mini</h1><span class="sub">A small helper that runs in this browser and works alongside you. Big jobs go to base1, as short, condensed prompts.</span></header>
+  <main>
+    <div class="panel">
+      <textarea id="input" placeholder="Give Mini a task. Examples: write a title for this listing… · summarize this note… · fix the grammar… · draft a reply… (Ctrl+Enter adds it)"></textarea>
+      <div class="row">
+        <select id="mode" aria-label="Who does it"><option value="auto">Auto: Mini first, base1 when it's big</option><option value="mini">Mini only (free, local)</option><option value="big">Send to base1</option></select>
+        <button class="btn red" id="add" type="button">Add task</button>
+        <button class="btn" id="clear" type="button">Clear finished</button>
+      </div>
+    </div>
+    <div class="tasks" id="tasks"></div>
+  </main>
+  <aside class="side">
+    <div class="panel">
+      <h2>Mini</h2>
+      <div id="engine">Starting…</div>
+      <div class="bar" id="bar" hidden><i></i></div>
+      <h2 style="margin-top:12px">Power cap</h2>
+      <div class="seg" id="power" style="grid-template-columns:repeat(4,1fr)"><button type="button" data-p="tiny">Tiny</button><button type="button" data-p="low">Low</button><button type="button" data-p="med">Medium</button><button type="button" data-p="high">High</button></div>
+      <p class="hint" id="powerHint"></p>
+      <label class="ck"><input type="checkbox" id="escalate" checked> Hand off to base1 when Mini's answer looks weak</label>
+    </div>
+    <div class="panel">
+      <h2>base1 (big models)</h2>
+      <select id="bigModel" aria-label="Big model" style="width:100%"><option value="">Looking for base1…</option></select>
+      <p class="hint">Gets a condensed brief Mini writes, not your whole paste.</p>
+    </div>
+    <div class="panel">
+      <h2>This session</h2>
+      <div class="stat"><span>Tools / cache hits (free)</span><b id="sTool">0 / 0</b></div>
+      <div class="stat"><span>Done by Mini (free)</span><b id="sMini">0</b></div>
+      <div class="stat"><span>Sent to base1</span><b id="sBig">0</b></div>
+      <div class="stat"><span>Mini tokens</span><b id="sMiniTok">0</b></div>
+      <div class="stat"><span>base1 tokens in / out</span><b id="sBigTok">0 / 0</b></div>
+      <div class="stat"><span>Prompt saved by briefs</span><b id="sSaved">0%</b></div>
+    </div>
+  </aside>
+</div>
+<script>
+(function () {
+  "use strict";
+  var q = new URLSearchParams(location.search);
+  var served = /^https?:$/.test(location.protocol) && !/github\.io$/.test(location.hostname);
+  var GATEWAY = served ? location.origin : (function () { try { return localStorage.getItem("pxd-gateway") || "http://127.0.0.1:8790"; } catch (e) { return "http://127.0.0.1:8790"; } })();
+  var ASSETS = GATEWAY + "/mini-assets/";
+  var $ = function (id) { return document.getElementById(id); };
+  function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+  function store(k, v) { try { if (v === undefined) return JSON.parse(localStorage.getItem(k) || "null"); localStorage.setItem(k, JSON.stringify(v)); } catch (e) { return null; } }
+
+  // ---------- power cap: the software limit on what Mini may use ----------
+  var POWER = { tiny: { tiny: true, tokens: 0, pause: 0, hint: "No model at all: routing, briefs, a cache and exact tools in a 4 MB budget. Anything that needs writing goes to base1. For the smallest machines." },
+                low: { threads: 1, tokens: 96, device: "wasm", pause: 1500, hint: "1 CPU thread, short answers, a pause between tasks. Barely noticeable." },
+                med: { threads: 2, tokens: 192, device: "auto", pause: 400, hint: "2 threads or the GPU, medium answers." },
+                high: { threads: 4, tokens: 384, device: "auto", pause: 0, hint: "Up to 4 threads or the GPU, longer answers." } };
+  var power = store("pxd-mini-power") || "low";
+  function drawPower() { Array.prototype.forEach.call($("power").children, function (b) { b.setAttribute("aria-pressed", String(b.dataset.p === power)); }); $("powerHint").textContent = POWER[power].hint; }
+  $("power").onclick = function (e) { var p = e.target.dataset && e.target.dataset.p; if (!p || p === power) return; power = p; store("pxd-mini-power", p); drawPower(); boot(); };
+
+  // ---------- the worker that runs the small model ----------
+  var worker = null, ready = false, waiting = {}, manifest = null;
+  function boot() {
+    if (worker) { worker.terminate(); worker = null; } ready = false;
+    if (POWER[power].tiny) { $("engine").textContent = "Tiny: no model loaded. Tools and cache here, writing on base1."; $("bar").hidden = true; pump(); return; }
+    worker = new Worker((served ? "/" : "") + "mini_worker.js", { type: "module" });
+    worker.onmessage = function (e) {
+      var m = e.data;
+      if (m.type === "status") {
+        $("engine").textContent = m.text; $("bar").hidden = m.state !== "loading" || m.progress == null;
+        if (m.progress != null) $("bar").firstChild.style.width = Math.round(m.progress * 100) + "%";
+        if (m.state === "ready") { ready = true; pump(); }
+      } else if (m.type === "token") { var w = waiting[m.id]; if (w && w.onToken) w.onToken(m.text); }
+      else if (m.type === "done") { var d = waiting[m.id]; delete waiting[m.id]; if (d) d.resolve(m); }
+      else if (m.type === "error") {
+        if (m.id && waiting[m.id]) { var f = waiting[m.id]; delete waiting[m.id]; f.reject(new Error(m.text)); }
+        else { $("engine").textContent = "Mini couldn't start: " + m.text + ". Tasks go to base1 until it's set up."; ready = false; pump(); }
+      }
+    };
+    var engine = q.get("engine") === "test" ? "test" : "model";
+    (engine === "test" ? Promise.resolve({ default: "test", models: { test: { dtypes: {} } } }) : fetch(ASSETS + "manifest.json").then(function (r) { if (!r.ok) throw new Error("not set up on base1 (run setup_mini.py)"); return r.json(); }))
+      .then(function (man) { manifest = man; var name = man.default, mm = man.models[name];
+        worker.postMessage({ type: "load", engine: engine, assets: ASSETS, model: name, device: POWER[power].device, dtypes: mm.dtypes, threads: POWER[power].threads }); })
+      .catch(function (e) { $("engine").textContent = "Mini is " + e.message + ". Tasks go to base1 for now."; pump(); });
+  }
+  var seq = 0;
+  function mini(messages, maxTokens, onToken) {
+    return new Promise(function (resolve, reject) { var id = "j" + (++seq); waiting[id] = { resolve: resolve, reject: reject, onToken: onToken };
+      worker.postMessage({ type: "run", id: id, messages: messages, max_new_tokens: maxTokens }); });
+  }
+
+  // ---------- base1: the big models in Ollama, through the gateway ----------
+  fetch(GATEWAY + "/api/llm/models").then(function (r) { return r.json(); }).then(function (d) {
+    var sel = $("bigModel"); sel.textContent = "";
+    (d.models || []).forEach(function (m) { sel.appendChild(new Option(m, m)); });
+    var saved = store("pxd-mini-big"); if (saved && (d.models || []).indexOf(saved) > -1) sel.value = saved;
+    if (!(d.models || []).length) sel.appendChild(new Option("No models on base1", ""));
+  }).catch(function () { $("bigModel").textContent = ""; $("bigModel").appendChild(new Option("base1 not reachable", "")); });
+  $("bigModel").onchange = function () { store("pxd-mini-big", $("bigModel").value); };
+  async function big(prompt) {
+    var model = $("bigModel").value; if (!model) throw new Error("no big model available on base1");
+    var r = await fetch(GATEWAY + "/api/llm", { method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ model: model, messages: [{ role: "system", content: "You are a capable assistant for PXD2. Do exactly the task in the brief. Be direct." }, { role: "user", content: prompt }] }) });
+    var d = await r.json(); if (!r.ok) throw new Error(d.error || r.status); return d;
+  }
+
+  // ---------- Tiny: exact tools and a cache, no model (fits a 4 MB budget) ----------
+  var CACHE_MAX = 3000000, cache = store("pxd-mini-cache") || {};
+  function ckey(t) { return t.text.toLowerCase().replace(/\s+/g, " ").trim(); }
+  function remember(t) { if (!t.answer || t.state !== "done") return; cache[ckey(t)] = { a: t.answer, lane: t.lane, model: t.model || "", at: Date.now() };
+    var keys = Object.keys(cache).sort(function (a, b) { return cache[a].at - cache[b].at; });
+    while (JSON.stringify(cache).length > CACHE_MAX && keys.length) delete cache[keys.shift()];
+    store("pxd-mini-cache", cache); }
+  function body(text) { var i = text.indexOf(":"); return i > -1 && i < 80 ? text.slice(i + 1).trim() : text; }
+  var UNITS = { "cm>in": function (v) { return v / 2.54; }, "in>cm": function (v) { return v * 2.54; }, "kg>lb": function (v) { return v * 2.2046226; }, "lb>kg": function (v) { return v / 2.2046226; },
+                "km>mi": function (v) { return v / 1.609344; }, "mi>km": function (v) { return v * 1.609344; }, "f>c": function (v) { return (v - 32) * 5 / 9; }, "c>f": function (v) { return v * 9 / 5 + 32; },
+                "m>ft": function (v) { return v * 3.28084; }, "ft>m": function (v) { return v / 3.28084; } };
+  function arith(expr) {   // + - * / ( ) and decimals only; no eval of anything else
+    var s = expr.replace(/[,$\s]/g, "").replace(/x/gi, "*"), i = 0;
+    function num() { var m = /^-?\d+(\.\d+)?/.exec(s.slice(i)); if (!m) throw 0; i += m[0].length; return parseFloat(m[0]); }
+    function atom() { if (s[i] === "(") { i++; var v = sum(); if (s[i++] !== ")") throw 0; return v; } return num(); }
+    function prod() { var v = atom(); while (s[i] === "*" || s[i] === "/") { var o = s[i++], r = atom(); v = o === "*" ? v * r : v / r; } return v; }
+    function sum() { var v = prod(); while (s[i] === "+" || s[i] === "-") { var o = s[i++], r = prod(); v = o === "+" ? v + r : v - r; } return v; }
+    var v = sum(); if (i !== s.length) throw 0; return Math.round(v * 1e6) / 1e6;
+  }
+  function tool(text) {
+    var t = text.toLowerCase(), b = body(text), m;
+    if (/^(count|how many) (words|characters|lines)/.test(t)) return b.split(/\s+/).filter(Boolean).length + " words · " + b.length + " characters · " + b.split(/\n/).length + " lines";
+    if ((m = /^(extract|find|list) (the )?(emails?|phones?|phone numbers?|prices?|dates?|links?|urls?)/.exec(t))) {
+      var k = m[3], re = /email/.test(k) ? /[\w.+-]+@[\w-]+\.[\w.-]+/g : /phone/.test(k) ? /(\+?1[ .-]?)?\(?\d{3}\)?[ .-]?\d{3}[ .-]?\d{4}/g
+        : /price/.test(k) ? /\$\s?\d[\d,]*(\.\d{2})?/g : /date/.test(k) ? /\b(\d{1,2}[\/-]\d{1,2}[\/-]\d{2,4}|\d{4}-\d{2}-\d{2}|(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]* \d{1,2},? \d{4})\b/gi : /https?:\/\/\S+/g;
+      var found = Array.from(new Set(b.match(re) || []));
+      return found.length ? found.join("\n") : "None found.";
+    }
+    if (/^(dedupe|remove duplicate)/.test(t)) { var seen = {}; return b.split(/\n/).filter(function (l) { var x = l.trim(); if (seen[x]) return false; seen[x] = 1; return true; }).join("\n"); }
+    if (/^sort( lines)?/.test(t)) return b.split(/\n/).sort(function (x, y) { return x.localeCompare(y); }).join("\n");
+    if (/^(uppercase|upper case)/.test(t)) return b.toUpperCase();
+    if (/^(lowercase|lower case)/.test(t)) return b.toLowerCase();
+    if (/^title case/.test(t)) return b.toLowerCase().replace(/\b([a-z])/g, function (c) { return c.toUpperCase(); });
+    if (/^(format|pretty) json/.test(t)) { try { return JSON.stringify(JSON.parse(b), null, 2); } catch (e) { return null; } }
+    if ((m = /^convert\s+(-?[\d.]+)\s*°?\s*(cm|in|inches|kg|lb|lbs|km|mi|miles|f|c|m|ft|feet)\s+(to|in)\s+°?(cm|in|inches|kg|lb|lbs|km|mi|miles|f|c|m|ft|feet)\b/.exec(t))) {
+      var n = { inches: "in", lbs: "lb", miles: "mi", feet: "ft" }, f = UNITS[(n[m[2]] || m[2]) + ">" + (n[m[4]] || m[4])];
+      if (f) return m[1] + " " + m[2] + " = " + (Math.round(f(parseFloat(m[1])) * 100) / 100) + " " + m[4];
+    }
+    if ((m = /^(what is|calculate|calc|=)\s*([\d$.,+\-*\/x() ]+)\??$/.exec(t))) { try { return m[2].trim() + " = " + arith(m[2]); } catch (e) { return null; } }
+    return null;
+  }
+
+  // ---------- routing: Mini does small work; big work goes to base1 with a brief ----------
+  var BIG_WORDS = /\b(code|program|script|debug|function|regex|sql|analy[sz]e|analysis|plan|strategy|research|compare|legal|contract|essay|report|white ?paper|calculate|math|prove|explain why|step by step|design|architecture|translate (this|the) (document|file))\b/i;
+  function route(t) {
+    if (t.mode !== "big" && (cache[ckey(t)] || tool(t.text) != null)) return "tool";
+    if (t.mode === "mini" && !worker) return tool(t.text) != null ? "tool" : "big";   // Tiny has no model
+    if (t.mode !== "auto") return t.mode;
+    if (!ready) return "big";
+    if (t.text.length > 1500 || /```/.test(t.text) || BIG_WORDS.test(t.text)) return "big";
+    return "mini";
+  }
+  function weak(answer) {
+    var w = answer.toLowerCase().split(/\s+/).filter(Boolean);
+    if (w.length < 2) return true;
+    return w.length > 8 && new Set(w).size / w.length < 0.35;   // repeating itself
+  }
+  function compact(text) {   // fewer tokens for the big model: no repeated lines, no runs of blank space, long middles trimmed
+    var seen = {}, lines = text.replace(/[ \t]+/g, " ").split(/\n/).map(function (l) { return l.trim(); }).filter(function (l) { if (!l) return false; if (seen[l]) return false; seen[l] = 1; return true; });
+    var s = lines.join("\n");
+    return s.length > 6000 ? s.slice(0, 4200) + "\n[… " + (s.length - 5700) + " characters trimmed …]\n" + s.slice(-1500) : s;
+  }
+  async function brief(t) {
+    var first = t.text.split(/\n/)[0].slice(0, 400), goal = first;
+    if (ready && t.text.length > 400) {
+      try { var r = await mini([{ role: "user", content: "Rewrite as one clear instruction: " + first }], 48); if (!weak(r.text) && r.text.length > 8) goal = r.text; } catch (e) {}
+    }
+    var body = compact(t.text), want = /\b(detailed|full|long|thorough)\b/i.test(t.text) ? "Thorough." : "Concise; no preamble.";
+    return "TASK: " + goal + "\nOUTPUT: " + want + (body.length > first.length + 20 ? "\nMATERIAL:\n" + body : "");
+  }
+
+  // ---------- the task board ----------
+  var tasks = store("pxd-mini-tasks") || [], stats = { tool: 0, cached: 0, mini: 0, big: 0, miniTok: 0, bigIn: 0, bigOut: 0, orig: 0, sent: 0 };
+  tasks.forEach(function (t) { if (t.state === "working") t.state = "queued"; });
+  function save() { store("pxd-mini-tasks", tasks.slice(-200)); }
+  function drawStats() {
+    $("sTool").textContent = stats.tool + " / " + stats.cached;
+    $("sMini").textContent = stats.mini; $("sBig").textContent = stats.big; $("sMiniTok").textContent = stats.miniTok;
+    $("sBigTok").textContent = stats.bigIn + " / " + stats.bigOut;
+    $("sSaved").textContent = stats.orig ? Math.max(0, Math.round((1 - stats.sent / stats.orig) * 100)) + "%" : "0%";
+    var busy = tasks.filter(function (t) { return t.state === "queued" || t.state === "working"; }).length;
+    document.title = (busy ? "(" + busy + ") " : "") + "PXD Mini";
+  }
+  function draw() {
+    var box = $("tasks"); box.textContent = "";
+    if (!tasks.length) box.appendChild(el("p", "empty", "No tasks yet. Add one and keep working; Mini handles it in the background."));
+    tasks.slice().reverse().forEach(function (t) {
+      var c = el("div", "task"), top = el("div", "row"); top.style.marginTop = "0";
+      var who = t.lane === "big" ? "base1 · " + (t.model || "") : t.lane === "tool" ? "Tiny" : "Mini";
+      top.appendChild(el("span", "chip " + (t.state === "error" ? "err" : t.state === "done" ? (t.lane === "big" ? "big" : "mini") : "wait"),
+        t.state === "done" ? who : t.state === "working" ? (t.lane === "big" ? "base1 working" : "Mini working") : t.state === "error" ? "problem" : "queued"));
+      if (t.note) top.appendChild(el("span", "meta", t.note));
+      c.append(top, el("div", "q", t.text));
+      if (t.answer) c.appendChild(el("div", "a", t.answer));
+      if (t.meta) c.appendChild(el("div", "meta", t.meta));
+      var acts = el("div", "row");
+      if (t.answer) { var cp = el("button", "btn sm", "Copy"); cp.type = "button"; cp.onclick = function () { try { navigator.clipboard.writeText(t.answer); cp.textContent = "Copied"; } catch (e) {} }; acts.appendChild(cp); }
+      if (t.state === "done" || t.state === "error") {
+        if (t.lane !== "big") { var up = el("button", "btn sm", "Ask base1 instead"); up.type = "button"; up.onclick = function () { redo(t, "big"); }; acts.appendChild(up); }
+        else if (ready) { var dn = el("button", "btn sm", "Try with Mini"); dn.type = "button"; dn.onclick = function () { redo(t, "mini"); }; acts.appendChild(dn); }
+      }
+      var rm = el("button", "btn sm", "Remove"); rm.type = "button"; rm.onclick = function () { tasks.splice(tasks.indexOf(t), 1); save(); draw(); }; acts.appendChild(rm);
+      c.appendChild(acts); box.appendChild(c);
+    });
+    drawStats();
+  }
+  function redo(t, mode) { Object.assign(t, { mode: mode, state: "queued", answer: "", meta: "", note: "", lane: null }); save(); draw(); pump(); }
+  function add() {
+    var text = $("input").value.trim(); if (!text) return;
+    tasks.push({ id: Date.now() + "" + Math.random().toString(36).slice(2, 6), text: text, mode: $("mode").value, state: "queued", added: Date.now() });
+    $("input").value = ""; save(); draw(); pump();
+  }
+  $("add").onclick = add;
+  $("input").addEventListener("keydown", function (e) { if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) add(); });
+  $("clear").onclick = function () { tasks = tasks.filter(function (t) { return t.state !== "done"; }); save(); draw(); };
+
+  // two lanes run side by side: Mini in this browser, base1 on the network
+  var busy = { mini: false, big: false };
+  function pump() {
+    tasks.forEach(function (t) {
+      if (t.state !== "queued" || route(t) !== "tool") return;
+      var hit = cache[ckey(t)];
+      if (hit) { t.answer = hit.a; t.lane = hit.lane; t.model = hit.model; t.note = "from cache: no tokens spent"; stats.cached++; }
+      else { t.answer = tool(t.text); t.lane = "tool"; t.note = "exact tool, no model"; stats.tool++; }
+      t.state = "done"; t.meta = "instant · free"; save(); draw();
+    });
+    ["mini", "big"].forEach(function (lane) {
+      if (busy[lane]) return;
+      var t = tasks.find(function (x) { return x.state === "queued" && route(x) === lane; });
+      if (!t || (lane === "mini" && !ready)) return;
+      busy[lane] = true; t.state = "working"; t.lane = lane; save(); draw();
+      (lane === "mini" ? doMini(t) : doBig(t)).catch(function (e) { t.state = "error"; t.answer = ""; t.note = e.message; })
+        .then(function () { remember(t); save(); draw(); setTimeout(function () { busy[lane] = false; pump(); }, lane === "mini" ? POWER[power].pause : 0); });
+    });
+  }
+  async function doMini(t) {
+    var live = "";
+    var r = await mini([{ role: "system", content: "You are PXD Mini, a small helper. Do only the task. Keep it short." }, { role: "user", content: t.text }],
+      POWER[power].tokens, function (tok) { live += tok; t.answer = live; drawLive(t); });
+    stats.miniTok += r.tokens;
+    if (weak(r.text) && t.mode === "auto" && $("escalate").checked && $("bigModel").value) {
+      t.note = "Mini's answer looked weak, handed to base1"; stats.mini += 0; return doBig(t);
+    }
+    t.answer = r.text; t.state = "done"; t.lane = "mini"; t.meta = r.tokens + " tokens · " + (r.ms / 1000).toFixed(1) + " s · free, on this device"; stats.mini++;
+  }
+  async function doBig(t) {
+    t.lane = "big"; t.state = "working"; draw();
+    var b = await brief(t), d = await big(b);
+    stats.big++; stats.bigIn += d.prompt_tokens || 0; stats.bigOut += d.output_tokens || 0;
+    stats.orig += t.text.length; stats.sent += b.length;
+    t.answer = d.content; t.state = "done"; t.model = d.model;
+    t.meta = (d.prompt_tokens || "?") + " in / " + (d.output_tokens || "?") + " out tokens · " + (d.seconds || 0).toFixed(1) + " s on base1 · brief " + b.length + " of " + t.text.length + " characters";
+  }
+  var liveTimer = null;
+  function drawLive() { if (liveTimer) return; liveTimer = setTimeout(function () { liveTimer = null; draw(); }, 120); }
+
+  drawPower(); draw(); boot();
+})();
+</script>
+</body>
+</html>

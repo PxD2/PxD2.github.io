@@ -386,6 +386,22 @@ class H(BaseHTTPRequestHandler):
         if self.command != "HEAD":
             self.wfile.write(data)
 
+    def _stream(self, path, ctype):
+        size = os.path.getsize(path)
+        self.send_response(200)
+        self.send_header("Content-Type", ctype); self.send_header("Content-Length", str(size))
+        self.send_header("Access-Control-Allow-Origin", "*"); self.send_header("Cache-Control", "public, max-age=86400")
+        self.send_header("Cross-Origin-Resource-Policy", "cross-origin")
+        self.end_headers()
+        if self.command == "HEAD":
+            return
+        with open(path, "rb") as fh:
+            while True:
+                chunk = fh.read(1 << 20)
+                if not chunk:
+                    break
+                self.wfile.write(chunk)
+
     def do_OPTIONS(self):
         self.send_response(204)
         for k, v in (("Access-Control-Allow-Origin", "*"), ("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS"),
@@ -412,6 +428,25 @@ class H(BaseHTTPRequestHandler):
                 return self._send(200, open(f, "rb").read(), "application/octet-stream") if os.path.isfile(f) else self._send(404, {"error": "not built yet"})
             st = job_state(d)
             return self._send(200, {k: st.get(k) for k in ("state", "shop", "message", "owner", "slug", "market", "updated")})
+        if p in ("/mini", "/mini/", "/mini_worker.js"):
+            f = "mini.html" if p != "/mini_worker.js" else "mini_worker.js"
+            return self._send(200, open(os.path.join(os.path.dirname(HERE), "pxd_browser", f), "rb").read(),
+                              "text/html; charset=utf-8" if f.endswith(".html") else "text/javascript; charset=utf-8")
+        ma = re.match(r"^/mini-assets/((?:runtime|models)/[A-Za-z0-9._-]+(?:/[A-Za-z0-9._-]+){0,3}|manifest\.json)$", p)
+        if ma:
+            rel = ma.group(1)
+            if ".." in rel:
+                return self._send(400, {"error": "bad path"})
+            f = os.path.join(CFG["mini"], *rel.split("/"))
+            if not os.path.isfile(f):
+                return self._send(404, {"error": "not set up: run tools/mini/setup_mini.py on base1"})
+            ctype = {".js": "text/javascript", ".mjs": "text/javascript", ".wasm": "application/wasm", ".json": "application/json"}.get(os.path.splitext(f)[1], "application/octet-stream")
+            return self._stream(f, ctype)
+        if p == "/api/llm/models":
+            try:
+                return self._send(200, {"models": [m["name"] for m in ollama("/api/tags", timeout=4).get("models", []) if "embed" not in m["name"]]})
+            except Exception:
+                return self._send(200, {"models": [], "error": "Ollama not reachable"})
         if p in ("/favicon.ico", "/favicon.svg"):
             return self._send(200, open(os.path.join(os.path.dirname(os.path.dirname(HERE)), "favicon.svg"), "rb").read(), "image/svg+xml")
         if p in ("/build", "/build/"):
@@ -526,6 +561,25 @@ class H(BaseHTTPRequestHandler):
                                   (intake_submit if mi.group(2) == "submit" else intake_publish)(mi.group(1), body))
             except ValueError as e:
                 return self._send(400, {"error": str(e)})
+        if p == "/api/llm":  # PXD Mini hands big jobs to base1's Ollama
+            try:
+                installed = [m["name"] for m in ollama("/api/tags", timeout=4).get("models", [])]
+            except Exception:
+                return self._send(502, {"error": "Ollama is not running on base1"})
+            model = str(body.get("model", ""))
+            msgs = [m for m in body.get("messages") or [] if isinstance(m, dict) and m.get("role") in ("system", "user", "assistant") and isinstance(m.get("content"), str)]
+            if model not in installed:
+                return self._send(400, {"error": f"{model or 'no model'} is not installed on base1"})
+            if not msgs or sum(len(m["content"]) for m in msgs) > 200_000:
+                return self._send(400, {"error": "messages missing or too long"})
+            t0 = time.time()
+            try:
+                out = ollama("/api/chat", {"model": model, "messages": msgs, "stream": False,
+                                           "options": {"num_predict": int(min(max(int(body.get("max_tokens") or 1024), 16), 4096))}}, timeout=600)
+            except Exception as e:  # noqa: BLE001
+                return self._send(502, {"error": f"base1 model failed: {e}"})
+            return self._send(200, {"model": model, "content": out.get("message", {}).get("content", ""), "prompt_tokens": out.get("prompt_eval_count"),
+                                    "output_tokens": out.get("eval_count"), "seconds": round(time.time() - t0, 2)})
         if p in ("/api/models/claim", "/api/models/key"):
             try:
                 return self._send(200, claim(body) if p.endswith("claim") else model_key(body))
@@ -582,6 +636,7 @@ def main():
     ap.add_argument("--stripe-api", default="https://api.stripe.com"); ap.add_argument("--fee-pct", type=float, default=0.0, help="PXD platform fee, percent (default 0)")
     ap.add_argument("--rpc", action="append", default=[], help="chain=url, e.g. base=https://... (default: public RPCs)")
     ap.add_argument("--confirmations", type=int, default=3)
+    ap.add_argument("--mini", default=os.path.join(os.path.expanduser("~"), "PXD Gateway", "mini"), help="PXD Mini runtime and model (setup_mini.py)")
     ap.add_argument("--intake", default=os.path.join(os.path.expanduser("~"), "PXD Gateway", "intake"), help="Shop Builder submissions (studio input)")
     ap.add_argument("--market-base", default="https://raw.githubusercontent.com/PxD2/PxD2.github.io/main/")
     ap.add_argument("--ledger", default=os.path.join(os.path.dirname(os.path.dirname(HERE)), "ledger"), help="model ledger folder")
@@ -592,7 +647,7 @@ def main():
     os.makedirs(a.store, exist_ok=True)
     os.makedirs(os.path.dirname(a.orders), exist_ok=True)
     os.makedirs(a.intake, exist_ok=True)
-    CFG.update(intake=a.intake, market_base=a.market_base)
+    CFG.update(intake=a.intake, market_base=a.market_base, mini=a.mini)
     CFG.update(ledger=a.ledger, delegate=json.load(open(a.delegate_key)) if a.delegate_key else None,
                model_keys=json.load(open(a.model_keys)) if a.model_keys else {}, secret=secrets.token_bytes(32), authority=a.authority)
     global CRYPTO
