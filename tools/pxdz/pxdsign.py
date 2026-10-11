@@ -20,7 +20,7 @@ certificate does not allow. That stops a copied or edited store from redirecting
     python pxdsign.py registry-sign names.json --authority keys/          # after every names.json change
     python pxdsign.py registry-verify names.json --authority-pub pxd/authority.json
 """
-import argparse, base64, datetime, hashlib, json, os, sys
+import argparse, base64, datetime, hashlib, json, os, re, sys
 from urllib.parse import urlparse
 from cryptography.hazmat.primitives.asymmetric import ec
 from cryptography.hazmat.primitives.asymmetric.utils import decode_dss_signature, encode_dss_signature
@@ -93,7 +93,7 @@ def merchant_key(out):
     print(f"Merchant key {out}; public half {pub_path} goes to the authority.")
 
 
-def issue(auth_dir, merchant_pub, mid, name, pay_hosts, days, out):
+def issue(auth_dir, merchant_pub, mid, name, pay_hosts, days, out, stripe_account=None):
     a_priv = load_priv(json.load(open(os.path.join(auth_dir, "authority.key.json"))))
     a_rec = json.load(open(os.path.join(auth_dir, "authority.json")))
     m_pub = json.load(open(merchant_pub))
@@ -101,6 +101,10 @@ def issue(auth_dir, merchant_pub, mid, name, pay_hosts, days, out):
     body = {"type": "pxd-merchant-cert/1", "merchant": mid, "name": name, "key": {k: m_pub[k] for k in ("crv", "kty", "x", "y")},
             "kid": kid(m_pub), "pay_hosts": sorted(set(pay_hosts)), "issued": today.isoformat(),
             "expires": (today + datetime.timedelta(days=days)).isoformat(), "issuer": a_rec["kid"]}
+    if stripe_account:  # PXD Pay: checkout on PXD, money straight into this merchant's own Stripe account
+        if not re.fullmatch(r"acct_[A-Za-z0-9]+", stripe_account):
+            raise SystemExit("--stripe-account must look like acct_XXXX")
+        body["pay_account"] = {"stripe": stripe_account}
     cert = {"cert": body, "sig": sign(a_priv, canon(body))}
     os.makedirs(os.path.dirname(os.path.abspath(out)), exist_ok=True)
     json.dump(cert, open(out, "w"), indent=2)
@@ -210,6 +214,7 @@ def main():
     c = sp.add_parser("issue"); c.add_argument("--authority", required=True); c.add_argument("--merchant-pub", required=True)
     c.add_argument("--id", required=True); c.add_argument("--name", required=True); c.add_argument("--pay-hosts", default=",".join(DEFAULT_PAY_HOSTS))
     c.add_argument("--days", type=int, default=365); c.add_argument("-o", required=True)
+    c.add_argument("--stripe-account", help="merchant's Stripe connected account (acct_...) for PXD Pay checkout")
     d = sp.add_parser("sign"); d.add_argument("bundle"); d.add_argument("--key", required=True); d.add_argument("--cert", required=True)
     e = sp.add_parser("verify"); e.add_argument("bundle"); e.add_argument("--authority-pub", required=True)
     f = sp.add_parser("registry-sign"); f.add_argument("registry"); f.add_argument("--authority", required=True)
@@ -217,7 +222,7 @@ def main():
     x = ap.parse_args()
     if x.cmd == "authority-init": authority_init(x.dir, x.name)
     elif x.cmd == "merchant-key": merchant_key(x.out)
-    elif x.cmd == "issue": issue(x.authority, x.merchant_pub, x.id, x.name, [h.strip() for h in x.pay_hosts.split(",") if h.strip()], x.days, x.o)
+    elif x.cmd == "issue": issue(x.authority, x.merchant_pub, x.id, x.name, [h.strip() for h in x.pay_hosts.split(",") if h.strip()], x.days, x.o, x.stripe_account)
     elif x.cmd == "sign": sign_bundle(x.bundle, x.key, x.cert)
     elif x.cmd == "registry-sign": sign_registry(x.registry, x.authority)
     elif x.cmd == "registry-verify":

@@ -205,6 +205,7 @@ class Browser(QMainWindow):
         for label, key, fn in (("◀", QKeySequence.StandardKey.Back, lambda: self.current().back()),
                                ("▶", QKeySequence.StandardKey.Forward, lambda: self.current().forward()),
                                ("⟳", QKeySequence.StandardKey.Refresh, lambda: self.current().reload()),
+                               ("PXD", QKeySequence("Alt+Home"), lambda: self.show_home()),
                                ("Discover", None, lambda: self.show_discover()),
                                ("Stores", None, lambda: self.show_stores())):
             a = QAction(label, self)
@@ -255,7 +256,7 @@ class Browser(QMainWindow):
         if url:
             view.setUrl(QUrl(url))
         else:
-            self.show_discover(view=view)
+            self.show_home(view=view)
         return view
 
     def close_tab(self, i):
@@ -265,9 +266,21 @@ class Browser(QMainWindow):
             self.tabs.removeTab(i)
             w.deleteLater()
         else:
-            self.show_discover()
+            self.show_home()
 
     # navigation
+    def show_home(self, query="", view=None):
+        """PXD home: one search over every approved store (type -> region -> store) and every .pxd site; one cart."""
+        v = view or self.current()
+        v.settings().setAttribute(QWebEngineSettings.WebAttribute.LocalContentCanAccessRemoteUrls, True)
+        self.discovering.discard(v)
+        url = QUrl.fromLocalFile(os.path.join(os.path.dirname(os.path.abspath(__file__)), "home.html"))
+        if query:
+            url.setQuery("q=" + QUrl.toPercentEncoding(query).data().decode())
+        v.setUrl(url)
+        self.tabs.setTabText(self.tabs.indexOf(v), "PXD")
+        self.addr.setText("")
+
     def show_stores(self):
         """Universal store view: renders every .pxd store's data stream and checks its merchant certificate."""
         v = self.current()
@@ -285,7 +298,9 @@ class Browser(QMainWindow):
 
     def go(self):
         text = self.addr.text().strip()
-        if not text:
+        if not text or text.lower().rstrip("/") in ("pxd", "home", "pxd://home", "market"):
+            return self.show_home()
+        if text.lower().rstrip("/") in ("discover", "pxd://discover"):
             return self.show_discover()
         if text.lower().rstrip("/") in ("stores", "stores.pxd", "pxd://stores"):
             return self.show_stores()
@@ -296,7 +311,7 @@ class Browser(QMainWindow):
             return self.current().setUrl(QUrl(text))
         if " " not in text and "." in text:
             return self.current().setUrl(QUrl("https://" + text))
-        self.show_discover(text)
+        self.show_home(text)  # words: search every store, item and .pxd site
 
     def on_url(self, v, u):
         if u.scheme() in ("http", "https"):

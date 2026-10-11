@@ -1,0 +1,15 @@
+{
+ "format": "pxd-market-type/1",
+ "built": "2026-10-11T07:10:57+00:00",
+ "type": "antiques",
+ "name": "Antiques & vintage",
+ "regions": [
+  {
+   "id": "az-apache",
+   "name": "Apache County, AZ",
+   "stores": 1,
+   "items": 2,
+   "index": "https://raw.githubusercontent.com/PxD2/PxD2.github.io/main/market/antiques/az-apache/index.json"
+  }
+ ]
+}

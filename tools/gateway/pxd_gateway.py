@@ -12,13 +12,18 @@ Endpoints
   GET  /b/<name>.pxdz[.sig]     bundle stream, with HTTP Range (a reader fetches one part at a time)
   POST /api/publish             {"name", "bundle_b64", "sig"}: accepted only from a certified merchant
   POST /api/cog/group           {"sentences": [...], "threshold": 0.9}: GPU embeddings -> meaning groups
+  GET  /market/...              the market indexes and store bundles (type / region / store)
+  POST /api/checkout            PXD Pay: {"lines": [{"type","region","store","item","qty"}]} -> one checkout per merchant.
+                                Prices come from the signed store data, never from the cart. Money goes straight
+                                into each merchant's own Stripe account (direct charge on the account named in its
+                                certificate); PXD never holds it. Without Stripe, the merchant's certified pay links.
 """
-import argparse, base64, json, math, os, re, shutil, subprocess, sys, tempfile, threading, time, urllib.request
+import argparse, base64, json, math, os, re, secrets, shutil, subprocess, sys, tempfile, threading, time, urllib.error, urllib.parse, urllib.request
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(os.path.dirname(HERE), "pxdz"))
-import pxdsign  # noqa: E402
+import pxdsign, pxdz  # noqa: E402
 
 CFG = {}
 NAME_OK = re.compile(r"^[a-z0-9][a-z0-9-]{0,62}$")
@@ -90,6 +95,90 @@ def verify_cached(path):
     return ok, rep
 
 
+# ------------------------------------------------------------------ PXD Pay
+CATALOGS = {}
+
+
+def market_store(t, r, name):
+    for part in (t, r, name):
+        if not NAME_OK.match(str(part)):
+            raise ValueError("bad store address")
+    path = os.path.join(CFG["market"], t, r, name + ".pxdz")
+    if not os.path.isfile(path):
+        raise ValueError(f"no store {t}/{r}/{name}")
+    ok, rep = verify_cached(path)
+    if not ok:
+        raise ValueError(f"{t}/{r}/{name}: merchant not verified")
+    key = (path, os.path.getmtime(path))
+    if key not in CATALOGS:
+        _, files = pxdz.read(path)
+        cat = next((json.loads(v) for k, v in files.items() if k.endswith("catalog.json")), {})
+        CATALOGS[key] = (cat, json.load(open(path + ".sig"))["cert"]["cert"])
+    return CATALOGS[key]
+
+
+def stripe_session(acct, currency, lines, order, success, cancel, fee_cents):
+    form = {"mode": "payment", "success_url": success, "cancel_url": cancel, "metadata[pxd_order]": order,
+            "payment_intent_data[metadata][pxd_order]": order}
+    for i, (title, cents, qty) in enumerate(lines):
+        form.update({f"line_items[{i}][price_data][currency]": currency.lower(), f"line_items[{i}][price_data][unit_amount]": str(cents),
+                     f"line_items[{i}][price_data][product_data][name]": title[:250], f"line_items[{i}][quantity]": str(qty)})
+    if fee_cents > 0:
+        form["payment_intent_data[application_fee_amount]"] = str(fee_cents)
+    req = urllib.request.Request(CFG["stripe_api"] + "/v1/checkout/sessions", data=urllib.parse.urlencode(form).encode(),
+                                 headers={"Authorization": "Bearer " + CFG["stripe_key"], "Stripe-Account": acct,
+                                          "Idempotency-Key": order + "-" + acct, "Content-Type": "application/x-www-form-urlencoded"})
+    with urllib.request.urlopen(req, timeout=20) as r:
+        return json.load(r)
+
+
+def checkout(body, origin):
+    lines = body.get("lines") or []
+    if not isinstance(lines, list) or not 0 < len(lines) <= 100:
+        raise ValueError("lines: 1 to 100 items")
+    success = body.get("success_url") or origin + "/?paid={CHECKOUT_SESSION_ID}"
+    cancel = body.get("cancel_url") or origin + "/?cart"
+    if not all(re.match(r"^https?://", u) for u in (success, cancel)):
+        raise ValueError("return addresses must be http(s)")
+    by_store = {}
+    for ln in lines:
+        qty = ln.get("qty", 1)
+        if not isinstance(qty, int) or not 1 <= qty <= 99:
+            raise ValueError("qty: whole number 1 to 99")
+        by_store.setdefault((ln.get("type"), ln.get("region"), ln.get("store")), []).append((str(ln.get("item")), qty))
+    order = "pxd_" + secrets.token_hex(8)
+    out, grand = [], 0.0
+    for (t, r, name), wanted in by_store.items():
+        cat, cert = market_store(t, r, name)
+        items = {it.get("id"): it for it in (cat.get("items") or cat.get("products") or [])}
+        priced, total = [], 0
+        for iid, qty in wanted:
+            it = items.get(iid)
+            if not it or it.get("status") in ("sold", "hidden"):
+                raise ValueError(f"{name}: no item {iid}")
+            price = it.get("price")
+            if not isinstance(price, (int, float)) or price <= 0:
+                raise ValueError(f"{name}: {it.get('title', iid)} is price on request; ask the shop")
+            cents = int(round(price * 100)); priced.append((it.get("title") or iid, cents, qty)); total += cents * qty
+        cur = cat.get("currency", "USD"); acct = (cert.get("pay_account") or {}).get("stripe")
+        entry = {"merchant": {"id": cert["merchant"], "name": cert["name"]}, "store": f"{t}/{r}/{name}", "currency": cur,
+                 "total": total / 100, "lines": [{"title": a, "price": c / 100, "qty": q} for a, c, q in priced]}
+        if acct and CFG["stripe_key"]:
+            fee = int(total * CFG["fee_pct"] / 100)
+            sess = stripe_session(acct, cur, priced, order, success, cancel, fee)
+            entry.update(pay="pxd-pay", url=sess["url"], session=sess["id"], pxd_fee=fee / 100)
+        else:
+            links = {k: v for k, v in (cat.get("pay") or {}).items() if v and urllib.parse.urlparse(v).hostname in cert["pay_hosts"]}
+            entry.update(pay="merchant-links", pay_links=links,
+                         note="PXD Pay is not set up for this merchant yet; pay with the shop's own verified links")
+        out.append(entry); grand += total / 100
+    with LOCK, open(CFG["orders"], "a", encoding="utf-8") as f:
+        f.write(json.dumps({"order": order, "time": time.strftime("%Y-%m-%dT%H:%M:%S"), "checkouts": [
+            {k: e[k] for k in ("merchant", "store", "currency", "total", "lines", "pay") if k in e} | ({"session": e["session"]} if "session" in e else {})
+            for e in out]}) + "\n")
+    return {"order": order, "total": round(grand, 2), "checkouts": out}
+
+
 class H(BaseHTTPRequestHandler):
     server_version = "PXD-Gateway/1.0"
 
@@ -117,8 +206,19 @@ class H(BaseHTTPRequestHandler):
     def do_GET(self):
         p = self.path.split("?")[0]
         if p in ("/", "/stores", "/stores/"):
-            page = os.path.join(os.path.dirname(HERE), "pxd_browser", "stores.html")
+            page = os.path.join(os.path.dirname(HERE), "pxd_browser", "home.html" if p == "/" else "stores.html")
             return self._send(200, open(page, "rb").read(), "text/html; charset=utf-8")
+        if p == "/names.json":  # the gateway's own copy of the registry, so it works with GitHub unreachable
+            return self._send(200, open(os.path.join(os.path.dirname(os.path.dirname(HERE)), "names.json"), "rb").read(), "application/json", {"Cache-Control": "no-cache"})
+        if p == "/pxd.js":
+            return self._send(200, open(os.path.join(os.path.dirname(os.path.dirname(HERE)), "pxd", "pxd.js"), "rb").read(), "text/javascript; charset=utf-8")
+        mk = re.match(r"^/market/((?:[a-z0-9-]+/){0,2}(?:index\.json|[a-z0-9-]+\.pxdz(?:\.sig)?))$", p)
+        if mk:
+            path = os.path.join(CFG["market"], *mk.group(1).split("/"))
+            if not os.path.isfile(path):
+                return self._send(404, {"error": "not in this market"})
+            ctype = "application/octet-stream" if path.endswith(".pxdz") else "application/json"
+            return self._send(200, open(path, "rb").read(), ctype, {"Cache-Control": "no-cache"})
         if p == "/api/status":
             try:
                 models = [m["name"] for m in ollama("/api/tags", timeout=3).get("models", [])]
@@ -165,6 +265,16 @@ class H(BaseHTTPRequestHandler):
         if p == "/api/cog/group":
             sents = [s for s in body.get("sentences", []) if isinstance(s, str) and s.strip()][:2000]
             return self._send(200, group(sents, float(body.get("threshold", 0.9))))
+        if p == "/api/checkout":
+            origin = f"http://{self.headers.get('Host', 'localhost')}"
+            try:
+                return self._send(200, checkout(body, origin))
+            except ValueError as e:
+                return self._send(400, {"error": str(e)})
+            except urllib.error.HTTPError as e:
+                return self._send(502, {"error": "Stripe refused the checkout", "detail": e.read().decode(errors="replace")[:500]})
+            except OSError as e:
+                return self._send(502, {"error": f"payment service unreachable: {e}"})
         if p == "/api/publish":
             name = str(body.get("name", ""))
             if not NAME_OK.match(name):
@@ -200,11 +310,17 @@ def main():
     ap.add_argument("--host", default="0.0.0.0"); ap.add_argument("--port", type=int, default=8790)
     ap.add_argument("--ollama", default="http://127.0.0.1:11434"); ap.add_argument("--embed-model", default="nomic-embed-text")
     ap.add_argument("--max-mb", type=int, default=200)
+    ap.add_argument("--market", default=os.path.join(os.path.dirname(os.path.dirname(HERE)), "market"), help="market folder (type/region/store)")
+    ap.add_argument("--stripe-api", default="https://api.stripe.com"); ap.add_argument("--fee-pct", type=float, default=0.0, help="PXD platform fee, percent (default 0)")
+    ap.add_argument("--orders", default=os.path.join(os.path.expanduser("~"), "PXD Gateway", "orders.jsonl"))
     a = ap.parse_args()
     os.makedirs(a.store, exist_ok=True)
+    os.makedirs(os.path.dirname(a.orders), exist_ok=True)
+    CFG.update(market=a.market, stripe_api=a.stripe_api.rstrip("/"), stripe_key=os.environ.get("STRIPE_SECRET_KEY", ""), fee_pct=a.fee_pct, orders=a.orders)
     CFG.update(store=a.store, authority=a.authority, ollama=a.ollama.rstrip("/"), embed_model=a.embed_model, max_mb=a.max_mb,
                authority_kid=json.load(open(a.authority))["kid"])
     g = gpu_status()
+    print(f"PXD Pay: {'Stripe Connect' if CFG['stripe_key'] else 'off (set STRIPE_SECRET_KEY); merchant links only'} · market {a.market} · fee {a.fee_pct}%")
     print(f"PXD Gateway on :{a.port} · store {a.store} · authority {CFG['authority_kid']} · GPU {g[0]['name'] if g else 'none found'}")
     ThreadingHTTPServer((a.host, a.port), H).serve_forever()
 

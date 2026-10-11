@@ -33,7 +33,9 @@ h1 { font: 800 32px Impact, "Arial Narrow", sans-serif; letter-spacing: .03em; m
 </head>
 <body>
 <div class="wrap" id="app"><p class="empty">Loading stores…</p></div>
-<script src="https://pxd2.github.io/pxd/pxd.js"></script>
+<script>/* on a PXD Gateway use its own copy of pxd.js, so stores open with GitHub unreachable */
+(function () { var g = /^https?:$/.test(location.protocol) && !/github\.io$/.test(location.hostname);
+  document.write('<script src="' + (g ? "/pxd.js" : "https://pxd2.github.io/pxd/pxd.js") + '"><\/script>'); })();</script>
 <script>
 (function () {
   "use strict";
@@ -124,8 +126,15 @@ h1 { font: 800 32px Impact, "Arial Narrow", sans-serif; letter-spacing: .03em; m
   }
 
   var known = []; try { known = JSON.parse(localStorage.getItem("pxd-registry-mirrors") || "[]"); } catch (e) {}
-  PXDZ.fetchAny([REGISTRY].concat(known), "json").then(function (r) {
+  var onGateway = /^https?:$/.test(location.protocol) && !/github\.io$/.test(location.hostname);
+  PXDZ.fetchAny((onGateway ? [location.origin + "/names.json"] : []).concat([REGISTRY], known), "json").then(function (r) {
     reg = r; try { localStorage.setItem("pxd-registry-mirrors", JSON.stringify((r.mirrors && r.mirrors.registry) || [])); } catch (e) {} stores = Object.keys(r.names).filter(function (k) { return r.names[k].store && r.names[k].store.bundle; }).map(function (k) { return Object.assign({ name: k }, r.names[k]); });
+    var qp = new URLSearchParams(location.search), b = qp.get("bundle");
+    if (b && /^https?:/.test(b)) {  // one market store, opened from the PXD home page (still fully verified here)
+      var one = { name: qp.get("name") || "store", title: qp.get("title") || "", store: { bundle: [b], sig: qp.get("sig") ? [qp.get("sig")] : null } };
+      if (!stores.some(function (s) { return s.name === one.name; })) stores.push(one);
+      return store(one);
+    }
     list();
   }).catch(function () { app.textContent = "Couldn't reach the .pxd registry."; });
 })();

@@ -1,0 +1,22 @@
+{
+ "format": "pxd-market/1",
+ "built": "2026-10-11T07:10:57+00:00",
+ "types": [
+  {
+   "id": "antiques",
+   "name": "Antiques & vintage",
+   "regions": 1,
+   "stores": 1,
+   "items": 2,
+   "index": "https://raw.githubusercontent.com/PxD2/PxD2.github.io/main/market/antiques/index.json"
+  },
+  {
+   "id": "eats",
+   "name": "Food & drink",
+   "regions": 1,
+   "stores": 1,
+   "items": 5,
+   "index": "https://raw.githubusercontent.com/PxD2/PxD2.github.io/main/market/eats/index.json"
+  }
+ ]
+}

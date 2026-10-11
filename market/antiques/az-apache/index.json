@@ -1,0 +1,48 @@
+{
+ "format": "pxd-market-region/1",
+ "built": "2026-10-11T07:10:57+00:00",
+ "type": "antiques",
+ "region": "az-apache",
+ "name": "Apache County, AZ",
+ "stores": [
+  {
+   "name": "demo-antiques",
+   "title": "PXD Antiques",
+   "type": "antiques",
+   "region": "az-apache",
+   "merchant": {
+    "id": "demo-shop",
+    "name": "Demo Antiques",
+    "expires": "2027-10-11"
+   },
+   "pxd_pay": false,
+   "currency": "USD",
+   "tagline": "See it in your room, at its real size, before you buy.",
+   "bundle": "https://raw.githubusercontent.com/PxD2/PxD2.github.io/main/market/antiques/az-apache/demo-antiques.pxdz",
+   "sig": "https://raw.githubusercontent.com/PxD2/PxD2.github.io/main/market/antiques/az-apache/demo-antiques.pxdz.sig",
+   "items": [
+    {
+     "id": "brass-table-lamp",
+     "title": "Brass table lamp",
+     "price": null,
+     "category": "Lighting",
+     "description": "Example listing. Tap View in your room on a phone to stand it on your own table at its true 62 cm height.",
+     "model": true,
+     "example": true
+    },
+    {
+     "id": "steamer-trunk",
+     "title": "Steamer trunk",
+     "price": null,
+     "category": "Trunks & storage",
+     "description": "Example listing. Place it at the foot of your bed in AR and walk around it before you decide.",
+     "model": true,
+     "example": true
+    }
+   ],
+   "example": true,
+   "region_name": "Apache County, AZ",
+   "type_name": "Antiques & vintage"
+  }
+ ]
+}
