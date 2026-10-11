@@ -93,7 +93,7 @@ def merchant_key(out):
     print(f"Merchant key {out}; public half {pub_path} goes to the authority.")
 
 
-def issue(auth_dir, merchant_pub, mid, name, pay_hosts, days, out, stripe_account=None):
+def issue(auth_dir, merchant_pub, mid, name, pay_hosts, days, out, stripe_account=None, wallets=None):
     a_priv = load_priv(json.load(open(os.path.join(auth_dir, "authority.key.json"))))
     a_rec = json.load(open(os.path.join(auth_dir, "authority.json")))
     m_pub = json.load(open(merchant_pub))
@@ -105,6 +105,11 @@ def issue(auth_dir, merchant_pub, mid, name, pay_hosts, days, out, stripe_accoun
         if not re.fullmatch(r"acct_[A-Za-z0-9]+", stripe_account):
             raise SystemExit("--stripe-account must look like acct_XXXX")
         body["pay_account"] = {"stripe": stripe_account}
+    if wallets:  # crypto: buyers pay these addresses directly; pinned here so nobody can swap them
+        for k, v in wallets.items():
+            if not (re.fullmatch(r"(evm|usdc:[a-z]+)", k) and re.fullmatch(r"0x[0-9a-fA-F]{40}", v)):
+                raise SystemExit(f"--wallet {k}={v}: use evm=0x... or usdc:<chain>=0x...")
+        body["wallets"] = dict(sorted(wallets.items()))
     cert = {"cert": body, "sig": sign(a_priv, canon(body))}
     os.makedirs(os.path.dirname(os.path.abspath(out)), exist_ok=True)
     json.dump(cert, open(out, "w"), indent=2)
@@ -215,6 +220,7 @@ def main():
     c.add_argument("--id", required=True); c.add_argument("--name", required=True); c.add_argument("--pay-hosts", default=",".join(DEFAULT_PAY_HOSTS))
     c.add_argument("--days", type=int, default=365); c.add_argument("-o", required=True)
     c.add_argument("--stripe-account", help="merchant's Stripe connected account (acct_...) for PXD Pay checkout")
+    c.add_argument("--wallet", action="append", default=[], help="merchant's own crypto address: evm=0x... (all EVM chains) or usdc:base=0x...")
     d = sp.add_parser("sign"); d.add_argument("bundle"); d.add_argument("--key", required=True); d.add_argument("--cert", required=True)
     e = sp.add_parser("verify"); e.add_argument("bundle"); e.add_argument("--authority-pub", required=True)
     f = sp.add_parser("registry-sign"); f.add_argument("registry"); f.add_argument("--authority", required=True)
@@ -222,7 +228,7 @@ def main():
     x = ap.parse_args()
     if x.cmd == "authority-init": authority_init(x.dir, x.name)
     elif x.cmd == "merchant-key": merchant_key(x.out)
-    elif x.cmd == "issue": issue(x.authority, x.merchant_pub, x.id, x.name, [h.strip() for h in x.pay_hosts.split(",") if h.strip()], x.days, x.o, x.stripe_account)
+    elif x.cmd == "issue": issue(x.authority, x.merchant_pub, x.id, x.name, [h.strip() for h in x.pay_hosts.split(",") if h.strip()], x.days, x.o, x.stripe_account, dict(w.split("=", 1) for w in x.wallet))
     elif x.cmd == "sign": sign_bundle(x.bundle, x.key, x.cert)
     elif x.cmd == "registry-sign": sign_registry(x.registry, x.authority)
     elif x.cmd == "registry-verify":

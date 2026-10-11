@@ -1,6 +1,6 @@
 {
  "format": "pxd-market-region/1",
- "built": "2026-10-11T07:10:57+00:00",
+ "built": "2026-10-11T07:29:42+00:00",
  "type": "antiques",
  "region": "az-apache",
  "name": "Apache County, AZ",
@@ -16,6 +16,7 @@
     "expires": "2027-10-11"
    },
    "pxd_pay": false,
+   "crypto": [],
    "currency": "USD",
    "tagline": "See it in your room, at its real size, before you buy.",
    "bundle": "https://raw.githubusercontent.com/PxD2/PxD2.github.io/main/market/antiques/az-apache/demo-antiques.pxdz",

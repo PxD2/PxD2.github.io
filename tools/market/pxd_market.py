@@ -65,6 +65,7 @@ def store_entry(path, rel, tid, rid, authority, base):
     return {"name": stem, "title": cat.get("market") or cat.get("name") or stem, "type": tid, "region": rid,
             "merchant": {"id": cert["merchant"], "name": cert["name"], "expires": cert["expires"]},
             "pxd_pay": bool((cert.get("pay_account") or {}).get("stripe")),
+            "crypto": sorted((cert.get("wallets") or {}).keys()),
             "currency": cat.get("currency", "USD"), "tagline": cat.get("tagline", ""),
             "bundle": base + rel, "sig": base + rel + ".sig", "items": items,
             "example": bool(items) and all(i.get("example") for i in items)}, None
