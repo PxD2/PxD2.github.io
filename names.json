@@ -397,6 +397,25 @@
       "group": "Stores & VR",
       "world": "store",
       "added": "2026-10-11"
+    },
+    "pxdz": {
+      "to": "/pxd/",
+      "title": "PXD Data Lab \u00b7 the PXDZ data format",
+      "group": "Tools & making",
+      "added": "2026-10-11"
+    },
+    "datalab": {
+      "to": "/pxd/",
+      "title": "PXD Data Lab",
+      "group": "Tools & making",
+      "added": "2026-10-11"
+    },
+    "pxd": {
+      "to": "/pxd/",
+      "title": "PXD Data Lab",
+      "group": "Tools & making",
+      "native": true,
+      "added": "2026-10-11"
     }
   },
   "groups": [
