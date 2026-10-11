@@ -68,7 +68,7 @@ a { color: var(--tan); }
 </style>
 </head>
 <body>
-<div class="top"><button class="cartbtn" id="cartbtn" type="button" aria-label="Open cart">Cart <b id="count">0</b></button></div>
+<div class="top"><button class="cartbtn" id="licbtn" type="button" style="margin-right:8px">My licenses <b id="liccount">0</b></button><button class="cartbtn" id="cartbtn" type="button" aria-label="Open cart">Cart <b id="count">0</b></button></div>
 <div id="banner"></div>
 <section class="hero">
   <h1 class="mark">PX<span>D</span></h1>
@@ -161,6 +161,7 @@ a { color: var(--tan); }
     var g2 = el("div", "grid"); hits.slice(0, 120).forEach(function (x) {
       var c = el("div", "card"), it = x.it, s = x.s, tags = el("div");
       if (it.example) tags.appendChild(el("span", "tag ex", "example")); if (it.model) tags.appendChild(el("span", "tag ok", "3D · AR"));
+      if (it.ledger) tags.appendChild(el("span", "tag ok", "license · " + it.ledger.tier));
       c.append(tags, el("div", "t", it.title), el("div", "s", s.title + " · " + s.region_name));
       if (it.description) c.appendChild(el("div", "d", it.description));
       var row = el("div", "row"), add = el("button", "add", "Add"); add.type = "button";
@@ -185,7 +186,7 @@ a { color: var(--tan); }
   function addLine(s, it) {
     var l = cart.find(function (x) { return x.store === s.name && x.region === s.region && x.type === s.type && x.item === it.id; });
     if (l) l.qty = Math.min(99, l.qty + 1);
-    else cart.push({ type: s.type, region: s.region, store: s.name, item: it.id, qty: 1, title: it.title, price: it.price, currency: s.currency, merchant: s.merchant.name });
+    else cart.push({ type: s.type, region: s.region, store: s.name, item: it.id, qty: 1, title: it.title, price: it.price, currency: s.currency, merchant: s.merchant.name, license: !!it.ledger });
     save(); drawCart();
   }
   function drawCart() {
@@ -216,6 +217,54 @@ a { color: var(--tan); }
     foot.appendChild(el("p", "fine", "Prices are confirmed from each store's signed data. Each shop is paid directly; PXD never holds your money. " + (Object.keys(groups).length > 1 ? "You'll pay each shop in turn." : "")));
   }
   var payMethod = "card";
+  // ---------- license wallet: a P-256 key kept in this browser; licenses on the PXD Model Ledger are held by it ----------
+  function b64u(buf) { return btoa(String.fromCharCode.apply(null, new Uint8Array(buf))).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""); }
+  async function wallet() {
+    var jwk = null; try { jwk = JSON.parse(localStorage.getItem("pxd-license-key") || "null"); } catch (e) {}
+    if (!jwk) {
+      var kp = await crypto.subtle.generateKey({ name: "ECDSA", namedCurve: "P-256" }, true, ["sign", "verify"]);
+      jwk = await crypto.subtle.exportKey("jwk", kp.privateKey);
+      try { localStorage.setItem("pxd-license-key", JSON.stringify(jwk)); } catch (e) {}
+    }
+    return { jwk: jwk, pub: { crv: "P-256", kty: "EC", x: jwk.x, y: jwk.y },
+      sign: async function (text) { var k = await crypto.subtle.importKey("jwk", jwk, { name: "ECDSA", namedCurve: "P-256" }, false, ["sign"]);
+        return b64u(await crypto.subtle.sign({ name: "ECDSA", hash: "SHA-256" }, k, new TextEncoder().encode(text))); } };
+  }
+  function myLicenses() { try { return JSON.parse(localStorage.getItem("pxd-licenses") || "[]"); } catch (e) { return []; } }
+  function keepLicenses(list) { var all = myLicenses(); list.forEach(function (l) { if (!all.some(function (x) { return x.token === l.token; })) all.push(l); });
+    try { localStorage.setItem("pxd-licenses", JSON.stringify(all)); } catch (e) {} $("liccount").textContent = all.length; }
+  async function claimLicenses(rid, st) {
+    var w = await wallet();
+    var r = await fetch(GATEWAY + "/api/models/claim", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ request: rid, holder: w.pub }) });
+    var d = await r.json(); if (!r.ok) throw new Error(d.error || r.status);
+    keepLicenses(d.licenses); st.textContent += " · " + d.licenses.length + " license" + (d.licenses.length === 1 ? "" : "s") + " on the ledger, held by this browser";
+  }
+  function showLicenses() {
+    var box = $("lines"), foot = $("foot"); box.textContent = ""; foot.textContent = "";
+    document.querySelector("#drawer header b").textContent = "My licenses";
+    var list = myLicenses();
+    if (!list.length) box.appendChild(el("p", "empty", "No licenses yet. Buy a model license and it lands here, recorded on the PXD Model Ledger."));
+    list.forEach(function (l) {
+      var c = el("div", "card"); c.append(el("div", "t", l.title || l.model), el("div", "s", "Tier: " + l.tier), el("div", "mono", "token " + l.token));
+      var out = el("div", "fine"), b = el("button", "add", "Unlock file"); b.type = "button";
+      b.onclick = async function () {
+        out.textContent = "Proving you hold it…";
+        try {
+          var w = await wallet(), ch = (await (await fetch(GATEWAY + "/api/models/challenge")).json()).challenge;
+          var r = await fetch(GATEWAY + "/api/models/key", { method: "POST", headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ model: l.model, token: l.token, challenge: ch, sig: await w.sign(ch) }) });
+          var d = await r.json(); if (!r.ok) throw new Error(d.error);
+          out.textContent = "File key: " + d.key + " · Rights: " + (d.rights || d.tier);
+        } catch (e) { out.textContent = e.message; }
+      };
+      c.append(b, out); box.appendChild(c);
+    });
+    var back = el("button", "go alt", "Back up my license key"); back.type = "button";
+    back.onclick = async function () { var w = await wallet(); var a = document.createElement("a");
+      a.href = URL.createObjectURL(new Blob([JSON.stringify(w.jwk, null, 1)], { type: "application/json" })); a.download = "pxd-license-key.json"; a.click(); };
+    foot.append(back, el("p", "fine", "Your licenses belong to the key in this browser. Back it up; anyone with the file can use your licenses."));
+    $("drawer").classList.add("open");
+  }
   function cryptoBox(c) {
     var r = c.crypto, box = el("div", "crypto");
     box.appendChild(el("b", null, "Pay " + c.merchant.name));
@@ -232,7 +281,13 @@ a { color: var(--tan); }
     var st = el("div", "state", "Waiting for payment…"); box.appendChild(st);
     (function poll() {
       fetch(GATEWAY + "/api/crypto/status?id=" + encodeURIComponent(r.id)).then(function (x) { return x.json(); }).then(function (s) {
-        if (s.state === "paid") { st.textContent = "Paid ✓ " + (s.tx || "").slice(0, 12) + "…"; st.classList.add("paid"); cart = cart.filter(function (l) { return l.merchant !== c.merchant.name; }); save(); return; }
+        if (s.state === "paid") {
+          st.textContent = "Paid ✓ " + (s.tx || "").slice(0, 12) + "…"; st.classList.add("paid");
+          var hadLicense = cart.some(function (l) { return l.merchant === c.merchant.name && l.license; });
+          cart = cart.filter(function (l) { return l.merchant !== c.merchant.name; }); save();
+          if (hadLicense) claimLicenses(r.id, st).catch(function (e) { st.textContent += " · license claim failed (" + e.message + "); open My licenses to retry"; });
+          return;
+        }
         if (s.state === "expired") { st.textContent = "This request expired. Check out again for a new one."; return; }
         st.textContent = s.tx ? "Seen on chain, confirming (" + s.confirmations + ")…" : "Waiting for payment…";
         setTimeout(poll, 6000);
@@ -264,7 +319,8 @@ a { color: var(--tan); }
       var again = el("button", "go alt", "Try again"); again.type = "button"; again.onclick = pay; foot.appendChild(again);
     }
   }
-  $("cartbtn").onclick = function () { drawCart(); $("drawer").classList.add("open"); };
+  $("cartbtn").onclick = function () { document.querySelector("#drawer header b").textContent = "Your cart"; drawCart(); $("drawer").classList.add("open"); };
+  $("licbtn").onclick = showLicenses; $("liccount").textContent = myLicenses().length;
   $("close").onclick = function () { $("drawer").classList.remove("open"); };
   $("qf").onsubmit = function (e) { e.preventDefault(); render(); };
   $("q").addEventListener("input", render);

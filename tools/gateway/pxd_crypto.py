@@ -49,7 +49,7 @@ class CryptoPay:
         addr = w.get(f"usdc:{chain}") or w.get("evm")
         return addr if addr and ADDR.match(addr) else None
 
-    def request(self, order, chain, to, cents, merchant):
+    def request(self, order, chain, to, cents, merchant, extra=None):
         """A payment request for `cents` of USD in USDC to the merchant's own address."""
         if chain not in CHAINS:
             raise ValueError(f"chain must be one of {', '.join(CHAINS)}")
@@ -66,9 +66,14 @@ class CryptoPay:
              "token": "USDC", "token_address": c["usdc"], "to": to, "units": units, "amount": f"{units / 1e6:.6f}",
              "uri": f"ethereum:{c['usdc']}@{c['id']}/transfer?address={to}&uint256={units}",
              "from_block": max(block - 2, 0), "created": int(time.time()), "expires": int(time.time()) + EXPIRE_S, "state": "waiting"}
+        r.update(extra or {})
         with self.lock:
             self.reqs[rid] = r; self._save()
         return r
+
+    def update(self, rid, **kw):
+        with self.lock:
+            self.reqs[rid].update(kw); self._save()
 
     def status(self, rid):
         with self.lock:

@@ -60,7 +60,7 @@ def store_entry(path, rel, tid, rid, authority, base):
         items.append({k: v for k, v in {
             "id": it.get("id") or slug(title), "title": title, "price": it.get("price"),
             "category": it.get("category") or "", "description": (it.get("description") or "")[:240],
-            "model": bool(it.get("model")), "example": bool(it.get("example"))}.items() if v not in ("", None) or k == "price"})
+            "model": bool(it.get("model")), "example": bool(it.get("example")), "ledger": it.get("ledger")}.items() if v not in ("", None) or k == "price"})
     stem = os.path.basename(path)[:-5]
     return {"name": stem, "title": cat.get("market") or cat.get("name") or stem, "type": tid, "region": rid,
             "merchant": {"id": cert["merchant"], "name": cert["name"], "expires": cert["expires"]},

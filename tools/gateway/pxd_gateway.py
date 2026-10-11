@@ -26,7 +26,81 @@ sys.path.insert(0, os.path.join(os.path.dirname(HERE), "pxdz"))
 import pxdsign, pxdz  # noqa: E402
 sys.path.insert(0, HERE)
 import pxd_crypto  # noqa: E402
+sys.path.insert(0, os.path.join(os.path.dirname(HERE), "ledger"))
+import pxdledger  # noqa: E402
+import hashlib, hmac  # noqa: E402
 CRYPTO = None
+LEDGER_LOCK = threading.Lock()
+MID = re.compile(r"^[0-9a-f]{24}$")
+
+
+def ledger_path(mid):
+    if not MID.match(str(mid)):
+        raise ValueError("bad model id")
+    return os.path.join(CFG["ledger"], mid + ".jsonl")
+
+
+def holder_jwk(h):
+    if not (isinstance(h, dict) and h.get("crv") == "P-256" and h.get("kty") == "EC" and all(isinstance(h.get(k), str) for k in ("x", "y"))):
+        raise ValueError("holder must be a P-256 public key (JWK)")
+    pxdsign.load_pub(h)  # raises if the point is not on the curve
+    return {k: h[k] for k in ("crv", "kty", "x", "y")}
+
+
+def claim(body):
+    """After a paid order, write each license bought to that model's ledger, held by the buyer's key."""
+    if not CFG.get("delegate"):
+        raise ValueError("this gateway issues no licenses (start it with --delegate-key)")
+    rid = str(body.get("request", "")); holder = holder_jwk(body.get("holder"))
+    r = CRYPTO.status(rid)
+    if not r:
+        raise ValueError("no such payment")
+    if r["state"] != "paid":
+        raise ValueError("not paid yet")
+    if r.get("claimed"):
+        if r["claimed"]["holder"] != pxdledger.kid(holder):
+            raise ValueError("these licenses were already issued to another key")
+        return r["claimed"]
+    tokens = []
+    with LEDGER_LOCK:
+        for it in r.get("items", []):
+            led = it.get("ledger")
+            if not led:
+                continue
+            path = ledger_path(led["model"])
+            for _ in range(it["qty"]):
+                n = len(pxdledger.read_log(path))
+                tok = pxdledger.new_token(led["model"], led["tier"], holder, n)
+                pxdledger.append(path, CFG["delegate"], "issue", {"token": tok, "tier": led["tier"], "holder": holder, "payment": r["order"]},
+                                 authority=json.load(open(CFG["authority"])))
+                tokens.append({"model": led["model"], "tier": led["tier"], "token": tok, "title": it.get("title", "")})
+    out = {"holder": pxdledger.kid(holder), "licenses": tokens}
+    CRYPTO.update(rid, claimed=out)
+    return out
+
+
+def challenge():
+    raw = f"{int(time.time())}.{secrets.token_hex(12)}"
+    return raw + "." + hmac.new(CFG["secret"], raw.encode(), hashlib.sha256).hexdigest()[:32]
+
+
+def model_key(body):
+    """Give the model's file key to the current holder of a license, proven by signing a fresh challenge."""
+    ch = str(body.get("challenge", "")); parts = ch.split(".")
+    if len(parts) != 3 or not hmac.compare_digest(parts[2], hmac.new(CFG["secret"], f"{parts[0]}.{parts[1]}".encode(), hashlib.sha256).hexdigest()[:32]):
+        raise ValueError("bad challenge")
+    if time.time() - int(parts[0]) > 300:
+        raise ValueError("challenge expired; ask for a new one")
+    st = pxdledger.replay(pxdledger.read_log(ledger_path(body.get("model"))), json.load(open(CFG["authority"])))
+    lic = st["licenses"].get(str(body.get("token")))
+    if not lic or not lic["current"]:
+        raise ValueError("no current license with that token")
+    if not pxdsign.verify(pxdsign.load_pub(lic["holder"]), ch.encode(), str(body.get("sig", ""))):
+        raise ValueError("signature is not from the license holder")
+    key = CFG["model_keys"].get(st["model"])
+    if not key:
+        raise ValueError("the artist has not deposited a file key for this model")
+    return {"model": st["model"], "title": st["title"], "tier": lic["tier"], "rights": st["tiers"][lic["tier"]].get("rights", ""), "key": key}
 
 CFG = {}
 NAME_OK = re.compile(r"^[a-z0-9][a-z0-9-]{0,62}$")
@@ -154,7 +228,7 @@ def checkout(body, origin):
     for (t, r, name), wanted in by_store.items():
         cat, cert = market_store(t, r, name)
         items = {it.get("id"): it for it in (cat.get("items") or cat.get("products") or [])}
-        priced, total = [], 0
+        priced, total, bought = [], 0, []
         for iid, qty in wanted:
             it = items.get(iid)
             if not it or it.get("status") in ("sold", "hidden"):
@@ -163,6 +237,7 @@ def checkout(body, origin):
             if not isinstance(price, (int, float)) or price <= 0:
                 raise ValueError(f"{name}: {it.get('title', iid)} is price on request; ask the shop")
             cents = int(round(price * 100)); priced.append((it.get("title") or iid, cents, qty)); total += cents * qty
+            bought.append({"id": iid, "qty": qty, "title": it.get("title") or iid, "ledger": it.get("ledger")})
         cur = cat.get("currency", "USD"); acct = (cert.get("pay_account") or {}).get("stripe")
         method = str(body.get("method") or "card")
         entry = {"merchant": {"id": cert["merchant"], "name": cert["name"]}, "store": f"{t}/{r}/{name}", "currency": cur,
@@ -173,7 +248,7 @@ def checkout(body, origin):
         if method == "pickup":  # remote and LoRa orders: the shop is paid in person when the buyer collects
             entry.update(pay="pickup", note="Pay the shop when you collect")
         elif wallet:
-            entry.update(pay="crypto", crypto=CRYPTO.request(order, method[5:], wallet, total, cert["merchant"]))
+            entry.update(pay="crypto", crypto=CRYPTO.request(order, method[5:], wallet, total, cert["merchant"], {"items": bought}))
         elif acct and CFG["stripe_key"]:
             fee = int(total * CFG["fee_pct"] / 100)
             sess = stripe_session(acct, cur, priced, order, success, cancel, fee)
@@ -220,6 +295,17 @@ class H(BaseHTTPRequestHandler):
         if p in ("/", "/stores", "/stores/"):
             page = os.path.join(os.path.dirname(HERE), "pxd_browser", "home.html" if p == "/" else "stores.html")
             return self._send(200, open(page, "rb").read(), "text/html; charset=utf-8")
+        if p == "/api/models/challenge":
+            return self._send(200, {"challenge": challenge()})
+        mm = re.match(r"^/api/models/([0-9a-f]{24})$", p)
+        if mm:
+            try:
+                st = pxdledger.replay(pxdledger.read_log(ledger_path(mm.group(1))), json.load(open(CFG["authority"])))
+            except (pxdledger.LedgerError, TypeError) as e:
+                return self._send(404 if "start" in str(e) else 409, {"error": str(e)})
+            return self._send(200, {"model": st["model"], "title": st["title"], "creator": st["creator"], "royalty_pct": st["royalty_bps"] / 100,
+                                    "tiers": st["tiers"], "sold": st["issued"], "head": st["head"],
+                                    "licenses": [{k: l[k] for k in ("token", "tier", "holder_kid", "edition", "expires", "current")} for l in st["licenses"].values()]})
         if p == "/api/crypto/status":
             rid = (urllib.parse.parse_qs(self.path.partition("?")[2]).get("id") or [""])[0]
             try:
@@ -287,6 +373,13 @@ class H(BaseHTTPRequestHandler):
         if p == "/api/cog/group":
             sents = [s for s in body.get("sentences", []) if isinstance(s, str) and s.strip()][:2000]
             return self._send(200, group(sents, float(body.get("threshold", 0.9))))
+        if p in ("/api/models/claim", "/api/models/key"):
+            try:
+                return self._send(200, claim(body) if p.endswith("claim") else model_key(body))
+            except (ValueError, pxdledger.LedgerError) as e:
+                return self._send(400, {"error": str(e)})
+            except OSError as e:
+                return self._send(502, {"error": str(e)})
         if p == "/api/checkout":
             origin = f"http://{self.headers.get('Host', 'localhost')}"
             try:
@@ -336,10 +429,15 @@ def main():
     ap.add_argument("--stripe-api", default="https://api.stripe.com"); ap.add_argument("--fee-pct", type=float, default=0.0, help="PXD platform fee, percent (default 0)")
     ap.add_argument("--rpc", action="append", default=[], help="chain=url, e.g. base=https://... (default: public RPCs)")
     ap.add_argument("--confirmations", type=int, default=3)
+    ap.add_argument("--ledger", default=os.path.join(os.path.dirname(os.path.dirname(HERE)), "ledger"), help="model ledger folder")
+    ap.add_argument("--delegate-key", help="this gateway's key, delegated by artists to issue licenses after payment")
+    ap.add_argument("--model-keys", help="JSON {model id: file key} deposited by artists (keep private, never on GitHub)")
     ap.add_argument("--orders", default=os.path.join(os.path.expanduser("~"), "PXD Gateway", "orders.jsonl"))
     a = ap.parse_args()
     os.makedirs(a.store, exist_ok=True)
     os.makedirs(os.path.dirname(a.orders), exist_ok=True)
+    CFG.update(ledger=a.ledger, delegate=json.load(open(a.delegate_key)) if a.delegate_key else None,
+               model_keys=json.load(open(a.model_keys)) if a.model_keys else {}, secret=secrets.token_bytes(32), authority=a.authority)
     global CRYPTO
     CRYPTO = pxd_crypto.CryptoPay(os.path.join(os.path.dirname(a.orders), "crypto_requests.json"),
                                   dict(x.split("=", 1) for x in a.rpc), a.confirmations)
