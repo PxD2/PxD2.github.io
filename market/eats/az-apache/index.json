@@ -1,0 +1,75 @@
+{
+ "format": "pxd-market-region/1",
+ "built": "2026-10-11T07:10:57+00:00",
+ "type": "eats",
+ "region": "az-apache",
+ "name": "Apache County, AZ",
+ "stores": [
+  {
+   "name": "demo-pizza",
+   "title": "Demo Pizza Co.",
+   "type": "eats",
+   "region": "az-apache",
+   "merchant": {
+    "id": "demo-pizza",
+    "name": "Demo Pizza Co.",
+    "expires": "2027-10-11"
+   },
+   "pxd_pay": true,
+   "currency": "USD",
+   "tagline": "Example restaurant: walk in, see the menu, order.",
+   "bundle": "https://raw.githubusercontent.com/PxD2/PxD2.github.io/main/market/eats/az-apache/demo-pizza.pxdz",
+   "sig": "https://raw.githubusercontent.com/PxD2/PxD2.github.io/main/market/eats/az-apache/demo-pizza.pxdz.sig",
+   "items": [
+    {
+     "id": "pepperoni-16",
+     "title": "Pepperoni pizza, 16 inch",
+     "price": 18.99,
+     "category": "Pizza",
+     "description": "Example menu item. Hand-tossed, whole-milk mozzarella, cup-and-char pepperoni.",
+     "model": false,
+     "example": true
+    },
+    {
+     "id": "margherita-12",
+     "title": "Margherita pizza, 12 inch",
+     "price": 13.5,
+     "category": "Pizza",
+     "description": "Example menu item. San Marzano tomato, fresh mozzarella, basil.",
+     "model": false,
+     "example": true
+    },
+    {
+     "id": "garlic-knots",
+     "title": "Garlic knots (8)",
+     "price": 6.25,
+     "category": "Sides",
+     "description": "Example menu item. Brushed with garlic butter and parmesan.",
+     "model": false,
+     "example": true
+    },
+    {
+     "id": "caesar",
+     "title": "Caesar salad",
+     "price": 9,
+     "category": "Salads",
+     "description": "Example menu item. Romaine, parmesan, house croutons.",
+     "model": false,
+     "example": true
+    },
+    {
+     "id": "catering-tray",
+     "title": "Catering tray",
+     "price": null,
+     "category": "Catering",
+     "description": "Example: price on request.",
+     "model": false,
+     "example": true
+    }
+   ],
+   "example": true,
+   "region_name": "Apache County, AZ",
+   "type_name": "Food & drink"
+  }
+ ]
+}

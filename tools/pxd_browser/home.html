@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PXD</title>
+<style>
+:root { --bg:#0b0b0a; --panel:#151412; --panel2:#1c1a17; --line:#2e2a24; --fg:#ece4cf; --muted:#a39a88; --tan:#c9a46a; --red:#d0302f; --ok:#7fbf7a; color-scheme: dark; }
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.5 "Segoe UI", system-ui, -apple-system, sans-serif; }
+button, input, select { font: inherit; color: inherit; }
+.top { display: flex; justify-content: flex-end; padding: 14px 18px; }
+.cartbtn { background: var(--panel); border: 1px solid var(--line); border-radius: 999px; padding: 8px 16px; cursor: pointer; display: flex; gap: 8px; align-items: center; }
+.cartbtn b { background: var(--red); color: #fff; border-radius: 999px; min-width: 22px; padding: 0 7px; font-size: 13px; text-align: center; }
+.hero { max-width: 760px; margin: 0 auto; padding: 8vh 18px 18px; text-align: center; transition: padding .25s; }
+body.searching .hero { padding-top: 0; }
+.mark { font: 900 clamp(64px, 14vw, 120px)/1 Impact, "Arial Narrow", sans-serif; letter-spacing: .02em; margin: 0; }
+.mark span { color: var(--red); }
+body.searching .mark { font-size: 44px; }
+.say { color: var(--muted); margin: 6px 0 22px; }
+form.q { display: flex; background: var(--panel); border: 2px solid var(--fg); border-radius: 999px; overflow: hidden; }
+form.q:focus-within { border-color: var(--tan); }
+form.q input { flex: 1; min-width: 0; background: none; border: 0; outline: none; padding: 14px 22px; font-size: 18px; }
+form.q button { background: var(--red); border: 0; color: #fff; padding: 0 24px; font-weight: 700; cursor: pointer; }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 16px 0 0; }
+.chip { background: var(--panel); border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; cursor: pointer; }
+.chip[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.filters select { background: var(--panel); border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; }
+main { max-width: 1120px; margin: 0 auto; padding: 8px 18px 80px; }
+h2 { font: 700 13px Consolas, monospace; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 26px 0 10px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px; display: grid; gap: 6px; align-content: start; }
+.card .t { font-weight: 700; }
+.card .s { color: var(--muted); font-size: 13px; }
+.card .d { color: var(--muted); font-size: 13px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.row { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 4px; }
+.price { font: 600 17px Consolas, monospace; color: var(--tan); }
+.add { background: var(--red); border: 0; color: #fff; border-radius: 8px; padding: 7px 14px; font-weight: 700; cursor: pointer; }
+.add:disabled { background: var(--panel2); color: var(--muted); cursor: default; }
+.tag { display: inline-block; font: 600 10px Consolas, monospace; letter-spacing: .06em; text-transform: uppercase; border: 1px solid currentColor; border-radius: 999px; padding: 1px 7px; margin-right: 4px; }
+.tag.ok { color: var(--ok); } .tag.ex { color: var(--tan); }
+a { color: var(--tan); }
+.site { text-decoration: none; color: var(--fg); }
+.empty, .note { color: var(--muted); padding: 10px 0; }
+.drawer { position: fixed; inset: 0 0 0 auto; width: min(420px, 100%); background: var(--panel); border-left: 1px solid var(--line); transform: translateX(100%); transition: transform .2s; display: flex; flex-direction: column; z-index: 5; }
+.drawer.open { transform: none; }
+.drawer header { display: flex; justify-content: space-between; align-items: center; padding: 16px 18px; border-bottom: 1px solid var(--line); }
+.drawer .body { overflow: auto; padding: 8px 18px; flex: 1; }
+.drawer footer { border-top: 1px solid var(--line); padding: 14px 18px; display: grid; gap: 10px; }
+.x { background: none; border: 1px solid var(--line); border-radius: 8px; padding: 4px 10px; cursor: pointer; }
+.merchant { margin: 14px 0 6px; font-weight: 700; }
+.line { display: grid; grid-template-columns: 1fr auto auto; gap: 8px; align-items: center; padding: 6px 0; border-bottom: 1px dashed var(--line); font-size: 14px; }
+.qty { display: flex; gap: 4px; align-items: center; } .qty button { width: 26px; height: 26px; border-radius: 6px; border: 1px solid var(--line); background: var(--bg); cursor: pointer; }
+.go { background: var(--red); color: #fff; border: 0; border-radius: 10px; padding: 12px; font-weight: 800; font-size: 16px; cursor: pointer; text-decoration: none; text-align: center; display: block; }
+.go.alt { background: var(--bg); border: 1px solid var(--line); color: var(--fg); }
+.banner { max-width: 760px; margin: 0 auto 10px; padding: 10px 14px; border: 1px solid var(--ok); color: var(--ok); border-radius: 10px; }
+.fine { color: var(--muted); font-size: 12px; }
+@media (max-width: 520px) { form.q input { font-size: 16px; padding: 12px 16px; } .hero { padding-top: 4vh; } }
+</style>
+</head>
+<body>
+<div class="top"><button class="cartbtn" id="cartbtn" type="button" aria-label="Open cart">Cart <b id="count">0</b></button></div>
+<div id="banner"></div>
+<section class="hero">
+  <h1 class="mark">PX<span>D</span></h1>
+  <p class="say" id="say">Every approved store, every region. One search, one cart.</p>
+  <form class="q" id="qf" role="search"><input id="q" type="search" placeholder="Pizza, brass lamp, a shop, a town…" aria-label="Search every store" autocomplete="off"><button type="submit">Search</button></form>
+  <div class="filters" id="filters"></div>
+</section>
+<main id="out"></main>
+<aside class="drawer" id="drawer" aria-label="Cart">
+  <header><b>Your cart</b><button class="x" id="close" type="button">Close</button></header>
+  <div class="body" id="lines"></div>
+  <footer id="foot"></footer>
+</aside>
+<script>
+(function () {
+  "use strict";
+  var GH = "https://raw.githubusercontent.com/PxD2/PxD2.github.io/main/";
+  var REGISTRY = ["https://pxd2.github.io/names.json", GH + "names.json"];
+  var served = /^https?:$/.test(location.protocol) && !/github\.io$/.test(location.hostname);  // on a PXD Gateway
+  var GATEWAY = served ? location.origin : (function () { try { return localStorage.getItem("pxd-gateway") || "http://127.0.0.1:8790"; } catch (e) { return "http://127.0.0.1:8790"; } })();
+  var STORES_VIEW = served ? "/stores" : "stores.html";
+  var $ = function (id) { return document.getElementById(id); };
+  function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+  function money(p, cur) { if (typeof p !== "number") return "Price on request"; try { return new Intl.NumberFormat(undefined, { style: "currency", currency: cur || "USD" }).format(p); } catch (e) { return "$" + p.toFixed(2); } }
+
+  // ---------- data: market (type -> region -> stores) + .pxd sites, searched on this device ----------
+  function local(url) { return served && url.indexOf(GH + "market/") === 0 ? location.origin + "/" + url.slice(GH.length) : null; }
+  async function getJSON(urls) {
+    var last; for (var i = 0; i < urls.length; i++) { if (!urls[i]) continue;
+      try { var r = await fetch(urls[i], { cache: "no-cache" }); if (r.ok) return await r.json(); last = new Error(r.status); } catch (e) { last = e; } }
+    throw last;
+  }
+  var stores = [], items = [], sites = [], types = [], regions = {}, state = { type: "", region: "" };
+  async function load() {
+    var top = await getJSON([served ? location.origin + "/market/index.json" : null, GH + "market/index.json"]);
+    types = top.types || [];
+    var typeIdx = await Promise.all(types.map(function (t) { return getJSON([local(t.index), t.index]).catch(function () { return null; }); }));
+    var regIdx = [];
+    typeIdx.forEach(function (ti) { (ti && ti.regions || []).forEach(function (r) { regions[r.id] = r.name; regIdx.push(getJSON([local(r.index), r.index]).catch(function () { return null; })); }); });
+    (await Promise.all(regIdx)).forEach(function (ri) {
+      (ri && ri.stores || []).forEach(function (s) {
+        stores.push(s);
+        s.items.forEach(function (it) { items.push({ it: it, s: s, hay: [it.title, it.category, it.description, s.title, s.merchant.name, s.type_name, s.region_name].join(" ").toLowerCase() }); });
+      });
+    });
+    try {
+      var reg = await getJSON((served ? [location.origin + "/names.json"] : []).concat(REGISTRY));
+      sites = Object.keys(reg.names || {}).map(function (k) { var e = reg.names[k]; return { name: k, e: e, hay: (k + " " + (e.title || "") + " " + (e.group || "")).toLowerCase() }; });
+    } catch (e) {}
+  }
+
+  // ---------- filters ----------
+  function filters() {
+    var f = $("filters"); f.textContent = "";
+    [{ id: "", name: "Everything" }].concat(types).forEach(function (t) {
+      var b = el("button", "chip", t.name); b.type = "button"; b.setAttribute("aria-pressed", String(state.type === t.id));
+      b.onclick = function () { state.type = t.id; filters(); render(); }; f.appendChild(b);
+    });
+    var sel = el("select"); sel.setAttribute("aria-label", "Region");
+    sel.appendChild(new Option("All regions", ""));
+    Object.keys(regions).sort().forEach(function (r) { sel.appendChild(new Option(regions[r], r, false, state.region === r)); });
+    sel.onchange = function () { state.region = sel.value; render(); }; f.appendChild(sel);
+  }
+
+  // ---------- results ----------
+  function words(q) { return q.toLowerCase().split(/\s+/).filter(Boolean); }
+  function inScope(s) { return (!state.type || s.type === state.type) && (!state.region || s.region === state.region); }
+  function render() {
+    var q = $("q").value.trim(), w = words(q), out = $("out"); out.textContent = "";
+    document.body.classList.toggle("searching", !!q || !!state.type || !!state.region);
+    var hits = items.filter(function (x) { return inScope(x.s) && w.every(function (t) { return x.hay.indexOf(t) > -1; }); });
+    hits.sort(function (a, b) { var ta = w.filter(function (t) { return a.it.title.toLowerCase().indexOf(t) > -1; }).length, tb = w.filter(function (t) { return b.it.title.toLowerCase().indexOf(t) > -1; }).length; return tb - ta; });
+    var shopHits = stores.filter(function (s) { return inScope(s) && (!w.length || w.every(function (t) { return (s.title + " " + s.merchant.name + " " + s.type_name + " " + s.region_name).toLowerCase().indexOf(t) > -1; })); });
+    if (shopHits.length) {
+      out.appendChild(el("h2", null, "Stores"));
+      var g = el("div", "grid"); shopHits.forEach(function (s) {
+        var c = el("div", "card"); var tags = el("div");
+        tags.append(el("span", "tag ok", "✓ approved"), s.example ? el("span", "tag ex", "example") : "");
+        c.append(tags, el("div", "t", s.title), el("div", "s", s.type_name + " · " + s.region_name), el("div", "s", s.items.length + " item" + (s.items.length === 1 ? "" : "s") + (s.pxd_pay ? " · PXD Pay" : "")));
+        var a = el("a", null, "Walk in →");
+        a.href = STORES_VIEW + "?" + new URLSearchParams({ name: s.name, title: s.title, bundle: local(s.bundle) || s.bundle, sig: local(s.sig) || s.sig });
+        c.appendChild(a); g.appendChild(c);
+      }); out.appendChild(g);
+    }
+    out.appendChild(el("h2", null, w.length ? "Items" : "Everything for sale"));
+    if (!hits.length) out.appendChild(el("p", "empty", stores.length ? "Nothing matches that yet. Try fewer words." : "Loading stores…"));
+    var g2 = el("div", "grid"); hits.slice(0, 120).forEach(function (x) {
+      var c = el("div", "card"), it = x.it, s = x.s, tags = el("div");
+      if (it.example) tags.appendChild(el("span", "tag ex", "example")); if (it.model) tags.appendChild(el("span", "tag ok", "3D · AR"));
+      c.append(tags, el("div", "t", it.title), el("div", "s", s.title + " · " + s.region_name));
+      if (it.description) c.appendChild(el("div", "d", it.description));
+      var row = el("div", "row"), add = el("button", "add", "Add"); add.type = "button";
+      row.append(el("span", "price", money(it.price, s.currency)), add);
+      if (typeof it.price !== "number") { add.disabled = true; add.textContent = "Ask shop"; }
+      add.onclick = function () { addLine(s, it); add.textContent = "Added ✓"; setTimeout(function () { add.textContent = "Add"; }, 1200); };
+      c.appendChild(row); g2.appendChild(c);
+    }); out.appendChild(g2);
+    var siteHits = w.length ? sites.filter(function (x) { return w.every(function (t) { return x.hay.indexOf(t) > -1; }); }) : [];
+    if (siteHits.length) {
+      out.appendChild(el("h2", null, ".pxd sites"));
+      var g3 = el("div", "grid"); siteHits.slice(0, 24).forEach(function (x) {
+        var a = el("a", "card site"); a.href = /^https?:/.test(x.e.to) ? x.e.to : "https://pxd2.github.io" + x.e.to;
+        a.append(el("div", "t", x.name + ".pxd"), el("div", "s", x.e.title || ""), el("div", "s", x.e.group || "")); g3.appendChild(a);
+      }); out.appendChild(g3);
+    }
+  }
+
+  // ---------- cart: one cart across every store, kept on this device ----------
+  var cart = []; try { cart = JSON.parse(localStorage.getItem("pxd-cart") || "[]"); } catch (e) {}
+  function save() { try { localStorage.setItem("pxd-cart", JSON.stringify(cart)); } catch (e) {} $("count").textContent = cart.reduce(function (n, l) { return n + l.qty; }, 0); }
+  function addLine(s, it) {
+    var l = cart.find(function (x) { return x.store === s.name && x.region === s.region && x.type === s.type && x.item === it.id; });
+    if (l) l.qty = Math.min(99, l.qty + 1);
+    else cart.push({ type: s.type, region: s.region, store: s.name, item: it.id, qty: 1, title: it.title, price: it.price, currency: s.currency, merchant: s.merchant.name });
+    save(); drawCart();
+  }
+  function drawCart() {
+    var box = $("lines"), foot = $("foot"); box.textContent = ""; foot.textContent = "";
+    if (!cart.length) { box.appendChild(el("p", "empty", "Your cart is empty.")); return; }
+    var groups = {}; cart.forEach(function (l) { (groups[l.merchant] = groups[l.merchant] || []).push(l); });
+    var total = 0;
+    Object.keys(groups).forEach(function (m) {
+      box.appendChild(el("div", "merchant", m));
+      groups[m].forEach(function (l) {
+        var row = el("div", "line"), q = el("div", "qty"), minus = el("button", null, "−"), plus = el("button", null, "+");
+        minus.type = plus.type = "button"; minus.setAttribute("aria-label", "One less"); plus.setAttribute("aria-label", "One more");
+        minus.onclick = function () { l.qty--; if (l.qty < 1) cart.splice(cart.indexOf(l), 1); save(); drawCart(); };
+        plus.onclick = function () { l.qty = Math.min(99, l.qty + 1); save(); drawCart(); };
+        q.append(minus, el("span", null, l.qty), plus);
+        row.append(el("span", null, l.title), q, el("span", "price", money(l.price * l.qty, l.currency))); box.appendChild(row);
+        total += l.price * l.qty;
+      });
+    });
+    foot.appendChild(el("div", "row")).append(el("b", null, "Total"), el("span", "price", money(total, cart[0].currency)));
+    var go = el("button", "go", "Check out with PXD"); go.type = "button"; go.onclick = pay; foot.appendChild(go);
+    foot.appendChild(el("p", "fine", "Prices are confirmed from each store's signed data. Each shop is paid directly; PXD never holds your money. " + (Object.keys(groups).length > 1 ? "You'll pay each shop in turn." : "")));
+  }
+  async function pay() {
+    var foot = $("foot"); foot.textContent = ""; foot.appendChild(el("p", "note", "Confirming prices with each shop…"));
+    try {
+      var r = await fetch(GATEWAY + "/api/checkout", { method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ lines: cart.map(function (l) { return { type: l.type, region: l.region, store: l.store, item: l.item, qty: l.qty }; }),
+          success_url: served ? location.origin + "/?paid={CHECKOUT_SESSION_ID}" : undefined, cancel_url: served ? location.origin + "/?cart" : undefined }) });
+      var d = await r.json(); if (!r.ok) throw new Error(d.error || r.status);
+      foot.textContent = ""; foot.appendChild(el("p", "fine", "Order " + d.order));
+      try { localStorage.setItem("pxd-last-order", JSON.stringify(d)); } catch (e) {}
+      d.checkouts.forEach(function (c) {
+        if (c.url) { var a = el("a", "go", "Pay " + c.merchant.name + " · " + money(c.total, c.currency)); a.href = c.url; a.rel = "noopener"; foot.appendChild(a); }
+        else {
+          foot.appendChild(el("div", "merchant", c.merchant.name + " · " + money(c.total, c.currency)));
+          var keys = Object.keys(c.pay_links || {});
+          if (!keys.length) foot.appendChild(el("p", "fine", "This shop takes payment directly. Contact them to finish your order."));
+          keys.forEach(function (k) { var a = el("a", "go alt", "Pay with " + k); a.href = c.pay_links[k]; a.target = "_blank"; a.rel = "noopener"; foot.appendChild(a); });
+        }
+      });
+    } catch (e) {
+      foot.textContent = ""; foot.appendChild(el("p", "note", "Checkout couldn't reach PXD Pay (" + e.message + "). Your cart is saved; try again shortly."));
+      var again = el("button", "go alt", "Try again"); again.type = "button"; again.onclick = pay; foot.appendChild(again);
+    }
+  }
+  $("cartbtn").onclick = function () { drawCart(); $("drawer").classList.add("open"); };
+  $("close").onclick = function () { $("drawer").classList.remove("open"); };
+  $("qf").onsubmit = function (e) { e.preventDefault(); render(); };
+  $("q").addEventListener("input", render);
+  var params = new URLSearchParams(location.search);
+  if (params.get("q")) $("q").value = params.get("q");
+  if (params.get("paid")) { cart = []; save(); $("banner").appendChild(el("div", "banner", "Paid. The shop has your order; your receipt comes from them.")); }
+  save();
+  load().then(function () {
+    $("say").textContent = stores.length + " approved store" + (stores.length === 1 ? "" : "s") + " · " + items.length + " items · " + Object.keys(regions).length + " region" + (Object.keys(regions).length === 1 ? "" : "s") + ". One search, one cart.";
+    filters(); render(); if (params.has("cart")) $("cartbtn").click();
+  }).catch(function () { $("out").appendChild(el("p", "empty", "Couldn't reach the market right now.")); });
+})();
+</script>
+</body>
+</html>

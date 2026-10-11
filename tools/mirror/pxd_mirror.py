@@ -23,7 +23,9 @@ import argparse, glob, json, os, shutil, subprocess, sys, tempfile
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 CONF = os.path.join(os.path.dirname(os.path.abspath(__file__)), "mirrors.json")
 MAIN_RAW = "https://raw.githubusercontent.com/PxD2/PxD2.github.io/main/"
-PAYLOAD = ["names.json", "pxd/authority*.json", "pxd/demo/*.pxdz", "pxd/demo/*.pxdz.sig", "stores/*.pxdz", "stores/*.pxdz.sig"]
+PAYLOAD = ["names.json", "pxd/authority*.json", "pxd/demo/*.pxdz", "pxd/demo/*.pxdz.sig", "stores/*.pxdz", "stores/*.pxdz.sig",
+           "market/index.json", "market/*/index.json", "market/*/type.json", "market/*/*/index.json", "market/*/*/region.json",
+           "market/*/*/*.pxdz", "market/*/*/*.pxdz.sig"]
 
 
 def run(cmd, cwd=None):
