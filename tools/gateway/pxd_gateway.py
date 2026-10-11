@@ -24,6 +24,9 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(os.path.dirname(HERE), "pxdz"))
 import pxdsign, pxdz  # noqa: E402
+sys.path.insert(0, HERE)
+import pxd_crypto  # noqa: E402
+CRYPTO = None
 
 CFG = {}
 NAME_OK = re.compile(r"^[a-z0-9][a-z0-9-]{0,62}$")
@@ -161,9 +164,17 @@ def checkout(body, origin):
                 raise ValueError(f"{name}: {it.get('title', iid)} is price on request; ask the shop")
             cents = int(round(price * 100)); priced.append((it.get("title") or iid, cents, qty)); total += cents * qty
         cur = cat.get("currency", "USD"); acct = (cert.get("pay_account") or {}).get("stripe")
+        method = str(body.get("method") or "card")
         entry = {"merchant": {"id": cert["merchant"], "name": cert["name"]}, "store": f"{t}/{r}/{name}", "currency": cur,
                  "total": total / 100, "lines": [{"title": a, "price": c / 100, "qty": q} for a, c, q in priced]}
-        if acct and CFG["stripe_key"]:
+        wallet = pxd_crypto.CryptoPay.wallet_for(cert, method[5:]) if method.startswith("usdc:") else None
+        if method.startswith("usdc:") and cur != "USD":
+            raise ValueError(f"{name}: USDC checkout needs prices in USD")
+        if method == "pickup":  # remote and LoRa orders: the shop is paid in person when the buyer collects
+            entry.update(pay="pickup", note="Pay the shop when you collect")
+        elif wallet:
+            entry.update(pay="crypto", crypto=CRYPTO.request(order, method[5:], wallet, total, cert["merchant"]))
+        elif acct and CFG["stripe_key"]:
             fee = int(total * CFG["fee_pct"] / 100)
             sess = stripe_session(acct, cur, priced, order, success, cancel, fee)
             entry.update(pay="pxd-pay", url=sess["url"], session=sess["id"], pxd_fee=fee / 100)
@@ -175,6 +186,7 @@ def checkout(body, origin):
     with LOCK, open(CFG["orders"], "a", encoding="utf-8") as f:
         f.write(json.dumps({"order": order, "time": time.strftime("%Y-%m-%dT%H:%M:%S"), "checkouts": [
             {k: e[k] for k in ("merchant", "store", "currency", "total", "lines", "pay") if k in e} | ({"session": e["session"]} if "session" in e else {})
+            | ({"crypto": {k: e["crypto"][k] for k in ("id", "chain", "to", "amount")}} if "crypto" in e else {})
             for e in out]}) + "\n")
     return {"order": order, "total": round(grand, 2), "checkouts": out}
 
@@ -208,6 +220,16 @@ class H(BaseHTTPRequestHandler):
         if p in ("/", "/stores", "/stores/"):
             page = os.path.join(os.path.dirname(HERE), "pxd_browser", "home.html" if p == "/" else "stores.html")
             return self._send(200, open(page, "rb").read(), "text/html; charset=utf-8")
+        if p == "/api/crypto/status":
+            rid = (urllib.parse.parse_qs(self.path.partition("?")[2]).get("id") or [""])[0]
+            try:
+                r = CRYPTO.status(rid)
+            except OSError as e:
+                return self._send(502, {"error": f"chain unreachable: {e}"})
+            return self._send(200, r) if r else self._send(404, {"error": "no such payment request"})
+        if p.startswith("/vendor/") and re.fullmatch(r"/vendor/[a-z0-9.-]+\.js", p):
+            f = os.path.join(os.path.dirname(HERE), "pxd_browser", "vendor", p[8:])
+            return self._send(200, open(f, "rb").read(), "text/javascript; charset=utf-8") if os.path.isfile(f) else self._send(404, {"error": "not found"})
         if p == "/names.json":  # the gateway's own copy of the registry, so it works with GitHub unreachable
             return self._send(200, open(os.path.join(os.path.dirname(os.path.dirname(HERE)), "names.json"), "rb").read(), "application/json", {"Cache-Control": "no-cache"})
         if p == "/pxd.js":
@@ -312,10 +334,15 @@ def main():
     ap.add_argument("--max-mb", type=int, default=200)
     ap.add_argument("--market", default=os.path.join(os.path.dirname(os.path.dirname(HERE)), "market"), help="market folder (type/region/store)")
     ap.add_argument("--stripe-api", default="https://api.stripe.com"); ap.add_argument("--fee-pct", type=float, default=0.0, help="PXD platform fee, percent (default 0)")
+    ap.add_argument("--rpc", action="append", default=[], help="chain=url, e.g. base=https://... (default: public RPCs)")
+    ap.add_argument("--confirmations", type=int, default=3)
     ap.add_argument("--orders", default=os.path.join(os.path.expanduser("~"), "PXD Gateway", "orders.jsonl"))
     a = ap.parse_args()
     os.makedirs(a.store, exist_ok=True)
     os.makedirs(os.path.dirname(a.orders), exist_ok=True)
+    global CRYPTO
+    CRYPTO = pxd_crypto.CryptoPay(os.path.join(os.path.dirname(a.orders), "crypto_requests.json"),
+                                  dict(x.split("=", 1) for x in a.rpc), a.confirmations)
     CFG.update(market=a.market, stripe_api=a.stripe_api.rstrip("/"), stripe_key=os.environ.get("STRIPE_SECRET_KEY", ""), fee_pct=a.fee_pct, orders=a.orders)
     CFG.update(store=a.store, authority=a.authority, ollama=a.ollama.rstrip("/"), embed_model=a.embed_model, max_mb=a.max_mb,
                authority_kid=json.load(open(a.authority))["kid"])

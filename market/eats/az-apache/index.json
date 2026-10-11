@@ -1,6 +1,6 @@
 {
  "format": "pxd-market-region/1",
- "built": "2026-10-11T07:10:57+00:00",
+ "built": "2026-10-11T07:29:42+00:00",
  "type": "eats",
  "region": "az-apache",
  "name": "Apache County, AZ",
@@ -16,6 +16,7 @@
     "expires": "2027-10-11"
    },
    "pxd_pay": true,
+   "crypto": [],
    "currency": "USD",
    "tagline": "Example restaurant: walk in, see the menu, order.",
    "bundle": "https://raw.githubusercontent.com/PxD2/PxD2.github.io/main/market/eats/az-apache/demo-pizza.pxdz",
