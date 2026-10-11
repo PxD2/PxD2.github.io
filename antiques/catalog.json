@@ -1,0 +1,137 @@
+{
+  "market": "PXD Antiques",
+  "tagline": "See it in your room, at its real size, before you buy.",
+  "merchant_of_record": "Each shop sells its own pieces and is paid directly",
+  "contact": "pxd2games@gmail.com",
+  "currency": "USD",
+  "pay": {
+    "stripe": "",
+    "paypal": "",
+    "square": "",
+    "cashapp": "",
+    "venmo": "",
+    "coinbase": "",
+    "btcpay": ""
+  },
+  "wallets": {
+    "btc": "",
+    "eth": "",
+    "sol": "",
+    "usdc": ""
+  },
+  "categories": [
+    "Furniture",
+    "Lighting",
+    "Trunks & storage",
+    "Militaria",
+    "Decor & art",
+    "Collectibles"
+  ],
+  "shops": [
+    {
+      "id": "demo-shop",
+      "name": "Demo Antiques",
+      "town": "Arizona",
+      "example": true,
+      "about": "Example shop showing how a PXD Antiques storefront looks. Real shops replace this.",
+      "contact": "pxd2games@gmail.com"
+    }
+  ],
+  "items": [
+    {
+      "id": "brass-table-lamp",
+      "shop": "demo-shop",
+      "example": true,
+      "status": "available",
+      "title": "Brass table lamp",
+      "category": "Lighting",
+      "era": "c. 1920s style",
+      "price": null,
+      "dims_cm": [
+        34,
+        62,
+        34
+      ],
+      "condition": "Example item",
+      "description": "Example listing. Tap View in your room on a phone to stand it on your own table at its true 62 cm height.",
+      "model": "models/example-brass-lamp.glb",
+      "pay": {}
+    },
+    {
+      "id": "steamer-trunk",
+      "shop": "demo-shop",
+      "example": true,
+      "status": "available",
+      "title": "Steamer trunk",
+      "category": "Trunks & storage",
+      "era": "Early 1900s style",
+      "price": null,
+      "dims_cm": [
+        92,
+        55,
+        55
+      ],
+      "condition": "Example item",
+      "description": "Example listing. Place it at the foot of your bed in AR and walk around it before you decide.",
+      "model": "models/example-steamer-trunk.glb",
+      "pay": {}
+    }
+  ],
+  "offer": {
+    "note": "PXD2 sets these prices; edit here and the Sell page and calculator update.",
+    "packages": [
+      {
+        "id": "starter",
+        "name": "Shop Starter",
+        "price": 1500,
+        "includes": [
+          "Your own .pxd storefront and shop page",
+          "Up to 25 pieces scanned in 3D at your shop",
+          "View-in-your-room AR on every piece",
+          "Card, PayPal and crypto checkout set up to pay you directly",
+          "Listed on PXD Antiques and in PXD Discover",
+          "PXD2 Vault: your site kept permanently"
+        ]
+      },
+      {
+        "id": "showroom",
+        "name": "VR Showroom",
+        "price": 3500,
+        "includes": [
+          "Everything in Shop Starter",
+          "Up to 100 pieces scanned",
+          "Walk-through 3D/VR showroom of your shop",
+          "Your shop as a world on the PXD VR Net"
+        ]
+      }
+    ],
+    "extra_piece": 25,
+    "inventory_update_self": 0,
+    "inventory_update_done_for_you": 10,
+    "card_rate": 0.029,
+    "card_fixed": 0.3,
+    "competitors": {
+      "ebay": {
+        "label": "eBay",
+        "pct": 0.149,
+        "fixed": 0.0,
+        "monthly": 0,
+        "source": "https://ecomcalctools.com/blog/fees-ebay/ebay-antiques-fees/"
+      },
+      "etsy": {
+        "label": "Etsy",
+        "pct": 0.095,
+        "fixed": 0.25,
+        "monthly": 0,
+        "source": "https://checkoutpage.com/blog/etsy-fees"
+      },
+      "shopify": {
+        "label": "Shopify Basic",
+        "pct": 0.029,
+        "fixed": 0.3,
+        "monthly": 27,
+        "source": "https://craftshift.com/shopify-basic-plan-2026/"
+      }
+    }
+  }
+}
