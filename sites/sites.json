@@ -72,7 +72,7 @@
           "id": "college",
           "name": "College",
           "href": "/college/",
-          "blurb": "Reform BA against Witherspoon\u2019s Princeton."
+          "blurb": "Reform BA against Witherspoon’s Princeton."
         },
         {
           "id": "hornet",
@@ -98,6 +98,18 @@
       "id": "works",
       "title": "Works and floor",
       "sites": [
+        {
+          "id": "games",
+          "name": "Mud for Blood",
+          "href": "/games/",
+          "blurb": "GLOBAL THEATERS: Mud for Blood. Unreal war game, Epic Games Store."
+        },
+        {
+          "id": "names",
+          "name": "PXD2 Names",
+          "href": "/names/",
+          "blurb": "Our own name system. pxd2.github.io/name, free forever."
+        },
         {
           "id": "studioa",
           "name": "Studio A",
@@ -126,7 +138,7 @@
           "id": "ternary-binary",
           "name": "Binary tern",
           "href": "https://github.com/PxD2/ternary-binary",
-          "blurb": "Ternary (base-3) \u2194 binary codec. Wire alphabet for thin hops; meaning stays in lex."
+          "blurb": "Ternary (base-3) ↔ binary codec. Wire alphabet for thin hops; meaning stays in lex."
         }
       ]
     }
