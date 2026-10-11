@@ -17,6 +17,8 @@ certificate does not allow. That stops a copied or edited store from redirecting
         -o certs/smiths-antiques.cert.json
     python pxdsign.py sign site.pxdz --key keys/smiths.key.json --cert certs/smiths-antiques.cert.json
     python pxdsign.py verify site.pxdz --authority-pub pxd/authority.json
+    python pxdsign.py registry-sign names.json --authority keys/          # after every names.json change
+    python pxdsign.py registry-verify names.json --authority-pub pxd/authority.json
 """
 import argparse, base64, datetime, hashlib, json, os, sys
 from urllib.parse import urlparse
@@ -170,6 +172,34 @@ def verify_bundle(bundle, authority_pub, today=None):
     return ok, rep
 
 
+def sign_registry(path, auth_dir):
+    """The authority signs the registry itself, so every PXD root server can prove it is genuine."""
+    a_priv = load_priv(json.load(open(os.path.join(auth_dir, "authority.key.json"))))
+    a_rec = json.load(open(os.path.join(auth_dir, "authority.json")))
+    data = open(path, "rb").read()
+    body = {"type": "pxd-registry-sig/1", "file": os.path.basename(path), "sha256": hashlib.sha256(data).hexdigest(),
+            "signed": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds"), "issuer": a_rec["kid"]}
+    json.dump({"sig": body, "signature": sign(a_priv, canon(body))}, open(path + ".sig", "w"), indent=2)
+    print(f"Signed registry {path} ({body['sha256'][:12]}) at {body['signed']} -> {path}.sig")
+
+
+def verify_registry(data, sigobj, authority):
+    """(ok, signed time or reason). `authority` is the public record (authority.json)."""
+    try:
+        body = sigobj["sig"]
+        if body.get("type") != "pxd-registry-sig/1":
+            return False, "not a registry signature"
+        if body.get("issuer") != authority["kid"]:
+            return False, f"signed by {body.get('issuer')}, not this authority"
+        if hashlib.sha256(data).hexdigest() != body.get("sha256"):
+            return False, "registry changed since signing"
+        if not verify(load_pub(authority["key"]), canon(body), sigobj["signature"]):
+            return False, "authority signature does not match"
+        return True, body["signed"]
+    except (KeyError, TypeError, ValueError) as e:
+        return False, f"malformed signature ({e})"
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sp = ap.add_subparsers(dest="cmd", required=True)
@@ -180,11 +210,17 @@ def main():
     c.add_argument("--days", type=int, default=365); c.add_argument("-o", required=True)
     d = sp.add_parser("sign"); d.add_argument("bundle"); d.add_argument("--key", required=True); d.add_argument("--cert", required=True)
     e = sp.add_parser("verify"); e.add_argument("bundle"); e.add_argument("--authority-pub", required=True)
+    f = sp.add_parser("registry-sign"); f.add_argument("registry"); f.add_argument("--authority", required=True)
+    g = sp.add_parser("registry-verify"); g.add_argument("registry"); g.add_argument("--authority-pub", required=True)
     x = ap.parse_args()
     if x.cmd == "authority-init": authority_init(x.dir, x.name)
     elif x.cmd == "merchant-key": merchant_key(x.out)
     elif x.cmd == "issue": issue(x.authority, x.merchant_pub, x.id, x.name, [h.strip() for h in x.pay_hosts.split(",") if h.strip()], x.days, x.o)
     elif x.cmd == "sign": sign_bundle(x.bundle, x.key, x.cert)
+    elif x.cmd == "registry-sign": sign_registry(x.registry, x.authority)
+    elif x.cmd == "registry-verify":
+        ok, detail = verify_registry(open(x.registry, "rb").read(), json.load(open(x.registry + ".sig")), json.load(open(x.authority_pub)))
+        print(("REGISTRY VERIFIED, signed " if ok else "NOT VERIFIED: ") + detail); sys.exit(0 if ok else 1)
     elif x.cmd == "verify":
         ok, rep = verify_bundle(x.bundle, x.authority_pub)
         for c_ in rep["checks"]:
