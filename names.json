@@ -1,21 +1,33 @@
 {
   "registry": "PXD2 Names",
   "base": "https://pxd2.github.io/",
+  "tld": ".pxd",
+  "hubs": [
+    {
+      "id": "pxd2",
+      "name": "PXD2 main hub",
+      "registry": "https://pxd2.github.io/names.json",
+      "repo": "PxD2/PxD2.github.io"
+    }
+  ],
   "names": {
     "mudforblood": {
       "to": "/games/",
       "title": "GLOBAL THEATERS: Mud for Blood",
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "world": "page"
     },
     "globaltheaters": {
       "to": "/games/",
       "title": "GLOBAL THEATERS franchise",
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "world": "page"
     },
     "pxd2games": {
       "to": "/games/",
       "title": "PXD2 Games",
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "world": "page"
     },
     "tunnelrats": {
       "to": "/games/",
@@ -161,11 +173,18 @@
       "to": "/clients/propshop/",
       "title": "PXD2 Prop Shop (VR store)",
       "added": "2026-10-11",
-      "client": true
+      "client": true,
+      "world": "store"
     },
     "vrstore": {
       "to": "/clients/propshop/",
       "title": "PXD2 VR store demo",
+      "added": "2026-10-11",
+      "world": "store"
+    },
+    "vrnet": {
+      "to": "/vr/",
+      "title": "PXD2 VR Net",
       "added": "2026-10-11"
     }
   }

@@ -3,6 +3,7 @@
   var SITES = [
     { name: "Sites", href: "/sites/" },
     { name: "Games", href: "/games/" },
+    { name: "VR Net", href: "/vr/" },
     { name: "RV", href: "/rv/" },
     { name: "HOLD", href: "/hold/" },
     { name: "Hugs", href: "/hugs/" },
