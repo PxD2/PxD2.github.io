@@ -16,7 +16,7 @@ from PyQt6.QtCore import QUrl, Qt, pyqtSignal, QObject
 from PyQt6.QtGui import QAction, QKeySequence, QIcon
 from PyQt6.QtWidgets import QApplication, QMainWindow, QTabWidget, QToolBar, QLineEdit, QLabel, QWidget, QSizePolicy
 from PyQt6.QtWebEngineWidgets import QWebEngineView
-from PyQt6.QtWebEngineCore import QWebEnginePage
+from PyQt6.QtWebEngineCore import QWebEnginePage, QWebEngineSettings
 
 APP = "PXD Browser"
 MAIN_REGISTRY = os.environ.get("PXD_REGISTRY", "https://pxd2.github.io/names.json")
@@ -199,7 +199,8 @@ class Browser(QMainWindow):
         for label, key, fn in (("◀", QKeySequence.StandardKey.Back, lambda: self.current().back()),
                                ("▶", QKeySequence.StandardKey.Forward, lambda: self.current().forward()),
                                ("⟳", QKeySequence.StandardKey.Refresh, lambda: self.current().reload()),
-                               ("Discover", None, lambda: self.show_discover())):
+                               ("Discover", None, lambda: self.show_discover()),
+                               ("Stores", None, lambda: self.show_stores())):
             a = QAction(label, self)
             if key:
                 a.setShortcut(key)
@@ -261,6 +262,14 @@ class Browser(QMainWindow):
             self.show_discover()
 
     # navigation
+    def show_stores(self):
+        """Universal store view: renders every .pxd store's data stream and checks its merchant certificate."""
+        v = self.current()
+        v.settings().setAttribute(QWebEngineSettings.WebAttribute.LocalContentCanAccessRemoteUrls, True)
+        self.discovering.discard(v)
+        v.setUrl(QUrl.fromLocalFile(os.path.join(os.path.dirname(os.path.abspath(__file__)), "stores.html")))
+        self.addr.setText("stores.pxd")
+
     def show_discover(self, query="", view=None):
         v = view or self.current()
         self.discovering.add(v)
@@ -272,6 +281,8 @@ class Browser(QMainWindow):
         text = self.addr.text().strip()
         if not text:
             return self.show_discover()
+        if text.lower().rstrip("/") in ("stores", "stores.pxd", "pxd://stores"):
+            return self.show_stores()
         target, _ = self.reg.resolve(text)
         if target:
             return self.current().setUrl(QUrl(target))

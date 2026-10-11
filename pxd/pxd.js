@@ -122,5 +122,38 @@
     };
     return bundle;
   }
-  root.PXDZ = { open: open, version: 1 };
+  // ---------- merchant authentication: authority -> certificate -> bundle (ECDSA P-256 / SHA-256) ----------
+  function canonJSON(v) { return canon(v); }
+  function b64u(s) { s = s.replace(/-/g, "+").replace(/_/g, "/"); while (s.length % 4) s += "="; return Uint8Array.from(atob(s), function (c) { return c.charCodeAt(0); }); }
+  async function ecKey(jwk) { return crypto.subtle.importKey("jwk", { kty: "EC", crv: "P-256", x: jwk.x, y: jwk.y, ext: true }, { name: "ECDSA", namedCurve: "P-256" }, false, ["verify"]); }
+  async function ecVerify(jwk, obj, sig) { return crypto.subtle.verify({ name: "ECDSA", hash: "SHA-256" }, await ecKey(jwk), b64u(sig), enc.encode(canonJSON(obj))); }
+  function hostOf(u) { try { return new URL(u).hostname; } catch (e) { return ""; } }
+  /* verify(bundleBytes, sigObject, authorityRecord, payLinks?) -> {ok, merchant, checks:[{check, ok, detail}]} */
+  async function verify(bytes, sig, authority, payLinks) {
+    var checks = [], ok = true, cert = sig && sig.cert && sig.cert.cert;
+    function chk(name, pass, detail) { checks.push({ check: name, ok: !!pass, detail: detail || "" }); ok = ok && !!pass; }
+    if (!cert) { chk("signature present", false); return { ok: false, checks: checks }; }
+    chk("certificate issued by this authority", cert.issuer === authority.kid, cert.issuer);
+    chk("authority signature on certificate", await ecVerify(authority.key, cert, sig.cert.sig));
+    var today = new Date().toISOString().slice(0, 10);
+    chk("certificate in date", cert.issued <= today && today <= cert.expires, cert.issued + " to " + cert.expires);
+    chk("bundle unchanged since signing", (await sha256(bytes instanceof Uint8Array ? bytes : new Uint8Array(bytes))) === sig.sig.sha256);
+    chk("merchant signature on bundle", await ecVerify(cert.key, sig.sig, sig.signature));
+    if (payLinks) {
+      var bad = payLinks.filter(function (u) { return cert.pay_hosts.indexOf(hostOf(u)) < 0; });
+      chk("pay links within certificate", !bad.length, bad.join(", ") || payLinks.length + " link(s) allowed");
+    }
+    return { ok: ok, merchant: { id: cert.merchant, name: cert.name, expires: cert.expires, pay_hosts: cert.pay_hosts }, checks: checks };
+  }
+  function collectPayLinks(obj) {
+    var out = [];
+    (function walk(o, pay) {
+      if (Array.isArray(o)) o.forEach(function (v) { walk(v, pay); });
+      else if (o && typeof o === "object") Object.keys(o).forEach(function (k) { walk(o[k], pay || k === "pay"); });
+      else if (typeof o === "string" && pay && /^https?:/.test(o)) out.push(o);
+    })(obj, false);
+    return out;
+  }
+
+  root.PXDZ = { open: open, verify: verify, payLinks: collectPayLinks, version: 1 };
 })(typeof window !== "undefined" ? window : self);

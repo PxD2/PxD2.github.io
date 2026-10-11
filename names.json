@@ -389,7 +389,11 @@
       "group": "Stores & VR",
       "native": true,
       "world": "store",
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "store": {
+        "bundle": "https://raw.githubusercontent.com/PxD2/PxD2.github.io/main/pxd/demo/antiques.pxdz",
+        "sig": "https://raw.githubusercontent.com/PxD2/PxD2.github.io/main/pxd/demo/antiques.pxdz.sig"
+      }
     },
     "shop": {
       "to": "/antiques/",
@@ -425,5 +429,18 @@
     "Learning",
     "Tools & making",
     "Social & contact"
+  ],
+  "authorities": [
+    {
+      "name": "PXD Demo Authority (not for real stores)",
+      "kid": "470248bfcd284625",
+      "key": {
+        "kty": "EC",
+        "crv": "P-256",
+        "x": "g6pov5uUU-s1iLM-TdtX_FboGLKtbIMUxEW1D71zj1E",
+        "y": "KqYiHC1qOdNBUp-vlYBSrahdi5roOP80hr6r-kg28uc"
+      },
+      "demo": true
+    }
   ]
 }
