@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PXD2 VR Net</title>
+<meta name="description" content="A VR web of its own: .pxd worlds held on GitHub and PXD2 sub-hubs. Type a .pxd name or walk through a portal.">
+<meta property="og:title" content="PXD2 VR Net">
+<meta property="og:image" content="https://pxd2.github.io/games/og.jpg">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root { --bg:#0b0b0a; --panel:#161513; --line:#2e2a24; --fg:#e8dfc8; --muted:#a39a88; --tan:#c9a46a; --red:#c8282c; color-scheme: dark; }
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: var(--bg); color: var(--fg); font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; overflow: hidden; }
+#stage { position: fixed; inset: 0; }
+.bar { position: fixed; z-index: 5; top: 12px; left: 50%; transform: translateX(-50%); width: min(640px, calc(100vw - 24px)); display: flex; gap: 8px; align-items: center; background: rgba(22,21,19,.92); border: 1px solid var(--line); border-radius: 999px; padding: 6px 6px 6px 14px; }
+.bar b { font: 400 16px "Black Ops One", Impact, sans-serif; color: var(--red); white-space: nowrap; }
+.bar input { flex: 1; min-width: 0; font: 500 16px "IBM Plex Mono", monospace; color: var(--fg); background: transparent; border: 0; padding: 8px 4px; }
+.bar input:focus { outline: none; }
+.bar:focus-within { border-color: var(--tan); }
+.bar button, .vr { font: 600 14px system-ui, sans-serif; border-radius: 999px; border: 0; padding: 9px 16px; background: var(--tan); color: #14100a; cursor: pointer; }
+.msg { position: fixed; z-index: 5; top: 64px; left: 50%; transform: translateX(-50%); font: 13px "IBM Plex Mono", monospace; color: var(--muted); text-align: center; width: calc(100vw - 24px); min-height: 1.4em; }
+.dir { position: fixed; z-index: 5; left: 12px; bottom: 12px; max-height: 40vh; overflow: auto; width: min(320px, calc(100vw - 24px)); background: rgba(22,21,19,.92); border: 1px solid var(--line); border-radius: 10px; padding: 10px; }
+.dir h2 { font: 400 14px "Black Ops One", Impact, sans-serif; letter-spacing: .06em; margin: 0 0 6px; color: var(--tan); }
+.dir a { display: block; font: 13px "IBM Plex Mono", monospace; color: var(--fg); text-decoration: none; padding: 4px 2px; overflow-wrap: anywhere; }
+.dir a span { color: var(--muted); }
+.vr { position: fixed; z-index: 6; right: 12px; bottom: 12px; }
+button:focus-visible, a:focus-visible { outline: 2px solid var(--tan); outline-offset: 2px; }
+@media (max-width: 560px) { .dir { max-height: 28vh; } }
+</style>
+</head>
+<body>
+<div id="stage" aria-label="VR Net plaza. Each doorway is a .pxd world. Click or tap one to go through."></div>
+<form class="bar" id="go" autocomplete="off">
+  <b>PXD</b>
+  <input id="addr" type="text" spellcheck="false" placeholder="propshop.pxd" aria-label="Type a .pxd address">
+  <button type="submit">Go</button>
+</form>
+<div class="msg" id="msg" aria-live="polite">Loading the hubs…</div>
+<nav class="dir" aria-label="Every .pxd name"><h2>.PXD DIRECTORY</h2><div id="dir"></div></nav>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+(function () {
+  "use strict";
+  var MAIN = "/names.json", names = {}, hubs = [];
+  var $ = function (s) { return document.querySelector(s); };
+  function say(t) { $("#msg").textContent = t; }
+
+  // ---------- Resolver: merge the main registry with every sub-hub registry ----------
+  function getJSON(u) { return fetch(u, { cache: "no-store" }).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }); }
+  function absolute(to, base) {
+    if (/^(https?:|mailto:)/.test(to)) return to;
+    try { return new URL(to, base).href; } catch (e) { return to; }
+  }
+  function load() {
+    return getJSON(MAIN).then(function (main) {
+      hubs = main.hubs || [];
+      Object.keys(main.names).forEach(function (k) { names[k] = Object.assign({ hub: "pxd2", url: absolute(main.names[k].to, location.origin + "/") }, main.names[k]); });
+      var subs = hubs.filter(function (h) { return h.registry && !/pxd2\.github\.io\/names\.json$/.test(h.registry); });
+      return Promise.all(subs.map(function (h) {
+        return getJSON(h.registry).then(function (reg) {
+          Object.keys(reg.names || {}).forEach(function (k) {
+            var key = names[k] ? k + "." + h.id : k;   // main hub keeps its names; a sub-hub's duplicate becomes name.hubid
+            names[key] = Object.assign({ hub: h.id, url: absolute(reg.names[k].to, h.registry) }, reg.names[k]);
+          });
+        }).catch(function () { /* a sub-hub being down never breaks the net */ });
+      }));
+    });
+  }
+  function resolve(input) {
+    var n = String(input || "").trim().toLowerCase().replace(/^pxd:\/\//, "").replace(/\/.*$/, "").replace(/\.pxd2?$/, "");
+    return n && names[n] ? { name: n, entry: names[n] } : null;
+  }
+  function go(input) {
+    var r = resolve(input);
+    if (!r) { say((input || "") + " is not a registered .pxd name."); return; }
+    say(r.name + ".pxd → " + r.entry.url);
+    location.href = r.entry.url;
+  }
+  $("#go").addEventListener("submit", function (e) { e.preventDefault(); go($("#addr").value); });
+
+  // ---------- The plaza: one doorway per world ----------
+  var mount = $("#stage");
+  var renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2)); renderer.setSize(mount.clientWidth, mount.clientHeight);
+  renderer.outputEncoding = THREE.sRGBEncoding; renderer.xr.enabled = true; mount.appendChild(renderer.domElement);
+  var scene = new THREE.Scene(); scene.background = new THREE.Color("#0b0b0a"); scene.fog = new THREE.Fog("#0b0b0a", 14, 34);
+  var camera = new THREE.PerspectiveCamera(62, mount.clientWidth / mount.clientHeight, 0.05, 120); camera.position.set(0, 3, 11);
+  scene.add(new THREE.HemisphereLight(0xfff2dd, 0x14120f, 0.8));
+  var sun = new THREE.DirectionalLight(0xffffff, 0.7); sun.position.set(5, 10, 6); scene.add(sun);
+  var ground = new THREE.Mesh(new THREE.CircleGeometry(30, 72), new THREE.MeshStandardMaterial({ color: 0x15130f, roughness: 0.95 }));
+  ground.rotation.x = -Math.PI / 2; scene.add(ground);
+  var grid = new THREE.PolarGridHelper(26, 24, 10, 64, 0x2e2a24, 0x221f1a); grid.position.y = 0.01; scene.add(grid);
+  var controls = new THREE.OrbitControls(camera, renderer.domElement);
+  controls.target.set(0, 1.6, 0); controls.enableDamping = true; controls.maxPolarAngle = Math.PI * 0.49; controls.minDistance = 3; controls.maxDistance = 22;
+  controls.autoRotate = !(matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches); controls.autoRotateSpeed = 0.35;
+  controls.addEventListener("start", function () { controls.autoRotate = false; });
+
+  function sign(text, sub, color) {
+    var c = document.createElement("canvas"); c.width = 512; c.height = 140; var g = c.getContext("2d");
+    g.fillStyle = "rgba(11,11,10,.9)"; g.fillRect(0, 0, 512, 140); g.strokeStyle = color; g.lineWidth = 4; g.strokeRect(2, 2, 508, 136);
+    g.fillStyle = "#e8dfc8"; g.font = "600 44px ui-monospace, monospace"; g.fillText(text.slice(0, 20), 20, 60);
+    g.fillStyle = color; g.font = "500 28px system-ui, sans-serif"; g.fillText(sub.slice(0, 32), 20, 112);
+    var s = new THREE.Sprite(new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(c) })); s.scale.set(2.6, 0.72, 1); return s;
+  }
+  var doors = [];
+  function buildPlaza() {
+    var list = Object.keys(names).filter(function (k) { return names[k].world; }).sort();
+    var extra = Object.keys(names).filter(function (k) { return !names[k].world && /^\//.test(names[k].to || "") ; }).sort().slice(0, Math.max(0, 12 - list.length));
+    var all = list.concat(extra);
+    all.forEach(function (k, i) {
+      var e = names[k], a = (i / all.length) * Math.PI * 2, r = 9;
+      var g = new THREE.Group(); g.position.set(Math.sin(a) * r, 0, Math.cos(a) * r); g.lookAt(0, 0, 0);
+      var color = e.world === "store" ? "#c9a46a" : e.world ? "#c8282c" : "#a39a88";
+      var mat = new THREE.MeshStandardMaterial({ color: 0x2e2a24, roughness: 0.6 });
+      var post = new THREE.BoxGeometry(0.25, 3, 0.25);
+      var l = new THREE.Mesh(post, mat); l.position.set(-0.9, 1.5, 0); var rr = new THREE.Mesh(post, mat); rr.position.set(0.9, 1.5, 0);
+      var top = new THREE.Mesh(new THREE.BoxGeometry(2.05, 0.25, 0.25), mat); top.position.set(0, 3, 0);
+      var glow = new THREE.Mesh(new THREE.PlaneGeometry(1.55, 2.85), new THREE.MeshBasicMaterial({ color: new THREE.Color(color), transparent: true, opacity: 0.28, side: THREE.DoubleSide }));
+      glow.position.set(0, 1.45, 0); glow.userData.name = k;
+      var s = sign(k + ".pxd", e.title || "", color); s.position.set(0, 3.7, 0);
+      g.add(l, rr, top, glow, s); scene.add(g); doors.push(glow);
+    });
+  }
+  function buildDirectory() {
+    var box = $("#dir"); box.textContent = "";
+    Object.keys(names).sort().forEach(function (k) {
+      var a = document.createElement("a"); a.href = names[k].url;
+      a.append(document.createTextNode(k + ".pxd ")); var sp = document.createElement("span"); sp.textContent = names[k].title || ""; a.append(sp);
+      box.append(a);
+    });
+  }
+
+  var ray = new THREE.Raycaster(), v = new THREE.Vector2(), down = null;
+  renderer.domElement.addEventListener("pointerdown", function (e) { down = [e.clientX, e.clientY]; });
+  renderer.domElement.addEventListener("pointerup", function (e) {
+    if (!down || Math.hypot(e.clientX - down[0], e.clientY - down[1]) > 6) return; down = null;
+    var r = renderer.domElement.getBoundingClientRect();
+    v.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1); ray.setFromCamera(v, camera);
+    var hit = ray.intersectObjects(doors)[0]; if (hit) go(hit.object.userData.name);
+  });
+  [0, 1].forEach(function (i) {
+    var c = renderer.xr.getController(i); scene.add(c);
+    var line = new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(), new THREE.Vector3(0, 0, -1)]), new THREE.LineBasicMaterial({ color: 0xc9a46a })); line.scale.z = 12; c.add(line);
+    c.addEventListener("select", function () {
+      var m = new THREE.Matrix4().extractRotation(c.matrixWorld);
+      ray.ray.origin.setFromMatrixPosition(c.matrixWorld); ray.ray.direction.set(0, 0, -1).applyMatrix4(m);
+      var hit = ray.intersectObjects(doors)[0]; if (hit) { var s = renderer.xr.getSession(); var n = hit.object.userData.name; (s ? s.end() : Promise.resolve()).then(function () { go(n); }); }
+    });
+  });
+  if (navigator.xr && navigator.xr.isSessionSupported) navigator.xr.isSessionSupported("immersive-vr").then(function (ok) {
+    if (!ok) return; var b = document.createElement("button"); b.className = "vr"; b.type = "button"; b.textContent = "Enter VR";
+    b.addEventListener("click", function () {
+      var cur = renderer.xr.getSession(); if (cur) { cur.end(); return; }
+      navigator.xr.requestSession("immersive-vr", { optionalFeatures: ["local-floor"] }).then(function (s) {
+        renderer.xr.setSession(s); b.textContent = "Exit VR"; s.addEventListener("end", function () { b.textContent = "Enter VR"; });
+      }).catch(function () { b.textContent = "VR unavailable"; });
+    }); document.body.append(b);
+  }).catch(function () {});
+
+  addEventListener("resize", function () { renderer.setSize(mount.clientWidth, mount.clientHeight); camera.aspect = mount.clientWidth / mount.clientHeight; camera.updateProjectionMatrix(); });
+  var clock = new THREE.Clock();
+  renderer.setAnimationLoop(function () {
+    var t = clock.getElapsedTime(); doors.forEach(function (d, i) { d.material.opacity = 0.2 + 0.12 * Math.sin(t * 1.6 + i); });
+    controls.update(); renderer.render(scene, camera);
+  });
+
+  load().then(function () {
+    buildPlaza(); buildDirectory();
+    say(Object.keys(names).length + " .pxd names across " + Math.max(hubs.length, 1) + " hub" + (hubs.length > 1 ? "s" : "") + ". Type a name or walk through a door.");
+    var h = decodeURIComponent(location.hash.slice(1)); if (h && /^[a-z0-9.-]+$/i.test(h)) { $("#addr").value = h; go(h); }
+  }).catch(function () { say("Couldn't load the .pxd registry. Check your connection."); });
+})();
+</script>
+<script src="/sites.js" defer></script>
+</body>
+</html>
