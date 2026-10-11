@@ -67,9 +67,19 @@
     return (publicBook = map);
   }
 
+  /* Try each source in order until one answers (multi-main repositories, gateways). */
+  async function fetchAny(urls, as) {
+    var list = Array.isArray(urls) ? urls : [urls], last = null;
+    for (var i = 0; i < list.length; i++) {
+      try { var r = await fetch(list[i], { cache: "no-store" }); if (!r.ok) throw new Error(r.status + " " + list[i]); return as === "json" ? await r.json() : await r.arrayBuffer(); }
+      catch (e) { last = e; }
+    }
+    throw last || new Error("No source answered.");
+  }
+
   async function open(src, opts) {
     opts = opts || {};
-    var buf = src instanceof ArrayBuffer ? src : await (await fetch(src)).arrayBuffer();
+    var buf = src instanceof ArrayBuffer ? src : await fetchAny(src);
     var u8 = new Uint8Array(buf);
     if (dec.decode(u8.slice(0, 4)) !== MAGIC) throw new Error("Not a PXDZ file.");
     var dv = new DataView(buf), mlen = dv.getUint32(5, true);
@@ -155,5 +165,5 @@
     return out;
   }
 
-  root.PXDZ = { open: open, verify: verify, payLinks: collectPayLinks, version: 1 };
+  root.PXDZ = { open: open, verify: verify, payLinks: collectPayLinks, fetchAny: fetchAny, version: 1 };
 })(typeof window !== "undefined" ? window : self);

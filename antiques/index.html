@@ -167,10 +167,10 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid 
     fact("Era", it.era); fact("Condition", it.condition); fact("Category", it.category);
     right.appendChild(dl);
     if (it.status !== "sold") {
-      var links = Object.assign({}, C.pay || {}, it.pay || {}), buy = el("div", "buy"), any = false;
-      Object.keys(PAY).forEach(function (k, n) { var u = safe(links[k]); if (!u) return; var a = el("a", "btn" + (any ? "" : " primary"), PAY[k]); a.href = u; a.target = "_blank"; a.rel = "noopener"; buy.appendChild(a); any = true; });
-      var w = Object.assign({}, C.wallets || {}, it.wallets || {});
-      Object.keys(WAL).forEach(function (k) { if (!(w[k] || "").trim()) return; any = true; var box = el("div", "wallet"); box.append(el("b", null, "Pay with " + WAL[k]), el("code", null, w[k].trim()), el("span", "note", "Send the price shown, then email your transaction ID with the item name.")); buy.appendChild(box); });
+      // This GitHub Pages page is the showcase. Buying happens in PXD Stores (PXD Browser or a PXD Gateway),
+      // where each merchant's certificate is checked before any pay button appears.
+      var buy = el("div", "buy"), any = false;
+      if (safe(C.buy_url)) { var bu = el("a", "btn primary", "Buy in PXD Stores"); bu.href = C.buy_url + "#" + encodeURIComponent(it.id); bu.target = "_blank"; bu.rel = "noopener"; buy.appendChild(bu); any = true; }
       var ask = el("a", "btn" + (any ? "" : " primary"), any ? "Ask about this piece" : "Ask to buy this piece");
       var who = shop(it.shop).contact || C.contact;
       ask.href = "mailto:" + who + "?subject=" + encodeURIComponent("PXD Antiques: " + it.title) + "&body=" + encodeURIComponent("I'm interested in " + it.title + " (" + location.href + ").");

@@ -45,8 +45,8 @@ h1 { font: 800 32px Impact, "Arial Narrow", sans-serif; letter-spacing: .03em; m
 
   async function openStore(s) {
     if (opened[s.name]) return opened[s.name];
-    var bytes = await (await fetch(s.store.bundle, { cache: "no-store" })).arrayBuffer();
-    var sig = s.store.sig ? await (await fetch(s.store.sig, { cache: "no-store" })).json().catch(function () { return null; }) : null;
+    var bytes = await PXDZ.fetchAny(s.store.bundle);
+    var sig = s.store.sig ? await PXDZ.fetchAny(s.store.sig, "json").catch(function () { return null; }) : null;
     var bundle = await PXDZ.open(bytes);
     var jsonParts = bundle.list().filter(function (p) { return /\.json$/.test(p.path); });
     var catPart = jsonParts.find(function (p) { return /catalog\.json$/.test(p.path); }) || jsonParts[0];
@@ -114,8 +114,9 @@ h1 { font: 800 32px Impact, "Arial Narrow", sans-serif; letter-spacing: .03em; m
     if (!items.length) grid.appendChild(el("p", "empty", "This store has no items yet."));
   }
 
-  fetch(REGISTRY, { cache: "no-store" }).then(function (r) { return r.json(); }).then(function (r) {
-    reg = r; stores = Object.keys(r.names).filter(function (k) { return r.names[k].store && r.names[k].store.bundle; }).map(function (k) { return Object.assign({ name: k }, r.names[k]); });
+  var known = []; try { known = JSON.parse(localStorage.getItem("pxd-registry-mirrors") || "[]"); } catch (e) {}
+  PXDZ.fetchAny([REGISTRY].concat(known), "json").then(function (r) {
+    reg = r; try { localStorage.setItem("pxd-registry-mirrors", JSON.stringify((r.mirrors && r.mirrors.registry) || [])); } catch (e) {} stores = Object.keys(r.names).filter(function (k) { return r.names[k].store && r.names[k].store.bundle; }).map(function (k) { return Object.assign({ name: k }, r.names[k]); });
     list();
   }).catch(function () { app.textContent = "Couldn't reach the .pxd registry."; });
 })();
