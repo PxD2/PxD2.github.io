@@ -39,6 +39,8 @@
       show: function (p) {
         body.textContent = "";
         if (p.example) body.appendChild(el("span", "vs-tag", "Example item"));
+        if (store.pitch) body.appendChild(el("span", "vs-tag", "Preview"));
+        if (safeUrl(p.image)) { var im = el("img", "vs-img"); im.src = p.image; im.alt = p.name || ""; im.loading = "lazy"; body.appendChild(im); }
         body.appendChild(el("h2", "vs-name", p.name));
         var price = money(p.price, store.currency); if (price) body.appendChild(el("div", "vs-price", price));
         if (p.description) body.appendChild(el("p", "vs-desc", p.description));
@@ -69,6 +71,7 @@
         if (anyW) { body.appendChild(el("h3", "vs-h", "Pay with crypto")); body.appendChild(wb);
           body.appendChild(el("p", "vs-note", "Send the amount shown, then email your transaction ID to " + (store.contact || "the store") + ".")); }
         if (!any && !anyW) body.appendChild(el("p", "vs-note", "Payment options for this store aren't set up yet."));
+        if (safeUrl(p.source)) { var src = el("a", "vs-btn", "See it on the current site"); src.href = p.source; src.target = "_blank"; src.rel = "noopener"; body.appendChild(src); }
         if (store.contact) body.appendChild(el("p", "vs-note", "Questions: " + store.contact));
         root.hidden = false; close.focus();
       }
