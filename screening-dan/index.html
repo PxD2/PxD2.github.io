@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>PXD2 Screening Room</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a dark screening room — title card, two screens, then a short spec sheet and the deal */
+:root {
+  color-scheme: dark;
+  --bg: #0b0d10;
+  --panel: #13171c;
+  --line: #262c34;
+  --fg: #e9ecef;
+  --muted: #9aa3ad;
+  --accent: #e8893a;
+  --display: "Barlow Condensed", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", Roboto, Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+html, body { background: var(--bg); color: var(--fg); margin: 0; }
+body { font-family: var(--body); font-size: 16px; line-height: 1.55; }
+.wrap { max-width: 1040px; margin: 0 auto; padding-block: 40px 64px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; gap: 56px; }
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+h1, h2 { font-family: var(--display); text-transform: uppercase; letter-spacing: .02em; margin: 0; text-wrap: balance; line-height: 1; }
+h1 { font-size: clamp(44px, 9vw, 92px); font-weight: 700; }
+h1 span { color: var(--accent); }
+h2 { font-size: clamp(28px, 4.4vw, 40px); font-weight: 600; }
+p { margin: 0; max-width: 64ch; }
+.lede { color: var(--muted); font-size: 18px; }
+header { display: grid; gap: 16px; }
+.screen { display: grid; gap: 16px; }
+.screen-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; }
+.tag { font-family: var(--mono); font-size: 12px; color: var(--muted); letter-spacing: .06em; }
+video { width: 100%; max-width: 100%; aspect-ratio: 16 / 9; background: #000; display: block; border: 1px solid var(--line); }
+.specs { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+.spec { background: var(--panel); padding: 18px 20px; display: grid; gap: 6px; min-width: 0; }
+.spec b { font-family: var(--display); font-size: 26px; font-weight: 600; letter-spacing: .02em; text-transform: uppercase; }
+.spec span { color: var(--muted); font-size: 14px; }
+.deal { display: grid; gap: 16px; border-top: 2px solid var(--accent); padding-top: 24px; }
+.deal ul { margin: 0; padding-left: 20px; display: grid; gap: 6px; max-width: 70ch; }
+.deal li::marker { color: var(--accent); }
+footer { color: var(--muted); font-size: 13px; font-family: var(--mono); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Prepared for Dan Green · Founding Partner</div>
+    <h1>What we're <span>selling</span></h1>
+    <p class="lede">PXD2's first game, Global Theaters: Mud for Blood, launches on the Epic Games Store on January 1, 2027. Below is the trailer submitted to Epic, then the 30-second PXD2 spot showing the systems inside the game.</p>
+  </header>
+
+  <section class="screen" aria-labelledby="t1">
+    <div class="screen-head">
+      <h2 id="t1">Global Theaters: Mud for Blood</h2>
+      <span class="tag">Epic Store trailer · 0:30 · v4.7 submission</span>
+    </div>
+    <video id="trailer" controls playsinline preload="metadata" poster="trailer.jpg">
+      <source src="trailer.mp4" type="video/mp4">
+    </video>
+  </section>
+
+  <section class="screen" aria-labelledby="t2">
+    <div class="screen-head">
+      <h2 id="t2">PXD2 — Keeping the front secured</h2>
+      <span class="tag">PXD2 spot · 0:30 · Marlin, JPJ Mini Frigate, YOLO</span>
+    </div>
+    <video id="spot" controls playsinline preload="metadata" poster="spot.jpg">
+      <source src="spot.mp4" type="video/mp4">
+    </video>
+  </section>
+
+  <section aria-labelledby="t3" style="display:grid;gap:20px">
+    <h2 id="t3">The game at launch</h2>
+    <div class="specs">
+      <div class="spec"><b>Jan 1, 2027</b><span>Epic Games Store, 6-month exclusive; Steam and other stores about July 2027</span></div>
+      <div class="spec"><b>13 original maps</b><span>Blacksite, Fort Hadley, Japan Canal, Petra, Qasr, Souk, Strait, Tunnel Rats and more</span></div>
+      <div class="spec"><b>Combined arms</b><span>Fleet war, campaign, battle royale, team deathmatch, capture the flag, 8-player co-op vs AI</span></div>
+      <div class="spec"><b>Unreal Engine 5</b><span>97,215 lines of original C++; packaged Win64 build ready; 20 mode/map runs with zero crashes</span></div>
+      <div class="spec"><b>Day-one extras</b><span>$10 Founders Pack, premium membership, $4.99 “1956 Speedster” shop item</span></div>
+      <div class="spec"><b>A franchise</b><span>VIATCONG next (2028), then Sand Line, Red Delta and Steel Shore packs on the same engine</span></div>
+    </div>
+  </section>
+
+  <section class="deal" aria-labelledby="t4">
+    <h2 id="t4">Where you come in</h2>
+    <ul>
+      <li>Your restored 1956 Thunderbird joins PXD2 at an agreed $40,000 and becomes the brand icon, scanned into the games as the “1956 Speedster.”</li>
+      <li>You receive 5,000 Units, 5% of all of PXD2: the games and their player data, the learning titles, AI systems, droids, defense-oriented designs, film and code.</li>
+      <li>You hold a Founding Partner Director seat on the Board from day one.</li>
+      <li>You earn your share of profits, a 2% Speedster royalty for 5 years up to $25,000, and 5% of any sale of the company.</li>
+    </ul>
+    <p class="lede">Full terms are in the Founding Partner Agreement (Plain-Language Edition).</p>
+  </section>
+
+  <footer>PXD2 · Confidential · Prepared October 2026</footer>
+</div>
+</body>
+</html>
