@@ -45,6 +45,11 @@ video { width: 100%; max-width: 100%; aspect-ratio: 16 / 9; background: #000; di
 .deal { display: grid; gap: 16px; border-top: 2px solid var(--accent); padding-top: 24px; }
 .deal ul { margin: 0; padding-left: 20px; display: grid; gap: 6px; max-width: 70ch; }
 .deal li::marker { color: var(--accent); }
+.gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+.gallery figure { margin: 0; display: grid; gap: 8px; min-width: 0; }
+.gallery img { width: 100%; max-width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; border: 1px solid var(--line); background: #000; }
+.gallery figcaption { font-size: 14px; color: var(--muted); }
+.gallery figcaption b { color: var(--fg); font-weight: 500; }
 footer { color: var(--muted); font-size: 13px; font-family: var(--mono); }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 </style>
@@ -76,6 +81,24 @@ footer { color: var(--muted); font-size: 13px; font-family: var(--mono); }
     <video id="spot" controls playsinline preload="metadata" poster="spot.jpg">
       <source src="spot.mp4" type="video/mp4">
     </video>
+  </section>
+
+  <section class="screen" aria-labelledby="t5">
+    <div class="screen-head">
+      <h2 id="t5">TALON-EYE in the game</h2>
+      <span class="tag">Captured in-engine · build v5.5 · Oct 15, 2026</span>
+    </div>
+    <p class="lede">TALON-EYE is PXD2's own sighting system. In the game it runs on soldiers, jets, ships and missiles: see through walls, lock at range, ride the seeker in.</p>
+    <div class="gallery">
+      <figure><img src="talon1.jpg" alt="Soldier sight: Blue TALON-EYE view at night. Enemy soldiers are outlined through walls and tagged in range." loading="lazy"><figcaption><b>Soldier sight.</b> Blue TALON-EYE view at night. Enemy soldiers are outlined through walls and tagged in range.</figcaption></figure>
+      <figure><img src="talon2.jpg" alt="Street sweep: TALON-EYE over the town in Slaughter House: every contact boxed, with the building and terrain minimap at top left." loading="lazy"><figcaption><b>Street sweep.</b> TALON-EYE over the town in Slaughter House: every contact boxed, with the building and terrain minimap at top left.</figcaption></figure>
+      <figure><img src="talon3.jpg" alt="Night vision: Digital night-vision HMD mode, green phosphor, inside the compound at night." loading="lazy"><figcaption><b>Night vision.</b> Digital night-vision HMD mode, green phosphor, inside the compound at night.</figcaption></figure>
+      <figure><img src="talon4.jpg" alt="Lights out: Night with vision off: TALON-EYE still shows contacts as diamonds across the waterfront." loading="lazy"><figcaption><b>Lights out.</b> Night with vision off: TALON-EYE still shows contacts as diamonds across the waterfront.</figcaption></figure>
+      <figure><img src="talon5.jpg" alt="Platform sight, 1x: Delta Dagger TALON-EYE platform sight over the fleet: tracks, threat list and radar." loading="lazy"><figcaption><b>Platform sight, 1x.</b> Delta Dagger TALON-EYE platform sight over the fleet: tracks, threat list and radar.</figcaption></figure>
+      <figure><img src="talon6.jpg" alt="Platform sight, 16x: Same sight zoomed 16x, locking ships at range." loading="lazy"><figcaption><b>Platform sight, 16x.</b> Same sight zoomed 16x, locking ships at range.</figcaption></figure>
+      <figure><img src="talon7.jpg" alt="Missile seeker, 8x: Through the missile's own seeker as it closes on the target." loading="lazy"><figcaption><b>Missile seeker, 8x.</b> Through the missile's own seeker as it closes on the target.</figcaption></figure>
+      <figure><img src="talon8.jpg" alt="Free look: Free look from the jet: missile warning, inbound raid and the strike group below." loading="lazy"><figcaption><b>Free look.</b> Free look from the jet: missile warning, inbound raid and the strike group below.</figcaption></figure>
+    </div>
   </section>
 
   <section aria-labelledby="t3" style="display:grid;gap:20px">
