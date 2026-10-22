@@ -5,8 +5,6 @@
     { name: "Games", href: "/games/" },
     { name: "VR Net", href: "/vr/" },
     { name: "RV", href: "/rv/" },
-    { name: "HOLD", href: "/hold/" },
-    { name: "Hugs", href: "/hugs/" },
     { name: "Edu", href: "/edu/" },
     { name: "Civics", href: "/civics/" },
     { name: "STEM", href: "/stem/" },
