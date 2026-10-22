@@ -264,13 +264,6 @@
       "native": true,
       "added": "2026-10-11"
     },
-    "hold": {
-      "to": "/hold/",
-      "title": "HOLD \u2014 SFTP roots we host",
-      "group": "Studio & company",
-      "native": true,
-      "added": "2026-10-11"
-    },
     "cities": {
       "to": "/cities/",
       "title": "Cities",
