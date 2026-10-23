@@ -9,6 +9,8 @@ Meshworks: **[pxd2.github.io/meshworks](https://pxd2.github.io/meshworks/)**
 Games · Mud for Blood: **[pxd2.github.io/games](https://pxd2.github.io/games/)**  
 Company · investors: **[pxd2.github.io/company](https://pxd2.github.io/company/)**
 
+**AMD ROCm™ Certified Associate** — PXD2 has passed the AMD ROCm Certified Associate certification. We will continue through to Professional and Expert as the program continues.
+
 Software as much as hardware. The future of defense, security, and prosperity is autonomy. PXD2 will lead the way — by consistent, unyielding hard work.
 
 - [Walk the floor](https://pxd2.github.io/) — press Enter for the company page
