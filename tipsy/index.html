@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tipsy Hippy Grill | Wings, Burgers, Pizza & 20 Taps · Lakeside, AZ</title>
+<meta name="description" content="Peace, love & award-winning wings. Hand-formed burgers, fresh pizza, cocktails and 20 draft beers in Pinetop-Lakeside, Arizona. Dog-friendly patio. Call 928-358-1972.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://www.tipsyhippygrill.com/">
+<meta property="og:title" content="Tipsy Hippy Grill — Lakeside, AZ">
+<meta property="og:description" content="Peace, love & wings. 20 taps. Dog-friendly patio in the White Mountains.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Rubik:wght@400;500;700;900&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#fff4dc; --cream-2:#ffe9bf; --ink:#2a1640; --ink-2:#3d2160;
+  --orange:#ff6b2c; --mustard:#ffc23d; --pink:#ff3e8a; --teal:#18b8a6; --pine:#1e5a45; --purple:#7a3cff;
+  --r:28px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+html,body{overflow-x:clip}body{background:var(--cream);color:var(--ink);font-family:Rubik,system-ui,sans-serif;line-height:1.6;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+.groovy{font-family:Shrikhand,cursive;font-weight:400;letter-spacing:.01em}
+.hand{font-family:Caveat,cursive}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:16px 28px;border-radius:999px;font-weight:700;font-size:1rem;border:3px solid var(--ink);box-shadow:5px 5px 0 var(--ink);transition:transform .15s,box-shadow .15s;cursor:pointer}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink)}
+.btn:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--ink)}
+.b-orange{background:var(--orange);color:#fff}.b-mustard{background:var(--mustard);color:var(--ink)}.b-pink{background:var(--pink);color:#fff}.b-teal{background:var(--teal);color:#fff}.b-cream{background:var(--cream);color:var(--ink)}
+
+/* NAV */
+nav{position:fixed;top:14px;left:0;right:0;z-index:60}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--cream);border:3px solid var(--ink);border-radius:999px;padding:8px 10px 8px 20px;box-shadow:5px 5px 0 var(--ink)}
+.brand{display:flex;align-items:center;gap:10px;font-family:Shrikhand;font-size:1.35rem;color:var(--ink)}
+.brand svg{width:38px;height:38px;animation:spin 14s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.links{display:flex;gap:6px}
+.links a{padding:10px 16px;border-radius:999px;font-weight:500;font-size:.92rem;transition:.2s}
+.links a:hover{background:var(--mustard)}
+.nav-call{padding:11px 20px;font-size:.9rem;box-shadow:3px 3px 0 var(--ink)}
+.burger{display:none;background:var(--mustard);border:3px solid var(--ink);width:46px;height:46px;border-radius:50%;font-size:1.2rem;cursor:pointer}
+
+/* HERO */
+.hero{position:relative;min-height:100vh;overflow:hidden;background:var(--ink);color:var(--cream);display:flex;align-items:center;padding:140px 0 120px}
+.waves{position:absolute;inset:0;width:100%;height:100%}
+.waves path{transform-origin:center;animation:wob 14s ease-in-out infinite alternate}
+.waves path:nth-child(2){animation-duration:18s}.waves path:nth-child(3){animation-duration:11s}.waves path:nth-child(4){animation-duration:16s}
+@keyframes wob{to{transform:translateY(26px) scaleX(1.04)}}
+.hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:1.25fr 1fr;gap:40px;align-items:center}
+.kicker{display:inline-flex;gap:10px;align-items:center;background:var(--mustard);color:var(--ink);padding:8px 18px;border-radius:999px;font-weight:700;font-size:.85rem;border:3px solid var(--ink);transform:rotate(-2deg)}
+.hero h1{font-family:Shrikhand;font-size:clamp(3.4rem,9vw,7.4rem);line-height:.92;margin:26px 0 22px;color:var(--cream);text-shadow:5px 5px 0 var(--pink),10px 10px 0 var(--orange)}
+.hero h1 span{display:block;color:var(--mustard);text-shadow:5px 5px 0 var(--purple),10px 10px 0 var(--teal)}
+.hero p{font-size:1.2rem;max-width:520px;opacity:.92;margin-bottom:34px}
+.cta{display:flex;flex-wrap:wrap;gap:14px}
+.sun-wrap{position:relative;aspect-ratio:1;max-width:460px;justify-self:center;width:100%}
+.flower{width:100%;height:100%;animation:spin 40s linear infinite}
+.sticker{position:absolute;display:grid;place-items:center;text-align:center;font-family:Shrikhand;border:3px solid var(--ink);color:var(--ink);box-shadow:4px 4px 0 var(--ink)}
+.st1{width:130px;height:130px;border-radius:50%;background:var(--pink);color:#fff;top:-6%;right:-4%;transform:rotate(12deg);font-size:1.15rem;line-height:1.05;animation:bob 4s ease-in-out infinite}
+.st2{padding:12px 18px;border-radius:16px;background:var(--teal);color:#fff;bottom:4%;left:-6%;transform:rotate(-8deg);font-size:1.1rem;animation:bob 5s ease-in-out infinite reverse}
+@keyframes bob{50%{translate:0 -10px}}
+
+/* MARQUEE */
+.mq{background:var(--mustard);border-block:3px solid var(--ink);overflow:hidden;white-space:nowrap;padding:16px 0;transform:rotate(-1.2deg);margin:-26px 0 0;position:relative;z-index:5;width:104%;left:-2%}
+.mq div{display:inline-block;animation:mq 30s linear infinite;font-family:Shrikhand;font-size:1.6rem}
+.mq span{margin:0 22px;color:var(--pink)}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+section{padding:120px 0}
+.title{font-family:Shrikhand;font-size:clamp(2.4rem,5.5vw,4.4rem);line-height:1;margin:12px 0 16px}
+.tag{font-family:Caveat;font-size:1.7rem;color:var(--pink);transform:rotate(-2deg);display:inline-block}
+.lead{font-size:1.12rem;max-width:600px;opacity:.85}
+.center{text-align:center}.center .lead{margin:0 auto}
+
+/* MENU */
+.tabs{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:40px 0 34px}
+.tab{padding:12px 22px;border-radius:999px;border:3px solid var(--ink);background:var(--cream);font-weight:700;cursor:pointer;transition:.15s;font-family:inherit;font-size:.95rem;color:var(--ink)}
+.tab.on,.tab:hover{background:var(--ink);color:var(--mustard)}
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px}
+.dish{position:relative;padding:28px 26px 24px;border:3px solid var(--ink);border-radius:var(--r);background:#fff;box-shadow:6px 6px 0 var(--ink);transition:.2s;overflow:hidden}
+.dish:hover{transform:translate(-3px,-3px) rotate(-.6deg);box-shadow:9px 9px 0 var(--ink)}
+.dish .em{font-size:2.6rem;display:block;margin-bottom:12px}
+.dish h3{font-family:Shrikhand;font-size:1.45rem;line-height:1.1;margin-bottom:6px}
+.dish p{font-size:.93rem;opacity:.75;min-height:2.6em}
+.dish .px{position:absolute;top:18px;right:18px;background:var(--mustard);border:3px solid var(--ink);border-radius:999px;padding:4px 12px;font-weight:900;font-size:.95rem}
+.dish.star{background:var(--orange);color:#fff}.dish.star p{opacity:.9}
+.dish.star .px{background:#fff;color:var(--ink)}
+.dish.hide{display:none}
+.note{text-align:center;margin-top:26px;font-size:.85rem;opacity:.6}
+
+/* SPECIALS */
+.specials{background:var(--pink);color:#fff;border-block:3px solid var(--ink);position:relative;overflow:hidden}
+.specials::before{content:"";position:absolute;inset:0;background:repeating-radial-gradient(circle at 85% 50%,transparent 0 40px,rgba(255,255,255,.07) 40px 80px)}
+.sp-grid{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+.sp-card{background:var(--ink);border:3px solid var(--ink);border-radius:var(--r);padding:40px;box-shadow:10px 10px 0 var(--mustard);transform:rotate(2deg)}
+.sp-card .big{font-family:Shrikhand;font-size:clamp(4rem,10vw,7rem);line-height:.9;color:var(--mustard)}
+.sp-card .day{font-family:Shrikhand;font-size:1.8rem;color:var(--teal)}
+.sp-list{display:grid;gap:14px;margin-top:28px}
+.sp-list div{display:flex;gap:14px;align-items:center;background:rgba(0,0,0,.18);border:2px solid rgba(255,255,255,.35);padding:14px 18px;border-radius:18px;font-weight:500}
+.sp-list b{font-size:1.4rem}
+
+/* TAPS */
+.taps{background:var(--ink);color:var(--cream)}
+.tap-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;margin-top:50px}
+.tp{position:relative;padding:20px 18px 18px 18px;border-radius:20px;background:var(--ink-2);border:2px solid rgba(255,255,255,.12);transition:.2s;overflow:hidden}
+.tp:hover{transform:translateY(-4px);border-color:var(--mustard)}
+.tp .n{font-family:Shrikhand;font-size:.95rem;color:var(--ink);background:var(--c,var(--mustard));width:34px;height:34px;border-radius:50%;display:grid;place-items:center;margin-bottom:12px}
+.tp h4{font-weight:700;font-size:1.02rem;line-height:1.25}
+.tp small{display:block;opacity:.6;font-size:.8rem;margin-top:2px}
+.tp em{display:inline-block;margin-top:10px;font-style:normal;font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--c,var(--mustard));font-weight:700}
+.az{position:absolute;top:14px;right:12px;font-size:.62rem;font-weight:900;letter-spacing:.1em;background:var(--teal);color:#fff;padding:3px 8px;border-radius:999px}
+
+/* VIBES */
+.vibe-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:56px}
+.vb{border:3px solid var(--ink);border-radius:var(--r);padding:34px 28px;box-shadow:6px 6px 0 var(--ink);transition:.2s}
+.vb:hover{transform:rotate(-1deg) translate(-2px,-2px)}
+.vb .ic{font-size:2.8rem;margin-bottom:14px;display:block}
+.vb h3{font-family:Shrikhand;font-size:1.6rem;line-height:1.1;margin-bottom:10px}
+.vb p{opacity:.85;margin-bottom:20px}
+.vb .btn{padding:12px 20px;font-size:.9rem;box-shadow:3px 3px 0 var(--ink)}
+.vb:nth-child(1){background:var(--teal);color:#fff}.vb:nth-child(2){background:var(--mustard)}.vb:nth-child(3){background:var(--cream-2)}
+
+/* STAY */
+.stay{background:var(--pine);color:var(--cream);border-block:3px solid var(--ink);position:relative;overflow:hidden}
+.stay-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;position:relative;z-index:2}
+.pines{position:absolute;bottom:0;left:0;width:100%;height:auto;opacity:.35}
+.cabin{border:3px solid var(--ink);border-radius:var(--r);overflow:hidden;box-shadow:10px 10px 0 var(--mustard);background:#2b7a5f}
+
+/* VISIT */
+.visit-card{display:grid;grid-template-columns:1.1fr 1fr;border:3px solid var(--ink);border-radius:36px;overflow:hidden;box-shadow:10px 10px 0 var(--ink);background:#fff}
+.v-left{padding:56px 50px;background:var(--orange);color:#fff}
+.v-left .title{color:#fff;text-shadow:4px 4px 0 var(--ink)}
+.v-right{padding:48px 44px;display:flex;flex-direction:column;gap:22px;justify-content:center}
+.row{display:flex;gap:16px;align-items:flex-start}
+.row .ic{flex:none;width:50px;height:50px;border-radius:50%;border:3px solid var(--ink);display:grid;place-items:center;font-size:1.3rem;background:var(--mustard)}
+.row small{display:block;font-weight:700;text-transform:uppercase;letter-spacing:.12em;font-size:.72rem;opacity:.6}
+.row a,.row span{font-size:1.08rem;font-weight:500}
+.row a:hover{color:var(--pink)}
+.hours{display:grid;grid-template-columns:auto auto;gap:4px 22px;font-size:1rem}
+.hours .today{color:var(--pink);font-weight:700}
+.open-pill{display:inline-block;margin-top:6px;padding:4px 12px;border-radius:999px;font-size:.78rem;font-weight:700;border:2px solid var(--ink)}
+
+footer{background:var(--ink);color:var(--cream);padding:70px 0 40px;margin-top:120px;text-align:center}
+footer .groovy{font-size:2.4rem;color:var(--mustard)}
+.f-links{display:flex;justify-content:center;flex-wrap:wrap;gap:20px;margin:22px 0;font-weight:500}
+.f-links a:hover{color:var(--mustard)}
+.credit{font-size:.8rem;opacity:.55;margin-top:20px}
+.credit a{color:var(--mustard)}
+
+.mbar{display:none}
+.rv{opacity:0;transform:translateY(40px) rotate(-1deg);transition:opacity .8s,transform .8s cubic-bezier(.2,1.4,.4,1)}
+.rv.in{opacity:1;transform:none}
+
+@media(max-width:940px){
+  .links,.nav-call{display:none}.burger{display:block}
+  .links.open{display:flex;flex-direction:column;position:absolute;top:76px;left:24px;right:24px;background:var(--cream);border:3px solid var(--ink);border-radius:24px;padding:10px;box-shadow:5px 5px 0 var(--ink)}
+  .hero-grid,.sp-grid,.stay-grid,.visit-card{grid-template-columns:1fr}
+  .sun-wrap{max-width:320px}
+  .vibe-grid{grid-template-columns:1fr}
+  .v-left,.v-right{padding:40px 26px}
+  section{padding:90px 0}
+  .mbar{display:flex;position:fixed;bottom:12px;left:12px;right:12px;z-index:70;gap:10px}
+  .mbar .btn{flex:1;justify-content:center;padding:14px}
+  footer{padding-bottom:110px}
+}
+@media(max-width:520px){.wrap{padding:0 16px}.st1{width:100px;height:100px;font-size:.9rem}.sp-card{padding:28px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap"><div class="nav-in">
+  <a href="#top" class="brand"><svg viewBox="0 0 100 100"><g fill="#ffc23d" stroke="#2a1640" stroke-width="3">
+    <ellipse cx="50" cy="20" rx="11" ry="20"/><ellipse cx="50" cy="80" rx="11" ry="20"/><ellipse cx="20" cy="50" rx="20" ry="11"/><ellipse cx="80" cy="50" rx="20" ry="11"/>
+    <ellipse cx="29" cy="29" rx="11" ry="20" transform="rotate(-45 29 29)"/><ellipse cx="71" cy="71" rx="11" ry="20" transform="rotate(-45 71 71)"/>
+    <ellipse cx="71" cy="29" rx="11" ry="20" transform="rotate(45 71 29)"/><ellipse cx="29" cy="71" rx="11" ry="20" transform="rotate(45 29 71)"/></g>
+    <circle cx="50" cy="50" r="17" fill="#6b3a1e" stroke="#2a1640" stroke-width="3"/></svg>Tipsy Hippy</a>
+  <div class="links" id="links"><a href="#menu">Menu</a><a href="#specials">Specials</a><a href="#taps">20 Taps</a><a href="#stay">Cabins</a><a href="#visit">Visit</a></div>
+  <a href="tel:9283581972" class="btn b-orange nav-call">📞 928-358-1972</a>
+  <button class="burger" id="burger" aria-label="Menu">☮</button>
+</div></div></nav>
+
+<header class="hero" id="top">
+  <svg class="waves" viewBox="0 0 1440 900" preserveAspectRatio="none" aria-hidden="true">
+    <path fill="#3d2160" d="M0 120 C240 40 420 220 720 140 S1200 40 1440 130 V900 H0Z"/>
+    <path fill="#7a3cff" opacity=".55" d="M0 380 C260 290 460 470 760 380 S1220 290 1440 380 V900 H0Z"/>
+    <path fill="#ff3e8a" opacity=".55" d="M0 560 C300 480 520 650 820 560 S1250 470 1440 560 V900 H0Z"/>
+    <path fill="#ff6b2c" opacity=".75" d="M0 720 C260 650 520 800 820 720 S1240 650 1440 730 V900 H0Z"/>
+  </svg>
+  <div class="wrap hero-grid">
+    <div>
+      <div class="kicker rv">☮ Pinetop-Lakeside · White Mountains, AZ</div>
+      <h1 class="rv">Peace, Love<span>&amp; Wings.</span></h1>
+      <p class="rv">Award-winning buffalo wings, hand-formed burgers, fresh-made pizza, cocktails and <b>20 ice-cold drafts</b> — on a dog-friendly patio under the pines. Far out.</p>
+      <div class="cta rv">
+        <a href="https://order.spoton.com/so-tipsy-hippy-grill-19076/lakeside-az/66302d9ef52c5a003da949ff/" target="_blank" rel="noopener" class="btn b-mustard">🍕 Order Online</a>
+        <a href="tel:9283581972" class="btn b-pink">📞 Call Us</a>
+        <a href="https://maps.google.com/?q=2251+W+White+Mountain+Blvd+Lakeside+AZ+85929" target="_blank" rel="noopener" class="btn b-cream">🚐 Directions</a>
+      </div>
+    </div>
+    <div class="sun-wrap rv">
+      <svg class="flower" viewBox="0 0 200 200" aria-hidden="true">
+        <g stroke="#2a1640" stroke-width="3">
+          <g fill="#ffc23d" id="pet"><ellipse cx="100" cy="38" rx="16" ry="36"/></g>
+          <use href="#pet" transform="rotate(30 100 100)"/><use href="#pet" transform="rotate(60 100 100)"/><use href="#pet" transform="rotate(90 100 100)"/>
+          <use href="#pet" transform="rotate(120 100 100)"/><use href="#pet" transform="rotate(150 100 100)"/><use href="#pet" transform="rotate(180 100 100)"/>
+          <use href="#pet" transform="rotate(210 100 100)"/><use href="#pet" transform="rotate(240 100 100)"/><use href="#pet" transform="rotate(270 100 100)"/>
+          <use href="#pet" transform="rotate(300 100 100)"/><use href="#pet" transform="rotate(330 100 100)"/>
+          <circle cx="100" cy="100" r="40" fill="#6b3a1e"/>
+        </g>
+        <g fill="#3f210f"><circle cx="88" cy="90" r="4"/><circle cx="112" cy="90" r="4"/><circle cx="100" cy="100" r="4"/><circle cx="90" cy="112" r="4"/><circle cx="110" cy="112" r="4"/><circle cx="100" cy="80" r="3"/><circle cx="100" cy="120" r="3"/><circle cx="80" cy="102" r="3"/><circle cx="120" cy="102" r="3"/></g>
+      </svg>
+      <div class="sticker st1">20<br>DRAFTS<br>ON TAP</div>
+      <div class="sticker st2">🐶 Pups welcome!</div>
+    </div>
+  </div>
+</header>
+
+<div class="mq" aria-hidden="true"><div>Wings <span>✿</span> Burgers <span>☮</span> Pizza <span>✿</span> Cocktails <span>☮</span> 20 Taps <span>✿</span> Dog-Friendly Patio <span>☮</span> Good Vibes Only <span>✿</span> Wings <span>✿</span> Burgers <span>☮</span> Pizza <span>✿</span> Cocktails <span>☮</span> 20 Taps <span>✿</span> Dog-Friendly Patio <span>☮</span> Good Vibes Only <span>✿</span></div></div>
+
+<section id="menu">
+  <div class="wrap center">
+    <span class="tag rv">where good times sizzle</span>
+    <h2 class="title rv">The Groovy Grub</h2>
+    <p class="lead rv">American classics with a creative flair. Tap a category, then order online for pickup or delivery.</p>
+    <div class="tabs rv" id="tabs">
+      <button class="tab on" data-f="all">All</button><button class="tab" data-f="wings">🔥 Wings</button><button class="tab" data-f="burgers">🍔 Burgers</button><button class="tab" data-f="pizza">🍕 Pizza</button><button class="tab" data-f="apps">🧀 Apps</button>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="menu-grid" id="menuGrid"></div>
+    <p class="note">Prices from the online ordering menu; subject to change.</p>
+    <div class="center" style="margin-top:40px"><a href="https://order.spoton.com/so-tipsy-hippy-grill-19076/lakeside-az/66302d9ef52c5a003da949ff/" target="_blank" rel="noopener" class="btn b-orange">See the Full Menu &amp; Order →</a></div>
+  </div>
+</section>
+
+<section class="specials" id="specials">
+  <div class="wrap sp-grid">
+    <div>
+      <span class="tag rv" style="color:var(--mustard)">dig it</span>
+      <h2 class="title rv">Daily Specials &amp; Happy Vibes</h2>
+      <p class="lead rv" style="opacity:.95">A rotating lineup of daily deals and exclusive offers. Call ahead or swing by to see what's cookin' today.</p>
+      <div class="sp-list">
+        <div class="rv"><b>🥃</b> Whiskey Wednesday — $5 shots</div>
+        <div class="rv"><b>🍗</b> 50-Wing Bucket for the whole crew</div>
+        <div class="rv"><b>🍸</b> Signature cocktails, every day</div>
+      </div>
+    </div>
+    <div class="sp-card rv">
+      <div class="day">Wednesday</div>
+      <div class="big">$5</div>
+      <div class="groovy" style="font-size:2rem;color:var(--cream)">Whiskey Shots</div>
+      <p style="margin-top:16px;opacity:.75">Hump day just got a whole lot groovier.</p>
+      <a href="tel:9283581972" class="btn b-mustard" style="margin-top:22px">Ask about today's special</a>
+    </div>
+  </div>
+</section>
+
+<section class="taps" id="taps">
+  <div class="wrap">
+    <div class="center">
+      <span class="tag rv" style="color:var(--mustard)">cold ones, man</span>
+      <h2 class="title rv" style="color:var(--cream)">20 Drafts on the Wall</h2>
+      <p class="lead rv">From Arizona craft favorites to the classics. <b style="color:var(--teal)">AZ</b> = brewed in Arizona.</p>
+    </div>
+    <div class="tap-grid" id="tapGrid"></div>
+  </div>
+</section>
+
+<section id="vibes">
+  <div class="wrap">
+    <div class="center"><span class="tag rv">more than a grill</span><h2 class="title rv">Join the Tribe</h2></div>
+    <div class="vibe-grid">
+      <div class="vb rv"><span class="ic">🐾</span><h3>Dog-Friendly Patio</h3><p>Bring your four-legged hippie. Fresh mountain air, cold drinks, good company.</p><a href="https://maps.google.com/?q=2251+W+White+Mountain+Blvd+Lakeside+AZ+85929" target="_blank" rel="noopener" class="btn b-cream">Find the patio</a></div>
+      <div class="vb rv"><span class="ic">🌻</span><h3>Hippies Give Back</h3><p>Our fundraising program helps local schools, teams and causes raise money while you eat.</p><a href="https://www.tipsyhippygrill.com/%F0%9F%8C%BB-hippies-give-back-fundraising-program/" target="_blank" rel="noopener" class="btn b-pink">Host a fundraiser</a></div>
+      <div class="vb rv"><span class="ic">✌️</span><h3>Work With Us</h3><p>Want to spread the good vibes for a living? We're always looking for groovy people.</p><a href="https://offers.aidaform.com/job-application-form3" target="_blank" rel="noopener" class="btn b-teal">Apply now</a></div>
+    </div>
+  </div>
+</section>
+
+<section class="stay" id="stay">
+  <svg class="pines" viewBox="0 0 1440 260" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><g fill="#0d2e22">
+    <path d="M60 260 L110 60 L160 260Z M180 260 L240 20 L300 260Z M320 260 L360 110 L400 260Z M980 260 L1040 40 L1100 260Z M1120 260 L1170 90 L1220 260Z M1250 260 L1320 10 L1390 260Z M1380 260 L1420 120 L1460 260Z"/></g></svg>
+  <div class="wrap stay-grid">
+    <div class="cabin rv">
+      <svg viewBox="0 0 400 300" aria-hidden="true">
+        <rect width="400" height="300" fill="#7fd3c9"/><circle cx="320" cy="70" r="36" fill="#ffc23d" stroke="#2a1640" stroke-width="3"/>
+        <path d="M0 210 L60 120 L120 210Z M300 210 L350 110 L400 210Z" fill="#1e5a45" stroke="#2a1640" stroke-width="3"/>
+        <path d="M110 150 L200 80 L290 150Z" fill="#ff6b2c" stroke="#2a1640" stroke-width="3"/>
+        <rect x="125" y="150" width="150" height="90" fill="#a5582c" stroke="#2a1640" stroke-width="3"/>
+        <g stroke="#2a1640" stroke-width="2" opacity=".5"><line x1="125" y1="170" x2="275" y2="170"/><line x1="125" y1="190" x2="275" y2="190"/><line x1="125" y1="210" x2="275" y2="210"/></g>
+        <rect x="185" y="185" width="32" height="55" fill="#2a1640"/><rect x="140" y="165" width="30" height="26" fill="#ffc23d" stroke="#2a1640" stroke-width="3"/><rect x="232" y="165" width="30" height="26" fill="#ffc23d" stroke="#2a1640" stroke-width="3"/>
+        <rect x="245" y="100" width="18" height="40" fill="#6b3a1e" stroke="#2a1640" stroke-width="3"/>
+        <rect y="238" width="400" height="62" fill="#2b7a5f"/>
+        <text x="40" y="280" font-family="Shrikhand" font-size="22" fill="#fff4dc">stay a while, man ✌</text>
+      </svg>
+    </div>
+    <div>
+      <span class="tag rv" style="color:var(--mustard)">crash right next door</span>
+      <h2 class="title rv">Cabins in the Pines</h2>
+      <p class="lead rv" style="opacity:.92">Make a weekend of it. Book a cozy cabin at Lumbermen's Village next door — wings for dinner, the White Mountains for breakfast, and no driving home.</p>
+      <div class="cta rv" style="margin-top:30px"><a href="https://live.ipms247.com/booking/book-rooms-lumbermensvillage-en-English" target="_blank" rel="noopener" class="btn b-mustard">🏕 Book a Cabin</a></div>
+    </div>
+  </div>
+</section>
+
+<section id="visit">
+  <div class="wrap">
+    <div class="visit-card rv">
+      <div class="v-left">
+        <span class="tag" style="color:var(--mustard)">come on down</span>
+        <h2 class="title">Swing By &amp; Stay Groovy</h2>
+        <p style="font-size:1.1rem;opacity:.95;margin-bottom:28px">Relax, relish and hang loose. Dine in, sit on the patio, or order for pickup and delivery.</p>
+        <div class="cta">
+          <a href="tel:9283581972" class="btn b-mustard">📞 928-358-1972</a>
+          <a href="https://order.spoton.com/so-tipsy-hippy-grill-19076/lakeside-az/66302d9ef52c5a003da949ff/" target="_blank" rel="noopener" class="btn b-cream">Order Online</a>
+          <a href="https://www.tipsyhippygrill.com/contact/" target="_blank" rel="noopener" class="btn b-pink">✉ Message Us</a>
+        </div>
+      </div>
+      <div class="v-right">
+        <div class="row"><div class="ic">📍</div><div><small>Find us</small><a href="https://maps.google.com/?q=2251+W+White+Mountain+Blvd+Lakeside+AZ+85929" target="_blank" rel="noopener">2251 W White Mountain Blvd<br>Lakeside, AZ 85929</a></div></div>
+        <div class="row"><div class="ic">📞</div><div><small>Call</small><a href="tel:9283581972">928-358-1972</a></div></div>
+        <div class="row"><div class="ic">🕐</div><div><small>Hours</small>
+          <div class="hours" id="hours"></div><span class="open-pill" id="openPill"></span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="groovy">Tipsy Hippy Grill</div>
+    <p style="opacity:.75;margin-top:6px">Peace, love &amp; wings · 2251 W White Mountain Blvd, Lakeside, AZ 85929</p>
+    <div class="f-links"><a href="#menu">Menu</a><a href="#specials">Specials</a><a href="#taps">Beer</a><a href="#stay">Cabins</a><a href="https://offers.aidaform.com/job-application-form3" target="_blank" rel="noopener">Jobs</a><a href="#visit">Visit</a></div>
+    <p class="credit">© <span id="yr">2026</span> Tipsy Hippy Grill · Please drink responsibly.<br>Concept redesign · portfolio piece by <a href="https://pxd2.github.io/">PXD2</a></p>
+  </div>
+</footer>
+
+<div class="mbar"><a href="tel:9283581972" class="btn b-pink">📞 Call</a><a href="https://order.spoton.com/so-tipsy-hippy-grill-19076/lakeside-az/66302d9ef52c5a003da949ff/" target="_blank" rel="noopener" class="btn b-mustard">🍕 Order</a></div>
+
+<script>
+const menu=[
+ ["wings","🔥","12 Buffalo Wings","Our award-winning wings, tossed your way.","$16.99",1],
+ ["wings","🪣","50-Wing Bucket","Feed the whole commune.","$65.99",1],
+ ["wings","🍗","Boneless Wings","10 oz of crispy, saucy goodness.","$12.79"],
+ ["burgers","🍔","Hamburger","Hand-formed, fresh off the grill.","$14.99"],
+ ["burgers","🧀","Cheeseburger","The classic, melted to perfection.","$15.69"],
+ ["burgers","🥪","Pastrami Burger","Stacked with savory pastrami.","$20.69"],
+ ["burgers","🥓","Bacon, Bacon Burger","Bacon. Then more bacon.","$21.99",1],
+ ["pizza","🍕","Margherita","Fresh-made daily. Medium $18.29 / XL","$24.29"],
+ ["pizza","🇮🇹","XL 16\" Italian Pizza","Loaded, big and built to share.","$27.79"],
+ ["pizza","🥟","Calzone","Folded, baked, stuffed.","$12.99"],
+ ["apps","🧀","Mozzarella Sticks","Golden, gooey, groovy.","$9.99"],
+ ["apps","🫛","Fried Green Beans","Crunchy little rebels.","$10.99"],
+ ["apps","🌮","Loaded Nachos","Piled high and loaded up.","$10.50"],
+ ["apps","🍖","Tipsy Ribs & Rings","Ribs plus onion rings. Far out.","$20.00",1]];
+const mg=document.getElementById('menuGrid');
+menu.forEach(([c,e,n,d,p,s])=>{const el=document.createElement('div');el.className='dish rv'+(s?' star':'');el.dataset.c=c;
+  el.innerHTML=`<span class="px">${p}</span><span class="em">${e}</span><h3>${n}</h3><p>${d}</p>`;mg.appendChild(el)});
+document.getElementById('tabs').addEventListener('click',e=>{const b=e.target.closest('.tab');if(!b)return;
+  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('on',t===b));
+  document.querySelectorAll('.dish').forEach(d=>d.classList.toggle('hide',b.dataset.f!=='all'&&d.dataset.c!==b.dataset.f))});
+
+const taps=[["Rojo Red","Barrio Brewing Co","Scottish Ale",1],["Scottsdale Blonde","Huss Brewing Co","Kölsch",1],["House Honey Blonde","Stone Brewing","Blonde Ale"],["Bad Birdy","Four Peaks","Juicy Golden Ale",1],["Blood Orange","Cali Squeeze","Fruit Hefeweizen"],["Lager Especial","Dos Equis","Lager"],["Kilt Lifter","Four Peaks","Scottish Ale",1],["Juicy Hazy IPA","Voodoo Ranger","Hazy IPA"],["Hefeweizen","Oak Creek Brewing","Wheat",1],["Pineapple Mana Wheat","Maui Brewing","Fruit Wheat"],["Belgian White","Blue Moon","Witbier"],["Coors Light","Coors","Light Lager"],["Church Music","The Shop Beer Co","NE Hazy IPA",1],["Wow Wheat","Four Peaks","Orange Wheat",1],["805","Firestone Walker","Blonde Ale"],["Michelob Ultra","Michelob","Light Lager"],["Big Blue Van","College Street Brewhouse","Fruit Beer",1],["805 Cerveza","Firestone Walker","Pale Lager"],["Nut Brown Ale","Oak Creek Brewing","Brown Ale",1],["Bud Light","Budweiser","Light Lager"]];
+const cols=['#ffc23d','#ff3e8a','#18b8a6','#ff6b2c','#a98bff'];
+const tg=document.getElementById('tapGrid');
+taps.forEach(([n,b,s,az],i)=>{const el=document.createElement('div');el.className='tp rv';el.style.setProperty('--c',cols[i%5]);
+  el.innerHTML=`${az?'<span class="az">AZ</span>':''}<div class="n">${i+1}</div><h4>${n}</h4><small>${b}</small><em>${s}</em>`;tg.appendChild(el)});
+
+// hours + open now (Arizona time, no DST)
+const H=[[11,20],[11,20],[11,20],[11,20],[11,20],[11,21],[11,21]]; // Sun..Sat
+const names=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const az=new Date(new Date().toLocaleString('en-US',{timeZone:'America/Phoenix'}));const d=az.getDay(),h=az.getHours()+az.getMinutes()/60;
+const fmt=x=>(x>12?x-12:x)+(x>=12?' PM':' AM');
+document.getElementById('hours').innerHTML=[['Sun – Thu','11 AM – 8 PM',d<=4],['Fri – Sat','11 AM – 9 PM',d>=5]].map(([a,b,t])=>`<span class="${t?'today':''}">${a}</span><span class="${t?'today':''}">${b}</span>`).join('');
+const open=h>=H[d][0]&&h<H[d][1];const pill=document.getElementById('openPill');
+pill.textContent=open?`✌ Open now · til ${fmt(H[d][1])}`:'☾ Closed now · opens 11 AM';pill.style.background=open?'#18b8a6':'#ffc23d';pill.style.color=open?'#fff':'#2a1640';
+
+const links=document.getElementById('links');document.getElementById('burger').onclick=()=>links.classList.toggle('open');
+links.querySelectorAll('a').forEach(a=>a.onclick=()=>links.classList.remove('open'));
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.rv').forEach((el,i)=>{el.style.transitionDelay=(i%4*.07)+'s';io.observe(el)});
+document.getElementById('yr').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>
