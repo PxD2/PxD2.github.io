@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Streets On Main · Burgers, prime rib and comfort food · Snowflake AZ</title>
+<meta name="description" content="Prime rib, jalapeño popper burgers, chicken and waffles and homemade soups at 123 N Main in Snowflake, Arizona. 928-275-3663.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Source+Sans+3:wght@400;600;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1D2B4F;--navy-d:#141B30;--cherry:#C8312E;--chalk:#F7F5F0;--brass:#C49A45;--board:#24302B;--ink:#141B30;--soft:#5A6275}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--chalk);color:var(--ink);font:18px/1.6 'Source Sans 3',system-ui,sans-serif;overflow-x:hidden}
+a{color:inherit}:focus-visible{outline:3px solid var(--brass);outline-offset:3px}
+.wrap{max-width:1140px;margin:0 auto;padding:0 20px}
+h1,h2,h3{font-family:'Alfa Slab One',Georgia,serif;font-weight:400;line-height:1.05}
+.concept{background:#000;color:#fff;font-size:13px;text-align:center;padding:7px 16px}.concept a{color:var(--brass)}
+.bar{background:var(--navy);color:var(--chalk)}
+.bar .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 20px;font-weight:600}
+.bar nav{display:flex;gap:22px}.bar nav a{text-decoration:none}.bar nav a:hover{text-decoration:underline;text-underline-offset:5px}
+.status{display:inline-flex;align-items:center;gap:8px;font-size:15px}.status i{width:9px;height:9px;border-radius:50%;background:#9aa}.status.open i{background:#55d27a}
+@media(max-width:760px){.bar nav{display:none}}
+
+/* hero: the street sign is the signature */
+.hero{padding:64px 0 56px;text-align:center;background:
+  linear-gradient(180deg,transparent 70%,rgba(29,43,79,.06)),
+  repeating-linear-gradient(90deg,transparent 0 118px,rgba(29,43,79,.05) 118px 120px)}
+.sign{display:inline-block;background:var(--navy);color:var(--chalk);border:6px solid var(--brass);border-radius:14px;padding:26px clamp(20px,5vw,60px) 22px;box-shadow:0 0 0 6px var(--navy),0 24px 50px rgba(20,27,48,.28);position:relative}
+.sign::before,.sign::after{content:"";position:absolute;top:50%;width:12px;height:12px;border-radius:50%;background:var(--brass);transform:translateY(-50%)}
+.sign::before{left:12px}.sign::after{right:12px}
+.sign h1{font-size:clamp(46px,9vw,112px);letter-spacing:.01em}
+.sign p{font-weight:700;color:var(--brass);font-size:clamp(15px,2vw,19px);margin-top:4px}
+.post{width:16px;height:60px;background:linear-gradient(90deg,#8a8f99,#c9ccd2,#8a8f99);margin:0 auto}
+.hero .lead{max-width:34em;margin:26px auto 28px;font-size:21px;color:var(--soft)}
+.btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-flex;font-weight:700;font-size:17px;padding:14px 24px;border-radius:10px;text-decoration:none;border:2px solid var(--cherry)}
+.btn.solid{background:var(--cherry);color:#fff}.btn.line{color:var(--cherry)}
+
+.strip{background:var(--cherry);color:#fff}
+.strip .wrap{display:flex;justify-content:space-around;gap:20px;flex-wrap:wrap;padding:18px 20px;font-weight:700;text-align:center}
+.strip b{font:400 26px 'Alfa Slab One',serif;display:block}
+
+section{padding:84px 0}
+.head{max-width:640px;margin-bottom:32px}.head h2{font-size:clamp(38px,5.5vw,62px);color:var(--navy);margin-bottom:8px}.head p{color:var(--soft)}
+
+/* chalkboard */
+.board{background:var(--board);color:#EEF0EA;border:14px solid #6B4A33;border-radius:10px;padding:34px;box-shadow:inset 0 0 60px rgba(0,0,0,.45);display:grid;grid-template-columns:auto 1fr;gap:30px;align-items:start}
+.board .when{font-family:Caveat,cursive;font-size:30px;color:var(--brass);line-height:1}
+.board h3{font-family:Caveat,cursive;font-size:clamp(44px,6vw,64px);font-weight:600;line-height:1}
+.slots{display:flex;flex-direction:column;gap:8px}
+.slots button{font:600 16px 'Source Sans 3',sans-serif;background:transparent;color:#EEF0EA;border:1.5px solid rgba(238,240,234,.35);border-radius:999px;padding:8px 16px;cursor:pointer;text-align:left}
+.slots button[aria-pressed=true]{background:#EEF0EA;color:var(--board)}
+.picks{list-style:none;margin-top:18px;display:grid;gap:14px}
+.picks li{font-family:Caveat,cursive;font-size:30px;line-height:1.1}
+.picks li span{display:block;font:400 16px 'Source Sans 3',sans-serif;color:#C9CEC6}
+@media(max-width:760px){.board{grid-template-columns:1fr;padding:22px}.slots{flex-direction:row;flex-wrap:wrap}}
+
+/* menu */
+.menu{display:grid;grid-template-columns:repeat(3,1fr);gap:0 40px}
+.menu h3{font-size:26px;color:var(--cherry);border-bottom:3px solid var(--navy);padding-bottom:8px;margin-bottom:6px}
+.dish{padding:12px 0;border-bottom:1px solid #DFDBD0}.dish b{font-size:19px}.dish p{color:var(--soft);font-size:16px}
+.note{font-size:15px;color:var(--soft);margin-top:16px}
+@media(max-width:860px){.menu{grid-template-columns:1fr}}
+
+.visit{background:var(--navy);color:var(--chalk)}
+.visit .head h2{color:var(--chalk)}.visit .head p{color:#BFC6D8}
+.vgrid{display:grid;grid-template-columns:1fr 1fr .8fr;gap:20px}
+.card{background:var(--navy-d);border-radius:14px;padding:24px;border:1.5px solid #2E3E68}
+.card h3{font-size:24px;color:var(--brass);margin-bottom:12px}
+.hours{list-style:none}.hours li{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #2E3E68}.hours li.today{color:var(--brass);font-weight:700}
+.card .btn{border-color:var(--brass);color:var(--chalk);margin:12px 8px 0 0}.card .btn.solid{background:var(--cherry);border-color:var(--cherry)}
+#qr{background:#fff;padding:10px;border-radius:8px;width:max-content}#qr img,#qr canvas{width:140px;height:140px;display:block}
+.room{display:block;text-decoration:none;margin-top:20px;border:2px solid var(--brass);border-radius:14px;padding:26px;color:var(--chalk)}
+.room h3{font-size:28px;margin-bottom:6px}
+@media(max-width:900px){.vgrid{grid-template-columns:1fr}}
+footer{background:var(--navy-d);color:#8F98AF;text-align:center;font-size:14px;padding:28px 20px}footer a{color:var(--brass)}
+.mbar{display:none}@media(max-width:700px){.mbar{display:grid;grid-template-columns:1fr 1fr;position:fixed;inset:auto 0 0 0;z-index:9}.mbar a{text-align:center;padding:15px;font-weight:700;text-decoration:none;background:var(--navy);color:#fff}.mbar a:first-child{background:var(--cherry)}body{padding-bottom:52px}}
+</style>
+</head>
+<body>
+<div class="concept">Concept preview made by PXD2 for Streets On Main. Not the official site. <a href="tel:9284576404">PXD2: 928-457-6404</a></div>
+<div class="bar"><div class="wrap">
+  <span class="status" id="status"><i></i><span>Checking hours</span></span>
+  <nav><a href="#tonight">Today on Main</a><a href="#menu">Menu</a><a href="#visit">Hours &amp; directions</a></nav>
+  <a href="tel:9282753663" style="text-decoration:none">928-275-3663</a>
+</div></div>
+
+<main id="top">
+<section class="hero"><div class="wrap">
+  <div class="sign"><h1>Streets On Main</h1><p>123 N Main · Snowflake, Arizona</p></div>
+  <div class="post" aria-hidden="true"></div>
+  <p class="lead">Prime rib, thick-cut bacon burgers, chicken and waffles, and soups made from scratch. The kind of Main Street restaurant people plan their road trips around.</p>
+  <div class="btns"><a class="btn solid" href="tel:9282753663">Call for a table</a><a class="btn line" href="#menu">See the menu</a></div>
+</div></section>
+
+<div class="strip"><div class="wrap">
+  <div><b>4.7 stars</b>from 791 reviews on Google</div>
+  <div><b>Open 7 days</b>breakfast hours on weekends</div>
+  <div><b>Easy on the wallet</b>big plates, fair prices</div>
+</div></div>
+
+<section id="tonight"><div class="wrap">
+  <div class="head"><h2>Today on Main</h2><p>Not sure what to get? Here's what we'd order right now.</p></div>
+  <div class="board">
+    <div class="slots" role="group" aria-label="Time of day" id="slots"></div>
+    <div><p class="when" id="when"></p><h3 id="bTitle"></h3><ul class="picks" id="picks"></ul></div>
+  </div>
+</div></section>
+
+<section id="menu" style="padding-top:0"><div class="wrap">
+  <div class="head"><h2>The menu</h2><p>A few of the plates regulars keep coming back for.</p></div>
+  <div class="menu">
+    <div><h3>Starters</h3>
+      <div class="dish"><b>Fried pickles</b><p>Thick, crispy batter, the way they should be.</p></div>
+      <div class="dish"><b>Artichoke dip</b><p>Warm, creamy and made for sharing.</p></div>
+      <div class="dish"><b>Fries &amp; tomatillo ranch</b><p>Ask for extra sauce. Everyone does.</p></div>
+      <div class="dish"><b>Loaded baked potato soup</b><p>A bowl of comfort on a cold mountain day.</p></div></div>
+    <div><h3>Burgers &amp; sandwiches</h3>
+      <div class="dish"><b>Jalapeño popper burger</b><p>Topped with thick, smoky bacon.</p></div>
+      <div class="dish"><b>Turkey bacon avocado</b><p>A big sandwich with plenty of avocado.</p></div>
+      <div class="dish"><b>Chicken &amp; waffles</b><p>Sweet, savory and a house favorite.</p></div>
+      <div class="dish"><b>Avocado toast</b><p>Served with a side salad.</p></div></div>
+    <div><h3>From the grill</h3>
+      <div class="dish"><b>Prime rib</b><p>A 12 oz cut with a big baked potato and asparagus. Ask about prime rib nights.</p></div>
+      <div class="dish"><b>Steaks</b><p>Cooked how you like them, with your choice of sides.</p></div>
+      <div class="dish"><b>Potato salad</b><p>The side that surprises people.</p></div></div>
+  </div>
+  <p class="note">Full menu and prices are added with the owners before launch.</p>
+</div></section>
+
+<section class="visit" id="visit"><div class="wrap">
+  <div class="head"><h2>Find your seat</h2><p>123 N Main Street, Snowflake, Arizona 85937</p></div>
+  <div class="vgrid">
+    <div class="card"><h3>Hours</h3><ul class="hours" id="hours"></ul></div>
+    <div class="card"><h3>Getting here</h3><p style="color:#BFC6D8">Right on Main Street in downtown Snowflake. Weekend mornings fill up, so call ahead for big groups.</p>
+      <a class="btn solid" href="https://www.google.com/maps/search/?api=1&query=123+N+Main+St+Snowflake+AZ+85937" target="_blank" rel="noopener">Directions</a><a class="btn" href="tel:9282753663">Call</a></div>
+    <div class="card"><h3>Scan for the menu</h3><div id="qr"></div></div>
+  </div>
+  <a class="room" href="3d.html"><h3>Look inside in 3D</h3><p>Walk the dining room and pick your booth from your phone or a VR headset.</p></a>
+</div></section>
+</main>
+<footer>Streets On Main · Snowflake, Arizona · 928-275-3663<br>Concept site, 3D room and QR kit by <a href="tel:9284576404">PXD2</a> · 928-457-6404</footer>
+<nav class="mbar"><a href="tel:9282753663">Call</a><a href="#visit">Directions</a></nav>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+const SLOTS={
+  morning:{label:"Morning",title:"Start the day right",picks:[["Chicken & waffles","Sweet and savory, and worth the drive"],["Avocado toast","Lighter, with a side salad"],["A cup of coffee","And a booth by the window"]]},
+  lunch:{label:"Lunch",title:"The lunch rush order",picks:[["Jalapeño popper burger","With that thick-cut bacon"],["Turkey bacon avocado","Big enough to share, but you won't"],["Fries & tomatillo ranch","Don't skip the sauce"]]},
+  dinner:{label:"Dinner",title:"Settle in for supper",picks:[["Prime rib","12 oz with a baked potato. Ask if it's a prime rib night"],["Loaded baked potato soup","Start with a bowl"],["Artichoke dip","For the table"]]}
+};
+const H=[[9,15],[10,20],[10,20],[10,20],[10,20],[9,21.5],[9,21.5]],D=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+const f=h=>{const x=Math.floor(h),m=Math.round((h-x)*60);return (x%12||12)+(m?":"+String(m).padStart(2,"0"):"")+(x>=12?" PM":" AM")};
+const n=new Date(),d=n.getDay(),t=n.getHours()+n.getMinutes()/60,td=H[d],op=t>=td[0]&&t<td[1];
+const sl=document.getElementById("slots");
+function show(k){const s=SLOTS[k];document.getElementById("when").textContent=D[d]+" "+s.label.toLowerCase();document.getElementById("bTitle").textContent=s.title;
+  document.getElementById("picks").innerHTML=s.picks.map(([a,b])=>`<li>${a}<span>${b}</span></li>`).join("");
+  sl.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.k===k));}
+Object.entries(SLOTS).forEach(([k,s])=>{const b=document.createElement("button");b.type="button";b.dataset.k=k;b.textContent=s.label;b.onclick=()=>show(k);sl.appendChild(b)});
+show(t<11?"morning":t<16?"lunch":"dinner");
+document.getElementById("hours").innerHTML=[1,2,3,4,5,6,0].map(i=>`<li class="${i===d?"today":""}"><span>${D[i]}</span><span>${f(H[i][0])} – ${f(H[i][1])}</span></li>`).join("");
+const s=document.getElementById("status");s.classList.toggle("open",op);s.querySelector("span").textContent=op?"Open until "+f(td[1]):"Closed now · opens "+(t<td[0]?"today at "+f(td[0]):"tomorrow at "+f(H[(d+1)%7][0]));
+new QRCode(document.getElementById("qr"),{text:location.href.split("#")[0],width:280,height:280,colorDark:"#141B30",colorLight:"#ffffff"});
+</script>
+</body>
+</html>

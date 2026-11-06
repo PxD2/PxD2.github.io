@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Snowflake Smokehouse · Bar &amp; Grill and Butcher Shop · Snowflake AZ</title>
+<meta name="description" content="Slow-smoked brisket, pork belly and smoked jalapeño poppers at the bar and grill, and steaks from the butcher shop. 680 S Main St, Snowflake AZ. 928-457-0820.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rye&family=Work+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--char:#2B1D16;--char-2:#3A281E;--ember:#E8622C;--ember-d:#B8461A;--paper:#F1E6D2;--paper-2:#E6D6B9;--smoke:#8C8279;--mustard:#D9A520;--ink:#24170F}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--paper);color:var(--ink);font:17px/1.6 'Work Sans',system-ui,sans-serif;overflow-x:hidden}
+a{color:inherit}:focus-visible{outline:3px solid var(--mustard);outline-offset:3px}
+.wrap{max-width:1140px;margin:0 auto;padding:0 20px}
+h1,h2,h3,.rye{font-family:Rye,Georgia,serif;font-weight:400;line-height:1.05}
+.concept{background:#000;color:#fff;font-size:13px;text-align:center;padding:7px 16px}.concept a{color:var(--mustard)}
+.dark{background:var(--char);color:var(--paper)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 0}
+.logo{text-decoration:none;font:400 22px Rye,serif;color:var(--paper)}
+.logo small{display:block;font:500 13px 'Work Sans',sans-serif;color:var(--smoke)}
+.pill{display:inline-flex;gap:8px;align-items:center;font-weight:700;font-size:14px;padding:7px 14px;border:1.5px solid var(--char-2);border-radius:99px;background:var(--char-2)}
+.pill i{width:9px;height:9px;border-radius:50%;background:var(--smoke)}.pill.open i{background:#5fd068}
+
+/* the two doors */
+.hero{position:relative;padding:40px 0 70px;overflow:hidden}
+.hero h1{font-size:clamp(44px,8vw,104px);text-align:center;color:var(--paper);text-shadow:0 4px 0 #000}
+.hero p.lead{text-align:center;color:#CBBBA4;font-size:19px;max-width:34em;margin:16px auto 40px}
+.smoke{position:absolute;inset:0;pointer-events:none;opacity:.35}
+.smoke path{fill:none;stroke:#8C8279;stroke-width:14;stroke-linecap:round;filter:blur(6px);animation:rise 9s ease-in-out infinite}
+.smoke path:nth-child(2){animation-delay:-3s}.smoke path:nth-child(3){animation-delay:-6s}
+@keyframes rise{0%{transform:translateY(40px);opacity:0}30%{opacity:1}100%{transform:translateY(-140px);opacity:0}}
+@media (prefers-reduced-motion:reduce){.smoke path{animation:none;opacity:.5}}
+.doors{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:900px;margin:0 auto;position:relative}
+.door{background:var(--char-2);border:3px solid #4E372A;border-radius:16px 16px 6px 6px;padding:26px 24px;text-align:left;color:var(--paper);cursor:pointer;font:inherit;display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center;transition:border-color .2s,background .2s}
+.door svg{width:64px;height:64px}
+.door b{font:400 28px Rye,serif;display:block}
+.door span{color:#CBBBA4;font-size:15px}
+.door[aria-selected=true]{border-color:var(--ember);background:#45301F;box-shadow:0 0 0 4px rgba(232,98,44,.22),0 18px 40px rgba(0,0,0,.4)}
+@media(max-width:700px){.doors{grid-template-columns:1fr}}
+
+section{padding:80px 0}
+.head{max-width:660px;margin-bottom:32px}.head h2{font-size:clamp(38px,5.5vw,62px);margin-bottom:10px}.head p{color:#6B5A4C}
+.panel[hidden]{display:none}
+
+/* grill menu on butcher paper */
+.board{display:grid;grid-template-columns:1.2fr .8fr;gap:36px}
+.ticket{background:#fff;border-radius:4px;padding:30px;box-shadow:0 1px 0 var(--paper-2),0 14px 30px rgba(43,29,22,.12);position:relative}
+.ticket::before{content:"";position:absolute;inset:auto 0 100% 0;height:10px;background:radial-gradient(circle at 10px 10px,transparent 6px,#fff 7px) 0 0/20px 10px}
+.ticket h3{font-size:26px;color:var(--ember-d);margin:18px 0 6px}.ticket h3:first-child{margin-top:0}
+.item{padding:10px 0;border-bottom:1px dotted #D9C9AE}.item b{font-size:18px}.item p{color:#6B5A4C;font-size:15.5px}
+.side{display:grid;gap:18px;align-content:start}
+.blk{background:var(--char);color:var(--paper);border-radius:12px;padding:24px}
+.blk h3{font-size:24px;margin-bottom:8px;color:var(--mustard)}.blk p{color:#CBBBA4}
+.note{font-size:14px;color:#6B5A4C;margin-top:14px}
+
+/* butcher case */
+.case{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.cut{background:#fff;border:2px solid var(--paper-2);border-radius:12px;padding:22px}
+.cut svg{width:100%;height:110px;margin-bottom:10px}
+.cut h3{font-size:24px}.cut p{color:#6B5A4C;font-size:15.5px}
+@media(max-width:860px){.board,.case{grid-template-columns:1fr}}
+
+.btn{display:inline-flex;font-weight:700;padding:14px 22px;border-radius:8px;text-decoration:none;border:2px solid var(--ember);font-family:inherit}
+.btn.solid{background:var(--ember);color:#fff}.btn.line{color:var(--paper)}
+.paper .btn.line{color:var(--ember-d)}
+
+.visit .grid{display:grid;grid-template-columns:1fr 1fr .8fr;gap:20px}
+.visit .card{background:var(--char-2);border-radius:14px;padding:24px}
+.visit h3{font-size:24px;margin-bottom:12px;color:var(--mustard)}
+.hours{list-style:none}.hours li{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #4E372A}.hours li.today{color:var(--ember);font-weight:700}
+#qr{background:#fff;padding:10px;border-radius:8px;width:max-content}#qr img,#qr canvas{width:140px;height:140px;display:block}
+.btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+@media(max-width:900px){.visit .grid{grid-template-columns:1fr}}
+.room{display:block;text-decoration:none;background:linear-gradient(135deg,var(--ember-d),var(--char) 70%);color:var(--paper);border-radius:14px;padding:30px;margin-top:20px}
+.room h3{font-size:30px;margin-bottom:6px}
+footer{background:#000;color:var(--smoke);text-align:center;font-size:14px;padding:28px 20px}footer a{color:var(--mustard)}
+.mbar{display:none}@media(max-width:700px){.mbar{display:grid;grid-template-columns:1fr 1fr;position:fixed;inset:auto 0 0 0;z-index:9}.mbar a{text-align:center;padding:15px;font-weight:700;text-decoration:none;background:var(--char);color:var(--paper)}.mbar a:first-child{background:var(--ember);color:#fff}body{padding-bottom:52px}}
+</style>
+</head>
+<body>
+<div class="concept">Concept preview made by PXD2 for Snowflake Smokehouse. Not the official site. <a href="tel:9284576404">PXD2: 928-457-6404</a></div>
+<div class="dark">
+  <div class="wrap nav">
+    <a class="logo" href="#top">Snowflake Smokehouse<small>Bar &amp; Grill · Butcher Shop</small></a>
+    <span class="pill" id="status"><i></i><span>Checking hours</span></span>
+  </div>
+  <section class="hero" id="top" style="padding-top:20px">
+    <svg class="smoke" viewBox="0 0 1200 500" preserveAspectRatio="none" aria-hidden="true"><path d="M300 520 C260 420 360 360 310 260 C270 180 340 120 320 40"/><path d="M620 520 C580 430 680 370 630 270 C590 190 660 130 640 50"/><path d="M920 520 C880 420 980 360 930 260 C890 180 960 120 940 40"/></svg>
+    <div class="wrap">
+      <h1>Low and slow on Main Street</h1>
+      <p class="lead">Brisket and pork belly off the smoker, cold drinks at the bar, and a butcher counter run by the same family. Pick a door.</p>
+      <div class="doors" role="tablist" aria-label="Choose a side of the Smokehouse">
+        <button class="door" role="tab" id="t-grill" aria-controls="grill" aria-selected="true">
+          <svg viewBox="0 0 64 64" aria-hidden="true"><ellipse cx="32" cy="34" rx="26" ry="14" fill="#1c1c1c"/><path d="M8 32h48" stroke="#E8622C" stroke-width="3"/><path d="M22 10c-4 6 4 8 0 14M32 6c-4 6 4 8 0 14M42 10c-4 6 4 8 0 14" stroke="#8C8279" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M16 46l-4 12M48 46l4 12" stroke="#8C8279" stroke-width="3"/></svg>
+          <div><b>Bar &amp; Grill</b><span>Smoked plates, poppers, margaritas and a dog-friendly patio</span></div></button>
+        <button class="door" role="tab" id="t-butcher" aria-controls="butcher" aria-selected="false">
+          <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M10 40c0-14 12-24 26-24 10 0 18 6 18 14 0 12-12 22-28 22-10 0-16-4-16-12z" fill="#B8461A"/><path d="M22 34c4-6 12-8 20-6" stroke="#F1E6D2" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="44" cy="36" r="5" fill="#F1E6D2"/></svg>
+          <div><b>Butcher Shop</b><span>Steaks, salmon and the same meat the kitchen smokes</span></div></button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<main>
+<section class="panel paper" id="grill" role="tabpanel" aria-labelledby="t-grill"><div class="wrap">
+  <div class="head"><h2>Off the smoker</h2><p>The plates people drive in from Eagar for. Ask your server what's coming off the smoker today.</p></div>
+  <div class="board">
+    <div class="ticket">
+      <h3>From the pit</h3>
+      <div class="item"><b>Brisket</b><p>Smoked low and slow until it pulls apart.</p></div>
+      <div class="item"><b>Pork belly</b><p>Crisp outside, juicy all the way through.</p></div>
+      <div class="item"><b>Protein platter</b><p>A sampler of the smoked meats, built to share. Leftovers guaranteed.</p></div>
+      <h3>To start</h3>
+      <div class="item"><b>Smoked jalapeño poppers</b><p>A house favorite. Order two.</p></div>
+      <div class="item"><b>Loaded fries</b><p>The one the kids fight over.</p></div>
+      <h3>Sides &amp; kids</h3>
+      <div class="item"><b>Mac &amp; cheese</b><p>The side that goes with everything.</p></div>
+      <div class="item"><b>The Little Clucker</b><p>A kids' plate for the smallest regulars.</p></div>
+      <h3>At the bar</h3>
+      <div class="item"><b>Wild berry margarita</b><p>Pretty enough to photograph, good enough to order again.</p></div>
+      <p class="note">Full menu and prices are added with the owners before launch.</p>
+    </div>
+    <div class="side">
+      <div class="blk"><h3>Bring the dog</h3><p>The patio is dog-friendly, so the whole family gets to come.</p></div>
+      <div class="blk"><h3>Breakfast on weekends</h3><p>Friday and Saturday the doors open at 8 AM.</p></div>
+      <div class="blk"><h3>Feeding a crowd?</h3><p>Call ahead for big orders and platters to go.</p><div class="btns"><a class="btn solid" href="tel:9284570820">928-457-0820</a></div></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="panel paper" id="butcher" role="tabpanel" aria-labelledby="t-butcher" hidden><div class="wrap">
+  <div class="head"><h2>The butcher counter</h2><p>The same family runs the meat case. Take home the cuts the kitchen trusts, cut the way you want them.</p></div>
+  <div class="case">
+    <div class="cut"><svg viewBox="0 0 200 110" aria-hidden="true"><path d="M30 70c0-28 30-46 70-46 40 0 70 16 70 36 0 26-34 40-80 40-36 0-60-10-60-30z" fill="#B8461A"/><path d="M60 60c20-14 50-18 80-10" stroke="#F1E6D2" stroke-width="6" fill="none" stroke-linecap="round"/><circle cx="135" cy="66" r="10" fill="#F1E6D2"/></svg><h3>Steaks</h3><p>Hand-cut to order. Ask for the thickness you like.</p></div>
+    <div class="cut"><svg viewBox="0 0 200 110" aria-hidden="true"><path d="M20 60c30-30 110-34 150 0-40 34-120 30-150 0z" fill="#E8895C"/><path d="M60 46l10 28M90 42l8 34M120 44l6 30" stroke="#F1E6D2" stroke-width="5" stroke-linecap="round"/><path d="M170 60l22-18v36z" fill="#E8895C"/></svg><h3>Salmon</h3><p>Frozen fillets, ready for the grill at home.</p></div>
+    <div class="cut"><svg viewBox="0 0 200 110" aria-hidden="true"><rect x="30" y="30" width="140" height="60" rx="8" fill="#D9C9AE"/><path d="M40 40h120M40 55h90M40 70h110" stroke="#B8461A" stroke-width="6" stroke-linecap="round"/></svg><h3>Today's case</h3><p>What's in the case changes. Call before you drive over.</p></div>
+  </div>
+  <p class="note">Butcher shop hours and location details are added with the owners before launch.</p>
+  <div class="btns"><a class="btn solid" href="tel:9284570820">Call about today's case</a></div>
+</div></section>
+
+<section class="dark visit" id="visit"><div class="wrap">
+  <div class="head"><h2>Pull up a chair</h2><p style="color:#CBBBA4">680 S Main Street, Snowflake, Arizona 85937</p></div>
+  <div class="grid">
+    <div class="card"><h3>Grill hours</h3><ul class="hours" id="hours"></ul></div>
+    <div class="card"><h3>Find us</h3><p style="color:#CBBBA4">On the south end of Main Street, with patio seating out front.</p>
+      <div class="btns"><a class="btn solid" href="https://www.google.com/maps/search/?api=1&query=680+S+Main+St+Snowflake+AZ+85937" target="_blank" rel="noopener">Directions</a><a class="btn line" href="tel:9284570820">Call</a></div></div>
+    <div class="card"><h3>Scan for the menu</h3><div id="qr"></div></div>
+  </div>
+  <a class="room" href="3d.html"><h3>Step inside in 3D</h3><p>Look around the bar, the booths and the smoker from your phone or a VR headset.</p></a>
+</div></section>
+</main>
+<footer>Snowflake Smokehouse · Bar &amp; Grill and Butcher Shop · Snowflake, Arizona<br>Concept site, 3D room and QR kit by <a href="tel:9284576404">PXD2</a> · 928-457-6404</footer>
+<nav class="mbar"><a href="tel:9284570820">Call</a><a href="#visit">Hours &amp; directions</a></nav>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+const tabs=[...document.querySelectorAll(".door")];
+function pick(t){tabs.forEach(x=>{const on=x===t;x.setAttribute("aria-selected",on);x.tabIndex=on?0:-1;document.getElementById(x.getAttribute("aria-controls")).hidden=!on});}
+tabs.forEach((t,i)=>{t.onclick=()=>pick(t);t.onkeydown=e=>{if(e.key==="ArrowRight"||e.key==="ArrowLeft"){const n=tabs[(i+(e.key==="ArrowRight"?1:tabs.length-1))%tabs.length];pick(n);n.focus()}}});
+pick(tabs[0]);
+const H=[null,[11,20],[11,20],[11,20],[11,20],[8,20],[8,20]],D=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+const f=h=>(h%12||12)+(h>=12?" PM":" AM"),n=new Date(),d=n.getDay(),t=n.getHours()+n.getMinutes()/60,td=H[d],op=td&&t>=td[0]&&t<td[1];
+document.getElementById("hours").innerHTML=[1,2,3,4,5,6,0].map(i=>`<li class="${i===d?"today":""}"><span>${D[i]}</span><span>${H[i]?f(H[i][0])+" – "+f(H[i][1]):"Closed"}</span></li>`).join("");
+const s=document.getElementById("status");s.classList.toggle("open",!!op);s.querySelector("span").textContent=op?"Grill open until "+f(td[1]):"Grill closed now";
+new QRCode(document.getElementById("qr"),{text:location.href.split("#")[0],width:280,height:280,colorDark:"#2B1D16",colorLight:"#ffffff"});
+</script>
+</body>
+</html>
