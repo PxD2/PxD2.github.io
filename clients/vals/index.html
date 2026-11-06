@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Val's Bistro & Blooms · Paninis and flowers on Main Street, Snowflake AZ</title>
+<meta name="description" content="Paninis on focaccia baked every morning, fresh salads, and hand-made bouquets at 681 S Main St, Snowflake, Arizona.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Karla:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--green:#1F3B2D;--green-2:#2E5442;--sun:#F2B90F;--petal:#F4A6B8;--paper:#FAFAF5;--leaf:#9EC27A;--ink:#17251D;--soft:#55665B;--line:#DCE3D8}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--paper);color:var(--ink);font:17px/1.65 Karla,system-ui,sans-serif;overflow-x:hidden}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--sun);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+h1,h2,h3{font-family:'DM Serif Display',Georgia,serif;font-weight:400;line-height:1.08;letter-spacing:-.01em}
+.concept{background:var(--ink);color:#fff;font-size:13px;text-align:center;padding:7px 16px}
+.concept a{color:var(--sun)}
+
+/* nav */
+.nav{display:flex;align-items:center;justify-content:space-between;padding:18px 0}
+.logo{font-family:'DM Serif Display',serif;font-size:26px;text-decoration:none;line-height:1}
+.logo small{display:block;font:500 13px Karla,sans-serif;color:var(--soft);letter-spacing:.02em;margin-top:4px}
+.nav ul{display:flex;gap:26px;list-style:none;font-weight:500}
+.nav ul a{text-decoration:none}.nav ul a:hover{text-decoration:underline;text-underline-offset:5px}
+.status{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:14px;padding:7px 14px;border-radius:999px;background:#fff;border:1.5px solid var(--line)}
+.status i{width:9px;height:9px;border-radius:50%;background:#bbb}
+.status.open i{background:#2fa45a;box-shadow:0 0 0 4px rgba(47,164,90,.18)}
+@media(max-width:760px){.nav ul{display:none}}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center;padding:28px 0 70px}
+.hero h1{font-size:clamp(46px,7.4vw,96px)}
+.hero h1 em{font-style:italic;color:var(--green-2)}
+.hero p{font-size:20px;color:var(--soft);max-width:30em;margin:22px 0 30px}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-weight:700;padding:15px 24px;border-radius:14px;border:2px solid var(--green);cursor:pointer;font-size:16px;font-family:inherit}
+.btn.solid{background:var(--green);color:var(--paper)}
+.btn.sun{background:var(--sun);border-color:var(--sun);color:var(--ink)}
+.btn.line{background:transparent;color:var(--green)}
+.bouquet{width:100%;max-width:440px;justify-self:center}
+.bouquet .bloom{transform-origin:center;transform-box:fill-box;animation:open .9s cubic-bezier(.2,.8,.2,1.2) both}
+@keyframes open{from{transform:scale(0) rotate(-40deg);opacity:0}}
+@media (prefers-reduced-motion:reduce){.bouquet .bloom{animation:none}}
+@media(max-width:860px){.hero{grid-template-columns:1fr}.bouquet{max-width:320px;order:-1}}
+
+/* facts band */
+.facts{background:var(--green);color:var(--paper)}
+.facts .wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;padding:30px 20px}
+.facts b{display:block;font:400 30px 'DM Serif Display',serif;color:var(--sun)}
+@media(max-width:700px){.facts .wrap{grid-template-columns:1fr}}
+
+section{padding:84px 0}
+.head{max-width:640px;margin-bottom:34px}
+.head h2{font-size:clamp(36px,5vw,56px);margin-bottom:10px}
+.head p{color:var(--soft)}
+
+/* menu */
+.menu{display:grid;grid-template-columns:1fr 1fr;gap:0 56px}
+.menu h3{font-size:28px;margin:6px 0 10px;color:var(--green-2)}
+.dish{display:grid;grid-template-columns:1fr auto;gap:2px 16px;padding:15px 0;border-bottom:1px dashed var(--line)}
+.dish b{font-size:18px}.dish span{font-weight:700;color:var(--green-2)}
+.dish p{grid-column:1/-1;color:var(--soft);font-size:15.5px}
+.note{font-size:14px;color:var(--soft);margin-top:18px}
+@media(max-width:760px){.menu{grid-template-columns:1fr}}
+
+/* combo builder: the signature piece */
+.combo{background:#fff;border:2px solid var(--green);border-radius:28px;padding:34px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:26px;position:relative}
+.combo fieldset{border:0}
+.combo legend{font:400 24px 'DM Serif Display',serif;margin-bottom:12px}
+.opt{display:flex;align-items:center;gap:10px;padding:11px 13px;border:1.5px solid var(--line);border-radius:12px;margin-bottom:8px;cursor:pointer;font-weight:500}
+.opt:has(input:checked){border-color:var(--green);background:#EEF4EC}
+.opt input{accent-color:var(--green);width:18px;height:18px}
+.opt em{font-style:normal;margin-left:auto;color:var(--soft);font-size:15px}
+.total{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;border-top:1.5px solid var(--line);padding-top:22px}
+.total strong{font:400 36px 'DM Serif Display',serif}
+.total small{display:block;color:var(--soft);font-size:14px}
+select{font:inherit;padding:11px 13px;border-radius:12px;border:1.5px solid var(--line);background:#fff;width:100%}
+@media(max-width:900px){.combo{grid-template-columns:1fr;padding:24px}}
+
+/* flowers */
+.blooms{background:var(--petal);background:linear-gradient(180deg,#FBE3E9,var(--paper))}
+.cones{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.cone{background:#fff;border-radius:22px;padding:22px;border:1.5px solid #F2CBD5}
+.cone svg{width:100%;height:170px;display:block;margin-bottom:12px}
+.cone h3{font-size:26px}.cone p{color:var(--soft);font-size:15.5px}
+.cone b{color:var(--green-2)}
+@media(max-width:760px){.cones{grid-template-columns:1fr}}
+
+/* story + 3d */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.room{border-radius:24px;overflow:hidden;background:var(--green);color:var(--paper);padding:34px;position:relative;min-height:320px;display:flex;flex-direction:column;justify-content:flex-end}
+.room svg{position:absolute;inset:0;width:100%;height:100%;opacity:.5}
+.room *{position:relative}
+.room h3{font-size:34px;margin-bottom:8px}
+@media(max-width:820px){.split{grid-template-columns:1fr}}
+
+/* visit */
+.visit{background:var(--ink);color:var(--paper)}
+.visit .head p{color:#B9C6BC}
+.vgrid{display:grid;grid-template-columns:1.1fr 1fr .8fr;gap:22px}
+.panel{background:#22362B;border-radius:22px;padding:26px}
+.panel h3{font-size:26px;margin-bottom:12px}
+.hours{list-style:none}.hours li{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #345043}
+.hours li.today{color:var(--sun);font-weight:700}
+.panel .btn{border-color:var(--sun);color:var(--paper);margin:6px 6px 0 0}
+.panel .btn.sun{color:var(--ink)}
+#qr{background:#fff;padding:12px;border-radius:14px;width:max-content;margin:6px 0 12px}
+#qr img,#qr canvas{display:block;width:150px;height:150px}
+@media(max-width:900px){.vgrid{grid-template-columns:1fr}}
+footer{background:var(--ink);color:#8FA394;font-size:14px;padding:0 0 34px;text-align:center}
+footer a{color:var(--sun)}
+.mbar{display:none}
+@media(max-width:700px){.mbar{display:grid;grid-template-columns:1fr 1fr 1fr;position:fixed;inset:auto 0 0 0;z-index:9;background:var(--green)}
+.mbar a{color:var(--paper);text-align:center;padding:14px 4px;font-weight:700;text-decoration:none}.mbar a.sun{background:var(--sun);color:var(--ink)}body{padding-bottom:52px}}
+</style>
+</head>
+<body>
+<div class="concept">Concept preview made by PXD2 for Val's Bistro &amp; Blooms. Not the official site. <a href="tel:9284576404">PXD2: 928-457-6404</a></div>
+
+<div class="wrap nav">
+  <a class="logo" href="#top">Val's<small>Bistro &amp; Blooms · Snowflake</small></a>
+  <ul><li><a href="#menu">Menu</a></li><li><a href="#combo">Lunch + Bouquet</a></li><li><a href="#flowers">Flowers</a></li><li><a href="#visit">Visit</a></li></ul>
+  <span class="status" id="status"><i></i><span>Checking hours</span></span>
+</div>
+
+<main id="top">
+<div class="wrap hero">
+  <div>
+    <h1>Lunch on fresh focaccia, and flowers <em>for the way home.</em></h1>
+    <p>Val bakes the bread every morning. The paninis are pressed to order, the salads are made by hand, and the bouquets on the counter are arranged right here on Main Street.</p>
+    <div class="btns">
+      <a class="btn solid" href="#combo">Build a lunch + bouquet</a>
+      <a class="btn line" href="https://order.online/store/-26257044/" target="_blank" rel="noopener">Order online</a>
+    </div>
+  </div>
+  <svg class="bouquet" viewBox="0 0 400 460" role="img" aria-label="Illustrated bouquet of sunflowers and pink blooms in a paper cone">
+    <g stroke="#2E5442" stroke-width="7" stroke-linecap="round" fill="none">
+      <path d="M200 330 C190 250 140 190 120 140"/><path d="M200 330 C205 240 215 170 205 105"/><path d="M200 330 C215 250 260 200 290 150"/>
+      <path d="M200 330 C180 260 95 240 70 215"/><path d="M200 330 C225 270 310 250 335 225"/>
+    </g>
+    <g fill="#9EC27A"><ellipse cx="150" cy="235" rx="34" ry="13" transform="rotate(-35 150 235)"/><ellipse cx="255" cy="240" rx="34" ry="13" transform="rotate(35 255 240)"/><ellipse cx="205" cy="200" rx="28" ry="11" transform="rotate(-80 205 200)"/></g>
+    <g class="bloom" style="animation-delay:.05s"><g transform="translate(205 100)"><g fill="#F2B90F">
+      <ellipse rx="16" ry="44"/><ellipse rx="16" ry="44" transform="rotate(30)"/><ellipse rx="16" ry="44" transform="rotate(60)"/><ellipse rx="16" ry="44" transform="rotate(90)"/><ellipse rx="16" ry="44" transform="rotate(120)"/><ellipse rx="16" ry="44" transform="rotate(150)"/></g><circle r="24" fill="#5B3A1A"/><circle r="16" fill="#3F2812"/></g></g>
+    <g class="bloom" style="animation-delay:.18s"><g transform="translate(118 140)"><g fill="#F4A6B8"><circle cx="0" cy="-22" r="20"/><circle cx="21" cy="-7" r="20"/><circle cx="13" cy="18" r="20"/><circle cx="-13" cy="18" r="20"/><circle cx="-21" cy="-7" r="20"/></g><circle r="11" fill="#D9617F"/></g></g>
+    <g class="bloom" style="animation-delay:.3s"><g transform="translate(292 148)"><g fill="#F2B90F"><ellipse rx="12" ry="32"/><ellipse rx="12" ry="32" transform="rotate(36)"/><ellipse rx="12" ry="32" transform="rotate(72)"/><ellipse rx="12" ry="32" transform="rotate(108)"/><ellipse rx="12" ry="32" transform="rotate(144)"/></g><circle r="17" fill="#5B3A1A"/></g></g>
+    <g class="bloom" style="animation-delay:.42s"><g transform="translate(68 212)"><circle r="22" fill="#fff"/><circle r="22" fill="none" stroke="#F4A6B8" stroke-width="5"/><circle r="8" fill="#F2B90F"/></g></g>
+    <g class="bloom" style="animation-delay:.52s"><g transform="translate(336 222)"><g fill="#D14D5B"><circle cx="0" cy="-15" r="15"/><circle cx="14" cy="-4" r="15"/><circle cx="9" cy="13" r="15"/><circle cx="-9" cy="13" r="15"/><circle cx="-14" cy="-4" r="15"/></g><circle r="8" fill="#F2B90F"/></g></g>
+    <path d="M110 300 L290 300 L215 450 L185 450 Z" fill="#F7EEDC" stroke="#1F3B2D" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M110 300 L200 340 L290 300" fill="none" stroke="#1F3B2D" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M168 372 q32 18 64 0" fill="none" stroke="#F2B90F" stroke-width="8" stroke-linecap="round"/>
+  </svg>
+</div>
+
+<div class="facts"><div class="wrap">
+  <div><b>Baked daily</b>House focaccia every morning</div>
+  <div><b>4.9 on Google</b>From locals and travelers alike</div>
+  <div><b>Bouquets from $25</b>Ready at the counter or on request</div>
+</div></div>
+
+<section id="menu"><div class="wrap">
+  <div class="head"><h2>The menu</h2><p>Every panini is pressed hot on our own focaccia. Salads are tossed to order.</p></div>
+  <div class="menu">
+    <div><h3>Paninis &amp; wraps</h3><div id="m-paninis"></div></div>
+    <div><h3>Salads</h3><div id="m-salads"></div></div>
+  </div>
+  <p class="note">Prices in this preview come from Val's online ordering page and may differ in the shop.</p>
+</div></section>
+
+<section id="combo" style="padding-top:0"><div class="wrap">
+  <div class="head"><h2>Lunch + a bouquet</h2><p>Pick a sandwich, pick your flowers, and send it to Val. It'll be ready together when you walk in.</p></div>
+  <form class="combo" id="comboForm">
+    <fieldset><legend>Your lunch</legend><div id="c-lunch"></div></fieldset>
+    <fieldset><legend>Your flowers</legend><div id="c-flowers"></div></fieldset>
+    <fieldset><legend>Pickup</legend>
+      <label for="when" style="font-weight:700;font-size:15px">Time</label>
+      <select id="when"></select>
+      <p class="note">Same-day orders before 3 PM. For bigger arrangements, give Val a day's notice.</p>
+    </fieldset>
+    <div class="total">
+      <div><small>Estimated total</small><strong id="sum">$0.00</strong></div>
+      <div class="btns"><a class="btn sun" id="sendText" href="#">Text this order to Val</a><a class="btn line" href="tel:9285367241">Call instead</a></div>
+    </div>
+  </form>
+</div></section>
+
+<section id="flowers" class="blooms"><div class="wrap">
+  <div class="head"><h2>Val's blooms</h2><p>Birthdays, thank-yous, apologies, or just a Tuesday. Arranged in the shop and wrapped in paper.</p></div>
+  <div class="cones" id="cones"></div>
+  <p class="note">Bouquet sizes and prices beyond the $25 grab-and-go are set with Val before launch.</p>
+</div></section>
+
+<section><div class="wrap split">
+  <div>
+    <div class="head" style="margin-bottom:16px"><h2>A family kitchen on Main Street</h2></div>
+    <p style="color:var(--soft);margin-bottom:14px">Val runs the bistro with her family: she bakes, they take your order, and everyone knows the regulars by name. It's the kind of place travelers find by accident and then plan their route around.</p>
+    <p style="color:var(--soft)">Stop in for lunch on your way across the White Mountains, or grab a bouquet for whoever's waiting at home.</p>
+  </div>
+  <a class="room" href="3d.html" style="text-decoration:none">
+    <svg viewBox="0 0 400 300" aria-hidden="true"><g fill="none" stroke="#F2B90F" stroke-width="2" opacity=".7"><path d="M40 260 L200 200 L360 260"/><path d="M40 260 L40 80 L200 40 L360 80 L360 260"/><path d="M200 40 L200 200"/><path d="M90 245 L90 150 L150 135 L150 225"/><path d="M250 225 L250 135 L310 150 L310 245"/></g></svg>
+    <h3>Walk through the shop in 3D</h3>
+    <p>Look around the counter and the flower shelves from your phone or a VR headset. Open the 3D room</p>
+  </a>
+</div></section>
+
+<section id="visit" class="visit"><div class="wrap">
+  <div class="head"><h2>Come by</h2><p>681 S Main Street, Snowflake, Arizona 85937</p></div>
+  <div class="vgrid">
+    <div class="panel"><h3>Hours</h3><ul class="hours" id="hours"></ul></div>
+    <div class="panel"><h3>Find us</h3>
+      <p style="color:#B9C6BC;margin-bottom:14px">On South Main, with easy parking out front. Pickup orders wait at the counter.</p>
+      <a class="btn sun" href="https://www.google.com/maps/search/?api=1&query=681+S+Main+St+Snowflake+AZ+85937" target="_blank" rel="noopener">Get directions</a>
+      <a class="btn line" href="tel:9285367241">928-536-7241</a>
+    </div>
+    <div class="panel"><h3>Scan to save</h3><div id="qr"></div><p style="color:#B9C6BC;font-size:14px">This code is printed on table tents, cards and the front window.</p></div>
+  </div>
+</div></section>
+</main>
+<footer><p>Val's Bistro &amp; Blooms · Snowflake, Arizona</p><p>Concept site, 3D room and QR kit by <a href="tel:9284576404">PXD2</a> · 928-457-6404</p></footer>
+<nav class="mbar"><a href="tel:9285367241">Call</a><a href="https://www.google.com/maps/search/?api=1&query=681+S+Main+St+Snowflake+AZ+85937" target="_blank" rel="noopener">Directions</a><a class="sun" href="#combo">Order</a></nav>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+const PANINIS=[["Val's Signature Chicken Parm","Grilled marinated chicken, melted mozzarella, roasted red peppers and basil with parmesan aioli.",15.49],["Chicken Pesto","Grilled chicken and house pesto on warm focaccia.",14.69],["Italian Panini","Classic Italian meats and cheese, pressed hot.",15.49],["Turkey Avocado","Roasted turkey, mozzarella, tomato and fresh avocado.",14.49],["Chicken Bacon Ranch Wrap","Grilled chicken, bacon and ranch, wrapped to go.",15.49]];
+const SALADS=[["Strawberry Walnut","Greens, strawberries and toasted walnuts.",10.49],["Caprese","Tomato, fresh mozzarella and basil.",10.49],["Chicken Pecan","Greens with chicken and pecans.",9.99],["House Salad","Simple, crisp and made to order.",9.99]];
+const FLOWERS=[["No flowers today",0,""],["Grab-and-go sunflowers",25,"A bright handful, wrapped in paper. Always on the counter."],["Garden mix",35,"Seasonal blooms in soft pinks, whites and greens."],["The showpiece",50,"A full arrangement for a birthday, anniversary or big thank-you."]];
+const $=s=>document.querySelector(s), money=n=>"$"+n.toFixed(2);
+const dish=([n,d,p])=>`<div class="dish"><b>${n}</b><span>${money(p)}</span><p>${d}</p></div>`;
+$("#m-paninis").innerHTML=PANINIS.map(dish).join(""); $("#m-salads").innerHTML=SALADS.map(dish).join("");
+$("#c-lunch").innerHTML=[...PANINIS,...SALADS].map(([n,,p],i)=>`<label class="opt"><input type="radio" name="lunch" value="${i}" ${i===0?"checked":""}>${n}<em>${money(p)}</em></label>`).slice(0,6).join("");
+$("#c-flowers").innerHTML=FLOWERS.map(([n,p],i)=>`<label class="opt"><input type="radio" name="flw" value="${i}" ${i===1?"checked":""}>${n}<em>${p?"$"+p:""}</em></label>`).join("");
+const cone=(c1,c2)=>`<svg viewBox="0 0 200 170" aria-hidden="true"><g fill="${c1}"><circle cx="70" cy="55" r="26"/><circle cx="130" cy="55" r="26"/><circle cx="100" cy="35" r="28"/></g><g fill="${c2}"><circle cx="100" cy="35" r="10"/><circle cx="70" cy="55" r="9"/><circle cx="130" cy="55" r="9"/></g><path d="M55 80 L145 80 L108 165 L92 165 Z" fill="#F7EEDC" stroke="#1F3B2D" stroke-width="3"/></svg>`;
+const conesC=[["#F2B90F","#5B3A1A"],["#F4A6B8","#fff"],["#D14D5B","#F2B90F"]];
+$("#cones").innerHTML=FLOWERS.slice(1).map(([n,p,d],i)=>`<div class="cone">${cone(...conesC[i])}<h3>${n}</h3><p>${d}</p><p><b>From $${p}</b></p></div>`).join("");
+
+const HOURS=[null,[9,16],[10,16],[10,16],[10,16],[10,16],[10,14]], DAYS=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+const fmt=h=>{const H=Math.floor(h),m=Math.round((h-H)*60);return (H%12||12)+(m?":"+String(m).padStart(2,"0"):"")+(H>=12?" PM":" AM")};
+const now=new Date(), d=now.getDay(), t=now.getHours()+now.getMinutes()/60, today=HOURS[d], open=today&&t>=today[0]&&t<today[1];
+$("#hours").innerHTML=[1,2,3,4,5,6,0].map(i=>`<li class="${i===d?"today":""}"><span>${DAYS[i]}</span><span>${HOURS[i]?fmt(HOURS[i][0])+" – "+fmt(HOURS[i][1]):"Closed"}</span></li>`).join("");
+const st=$("#status"); st.classList.toggle("open",!!open);
+st.querySelector("span").textContent=open?`Open until ${fmt(today[1])}`:"Closed now";
+const sel=$("#when"); const start=today?Math.max(today[0],Math.ceil((t+.5)*2)/2):99;
+if(today&&start<today[1]-.25){for(let h=start;h<today[1];h+=.5)sel.add(new Option("Today, "+fmt(h),"today "+fmt(h)))}
+sel.add(new Option("Tomorrow, I'll call to set a time","tomorrow"));
+function update(){
+  const L=[...PANINIS,...SALADS][+document.querySelector("input[name=lunch]:checked").value];
+  const F=FLOWERS[+document.querySelector("input[name=flw]:checked").value];
+  $("#sum").textContent=money(L[2]+F[1]);
+  const body=`Hi Val! Order for pickup ${sel.value}: ${L[0]}${F[1]?" + "+F[0]:""}. Name: `;
+  $("#sendText").href="sms:9285367241?&body="+encodeURIComponent(body);
+}
+document.getElementById("comboForm").addEventListener("change",update); update();
+new QRCode(document.getElementById("qr"),{text:location.href.split("#")[0],width:300,height:300,colorDark:"#17251D",colorLight:"#ffffff"});
+</script>
+</body>
+</html>

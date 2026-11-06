@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Red Dirt Construction: 3D walk-through</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:light}*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#9E3B1B;color:#FFFFFF;font:15px/1.5 Inter,system-ui,sans-serif;overflow:hidden}
+.concept{background:#000;color:#fff;font-size:12px;text-align:center;padding:6px 12px}
+header{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 16px;background:#9E3B1B}
+h1{font-family:'Barlow Condensed',Arial Narrow,sans-serif;font-weight:700;font-size:clamp(18px,3.5vw,26px);line-height:1.1}
+a.back{color:#FFFFFF;border:1.5px solid #E9D3B0;padding:8px 14px;border-radius:999px;text-decoration:none;font-weight:600;white-space:nowrap}
+a.back:focus-visible{outline:3px solid #E9D3B0;outline-offset:2px}
+#room{position:absolute;top:96px;left:0;right:0;bottom:0}
+.hint{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);background:rgba(0,0,0,.62);color:#fff;padding:8px 14px;border-radius:999px;font-size:13px;text-align:center;max-width:92vw}
+</style></head><body>
+<div class="concept">Concept preview by PXD2 · not the official site of Red Dirt Construction</div>
+<header><h1>Red Dirt Construction</h1><a class="back" href="./">Back to the site</a></header>
+<div id="room" aria-label="Sample 3D room of Red Dirt Construction. Drag to look around."></div>
+<p class="hint">Drag to look around, pinch or scroll to zoom. This is a sample room: PXD2 scans the real space after signing.</p>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/controls/OrbitControls.js"></script>
+<script src="room3d.js"></script>
+<script>PXD2Room.boot({"sign": "RED DIRT CONSTRUCTION", "signSub": "Roofs \u00b7 Decks \u00b7 Custom builds \u00b7 Springerville", "signBg": "#9E3B1B", "signFg": "#F6EAD6", "colors": {"sky": 13624562, "floor": 9067068, "wall": 15324080, "wall2": 14467996, "trim": 4082258, "wood": 8014378, "top": 12159578, "metal": 4082258, "accent": 4082258, "glow": 16773334, "flowers": [10369819, 4082258, 3103299, 1914199, 7039851, 12759680]}, "props": [["counter", 0, -3.4], ["sample", -5, -3.6], ["sample", -3.9, -3.6], ["sample", 3.9, -3.6], ["sample", 5, -3.6], ["table", -2.5, 1.2], ["table", 2.5, 1.2]]});</script>
+</body></html>
