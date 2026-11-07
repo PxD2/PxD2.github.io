@@ -1,47 +1,482 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>PXD2 — Software as much as hardware</title>
-    <meta
-      name="description"
-      content="PXD2 in-house floor. Think tank. Alternative autonomous systems — first steel to mothball fleet refit. Walk the hall. Fund the stack."
-    />
-    <meta name="theme-color" content="#07080c" />
-    <link rel="canonical" href="https://pxd2.github.io/" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://pxd2.github.io/" />
-    <meta property="og:title" content="PXD2 — The floor is open" />
-    <meta
-      property="og:description"
-      content="Software as much as hardware. First systems to mothball refit. Walk the hall."
-    />
-    <meta property="og:image" content="https://pxd2.github.io/og.jpg" />
-    <meta property="og:image:width" content="1600" />
-    <meta property="og:image:height" content="840" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="PXD2 — The floor is open" />
-    <meta
-      name="twitter:description"
-      content="Software as much as hardware. First systems to mothball refit."
-    />
-    <meta name="twitter:image" content="https://pxd2.github.io/og.jpg" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Oswald:wght@500;600;700;800&display=swap"
-    />
-    <script type="module" crossorigin src="/assets/index-D18w3Jts.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-BWL9SfPr.css">
-  </head>
-  <body>
-    <div id="app"></div>
-    <nav aria-label="PXD2 rooms" style="position:fixed;left:12px;bottom:12px;z-index:50;display:flex;gap:10px;flex-wrap:wrap;pointer-events:auto;font:600 11px/1 Barlow,system-ui,sans-serif;letter-spacing:.22em;text-transform:uppercase">
-      <a href="/" style="color:#8b93a3;text-decoration:none">Floor</a>
-      <a href="/company/" style="color:#8b93a3;text-decoration:none">Company</a>
-      <a href="/cad/" style="color:#f5c14a;text-decoration:none">CAD studio</a>
-      <a href="/pxd2spaces/" style="color:#00d4ea;text-decoration:none">Hackspace</a>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PXD2 — Company &amp; official accounts</title>
+<meta name="description" content="PXD2 company directory: every official PXD2 account, the brands under PXD2, client services and investor access. If it isn't listed here, it isn't us." />
+<meta name="theme-color" content="#07080c" />
+<link rel="canonical" href="https://pxd2.github.io/company/" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://pxd2.github.io/company/" />
+<meta property="og:title" content="PXD2 — Company &amp; official accounts" />
+<meta property="og:description" content="Every official PXD2 account and brand in one place. Software as much as hardware." />
+<meta property="og:image" content="https://pxd2.github.io/og.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://pxd2.github.io/og.jpg" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Oswald:wght@500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "PXD2",
+  "url": "https://pxd2.github.io/",
+  "logo": "https://pxd2.github.io/favicon.svg",
+  "email": "pxdsquared@gmail.com",
+  "telephone": "+1-928-457-6404",
+  "address": {"@type": "PostalAddress", "postOfficeBoxNumber": "514", "addressLocality": "Concho", "addressRegion": "AZ", "postalCode": "85924", "addressCountry": "US"},
+  "founder": {"@type": "Person", "name": "Chad Aaron Peters"},
+  "sameAs": [
+    "https://www.youtube.com/@PXD2Games",
+    "https://www.tiktok.com/@pxd2.games",
+    "https://www.instagram.com/pxd2games",
+    "https://github.com/PxD2"
+  ]
+}
+</script>
+<style>
+:root{
+  --bg:#07080c; --panel:#0e1118; --panel2:#131722; --line:#1f2533; --line2:#2a3244;
+  --ink:#e9ecf2; --mute:#8b93a3; --dim:#5d6575;
+  --gold:#f5c14a; --cyan:#00d4ea; --red:#ff4d5e; --green:#3ddc84;
+  --r:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.55 Barlow,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(900px 500px at 85% -10%,rgba(245,193,74,.10),transparent 60%),
+    radial-gradient(700px 500px at -10% 30%,rgba(0,212,234,.08),transparent 60%),
+    repeating-linear-gradient(0deg,transparent 0 47px,rgba(255,255,255,.025) 47px 48px),
+    repeating-linear-gradient(90deg,transparent 0 47px,rgba(255,255,255,.025) 47px 48px)}
+a{color:inherit}
+.wrap{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:0 20px}
+.eyebrow{font:600 11px/1 Barlow,sans-serif;letter-spacing:.28em;text-transform:uppercase;color:var(--gold)}
+h1,h2,h3{font-family:Oswald,Impact,sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.02em;line-height:1.02}
+.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+
+/* top bar */
+.top{position:sticky;top:0;z-index:20;background:rgba(7,8,12,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:18px;height:58px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font:700 20px/1 Oswald,sans-serif;letter-spacing:.06em}
+.brand img{width:26px;height:26px}
+.jump{margin-left:auto;display:flex;gap:18px;font:600 11px/1 Barlow,sans-serif;letter-spacing:.22em;text-transform:uppercase}
+.jump a{color:var(--mute);text-decoration:none}
+.jump a:hover{color:var(--ink)}
+@media(max-width:760px){.jump{display:none}}
+
+/* hero */
+.hero{padding-top:72px;padding-bottom:44px}
+.hero h1{font-size:clamp(44px,8vw,96px);margin:14px 0 18px}
+.hero h1 span{color:var(--gold)}
+.lede{max-width:640px;color:#c3c9d4;font-size:18px}
+.stamp{display:inline-flex;align-items:center;gap:10px;margin-top:26px;padding:11px 16px;border:1px solid rgba(61,220,132,.35);background:rgba(61,220,132,.07);border-radius:999px;font:600 13px/1.2 Barlow,sans-serif;color:#bff3d4}
+.stamp i{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin-top:40px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.stats div{background:var(--panel);padding:18px 20px}
+.stats b{display:block;font:700 30px/1 Oswald,sans-serif;color:var(--ink)}
+.stats small{color:var(--mute);font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+@media(max-width:700px){.stats{grid-template-columns:repeat(2,1fr)}}
+
+section{padding:56px 0;border-top:1px solid var(--line)}
+.head{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:14px;margin-bottom:26px}
+.head h2{font-size:clamp(30px,4.4vw,46px);margin-top:10px}
+.head p{color:var(--mute);max-width:440px}
+
+/* accounts */
+.acc{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.card{position:relative;display:flex;flex-direction:column;gap:12px;padding:20px;background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:var(--r);text-decoration:none;transition:border-color .2s,transform .2s}
+a.card:hover{border-color:var(--line2);transform:translateY(-2px)}
+.card .row{display:flex;align-items:center;gap:12px}
+.ico{flex:none;width:42px;height:42px;border-radius:11px;display:grid;place-items:center;background:#0a0c12;border:1px solid var(--line2)}
+.ico svg{width:20px;height:20px;fill:currentColor}
+.card h3{font-size:19px}
+.card .handle{font:500 13px/1.3 "JetBrains Mono",monospace;color:var(--mute);word-break:break-all}
+.card .note{font-size:14px;color:#aeb5c2}
+.tag{align-self:flex-start;order:-1;font:600 10px/1 Barlow,sans-serif;letter-spacing:.2em;text-transform:uppercase;padding:5px 8px;border-radius:6px;background:rgba(61,220,132,.1);color:var(--green);border:1px solid rgba(61,220,132,.25)}
+.go{margin-top:auto;font:600 12px/1 Barlow,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.yt{color:#ff4d5e}.tt{color:#5ef0f7}.ig{color:#ff7ac2}.gh{color:#e9ecf2}.ml{color:var(--gold)}.ph{color:var(--green)}.po{color:#a7b3ff}
+
+/* org tree */
+.org{display:grid;grid-template-columns:280px 1fr;gap:20px}
+@media(max-width:900px){.org{grid-template-columns:1fr}}
+.parent{padding:26px;border-radius:var(--r);border:1px solid rgba(245,193,74,.35);background:linear-gradient(160deg,rgba(245,193,74,.12),rgba(245,193,74,.02) 60%),var(--panel);align-self:start;position:sticky;top:78px}
+@media(max-width:900px){.parent{position:static}}
+.parent h3{font-size:44px;color:var(--gold)}
+.parent p{color:#c8ced8;margin-top:10px;font-size:15px}
+.parent ul{list-style:none;margin-top:18px;border-top:1px solid rgba(245,193,74,.2)}
+.parent li{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:14px}
+.parent li span{color:var(--mute)}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.filters button{cursor:pointer;font:600 11px/1 Barlow,sans-serif;letter-spacing:.18em;text-transform:uppercase;padding:9px 13px;border-radius:999px;border:1px solid var(--line2);background:transparent;color:var(--mute)}
+.filters button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.brands{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.b{padding:18px;border-radius:12px;background:var(--panel);border:1px solid var(--line);display:flex;flex-direction:column;gap:8px;border-left:3px solid var(--c,var(--cyan))}
+.b[hidden]{display:none}
+.b small{font:600 10px/1 Barlow,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:var(--c,var(--cyan))}
+.b h4{font:700 20px/1.1 Oswald,sans-serif;text-transform:uppercase}
+.b p{font-size:14px;color:#aeb5c2}
+.b .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:6px}
+.b .links a{font:600 11px/1 Barlow,sans-serif;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;padding:7px 10px;border-radius:7px;background:#0a0c12;border:1px solid var(--line2);color:#cfd5df}
+.b .links a:hover{border-color:var(--c,var(--cyan));color:var(--ink)}
+.b .soon{font-size:12px;color:var(--dim);letter-spacing:.14em;text-transform:uppercase;margin-top:auto}
+
+/* services */
+.tiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.tier{padding:28px;border-radius:var(--r);background:var(--panel);border:1px solid var(--line);display:flex;flex-direction:column;gap:14px}
+.tier.hot{border-color:rgba(0,212,234,.45);background:linear-gradient(170deg,rgba(0,212,234,.10),transparent 55%),var(--panel)}
+.tier .price{font:700 54px/1 Oswald,sans-serif}
+.tier .price sup{font-size:22px;vertical-align:top;margin-right:2px;color:var(--mute)}
+.tier ul{list-style:none;display:grid;gap:8px}
+.tier li{padding-left:22px;position:relative;font-size:15px;color:#c8ced8}
+.tier li::before{content:"";position:absolute;left:0;top:8px;width:10px;height:6px;border-left:2px solid var(--cyan);border-bottom:2px solid var(--cyan);transform:rotate(-45deg)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;margin-top:auto;padding:13px 18px;border-radius:10px;text-decoration:none;font:600 12px/1 Barlow,sans-serif;letter-spacing:.2em;text-transform:uppercase;border:1px solid var(--line2);color:var(--ink)}
+.btn.pri{background:var(--gold);border-color:var(--gold);color:#120d02}
+.btn:hover{filter:brightness(1.1)}
+
+/* names */
+.names{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px}
+.n{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:11px 13px;border-radius:9px;background:var(--panel);border:1px solid var(--line);font:500 13px/1 "JetBrains Mono",monospace}
+.n a{text-decoration:none;color:#d7dce5}
+.n a b{color:var(--cyan);font-weight:500}
+.n button{cursor:pointer;border:0;background:transparent;color:var(--dim);font:600 10px/1 Barlow,sans-serif;letter-spacing:.18em;text-transform:uppercase}
+.n button:hover{color:var(--gold)}
+
+/* invest strip */
+.cta{display:grid;grid-template-columns:1.3fr 1fr;gap:24px;align-items:center;padding:34px;border-radius:18px;border:1px solid var(--line2);background:linear-gradient(120deg,rgba(245,193,74,.10),rgba(0,212,234,.07)),var(--panel)}
+.cta h2{font-size:clamp(28px,4vw,42px)}
+.cta p{color:#c3c9d4;margin-top:10px}
+.cta .acts{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-end}
+@media(max-width:800px){.cta{grid-template-columns:1fr}.cta .acts{justify-content:flex-start}}
+
+.warn{margin-top:22px;padding:16px 18px;border-radius:12px;border:1px solid rgba(255,77,94,.3);background:rgba(255,77,94,.06);color:#f3c4c9;font-size:14px}
+.warn b{color:#ff8a96}
+
+footer{padding:40px 0 90px;border-top:1px solid var(--line);color:var(--dim);font-size:13px}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+.toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,80px);opacity:0;transition:.25s;z-index:60;padding:10px 16px;border-radius:9px;background:var(--ink);color:var(--bg);font:600 13px/1 Barlow,sans-serif}
+.toast.on{transform:translate(-50%,0);opacity:1}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/"><img src="/favicon.svg" alt="" />PXD2</a>
+    <nav class="jump" aria-label="Sections">
+      <a href="#accounts">Accounts</a>
+      <a href="#brands">Brands</a>
+      <a href="#services">Client services</a>
+      <a href="#names">.pxd names</a>
+      <a href="#invest">Investors</a>
     </nav>
-  </body>
+  </div>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <div class="eyebrow">PXD2 · Company directory · Concho, Arizona</div>
+    <h1>Company <span>accounts</span></h1>
+    <p class="lede">Every official PXD2 account, every brand under the PXD2 banner, and every way to work with us — in one place. Software as much as hardware.</p>
+    <div class="stamp"><i></i>Verified list — if an account isn't on this page, it isn't PXD2.</div>
+    <div class="stats">
+      <div><b id="s-acc">8</b><small>Official channels</small></div>
+      <div><b id="s-br">12</b><small>Brands under PXD2</small></div>
+      <div><b id="s-nm">0</b><small>.pxd names live</small></div>
+      <div><b>100%</b><small>Off-grid built</small></div>
+    </div>
+  </div>
+
+  <section id="accounts">
+    <div class="wrap">
+      <div class="head">
+        <div><div class="eyebrow">01 · Official accounts</div><h2>Where PXD2 lives</h2></div>
+        <p>Social, code and contact. These are the only channels that speak for PXD2 and its brands.</p>
+      </div>
+      <div class="acc">
+        <a class="card" href="https://www.youtube.com/@PXD2Games" target="_blank" rel="noopener">
+          <span class="tag">Official</span>
+          <div class="row"><span class="ico yt"><svg viewBox="0 0 24 24"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8ZM9.7 15.1V8.9l5.8 3.1-5.8 3.1Z"/></svg></span>
+            <div><h3>YouTube</h3><div class="handle">@PXD2Games</div></div></div>
+          <p class="note">Gameplay reels, dev logs and Screening Room cuts.</p>
+          <span class="go">Watch →</span>
+        </a>
+        <a class="card" href="https://www.tiktok.com/@pxd2.games" target="_blank" rel="noopener">
+          <span class="tag">Official</span>
+          <div class="row"><span class="ico tt"><svg viewBox="0 0 24 24"><path d="M16.6 2h-3.3v13.3a2.9 2.9 0 1 1-2.9-2.9c.3 0 .6 0 .9.1V9.1a6.3 6.3 0 1 0 5.3 6.2V8.6a7.9 7.9 0 0 0 4.6 1.5V6.8a4.6 4.6 0 0 1-4.6-4.8Z"/></svg></span>
+            <div><h3>TikTok</h3><div class="handle">@pxd2.games</div></div></div>
+          <p class="note">Short clips from the floor and the games.</p>
+          <span class="go">Follow →</span>
+        </a>
+        <a class="card" href="https://www.instagram.com/pxd2games" target="_blank" rel="noopener">
+          <span class="tag">Official</span>
+          <div class="row"><span class="ico ig"><svg viewBox="0 0 24 24"><path d="M12 7.3a4.7 4.7 0 1 0 0 9.4 4.7 4.7 0 0 0 0-9.4Zm0 7.7a3 3 0 1 1 0-6 3 3 0 0 1 0 6Zm6-7.9a1.1 1.1 0 1 1-2.2 0 1.1 1.1 0 0 1 2.2 0ZM21.9 8c0-1.5-.4-2.8-1.5-3.9S18 2.6 16.5 2.5c-1.5-.1-6-.1-7.5 0-1.5.1-2.8.4-3.9 1.5S3.6 6.5 3.5 8c-.1 1.5-.1 6 0 7.5.1 1.5.4 2.8 1.5 3.9s2.4 1.4 3.9 1.5c1.5.1 6 .1 7.5 0 1.5-.1 2.8-.4 3.9-1.5s1.4-2.4 1.5-3.9c.1-1.5.1-6 0-7.5Zm-2 9.1a3 3 0 0 1-1.7 1.7c-1.2.5-4 .4-5.2.4s-4.1.1-5.2-.4a3 3 0 0 1-1.7-1.7c-.5-1.2-.4-4-.4-5.2s-.1-4.1.4-5.2A3 3 0 0 1 7.8 5c1.2-.5 4-.4 5.2-.4s4.1-.1 5.2.4a3 3 0 0 1 1.7 1.7c.5 1.2.4 4 .4 5.2s.1 4.1-.4 5.2Z"/></svg></span>
+            <div><h3>Instagram</h3><div class="handle">@pxd2games</div></div></div>
+          <p class="note">Renders, scans, builds and behind-the-scenes.</p>
+          <span class="go">See →</span>
+        </a>
+        <a class="card" href="https://github.com/PxD2" target="_blank" rel="noopener">
+          <span class="tag">Official</span>
+          <div class="row"><span class="ico gh"><svg viewBox="0 0 24 24"><path d="M12 .5a11.5 11.5 0 0 0-3.6 22.4c.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A11.5 11.5 0 0 0 12 .5Z"/></svg></span>
+            <div><h3>GitHub</h3><div class="handle">github.com/PxD2</div></div></div>
+          <p class="note">The storage backbone for the floor, client sites and the .pxd registry.</p>
+          <span class="go">Browse →</span>
+        </a>
+        <a class="card" href="mailto:pxdsquared@gmail.com">
+          <div class="row"><span class="ico ml"><svg viewBox="0 0 24 24"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm9 7.1L4 7.3V17h16V7.3l-8 4.8ZM5.1 7 12 11.1 18.9 7H5.1Z"/></svg></span>
+            <div><h3>Business</h3><div class="handle">pxdsquared@gmail.com</div></div></div>
+          <p class="note">Partnerships, sponsorships, client sites and investors.</p>
+          <span class="go">Email →</span>
+        </a>
+        <a class="card" href="mailto:pxd2games@gmail.com">
+          <div class="row"><span class="ico ml"><svg viewBox="0 0 24 24"><path d="M7 7h10a5 5 0 0 1 0 10c-1.4 0-2.4-.8-3.2-1.6h-3.6C9.4 16.2 8.4 17 7 17A5 5 0 0 1 7 7Zm1 3v1.5H6.5v1H8V14h1v-1.5h1.5v-1H9V10H8Zm7.5.5a.8.8 0 1 0 0 1.6.8.8 0 0 0 0-1.6Zm2 2a.8.8 0 1 0 0 1.6.8.8 0 0 0 0-1.6Z"/></svg></span>
+            <div><h3>Games</h3><div class="handle">pxd2games@gmail.com</div></div></div>
+          <p class="note">Players, press, mod team and playtest sign-ups.</p>
+          <span class="go">Email →</span>
+        </a>
+        <a class="card" href="tel:+19284576404">
+          <div class="row"><span class="ico ph"><svg viewBox="0 0 24 24"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.2 11.4 11.4 0 0 0 3.6.6 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.2.2 2.4.6 3.6a1 1 0 0 1-.3 1l-2.2 2.2Z"/></svg></span>
+            <div><h3>Phone</h3><div class="handle">928-457-6404</div></div></div>
+          <p class="note">Arizona time. Leave a message if the sun's down.</p>
+          <span class="go">Call →</span>
+        </a>
+        <div class="card">
+          <div class="row"><span class="ico po"><svg viewBox="0 0 24 24"><path d="M12 2 2 7v2h20V7L12 2Zm-8 9v7H2v2h20v-2h-2v-7h-2v7h-3v-7h-2v7H8v-7H6v7H4v-7Z"/></svg></span>
+            <div><h3>Mail</h3><div class="handle">PO Box 514<br />Concho, AZ 85924</div></div></div>
+          <p class="note">Contracts, samples and physical correspondence.</p>
+        </div>
+      </div>
+      <div class="warn"><b>Impersonation notice.</b> PXD2 never asks for passwords, card numbers or crypto wallet keys by DM. Payments for client work are invoiced from the business email above — nowhere else.</div>
+    </div>
+  </section>
+
+  <section id="brands">
+    <div class="wrap">
+      <div class="head">
+        <div><div class="eyebrow">02 · Structure</div><h2>One parent. Every brand.</h2></div>
+        <p>PXD2 is the parent. Everything below is a brand owned and run under PXD2.</p>
+      </div>
+      <div class="org">
+        <aside class="parent">
+          <div class="eyebrow">Parent company</div>
+          <h3>PXD2</h3>
+          <p>A one-man, 100% off-grid shop in Concho, Arizona — games, compute, CAD, scanning, client sites and hardware, all built in-house.</p>
+          <ul>
+            <li>Founder <span>Chad Aaron Peters</span></li>
+            <li>Base <span>Concho, AZ</span></li>
+            <li>Power <span>Solar, off-grid</span></li>
+            <li>Floor <span>K2 Plus · POP 4 · 5080</span></li>
+            <li>Cert <span>AMD ROCm Associate</span></li>
+          </ul>
+          <a class="btn" href="/#company" style="margin-top:18px;width:100%">Read the charter →</a>
+        </aside>
+        <div>
+          <div class="filters" role="group" aria-label="Filter brands">
+            <button aria-pressed="true" data-f="all">All</button>
+            <button aria-pressed="false" data-f="games">Games &amp; media</button>
+            <button aria-pressed="false" data-f="tech">Tech &amp; compute</button>
+            <button aria-pressed="false" data-f="commerce">Commerce</button>
+            <button aria-pressed="false" data-f="community">Community</button>
+          </div>
+          <div class="brands" id="brandGrid">
+            <article class="b" data-k="games" style="--c:#ff4d5e">
+              <small>Games</small><h4>PXD2 Games</h4>
+              <p>Unreal titles: Global Theaters: Mud for Blood, Rouge Racer: Route 66 and PXD2 Fleet.</p>
+              <div class="links"><a href="/games/">Games</a><a href="/mudforblood/">Mud for Blood</a><a href="/fleet/">Fleet</a></div>
+            </article>
+            <article class="b" data-k="games" style="--c:#ff9f43">
+              <small>Film &amp; studio</small><h4>PXD2 Studios</h4>
+              <p>Studio A on the 5080 floor — reels, animation and the Hornet Bell standard.</p>
+              <div class="links"><a href="/pxd2studios/">Studios</a><a href="/studioa/">Studio A</a><a href="/hornet/">Hornet Bell</a></div>
+            </article>
+            <article class="b" data-k="games" style="--c:#c792ea">
+              <small>Entertainment</small><h4>Glen Elder Entertainment Group</h4>
+              <p>GEEG — the entertainment arm for releases, events and partnerships.</p>
+              <div class="soon">Page coming</div>
+            </article>
+            <article class="b" data-k="commerce" style="--c:#f5c14a">
+              <small>Collectibles</small><h4>Last Chance 4 Comics</h4>
+              <p>Collectible comics — artist proofs and CGC-graded books.</p>
+              <div class="soon">Storefront coming</div>
+            </article>
+            <article class="b" data-k="tech" style="--c:#3ddc84">
+              <small>Energy</small><h4>Cottonwood Energy</h4>
+              <p>Off-grid solar and storage — the power behind the PXD2 floor and compute stations.</p>
+              <div class="soon">Page coming</div>
+            </article>
+            <article class="b" data-k="tech" style="--c:#8b93a3">
+              <small>Hardware</small><h4>PXD2 Defense Technology</h4>
+              <p>Droid, drone and autonomous-systems IP — first steel to mothball refit.</p>
+              <div class="links"><a href="/">The floor</a></div>
+            </article>
+            <article class="b" data-k="tech" style="--c:#00d4ea">
+              <small>Data</small><h4>PXD2 Data Systems</h4>
+              <p>PXD Data Lab, the PXDZ format, PXD2 AI and the compute network.</p>
+              <div class="links"><a href="/pxd/">Data Lab</a><a href="/ai/">PXD2 AI</a></div>
+            </article>
+            <article class="b" data-k="tech" style="--c:#5ef0f7">
+              <small>Design tools</small><h4>Helix CAD &amp; Meshworks</h4>
+              <p>Open browser CAD to replace seat leases, plus scan cards from the POP 4.</p>
+              <div class="links"><a href="/cad2/">Helix CAD</a><a href="/meshworks/">Meshworks</a></div>
+            </article>
+            <article class="b" data-k="commerce" style="--c:#00d4ea">
+              <small>Web &amp; hosting</small><h4>PXD2 Hosting</h4>
+              <p>Client websites, 3D rooms and lifetime hosting for local businesses.</p>
+              <div class="links"><a href="/clients/showcase/">Showcase</a><a href="#services">Pricing</a></div>
+            </article>
+            <article class="b" data-k="commerce" style="--c:#ff7ac2">
+              <small>VR commerce</small><h4>PXD VR Net &amp; Stores</h4>
+              <p>.pxd names, the VR store demo and PXD Antiques — see it in your room before you buy.</p>
+              <div class="links"><a href="/vr/">VR Net</a><a href="/clients/propshop/">VR store</a><a href="/antiques/">Antiques</a></div>
+            </article>
+            <article class="b" data-k="commerce" style="--c:#ff9f43">
+              <small>Food</small><h4>PXD2 DOGS</h4>
+              <p>PXD2's hot-dog brand.</p>
+              <div class="soon">Menu coming</div>
+            </article>
+            <article class="b" data-k="community" style="--c:#a7b3ff">
+              <small>Community</small><h4>PXD2 Hackspace &amp; Learning</h4>
+              <p>Off-grid makerspace for free job training, Digital Alexandria and the civics library.</p>
+              <div class="links"><a href="/pxd2spaces/">Hackspace</a><a href="/alexandria/">Alexandria</a><a href="/civics/">Civics</a></div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="wrap">
+      <div class="head">
+        <div><div class="eyebrow">03 · Client accounts</div><h2>Get a PXD2 site</h2></div>
+        <p>One-time build price. You keep your .com or take a .pxd name — your call. You cover your own merchant fees.</p>
+      </div>
+      <div class="tiers">
+        <div class="tier">
+          <div class="eyebrow">Site build</div>
+          <div class="price"><sup>$</sup>500</div>
+          <ul>
+            <li>Custom redesign of your business site</li>
+            <li>Mobile-first, fast, built by hand</li>
+            <li>QR codes to your site</li>
+            <li>Inventory and menu updates on request</li>
+          </ul>
+          <a class="btn" href="mailto:pxdsquared@gmail.com?subject=PXD2%20site%20%E2%80%94%20%24500">Start a $500 site</a>
+        </div>
+        <div class="tier hot">
+          <div class="eyebrow" style="color:var(--cyan)">All-in · most value</div>
+          <div class="price"><sup>$</sup>1,500</div>
+          <ul>
+            <li>Everything in the site build</li>
+            <li>Lifetime hosting — no losing your site to time</li>
+            <li>QR packet for counters, menus and windows</li>
+            <li>Full kit, including a 3D digital room option</li>
+          </ul>
+          <a class="btn pri" href="mailto:pxdsquared@gmail.com?subject=PXD2%20all-in%20%E2%80%94%20%241%2C500">Go all-in</a>
+        </div>
+        <div class="tier">
+          <div class="eyebrow">See the work</div>
+          <div class="price" style="font-size:40px">Showcase</div>
+          <ul>
+            <li>Concept redesigns for real local businesses</li>
+            <li>3D rooms and QR codes on each</li>
+            <li>Prototype first — pay when you like it</li>
+          </ul>
+          <a class="btn" href="/clients/showcase/">Open the showcase →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="names">
+    <div class="wrap">
+      <div class="head">
+        <div><div class="eyebrow">04 · .pxd registry</div><h2>Company .pxd names</h2></div>
+        <p>Live from <a href="/names.json" class="mono" style="color:var(--cyan)">names.json</a>. Tap a name to open it, or copy its address.</p>
+      </div>
+      <div class="names" id="nameGrid"><div class="n">Loading registry…</div></div>
+      <p style="margin-top:14px"><a class="btn" href="/names/">Full registry →</a></p>
+    </div>
+  </section>
+
+  <section id="invest">
+    <div class="wrap">
+      <div class="cta">
+        <div>
+          <div class="eyebrow">05 · Investors &amp; sponsors</div>
+          <h2>Fund the stack</h2>
+          <p>Friends-and-family tiers, in-game environment placement and compute-station partnerships. Honest deals, in writing.</p>
+        </div>
+        <div class="acts">
+          <a class="btn pri" href="/#company">Charter &amp; briefing</a>
+          <a class="btn" href="mailto:pxdsquared@gmail.com?subject=PXD2%20investor%20%2F%20sponsor">Talk to PXD2</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="yr">2026</span> PXD2 · Concho, Arizona · Built off-grid</span>
+    <span><a href="/" style="color:var(--mute)">Floor</a> · <a href="/cad2/" style="color:var(--gold)">CAD studio</a> · <a href="/pxd2spaces/" style="color:var(--cyan)">Hackspace</a></span>
+  </div>
+</footer>
+
+<div class="toast" id="toast">Copied</div>
+
+<script>
+(function(){
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // brand filter
+  var btns = document.querySelectorAll('.filters button');
+  var cards = document.querySelectorAll('#brandGrid .b');
+  document.getElementById('s-br').textContent = cards.length;
+  document.getElementById('s-acc').textContent = document.querySelectorAll('#accounts .card').length;
+  btns.forEach(function(b){
+    b.addEventListener('click', function(){
+      btns.forEach(function(x){ x.setAttribute('aria-pressed', x === b); });
+      var f = b.dataset.f;
+      cards.forEach(function(c){ c.hidden = !(f === 'all' || c.dataset.k === f); });
+    });
+  });
+
+  // toast
+  var t = document.getElementById('toast'), tid;
+  function toast(msg){ t.textContent = msg; t.classList.add('on'); clearTimeout(tid); tid = setTimeout(function(){ t.classList.remove('on'); }, 1400); }
+
+  // .pxd names from the registry
+  var pick = ['Studio & company', 'Social & contact', 'Stores & VR', 'Games'];
+  fetch('/names.json', {cache: 'no-cache'}).then(function(r){ return r.json(); }).then(function(d){
+    var all = Object.keys(d.names || {});
+    document.getElementById('s-nm').textContent = all.length;
+    var grid = document.getElementById('nameGrid');
+    grid.innerHTML = '';
+    var tld = d.tld || '.pxd';
+    all.filter(function(k){ return pick.indexOf(d.names[k].group) > -1; })
+       .sort(function(a, b){ return pick.indexOf(d.names[a].group) - pick.indexOf(d.names[b].group) || a.localeCompare(b); })
+       .forEach(function(k){
+         var v = d.names[k];
+         var el = document.createElement('div'); el.className = 'n';
+         var a = document.createElement('a'); a.href = v.to; a.title = v.title;
+         if (/^https?:/.test(v.to)) { a.target = '_blank'; a.rel = 'noopener'; }
+         a.innerHTML = '<span></span><b></b>';
+         a.firstChild.textContent = k; a.lastChild.textContent = tld;
+         var c = document.createElement('button'); c.type = 'button'; c.textContent = 'Copy';
+         c.addEventListener('click', function(){
+           var txt = k + tld;
+           try { navigator.clipboard.writeText(txt).then(function(){ toast(txt + ' copied'); }, function(){ toast(txt); }); }
+           catch (e) { toast(txt); }
+         });
+         el.appendChild(a); el.appendChild(c); grid.appendChild(el);
+       });
+  }).catch(function(){
+    document.getElementById('nameGrid').innerHTML = '<div class="n"><a href="/names/">Open the registry →</a></div>';
+  });
+})();
+</script>
+</body>
 </html>
