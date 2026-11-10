@@ -103,7 +103,8 @@ async function drain() {
     for (const it of await qAll()) {
       if (!navigator.onLine) break;
       try {
-        if (it.type === "chat") {
+        if (it.type === "chat" && it.to === "AI") { await send({ type: "ask", id: it.id }, new TextEncoder().encode(it.text)); await chatMark(it.id, "sent"); }
+        else if (it.type === "chat") {
           for (const d of chatTargets(it.to).filter(d => !(it.done || []).includes(d))) {
             await send({ type: "chat", id: it.id, to: it.to }, new TextEncoder().encode(it.text), d);
             it.done = (it.done || []).concat(d); await qPut(it);
@@ -245,7 +246,7 @@ async function sendChat() {
   drain();
 }
 function fillTo() {
-  const sel = $("#cTo"), cur = sel.value, opts = ["ALL"].concat(BASES, ((lastStatus && lastStatus.devices) || []).filter(d => d !== S.dev));
+  const sel = $("#cTo"), cur = sel.value, opts = ["ALL", "AI"].concat(BASES, ((lastStatus && lastStatus.devices) || []).filter(d => d !== S.dev));
   if (sel.options.length !== opts.length) { sel.innerHTML = opts.map(o => `<option>${esc(o)}</option>`).join(""); sel.value = opts.includes(cur) ? cur : "ALL"; }
 }
 // ------------------------------------------------------------------ FILES: browse / pull / upload BASE1 shared folders
