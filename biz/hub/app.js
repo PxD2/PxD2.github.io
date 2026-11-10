@@ -18,8 +18,14 @@ const uid = () => [...crypto.getRandomValues(new Uint8Array(12))].map(b => b.toS
 
 // ------------------------------------------------------------------ storage (IndexedDB: session + outgoing queue)
 const DB = new Promise((ok, bad) => {
-  const r = indexedDB.open("pxd2_wan", 1);
-  r.onupgradeneeded = () => { r.result.createObjectStore("q", { keyPath: "id" }); r.result.createObjectStore("kv"); };
+  const r = indexedDB.open("pxd2_wan", 2);
+  r.onupgradeneeded = () => {
+    const d = r.result, have = n => d.objectStoreNames.contains(n);
+    if (!have("q")) d.createObjectStore("q", { keyPath: "id" });
+    if (!have("kv")) d.createObjectStore("kv");
+    if (!have("parts")) d.createObjectStore("parts");                 // pieces of files BASE1 is sending
+    if (!have("got")) d.createObjectStore("got", { keyPath: "id" });  // files received from BASE1
+  };
   r.onsuccess = () => ok(r.result); r.onerror = () => bad(r.error);
 });
 async function tx(store, mode, fn) { const db = await DB; return new Promise((ok, bad) => { const t = db.transaction(store, mode); const r = fn(t.objectStore(store)); t.oncomplete = () => ok(r && r.result); t.onerror = () => bad(t.error); }); }
@@ -28,6 +34,7 @@ const kvSet = (k, v) => tx("kv", "readwrite", s => s.put(v, k));
 const qAll = async () => ((await tx("q", "readonly", s => s.getAll())) || []).sort((a, b) => a.t - b.t);
 const qPut = x => tx("q", "readwrite", s => s.put(x));
 const qDel = id => tx("q", "readwrite", s => s.delete(id));
+const gotAll = async () => ((await tx("got", "readonly", s => s.getAll())) || []).sort((a, b) => b.t - a.t);
 
 // ------------------------------------------------------------------ GitHub
 async function gh(method, path, body, raw) {
@@ -136,24 +143,75 @@ async function loadStatus() {
     setNet(true);
   } catch (e) { setNet(false, e.message); if (e.name === "OperationError") $("#hubState").textContent = "Mesh key does not match BASE1's - sign out and sign in with the right key."; }
 }
+async function receivePiece(h, body) {
+  await tx("parts", "readwrite", st => st.put(new Blob([body]), `${h.id}_${String(h.idx).padStart(5, "0")}`));
+  const keys = await tx("parts", "readonly", st => st.getAllKeys(IDBKeyRange.bound(h.id + "_", h.id + "_~")));
+  if ((keys || []).length < h.total) { toast(`receiving ${h.name} ${keys.length}/${h.total}`); return; }
+  const pieces = await tx("parts", "readonly", st => st.getAll(IDBKeyRange.bound(h.id + "_", h.id + "_~")));
+  const blob = new Blob(pieces, { type: mime(h.name) });
+  await tx("got", "readwrite", st => st.put({ id: h.id, t: Date.now(), name: h.name, size: blob.size, blob, isNew: true }));
+  await tx("parts", "readwrite", st => st.delete(IDBKeyRange.bound(h.id + "_", h.id + "_~")));
+  toast(`${h.name} arrived from BASE1`);
+}
+const MIME = { jpg: "image/jpeg", jpeg: "image/jpeg", png: "image/png", gif: "image/gif", webp: "image/webp", pdf: "application/pdf", mp4: "video/mp4", webm: "video/webm", mp3: "audio/mpeg", txt: "text/plain", html: "text/html", zip: "application/zip", docx: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" };
+const mime = n => MIME[(n.split(".").pop() || "").toLowerCase()] || "application/octet-stream";
 async function loadReplies() {
   try {
     const list = (await ghLs(`to/${S.dev}`)).filter(x => x.name.endsWith(".env")).sort((a, b) => a.name < b.name ? -1 : 1);
     const keep = (await kvGet("replies")) || [];
     for (const it of list) {
-      try { const [h] = await unseal(await ghGet(it.path)); keep.unshift({ t: Date.now(), h }); if (h.type === "ack") toast(h.text); } catch (e) { }
+      try {
+        const [h, body] = await unseal(await ghGet(it.path));
+        if (h.type === "file") await receivePiece(h, body);
+        else {
+          if (h.type === "note") h.text = new TextDecoder().decode(body), h.isNote = true;
+          keep.unshift({ t: Date.now(), h });
+          if (h.type === "ack" || h.isNote) toast(h.isNote ? "message from BASE1" : h.text);
+        }
+      } catch (e) { }
       await ghDel(it.path, it.sha);
     }
-    await kvSet("replies", keep.slice(0, 60));
-    $("#outList").innerHTML = keep.slice(0, 60).map(r => `<li><span class="n">${esc(r.h.text || (r.h.type === "task_queued" ? "task queued on " + r.h.node : r.h.type === "pong" ? "BASE1 answered" : r.h.type))}</span><span class="m">${new Date(r.t).toLocaleTimeString()}</span></li>`).join("") || `<li class="dim">nothing yet</li>`;
+    await kvSet("replies", keep.slice(0, 80));
+    await renderFromBase(keep);
   } catch (e) { }
 }
-async function tick() { if (!S.key) return; if (!navigator.onLine) return setNet(false); await loadStatus(); await loadReplies(); drain(); }
+let urls = [];
+async function renderFromBase(keep) {
+  keep = keep || (await kvGet("replies")) || [];
+  const got = await gotAll();
+  const fresh = got.filter(g => g.isNew).length + keep.filter(r => r.h.isNote && !r.seen).length;
+  $("#fbCount").textContent = fresh ? `(${fresh})` : "";
+  urls.forEach(u => URL.revokeObjectURL(u)); urls = [];
+  $("#gotList").innerHTML = got.map(g => {
+    const u = URL.createObjectURL(g.blob); urls.push(u);
+    const img = /^image\//.test(g.blob.type) ? `<img src="${u}" alt="" style="width:56px;height:56px;object-fit:cover;border-radius:6px">` : "";
+    return `<li>${img}<span class="n">${g.isNew ? '<b class="ok">NEW</b> ' : ""}${esc(g.name)}</span><span class="m">${fmt(g.size)}</span>
+      <a class="btn" href="${u}" target="_blank" rel="noopener" style="min-height:36px;padding:6px 10px">OPEN</a>
+      <a class="btn" href="${u}" download="${esc(g.name)}" style="min-height:36px;padding:6px 10px">SAVE</a>
+      <button data-rm="${g.id}" style="min-height:36px;padding:6px 10px">✕</button></li>`;
+  }).join("") || `<li class="dim">nothing yet - on BASE1 drop files into Desktop\\PXD2 LINK Send\\${esc(S.dev)} (or ALL)</li>`;
+  document.querySelectorAll("[data-rm]").forEach(b => b.onclick = async () => { await tx("got", "readwrite", st => st.delete(b.dataset.rm)); renderFromBase(); });
+  $("#outList").innerHTML = keep.slice(0, 80).map(r => `<li style="${r.h.isNote ? "display:block" : ""}">${r.h.isNote
+      ? `<div class="dim" style="font-size:12px">BASE1 · ${new Date(r.t).toLocaleString()}</div><div style="white-space:pre-wrap">${esc(r.h.text)}</div>`
+      : `<span class="n">${esc(r.h.text || (r.h.type === "task_queued" ? "task queued on " + r.h.node : r.h.type === "pong" ? "BASE1 answered" : r.h.type))}</span><span class="m">${new Date(r.t).toLocaleTimeString()}</span>`}</li>`).join("") || `<li class="dim">nothing yet</li>`;
+}
+async function markSeen() {
+  const got = await gotAll();
+  for (const g of got.filter(x => x.isNew)) { g.isNew = false; await tx("got", "readwrite", st => st.put(g)); }
+  const keep = (await kvGet("replies")) || []; keep.forEach(r => r.seen = true); await kvSet("replies", keep);
+  $("#fbCount").textContent = "";
+}
+let helloed = false;
+async function tick() {
+  if (!S.key) return; if (!navigator.onLine) return setNet(false);
+  if (!helloed) { try { await send({ type: "hello" }); helloed = true; } catch (e) { } }   // BASE1 makes this device a send folder
+  await loadStatus(); await loadReplies(); drain();
+}
 window.addEventListener("online", tick); window.addEventListener("offline", () => setNet(false));
-setInterval(tick, 20000);
+setInterval(tick, 15000);
 
 // ------------------------------------------------------------------ UI
-const loaders = { queue: renderQueue, outbox: loadReplies, fleet: loadStatus, task: loadStatus, note: () => { $("#notes").textContent = "notes go into BASE1's ASTRO Inbox\\notes.md"; } };
+const loaders = { queue: renderQueue, outbox: async () => { await loadReplies(); setTimeout(markSeen, 4000); }, fleet: loadStatus, task: loadStatus, note: () => { $("#notes").textContent = "notes go into BASE1's ASTRO Inbox\\notes.md"; } };
 document.querySelectorAll("nav button").forEach(b => b.onclick = () => {
   document.querySelectorAll("nav button").forEach(x => x.classList.toggle("on", x === b));
   document.querySelectorAll("[data-pane]").forEach(p => p.classList.toggle("hide", p.dataset.pane !== b.dataset.tab));
@@ -190,7 +248,7 @@ function show() { $("#pairView").classList.toggle("hide", !!S.key); $("#appView"
 
 (async () => {
   const s = await kvGet("session"); if (s) S = s;
-  show(); renderQueue(); tick();
+  show(); renderQueue(); renderFromBase(); tick();
   if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(() => { });
   if (navigator.storage && navigator.storage.persist) navigator.storage.persist();
 })();
