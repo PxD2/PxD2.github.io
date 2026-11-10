@@ -352,6 +352,10 @@ function show() { $("#pairView").classList.toggle("hide", !!S.key); $("#appView"
   const s = await kvGet("session"); if (s) S = s;
   show(); renderQueue(); renderFromBase(); renderChat(); tick();
   if (S.key && loaders.pitch) loaders.pitch();
-  if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(() => { });
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("sw.js", { updateViaCache: "none" }).then(r => { r.update(); setInterval(() => r.update(), 10 * 60000); }).catch(() => { });
+    let reloaded = !navigator.serviceWorker.controller;   // first install: nothing to refresh                      // a new version took over: reload once so the screen shows it
+    navigator.serviceWorker.addEventListener("controllerchange", () => { if (!reloaded) { reloaded = true; location.reload(); } });
+  }
   if (navigator.storage && navigator.storage.persist) navigator.storage.persist();
 })();
