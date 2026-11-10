@@ -1,7 +1,13 @@
-// PXD2 DESKTOP - DEALS: service contracts and receipts (cash, card, check, trade) signed on the tablet.
-// Makes a PDF, keeps a copy on the device, and sends it sealed to BASE1 (filed in Desktop\PXD2 Deals + ledger.csv).
+// PXD2 DESKTOP - DEALS: service contracts and receipts (cash, card, check, trade), e-signed on the tablet.
+// One document model -> PDF, Word (.docx), HTML and plain text. Signed copies go sealed to BASE1, which files them,
+// adds a ledger line and emails the PDF to the client with copies to every party.
 "use strict";
-const PXD2 = { name: "PXD2 Enterprises", who: "Chad Aaron Peters, owner", cfo: "Angie Wood, CFO", addr: "PO Box 514, Concho, AZ 85924", phone: "928-457-6404", email: "pxdsquared@gmail.com" };
+const DEFAULT_CFG = {
+  sellers: ["PXD2 Enterprises", "PXD2 Studios", "PXD2 Hosting", "PXD2 Data Systems"],
+  head: "Angie Wood", headTitle: "CFO", headEmail: "",
+  rep: "", repEmail: "", ownerEmail: "pxdsquared@gmail.com",
+  addr: "PO Box 514, Concho, AZ 85924", phone: "928-457-6404", email: "pxdsquared@gmail.com"
+};
 const PACKAGES = [
   { id: "web", label: "Client website", amount: 500, desc: "Custom website for the business: design, build, mobile layout, hours/location/contact, QR code kit and print-ready pieces, and launch on a PXD2 address." },
   { id: "order", label: "Online ordering + full menu", amount: 1500, ordering: true, desc: "Online menu with current items and prices, connected to the Client's own online-ordering/point-of-sale provider for pickup orders, with Order buttons across the site, plus setup support and staff walkthrough." },
@@ -10,8 +16,22 @@ const PACKAGES = [
 const TERMS = ["Paid in full at signing", "50% deposit at signing, 50% at launch", "Paid in full at launch", "Trade (goods/services) for the full amount", "Part trade, part payment"];
 const METHODS = ["Cash", "Check", "Card", "Trade", "Cash + trade", "Card + trade", "Check + trade"];
 const $d = s => document.querySelector(s);
-const usd = n => "$" + (Math.round(n * 100) / 100).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+const usd = n => "$" + (Math.round((+n || 0) * 100) / 100).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 const today = () => new Date().toLocaleDateString("en-US", { timeZone: "America/Phoenix", year: "numeric", month: "long", day: "numeric" });
+const cfg = async () => Object.assign({}, DEFAULT_CFG, (await kvGet("dealCfg")) || {});
+const emailsIn = s => String(s || "").split(/[,;\s]+/).map(x => x.trim()).filter(x => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(x));
+
+function defaultClauses(ordering) {
+  const c = [];
+  if (ordering) c.push({ h: "Merchant and ordering-platform fees", b: "Card processing fees, online-ordering platform subscriptions and any other merchant fees are charged to the Client directly by the Client's own provider (for example Toast, Square or Clover) under the Client's agreement with that provider. PXD2 does not process the Client's customer payments, does not hold customer card data, and receives no portion of those fees." });
+  c.push({ h: "What the Client provides", b: "Business details, menu/products and prices, photos or permission to take them, and any account access PXD2 needs to connect services. The Client reviews and approves the work before launch." });
+  c.push({ h: "Ownership", b: "The Client owns its business name, logo, content, photos, menu and customer data. PXD2 keeps ownership of its own code, templates and tools and grants the Client a license to use them for the Client's site for as long as the Client uses it." });
+  c.push({ h: "Changes and support", b: "Work listed above is included. Changes outside that list are quoted before they are done." });
+  c.push({ h: "Ending this agreement", b: "Either party may end this agreement in writing. Work delivered and payments earned up to that point stay due; payments for work already delivered are not refunded." });
+  c.push({ h: "Electronic signatures and copies", b: "Both parties agree to sign electronically. An electronic signature and an emailed copy of this agreement have the same effect as a signed paper original." });
+  c.push({ h: "Governing law", b: "This agreement is governed by the laws of the State of Arizona." });
+  return c;
+}
 
 async function nextNo(kind) {
   const n = ((await kvGet("dealSeq")) || 0) + 1; await kvSet("dealSeq", n);
@@ -27,41 +47,249 @@ async function clientNames() {
 // ---------------------------------------------------------------- signature pad
 function sigPad(canvas) {
   const ctx = canvas.getContext("2d"); let down = false, last = null, inked = false;
-  const fit = () => { const r = canvas.getBoundingClientRect(); canvas.width = r.width * 2; canvas.height = r.height * 2; ctx.scale(2, 2); ctx.lineWidth = 2.4; ctx.lineCap = "round"; ctx.strokeStyle = "#111"; };
-  fit();
+  const r0 = canvas.getBoundingClientRect(); canvas.width = r0.width * 2; canvas.height = r0.height * 2; ctx.scale(2, 2);
+  ctx.lineWidth = 2.4; ctx.lineCap = "round"; ctx.strokeStyle = "#111";
   const pt = e => { const r = canvas.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
   canvas.onpointerdown = e => { down = true; last = pt(e); canvas.setPointerCapture(e.pointerId); };
   canvas.onpointermove = e => { if (!down) return; const p = pt(e); ctx.beginPath(); ctx.moveTo(...last); ctx.lineTo(...p); ctx.stroke(); last = p; inked = true; };
   canvas.onpointerup = canvas.onpointercancel = () => { down = false; };
-  return { clear() { ctx.clearRect(0, 0, canvas.width, canvas.height); inked = false; }, get inked() { return inked; }, png: () => { const c = document.createElement("canvas"); c.width = 440; c.height = 140; const x = c.getContext("2d"); x.fillStyle = "#fff"; x.fillRect(0, 0, 440, 140); x.drawImage(canvas, 0, 0, 440, 140); return c.toDataURL("image/jpeg", 0.8); } };
+  return {
+    clear() { ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, canvas.width, canvas.height); ctx.scale(2, 2); inked = false; },
+    get inked() { return inked; },
+    jpg() { const c = document.createElement("canvas"); c.width = 440; c.height = 140; const x = c.getContext("2d"); x.fillStyle = "#fff"; x.fillRect(0, 0, 440, 140); x.drawImage(canvas, 0, 0, 440, 140); return c.toDataURL("image/jpeg", 0.8); }
+  };
 }
 
-// ---------------------------------------------------------------- views
+// ---------------------------------------------------------------- the document model (shared by every format)
+function model(d) {
+  const C = d.kind === "contract", B = [];
+  B.push({ t: "brand", seller: d.seller, right: [d.co.addr, d.co.phone + " · " + d.co.email, `${d.co.headTitle}: ${d.co.head}`] });
+  B.push({ t: "title", text: C ? "SERVICE AGREEMENT" : "RECEIPT" }, { t: "meta", text: `${d.no}  ·  ${d.date}` }, { t: "rule" });
+  B.push({ t: "label", text: C ? "Between" : "Received from" }, { t: "strong", text: `${d.client}${d.owner ? " (" + d.owner + ")" : ""}` });
+  B.push({ t: "p", text: [d.addr, d.phone, d.email].filter(Boolean).join("  ·  ") || " " });
+  if (C) { B.push({ t: "label", text: "and" }, { t: "p", text: `${d.seller}, represented by ${d.co.head}, ${d.co.headTitle}. ${d.co.addr}.` }); }
+  if (d.ref) B.push({ t: "p", text: `For contract ${d.ref}` });
+  B.push({ t: "rule" }, { t: "h", text: C ? "1. Services" : "Paid for" }, { t: "lines", lines: d.lines }, { t: "total", label: "Total", value: usd(d.total) });
+  if (C) {
+    B.push({ t: "h", text: "2. Price and payment" });
+    B.push({ t: "p", text: `Total price ${usd(d.total)}. Payment terms: ${d.terms}.` + (d.trade ? ` Trade: ${d.tradeDesc || "goods/services as described"}, agreed by both parties at a value of ${usd(d.trade)}, applied toward the total. Remaining balance payable in money: ${usd(Math.max(0, d.total - d.trade))}.` : "") });
+    (d.clauses || []).forEach((c, i) => { if (c.h || c.b) B.push({ t: "h", text: `${i + 3}. ${c.h}` }, { t: "p", text: c.b }); });
+    if (d.start) B.push({ t: "p", text: `Planned start date: ${d.start}` });
+  } else {
+    const paid = [];
+    if (d.cash) paid.push(`${d.method.split(" + ")[0]} ${usd(d.cash)}${d.refNo ? " (" + d.refNo + ")" : ""}`);
+    if (d.trade) paid.push(`Trade valued at ${usd(d.trade)}: ${d.tradeDesc || "goods/services"}`);
+    B.push({ t: "h", text: "Payment received" }, { t: "p", text: paid.join("\n") || d.method }, { t: "total", label: "Balance remaining", value: usd(d.balance) });
+    if (d.trade) B.push({ t: "small", text: "Trade note: both parties agree the traded goods/services have the value shown above. Keep this receipt for your records." });
+    B.push({ t: "small", text: `Questions about this account: ${d.co.head}, ${d.co.headTitle}, ${d.seller}, ${d.co.phone}.` });
+  }
+  if (d.notes) B.push({ t: "h", text: "Notes" }, { t: "p", text: d.notes });
+  B.push({ t: "sigs", sigs: C ? [{ label: "Client", name: d.owner, img: d.sig1 }, { label: `For ${d.seller}`, name: d.rep, img: d.sig2 }] : [{ label: `Received for ${d.seller}`, name: d.rep, img: d.sig1 }], date: d.date });
+  return B;
+}
+
+// ---------------------------------------------------------------- PDF
+function toPDF(d) {
+  const { jsPDF } = window.jspdf; const doc = new jsPDF({ unit: "pt", format: "letter", compress: true });
+  const W = 612, M = 54; let y = 56;
+  const need = h => { if (y + h > 740) { doc.addPage(); y = 56; } };
+  const text = (t, size = 10.5, style = "normal", gap = 4) => {
+    doc.setFont("helvetica", style); doc.setFontSize(size);
+    const ls = doc.splitTextToSize(String(t), W - 2 * M); need(ls.length * size * 1.25 + gap); doc.text(ls, M, y + size); y += ls.length * size * 1.25 + gap;
+  };
+  doc.setFillColor(17, 17, 17); doc.rect(0, 0, W, 6, "F");
+  for (const b of model(d)) {
+    if (b.t === "brand") {
+      doc.setFont("helvetica", "bold"); doc.setFontSize(20); doc.text(b.seller, M, y + 18);
+      doc.setFontSize(9); doc.setFont("helvetica", "normal"); doc.text(b.right, W - M, y + 6, { align: "right" }); y += 40;
+    } else if (b.t === "title") text(b.text, 16, "bold", 2);
+    else if (b.t === "meta") text(b.text, 10, "normal", 10);
+    else if (b.t === "rule") { need(10); doc.setDrawColor(200); doc.line(M, y, W - M, y); y += 10; }
+    else if (b.t === "label") text(b.text, 9, "bold", 2);
+    else if (b.t === "strong") text(b.text, 11.5, "bold", 2);
+    else if (b.t === "h") text(b.text, 11, "bold", 4);
+    else if (b.t === "p") text(b.text, 10.5, "normal", 8);
+    else if (b.t === "small") text(b.text, 9.5, "italic", 6);
+    else if (b.t === "lines") b.lines.forEach(l => {
+      doc.setFont("helvetica", "normal"); doc.setFontSize(10.5);
+      const ls = doc.splitTextToSize(l.desc || "-", W - 2 * M - 90); need(ls.length * 13 + 6);
+      doc.text(ls, M, y + 10.5); doc.text(usd(l.amount), W - M, y + 10.5, { align: "right" }); y += ls.length * 13 + 6;
+    });
+    else if (b.t === "total") { need(22); doc.setFont("helvetica", "bold"); doc.setFontSize(11.5); doc.text(b.label, M, y + 12); doc.text(b.value, W - M, y + 12, { align: "right" }); y += 24; }
+    else if (b.t === "sigs") {
+      need(130); y += 6; doc.setDrawColor(200); doc.line(M, y, W - M, y); y += 10;
+      b.sigs.forEach((s, i) => {
+        const x = i ? W - M - 220 : M;
+        if (s.img) doc.addImage(s.img, "JPEG", x, y, 220, 70);
+        doc.setDrawColor(60); doc.line(x, y + 74, x + 220, y + 74);
+        doc.setFont("helvetica", "normal"); doc.setFontSize(9); doc.text(`${s.label}: ${s.name || ""}`, x, y + 88); doc.text(`Signed electronically ${b.date}`, x, y + 100);
+      });
+      y += 112;
+    }
+  }
+  doc.setFontSize(8); doc.setTextColor(120);
+  const pages = doc.getNumberOfPages();
+  for (let i = 1; i <= pages; i++) { doc.setPage(i); doc.text(`${d.no} · page ${i} of ${pages}`, W / 2, 770, { align: "center" }); }
+  return doc.output("blob");
+}
+
+// ---------------------------------------------------------------- HTML
+function toHTML(d) {
+  const e = s => esc(s).replace(/\n/g, "<br>");
+  const body = model(d).map(b => {
+    if (b.t === "brand") return `<header><b>${e(b.seller)}</b><span>${b.right.map(e).join("<br>")}</span></header>`;
+    if (b.t === "title") return `<h1>${e(b.text)}</h1>`;
+    if (b.t === "meta") return `<p class="meta">${e(b.text)}</p>`;
+    if (b.t === "rule") return `<hr>`;
+    if (b.t === "label") return `<p class="label">${e(b.text)}</p>`;
+    if (b.t === "strong") return `<p><strong>${e(b.text)}</strong></p>`;
+    if (b.t === "h") return `<h2>${e(b.text)}</h2>`;
+    if (b.t === "p") return `<p>${e(b.text)}</p>`;
+    if (b.t === "small") return `<p class="small">${e(b.text)}</p>`;
+    if (b.t === "lines") return `<table>${b.lines.map(l => `<tr><td>${e(l.desc)}</td><td class="amt">${usd(l.amount)}</td></tr>`).join("")}</table>`;
+    if (b.t === "total") return `<table class="tot"><tr><td>${e(b.label)}</td><td class="amt">${e(b.value)}</td></tr></table>`;
+    if (b.t === "sigs") return `<div class="sigs">${b.sigs.map(s => `<div>${s.img ? `<img src="${s.img}" alt="signature">` : ""}<div class="line"></div><p>${e(s.label)}: ${e(s.name || "")}<br>Signed electronically ${e(b.date)}</p></div>`).join("")}</div>`;
+    return "";
+  }).join("\n");
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${e(d.no)} · ${e(d.client)}</title>
+<style>body{font:15px/1.55 Helvetica,Arial,sans-serif;color:#111;max-width:760px;margin:30px auto;padding:0 20px;border-top:6px solid #111}
+header{display:flex;justify-content:space-between;align-items:flex-start;padding-top:16px}header b{font-size:26px}header span{text-align:right;font-size:12px;color:#444}
+h1{font-size:22px;margin:18px 0 2px}h2{font-size:15px;margin:16px 0 4px}.meta{color:#555;margin:0 0 10px}.label{font-size:12px;font-weight:bold;margin:8px 0 0}
+hr{border:0;border-top:1px solid #ccc;margin:12px 0}table{width:100%;border-collapse:collapse}td{padding:4px 0;vertical-align:top}.amt{text-align:right;white-space:nowrap;padding-left:16px}
+.tot td{font-weight:bold;border-top:1px solid #ccc;padding-top:6px}.small{font-size:13px;font-style:italic;color:#444}
+.sigs{display:flex;gap:30px;flex-wrap:wrap;margin-top:24px}.sigs>div{flex:1;min-width:240px}.sigs img{width:240px;height:76px;object-fit:contain}.line{border-top:1px solid #333;margin-top:2px}.sigs p{font-size:12px}
+@media print{body{margin:0}}</style></head><body>
+${body}
+<p class="small" style="text-align:center;margin-top:30px">${e(d.no)}</p></body></html>`;
+}
+
+// ---------------------------------------------------------------- plain text
+function toTXT(d) {
+  const out = [], wrap = s => String(s).replace(/(.{1,76})(\s+|$)/g, "$1\n").trimEnd();
+  for (const b of model(d)) {
+    if (b.t === "brand") out.push(b.seller.toUpperCase(), ...b.right, "");
+    else if (b.t === "title") out.push(b.text);
+    else if (b.t === "meta") out.push(b.text, "");
+    else if (b.t === "rule") out.push("-".repeat(70));
+    else if (b.t === "label") out.push(b.text + ":");
+    else if (b.t === "h") out.push("", b.text.toUpperCase());
+    else if (["strong", "p", "small"].includes(b.t)) out.push(wrap(b.text));
+    else if (b.t === "lines") b.lines.forEach(l => out.push(wrap(l.desc) + "\n" + " ".repeat(56) + usd(l.amount).padStart(14)));
+    else if (b.t === "total") out.push(b.label.padEnd(56) + b.value.padStart(14));
+    else if (b.t === "sigs") b.sigs.forEach(s => out.push("", `${s.label}: ${s.name || ""}  (signed electronically ${b.date})`));
+  }
+  return out.join("\n") + "\n";
+}
+
+// ---------------------------------------------------------------- Word (.docx), built with fflate
+function toDOCX(d) {
+  const x = s => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  const run = (t, o = {}) => String(t).split("\n").map((ln, i) => `${i ? "<w:r><w:br/></w:r>" : ""}<w:r><w:rPr>${o.b ? "<w:b/>" : ""}${o.i ? "<w:i/>" : ""}<w:sz w:val="${(o.sz || 10.5) * 2}"/></w:rPr><w:t xml:space="preserve">${x(ln)}</w:t></w:r>`).join("");
+  const para = (inner, o = {}) => `<w:p><w:pPr>${o.right ? '<w:jc w:val="right"/>' : ""}${o.tab ? '<w:tabs><w:tab w:val="right" w:pos="9360"/></w:tabs>' : ""}<w:spacing w:after="${o.after ?? 100}"/>${o.border ? '<w:pBdr><w:bottom w:val="single" w:sz="4" w:space="1" w:color="BBBBBB"/></w:pBdr>' : ""}</w:pPr>${inner}</w:p>`;
+  const imgs = []; let body = "";
+  const drawing = (rid, n) => `<w:r><w:drawing><wp:inline distT="0" distB="0" distL="0" distR="0"><wp:extent cx="2794000" cy="889000"/><wp:docPr id="${n}" name="sig${n}"/><a:graphic xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"><a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture"><pic:pic xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture"><pic:nvPicPr><pic:cNvPr id="${n}" name="sig${n}.jpeg"/><pic:cNvPicPr/></pic:nvPicPr><pic:blipFill><a:blip r:embed="${rid}"/><a:stretch><a:fillRect/></a:stretch></pic:blipFill><pic:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="2794000" cy="889000"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></pic:spPr></pic:pic></a:graphicData></a:graphic></wp:inline></w:drawing></w:r>`;
+  for (const b of model(d)) {
+    if (b.t === "brand") body += para(run(b.seller, { b: 1, sz: 20 }), { after: 0 }) + para(run(b.right.join("\n"), { sz: 9 }), { after: 200 });
+    else if (b.t === "title") body += para(run(b.text, { b: 1, sz: 16 }), { after: 0 });
+    else if (b.t === "meta") body += para(run(b.text, { sz: 10 }), { after: 120, border: 1 });
+    else if (b.t === "rule") body += para("", { after: 60, border: 1 });
+    else if (b.t === "label") body += para(run(b.text, { b: 1, sz: 9 }), { after: 0 });
+    else if (b.t === "strong") body += para(run(b.text, { b: 1, sz: 11.5 }), { after: 40 });
+    else if (b.t === "h") body += para(run(b.text, { b: 1, sz: 11 }), { after: 40 });
+    else if (b.t === "p") body += para(run(b.text));
+    else if (b.t === "small") body += para(run(b.text, { i: 1, sz: 9.5 }));
+    else if (b.t === "lines") b.lines.forEach(l => { body += para(run(l.desc) + `<w:r><w:tab/></w:r>` + run(usd(l.amount)), { tab: 1 }); });
+    else if (b.t === "total") body += para(run(b.label, { b: 1, sz: 11.5 }) + `<w:r><w:tab/></w:r>` + run(b.value, { b: 1, sz: 11.5 }), { tab: 1, after: 160 });
+    else if (b.t === "sigs") b.sigs.forEach(s => {
+      if (s.img) { imgs.push(s.img); body += para(drawing("rIdImg" + imgs.length, imgs.length), { after: 0 }); }
+      body += para(run(`${s.label}: ${s.name || ""}\nSigned electronically ${b.date}`, { sz: 9 }), { after: 200, border: 0 });
+    });
+  }
+  const docXml = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing"><w:body>${body}<w:sectPr><w:pgSz w:w="12240" w:h="15840"/><w:pgMar w:top="1080" w:right="1080" w:bottom="1080" w:left="1080" w:header="720" w:footer="720" w:gutter="0"/></w:sectPr></w:body></w:document>`;
+  const enc = s => new TextEncoder().encode(s), b64 = s => Uint8Array.from(atob(s.split(",")[1]), c => c.charCodeAt(0));
+  const files = {
+    "[Content_Types].xml": enc(`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Default Extension="jpeg" ContentType="image/jpeg"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/></Types>`),
+    "_rels/.rels": enc(`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>`),
+    "word/document.xml": enc(docXml),
+    "word/_rels/document.xml.rels": enc(`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">${imgs.map((_, i) => `<Relationship Id="rIdImg${i + 1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="media/sig${i + 1}.jpeg"/>`).join("")}</Relationships>`)
+  };
+  imgs.forEach((im, i) => files[`word/media/sig${i + 1}.jpeg`] = b64(im));
+  return new Blob([fflate.zipSync(files)], { type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" });
+}
+
+// ---------------------------------------------------------------- exports
+async function exportAs(id, fmt) {
+  const d = await kvGet("dealdata:" + id); if (!d) return toast("this one was made before exports - only the PDF is saved");
+  const map = { pdf: ["application/pdf", () => toPDF(d)], docx: ["", () => toDOCX(d)], html: ["text/html", () => new Blob([toHTML(d)], { type: "text/html" })], txt: ["text/plain", () => new Blob([toTXT(d)], { type: "text/plain" })] };
+  const blob = map[fmt][1](), name = `${d.no} - ${d.client}.${fmt}`.replace(/[\\/:*?"<>|]+/g, "_");
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = name; a.click();
+}
+async function shareDeal(id) {
+  const d = await kvGet("dealdata:" + id), pdf = await kvGet("dealpdf:" + id);
+  const f = new File([pdf], `${d ? d.no : "PXD2"}.pdf`, { type: "application/pdf" });
+  if (navigator.canShare && navigator.canShare({ files: [f] })) {
+    try { await navigator.share({ files: [f], title: f.name, text: d ? `${d.kind === "contract" ? "Service agreement" : "Receipt"} ${d.no} from ${d.seller}` : "" }); } catch (e) { }
+  } else toast("this device can't share files - use the PDF button and attach it");
+}
+
+// ---------------------------------------------------------------- list + settings
 async function renderDeals() {
   const list = ((await kvGet("deals")) || []).slice().reverse();
   $d("#dealsBody").innerHTML = `
-    <div class="row" style="gap:10px;margin-bottom:12px"><button class="primary" id="dNewC">+ NEW CONTRACT</button><button class="primary" id="dNewR">+ NEW RECEIPT</button></div>
-    <div class="card"><h3>SIGNED ON THIS TABLET</h3><ul class="list">${list.map(d => `<li><span class="n">${d.kind === "contract" ? "📝" : "🧾"} ${esc(d.no)} · ${esc(d.client)}</span>
+    <div class="row" style="gap:10px;margin-bottom:12px"><button class="primary" id="dNewC">+ NEW CONTRACT</button><button class="primary" id="dNewR">+ NEW RECEIPT</button><button id="dSet" style="margin-left:auto">⚙ NAMES &amp; EMAILS</button></div>
+    <div class="card"><h3>SIGNED ON THIS TABLET</h3><ul class="list">${list.map(d => `<li style="flex-wrap:wrap"><span class="n">${d.kind === "contract" ? "📝" : "🧾"} ${esc(d.no)} · ${esc(d.client)}</span>
       <span class="m">${usd(d.total)}${d.trade ? " · trade " + usd(d.trade) : ""} · ${d.sent ? "✓ at BASE1" : "sending…"}</span>
-      <button data-open="${d.id}" style="min-height:34px;padding:4px 10px">OPEN</button></li>`).join("") || `<li class="dim">No contracts or receipts yet.</li>`}</ul></div>
-    <p class="dim" style="font-size:12px">Contract wording is a plain-language PXD2 template. Have Chad's advisor review it before relying on it for large jobs.</p>`;
+      <span class="row" style="gap:6px;width:100%">${["pdf", "docx", "html", "txt"].map(f => `<button data-x="${f}" data-id="${d.id}" style="min-height:32px;padding:4px 10px">${f === "docx" ? "WORD" : f.toUpperCase()}</button>`).join("")}<button data-share="${d.id}" style="min-height:32px;padding:4px 10px">SHARE</button></span></li>`).join("") || `<li class="dim">No contracts or receipts yet.</li>`}</ul></div>
+    <p class="dim" style="font-size:12px">Contract wording is a plain-language PXD2 template you can edit per deal. Have an advisor review it before relying on it for large jobs.</p>`;
   $d("#dNewC").onclick = () => form("contract");
   $d("#dNewR").onclick = () => form("receipt");
-  document.querySelectorAll("[data-open]").forEach(b => b.onclick = async () => { const blob = await kvGet("dealpdf:" + b.dataset.open); if (blob) window.open(URL.createObjectURL(blob), "_blank"); });
+  $d("#dSet").onclick = settings;
+  document.querySelectorAll("[data-x]").forEach(b => b.onclick = async () => {
+    if (b.dataset.x === "pdf") { const blob = await kvGet("dealpdf:" + b.dataset.id); if (blob) { window.open(URL.createObjectURL(blob), "_blank"); return; } }
+    exportAs(b.dataset.id, b.dataset.x);
+  });
+  document.querySelectorAll("[data-share]").forEach(b => b.onclick = () => shareDeal(b.dataset.share));
 }
 
+async function settings() {
+  const c = await cfg();
+  $d("#dealsBody").innerHTML = `<div class="card"><h3>NAMES &amp; EMAILS</h3>
+    <label>OUR BUSINESS NAMES (one per line - pick one on each sale)</label><textarea id="sSell" style="min-height:90px">${esc(c.sellers.join("\n"))}</textarea>
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px">
+      <div><label>HEAD OF COMPANY</label><input id="sHead" value="${esc(c.head)}"></div>
+      <div><label>TITLE</label><input id="sHeadT" value="${esc(c.headTitle)}"></div>
+      <div><label>HEAD'S EMAIL (gets a copy of every deal)</label><input id="sHeadE" type="email" value="${esc(c.headEmail)}"></div>
+      <div><label>YOUR NAME (rep)</label><input id="sRep" value="${esc(c.rep)}"></div>
+      <div><label>YOUR EMAIL (gets a copy)</label><input id="sRepE" type="email" value="${esc(c.repEmail)}"></div>
+      <div><label>OWNER EMAIL (gets a copy)</label><input id="sOwnE" type="email" value="${esc(c.ownerEmail)}"></div>
+      <div><label>BUSINESS PHONE</label><input id="sPh" value="${esc(c.phone)}"></div>
+      <div><label>BUSINESS EMAIL</label><input id="sEm" value="${esc(c.email)}"></div>
+    </div>
+    <label>BUSINESS ADDRESS</label><input id="sAddr" value="${esc(c.addr)}">
+    <div class="row" style="gap:10px;margin-top:14px"><button class="primary" id="sSave">SAVE</button><button id="sBack">Back</button></div></div>`;
+  $d("#sBack").onclick = renderDeals;
+  $d("#sSave").onclick = async () => {
+    const v = id => $d(id).value.trim();
+    await kvSet("dealCfg", { sellers: v("#sSell").split("\n").map(s => s.trim()).filter(Boolean), head: v("#sHead"), headTitle: v("#sHeadT"), headEmail: v("#sHeadE"),
+      rep: v("#sRep"), repEmail: v("#sRepE"), ownerEmail: v("#sOwnE"), phone: v("#sPh"), email: v("#sEm"), addr: v("#sAddr") });
+    toast("saved"); renderDeals();
+  };
+}
+
+// ---------------------------------------------------------------- the form
 async function form(kind) {
-  const names = await clientNames();
+  const co = await cfg(), names = await clientNames();
   const contracts = ((await kvGet("deals")) || []).filter(d => d.kind === "contract");
   const C = kind === "contract";
   $d("#dealsBody").innerHTML = `
     <div class="card">
       <h3>${C ? "NEW SERVICE CONTRACT" : "NEW RECEIPT"}</h3>
+      <label>SELLING AS</label><input id="fSeller" list="fSellerList" value="${esc(co.sellers[0] || "PXD2 Enterprises")}"><datalist id="fSellerList">${co.sellers.map(n => `<option value="${esc(n)}">`).join("")}</datalist>
       <label>CLIENT BUSINESS</label><input id="fBiz" list="fBizList" placeholder="Business name"><datalist id="fBizList">${names.map(n => `<option value="${esc(n)}">`).join("")}</datalist>
       <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px">
         <div><label>OWNER / SIGNER NAME</label><input id="fOwner" autocomplete="off"></div>
         <div><label>PHONE</label><input id="fPhone" type="tel"></div>
-        <div><label>EMAIL</label><input id="fEmail" type="email"></div>
+        <div><label>CLIENT EMAIL (gets the signed copy)</label><input id="fEmail" type="email"></div>
       </div>
       <label>BUSINESS ADDRESS</label><input id="fAddr">
       ${C ? "" : `<label>FOR CONTRACT (optional)</label><select id="fRef"><option value="">none</option>${contracts.map(c => `<option value="${esc(c.no)}">${esc(c.no)} · ${esc(c.client)} · ${usd(c.total)}</option>`).join("")}</select>`}
@@ -69,30 +297,45 @@ async function form(kind) {
       <div id="fLines"></div>
       <div class="row" style="gap:8px;margin-top:6px">${PACKAGES.map(p => `<button type="button" data-pkg="${p.id}" style="min-height:36px;padding:6px 12px">+ ${esc(p.label)}${p.amount ? " " + usd(p.amount) : ""}</button>`).join("")}</div>
       <div class="big" style="margin-top:12px">Total <span id="fTotal">$0.00</span></div>
-      ${C ? `<label>PAYMENT TERMS</label><select id="fTerms">${TERMS.map(t => `<option>${esc(t)}</option>`).join("")}</select>`
+      ${C ? `<label>PAYMENT TERMS</label><input id="fTerms" list="fTermsList" value="${esc(TERMS[0])}"><datalist id="fTermsList">${TERMS.map(t => `<option value="${esc(t)}">`).join("")}</datalist>`
           : `<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px">
                <div><label>PAID WITH</label><select id="fMethod">${METHODS.map(t => `<option>${esc(t)}</option>`).join("")}</select></div>
                <div><label>MONEY RECEIVED ($)</label><input id="fCash" type="number" inputmode="decimal" min="0" step="0.01" value="0"></div>
                <div><label>CHECK # / CARD LAST 4</label><input id="fRefNo"></div>
              </div>`}
-      <div id="fTradeBox">
-        <label>TRADE: WHAT IS BEING TRADED (goods or services)</label><input id="fTrade" placeholder="e.g. 3 antique display cases, delivered">
-        <label>TRADE: AGREED VALUE ($)</label><input id="fTradeVal" type="number" inputmode="decimal" min="0" step="0.01" value="0">
-      </div>
-      ${C ? `<label>START DATE</label><input id="fStart" type="date">` : ""}
+      <label>TRADE: WHAT IS BEING TRADED (goods or services)</label><input id="fTrade" placeholder="e.g. 3 antique display cases, delivered">
+      <label>TRADE: AGREED VALUE ($)</label><input id="fTradeVal" type="number" inputmode="decimal" min="0" step="0.01" value="0">
+      ${C ? `<label>START DATE</label><input id="fStart" type="date">
+      <h3 style="margin-top:18px">CONTRACT TERMS (edit anything for this deal)</h3><div id="fClauses"></div>
+      <button type="button" id="fAddCl" style="min-height:34px;padding:4px 12px">+ Add a term</button>` : ""}
       <label>NOTES</label><textarea id="fNotes" style="min-height:70px"></textarea>
+      <label>EMAIL COPIES ALSO TO (optional, comma separated)</label><input id="fCc" placeholder="partner@example.com">
+      <label style="display:flex;gap:8px;align-items:center;margin-top:10px"><input type="checkbox" id="fMail" checked style="width:auto"> Email the signed copy to the client, ${esc(co.head)} (${esc(co.headTitle)}), you, and the owner</label>
       <label>${C ? "CLIENT SIGNATURE" : "RECEIVED BY (PXD2) SIGNATURE"}</label>
       <canvas id="sig1" style="width:100%;height:140px;background:#fff;border-radius:8px;touch-action:none"></canvas>
       <div class="row" style="gap:8px"><button type="button" id="sig1c" style="min-height:32px;padding:4px 10px">Clear</button><span class="dim" style="font-size:12px">sign with a finger or stylus</span></div>
-      ${C ? `<label>PXD2 REPRESENTATIVE NAME</label><input id="fRep" placeholder="Your name">
-      <label>PXD2 REPRESENTATIVE SIGNATURE</label>
+      <label>PXD2 REPRESENTATIVE NAME</label><input id="fRep" value="${esc(co.rep)}" placeholder="Your name">
+      ${C ? `<label>PXD2 REPRESENTATIVE SIGNATURE</label>
       <canvas id="sig2" style="width:100%;height:140px;background:#fff;border-radius:8px;touch-action:none"></canvas>
-      <div class="row" style="gap:8px"><button type="button" id="sig2c" style="min-height:32px;padding:4px 10px">Clear</button></div>` : `<label>PXD2 REPRESENTATIVE NAME</label><input id="fRep" placeholder="Your name">`}
+      <div class="row" style="gap:8px"><button type="button" id="sig2c" style="min-height:32px;padding:4px 10px">Clear</button></div>` : ""}
       <p id="fErr" class="bad" style="min-height:1em;margin-top:8px"></p>
       <div class="row" style="gap:10px;margin-top:6px"><button class="primary" id="fMake">${C ? "SIGN &amp; SAVE CONTRACT" : "SAVE RECEIPT"}</button><button id="fCancel">Cancel</button></div>
     </div>`;
-  const rep = await kvGet("repName"); if (rep) $d("#fRep").value = rep;
   const lines = [];
+  let clauses = C ? defaultClauses(false) : [];
+  const drawClauses = () => {
+    if (!C) return;
+    $d("#fClauses").innerHTML = clauses.map((c, i) => `<div class="card" style="padding:10px;margin-bottom:8px">
+      <div class="row" style="gap:8px;flex-wrap:nowrap"><input data-ci="${i}" data-ck="h" value="${esc(c.h)}" style="font-weight:700"><button type="button" data-crm="${i}" style="min-height:36px;padding:4px 10px">✕</button></div>
+      <textarea data-ci="${i}" data-ck="b" style="min-height:70px;margin-top:6px">${esc(c.b)}</textarea></div>`).join("");
+    $d("#fClauses").querySelectorAll("[data-ck]").forEach(el => el.oninput = () => { clauses[el.dataset.ci][el.dataset.ck] = el.value; });
+    $d("#fClauses").querySelectorAll("[data-crm]").forEach(b => b.onclick = () => { clauses.splice(b.dataset.crm, 1); drawClauses(); });
+  };
+  const syncOrdering = () => {
+    if (!C) return;
+    const want = lines.some(l => l.ordering), has = clauses.some(c => /merchant/i.test(c.h));
+    if (want && !has) { clauses = defaultClauses(true).slice(0, 1).concat(clauses); drawClauses(); }
+  };
   const drawLines = () => {
     $d("#fLines").innerHTML = lines.map((l, i) => `<div class="row" style="gap:8px;margin-bottom:8px;flex-wrap:nowrap;align-items:flex-start">
       <textarea data-i="${i}" data-k="desc" style="min-height:52px;flex:1">${esc(l.desc)}</textarea>
@@ -100,119 +343,50 @@ async function form(kind) {
       <button type="button" data-rm="${i}" style="min-height:40px;padding:4px 10px">✕</button></div>`).join("") || `<p class="dim">Add a package below.</p>`;
     $d("#fLines").querySelectorAll("[data-k]").forEach(el => el.oninput = () => { lines[el.dataset.i][el.dataset.k] = el.dataset.k === "amount" ? +el.value || 0 : el.value; total(); });
     $d("#fLines").querySelectorAll("[data-rm]").forEach(b => b.onclick = () => { lines.splice(b.dataset.rm, 1); drawLines(); });
-    total();
+    total(); syncOrdering();
   };
   const total = () => { $d("#fTotal").textContent = usd(lines.reduce((a, l) => a + (+l.amount || 0), 0)); };
-  document.querySelectorAll("[data-pkg]").forEach(b => b.onclick = () => { const p = PACKAGES.find(x => x.id === b.dataset.pkg); lines.push({ pkg: p.id, desc: p.id === "custom" ? "" : p.label + ": " + p.desc, amount: p.amount, ordering: !!p.ordering }); drawLines(); });
-  drawLines();
+  document.querySelectorAll("[data-pkg]").forEach(b => b.onclick = () => { const p = PACKAGES.find(x => x.id === b.dataset.pkg); lines.push({ desc: p.id === "custom" ? "" : p.label + ": " + p.desc, amount: p.amount, ordering: !!p.ordering }); drawLines(); });
+  if (C) $d("#fAddCl").onclick = () => { clauses.push({ h: "New term", b: "" }); drawClauses(); };
+  drawLines(); drawClauses();
   const s1 = sigPad($d("#sig1")); $d("#sig1c").onclick = () => s1.clear();
   const s2 = C ? sigPad($d("#sig2")) : null; if (s2) $d("#sig2c").onclick = () => s2.clear();
   $d("#fCancel").onclick = renderDeals;
   $d("#fMake").onclick = async () => {
     const v = id => ($d(id) ? $d(id).value.trim() : "");
     const err = t => { $d("#fErr").textContent = t; };
-    const biz = v("#fBiz"), owner = v("#fOwner");
+    const biz = v("#fBiz"), owner = v("#fOwner"), seller = v("#fSeller") || "PXD2 Enterprises";
     if (!biz) return err("Add the client business name.");
     if (!lines.length || !lines.some(l => l.desc.trim())) return err("Add at least one service or item.");
     if (C && !owner) return err("Add the owner's name.");
+    if (v("#fEmail") && !emailsIn(v("#fEmail")).length) return err("The client email doesn't look right.");
     if (!s1.inked) return err(C ? "The client needs to sign." : "Sign the receipt.");
     if (C && !s2.inked) return err("Add the PXD2 representative's signature.");
     const totalAmt = lines.reduce((a, l) => a + (+l.amount || 0), 0), tradeVal = +v("#fTradeVal") || 0, cash = C ? 0 : +v("#fCash") || 0;
     const d = {
-      id: uid(), kind, no: await nextNo(kind), date: today(), at: Date.now(), client: biz, owner, phone: v("#fPhone"), email: v("#fEmail"), addr: v("#fAddr"),
+      id: uid(), kind, no: await nextNo(kind), date: today(), at: Date.now(), seller, co,
+      client: biz, owner, phone: v("#fPhone"), email: v("#fEmail"), addr: v("#fAddr"),
       lines: lines.map(l => ({ desc: l.desc.trim(), amount: +l.amount || 0, ordering: !!l.ordering })), total: totalAmt,
       terms: C ? v("#fTerms") : "", method: C ? "" : v("#fMethod"), cash, refNo: v("#fRefNo"), ref: v("#fRef"),
       tradeDesc: v("#fTrade"), trade: tradeVal, start: v("#fStart"), notes: v("#fNotes"), rep: v("#fRep") || S.dev, device: S.dev,
-      sig1: s1.png(), sig2: s2 ? s2.png() : ""
+      clauses: C ? clauses.filter(c => c.h.trim() || c.b.trim()) : [], sig1: s1.jpg(), sig2: s2 ? s2.jpg() : ""
     };
     d.balance = Math.max(0, totalAmt - cash - tradeVal);
-    if (d.rep) kvSet("repName", d.rep);
+    const mail = $d("#fMail").checked ? { to: emailsIn(d.email), cc: [...new Set(emailsIn([co.headEmail, co.repEmail, co.ownerEmail, v("#fCc")].join(",")))] } : null;
+    if (d.rep && d.rep !== co.rep) kvSet("dealCfg", Object.assign({}, co, { rep: d.rep }));
     $d("#fMake").disabled = true; $d("#fMake").textContent = "making PDF…";
     try {
-      const blob = makePdf(d);
-      await kvSet("dealpdf:" + d.id, blob);
-      const meta = Object.assign({}, d); delete meta.sig1; delete meta.sig2;
+      const blob = toPDF(d);
+      await kvSet("dealpdf:" + d.id, blob); await kvSet("dealdata:" + d.id, d);
+      const meta = Object.assign({}, d, { mail }); delete meta.sig1; delete meta.sig2;
       const all = (await kvGet("deals")) || []; all.push({ id: d.id, kind, no: d.no, client: biz, total: totalAmt, trade: tradeVal, at: d.at, sent: false }); await kvSet("deals", all);
       await qPut({ id: d.id, t: Date.now(), type: "deal", kind, meta, blob, name: d.no + ".pdf" });
       drain(); renderDeals();
       window.open(URL.createObjectURL(blob), "_blank");
-      toast(`${d.no} saved - sending to BASE1`);
-    } catch (e) { err("Could not make the PDF: " + e.message); $d("#fMake").disabled = false; }
+      toast(`${d.no} saved - BASE1 files it${mail && (mail.to.length || mail.cc.length) ? " and emails every party" : ""}`);
+    } catch (e) { err("Could not make the PDF: " + e.message); $d("#fMake").disabled = false; $d("#fMake").textContent = "TRY AGAIN"; }
   };
   $d("#fBiz").focus();
-}
-
-// ---------------------------------------------------------------- PDF
-function makePdf(d) {
-  const { jsPDF } = window.jspdf; const doc = new jsPDF({ unit: "pt", format: "letter", compress: true });
-  const W = 612, M = 54; let y = 56;
-  const C = d.kind === "contract";
-  const need = h => { if (y + h > 740) { doc.addPage(); y = 56; } };
-  const text = (t, size = 10.5, style = "normal", gap = 4, x = M, w = W - 2 * M) => {
-    doc.setFont("helvetica", style); doc.setFontSize(size);
-    const ls = doc.splitTextToSize(String(t), w); need(ls.length * size * 1.25 + gap); doc.text(ls, x, y + size); y += ls.length * size * 1.25 + gap;
-  };
-  const rule = () => { need(10); doc.setDrawColor(200); doc.line(M, y, W - M, y); y += 10; };
-  doc.setFillColor(17, 17, 17); doc.rect(0, 0, W, 6, "F");
-  doc.setFont("helvetica", "bold"); doc.setFontSize(22); doc.text("PXD2", M, y + 18);
-  doc.setFontSize(10); doc.text("ENTERPRISES", M + 62, y + 18);
-  doc.setFontSize(9); doc.setFont("helvetica", "normal"); doc.text([PXD2.addr, PXD2.phone + " · " + PXD2.email, "Accounts: " + PXD2.cfo], W - M, y + 6, { align: "right" });
-  y += 36;
-  text(C ? "SERVICE AGREEMENT" : "RECEIPT", 16, "bold", 2);
-  text(`${d.no}  ·  ${d.date}`, 10, "normal", 10);
-  rule();
-  text(C ? "Between" : "Received from", 9, "bold", 2);
-  text(`${d.client}${d.owner ? " (" + d.owner + ")" : ""}`, 11.5, "bold", 2);
-  text([d.addr, d.phone, d.email].filter(Boolean).join("  ·  ") || " ", 10, "normal", 6);
-  if (C) { text("and", 9, "bold", 2); text(`${PXD2.name} (${PXD2.who}), ${PXD2.addr}. Billing and accounts: ${PXD2.cfo}.`, 10.5, "normal", 8); }
-  if (d.ref) text(`For contract ${d.ref}`, 10, "normal", 6);
-  rule();
-  text(C ? "1. Services" : "Paid for", 11, "bold", 4);
-  d.lines.forEach(l => {
-    doc.setFont("helvetica", "normal"); doc.setFontSize(10.5);
-    const ls = doc.splitTextToSize(l.desc || "-", W - 2 * M - 90); need(ls.length * 13 + 6);
-    doc.text(ls, M, y + 10.5); doc.text(usd(l.amount), W - M, y + 10.5, { align: "right" }); y += ls.length * 13 + 6;
-  });
-  need(20); doc.setFont("helvetica", "bold"); doc.setFontSize(11.5); doc.text("Total", M, y + 12); doc.text(usd(d.total), W - M, y + 12, { align: "right" }); y += 24;
-  if (C) {
-    text("2. Price and payment", 11, "bold", 4);
-    text(`Total price ${usd(d.total)}. Payment terms: ${d.terms}.` + (d.trade ? ` Trade: ${d.tradeDesc || "goods/services as described"}, agreed by both parties at a value of ${usd(d.trade)}, applied toward the total. Remaining balance payable in money: ${usd(Math.max(0, d.total - d.trade))}.` : ""), 10.5, "normal", 8);
-    let n = 3;
-    if (d.lines.some(l => l.ordering)) {
-      text(`${n++}. Merchant and ordering-platform fees`, 11, "bold", 4);
-      text("Card processing fees, online-ordering platform subscriptions and any other merchant fees are charged to the Client directly by the Client's own provider (for example Toast, Square or Clover) under the Client's agreement with that provider. PXD2 does not process the Client's customer payments, does not hold customer card data, and receives no portion of those fees.", 10.5, "normal", 8);
-    }
-    const sec = (t, b) => { text(`${n++}. ${t}`, 11, "bold", 4); text(b, 10.5, "normal", 8); };
-    sec("What the Client provides", "Business details, menu/products and prices, photos or permission to take them, and any account access PXD2 needs to connect services. The Client reviews and approves the work before launch.");
-    sec("Ownership", "The Client owns its business name, logo, content, photos, menu and customer data. PXD2 keeps ownership of its own code, templates and tools and grants the Client a license to use them for the Client's site for as long as the Client uses it.");
-    sec("Changes and support", "Work listed above is included. Changes outside that list are quoted before they are done.");
-    sec("Ending this agreement", "Either party may end this agreement in writing. Work delivered and payments earned up to that point stay due; payments for work already delivered are not refunded.");
-    sec("Governing law", "This agreement is governed by the laws of the State of Arizona.");
-    if (d.start) text(`Planned start date: ${d.start}`, 10.5, "normal", 6);
-  } else {
-    const paid = [];
-    if (d.cash) paid.push(`${d.method.split(" + ")[0]} ${usd(d.cash)}${d.refNo ? " (" + d.refNo + ")" : ""}`);
-    if (d.trade) paid.push(`Trade valued at ${usd(d.trade)}: ${d.tradeDesc || "goods/services"}`);
-    text("Payment received", 11, "bold", 4);
-    text(paid.join("\n") || d.method, 10.5, "normal", 6);
-    need(18); doc.setFont("helvetica", "bold"); doc.setFontSize(11); doc.text("Balance remaining", M, y + 11); doc.text(usd(d.balance), W - M, y + 11, { align: "right" }); y += 22;
-    if (d.trade) text("Trade note: both parties agree the traded goods/services have the value shown above. Keep this receipt for your records.", 9.5, "italic", 6);
-    text(`Questions about this account: ${PXD2.cfo}, ${PXD2.name}, ${PXD2.phone}.`, 9.5, "normal", 6);
-  }
-  if (d.notes) { text("Notes", 11, "bold", 4); text(d.notes, 10.5, "normal", 8); }
-  need(170); y += 6; rule();
-  const sig = (label, name, png, x) => {
-    if (png) doc.addImage(png, "JPEG", x, y, 220, 70);
-    doc.setDrawColor(60); doc.line(x, y + 74, x + 220, y + 74);
-    doc.setFont("helvetica", "normal"); doc.setFontSize(9); doc.text(`${label}: ${name || ""}`, x, y + 88); doc.text(`Date: ${d.date}`, x, y + 100);
-  };
-  if (C) { sig("Client", d.owner, d.sig1, M); sig("PXD2", d.rep, d.sig2, W - M - 220); }
-  else sig("Received by (PXD2)", d.rep, d.sig1, M);
-  y += 112;
-  doc.setFontSize(8); doc.setTextColor(120);
-  const pages = doc.getNumberOfPages();
-  for (let i = 1; i <= pages; i++) { doc.setPage(i); doc.text(`${d.no} · page ${i} of ${pages}`, W / 2, 770, { align: "center" }); }
-  return doc.output("blob");
 }
 
 loaders.deals = renderDeals;
