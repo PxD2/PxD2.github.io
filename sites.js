@@ -25,6 +25,7 @@
     }).join("");
   }
   function boot() {
+    if (/^\/(clients|a)\//.test(location.pathname)) return;   // client sites never show PXD2's own site list
     var nav = document.querySelector("nav.rooms");
     if (!nav) {
       nav = document.createElement("nav");
