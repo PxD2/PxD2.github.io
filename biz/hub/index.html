@@ -81,8 +81,9 @@ header{background:#000}nav{background:#000}
     <h3>PXD2 LINK WAN · SIGN IN</h3>
     <p>PXD2 only. Works on any network - Verizon hotspot, home, a client's Wi-Fi. Everything is sealed on this device (AES-256) before it leaves.</p>
     <label>DEVICE NAME</label><input id="pName" placeholder="e.g. Tablet" maxlength="32">
-    <label>GITHUB TOKEN (PxD2/astrocoms)</label><input id="pTok" type="password" autocomplete="off">
     <label>PXD2 MESH KEY (from BASE1: PXD2_WAN_Show_Key.bat)</label><input id="pCode" type="password" autocomplete="off">
+    <details style="margin-top:8px"><summary class="dim" style="font-size:12px;cursor:pointer">GitHub key (leave empty - the mesh key unlocks it)</summary>
+      <input id="pTok" type="password" autocomplete="off" placeholder="only if BASE1 tells you to"></details>
     <div class="row" style="margin-top:12px"><button class="primary" id="pGo">SIGN IN</button><span id="pMsg" class="dim"></span></div>
   </div>
 </main></section>
@@ -177,8 +178,8 @@ header{background:#000}nav{background:#000}
 </main>
 </section>
 <div id="toast"></div>
-<script src="app.js?v=16"></script>
-<script src="fflate.min.js?v=16"></script>
-<script src="pitch.js?v=16"></script>
+<script src="app.js?v=17"></script>
+<script src="fflate.min.js?v=17"></script>
+<script src="pitch.js?v=17"></script>
 </body>
 </html>
