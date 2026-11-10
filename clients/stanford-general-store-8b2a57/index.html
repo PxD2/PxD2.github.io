@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Stanford General Store &amp; Y-Bar, at the Y in Concho AZ</title>
+<meta name="description" content="Gas, diesel, propane, groceries, hot food and the Y-Bar, right at the Y where Highways 60 and 61 meet in Concho, Arizona.">
+<link rel="icon" href="icon.png">
+<meta property="og:title" content="Stanford General Store &amp; Y-Bar, at the Y">
+<meta property="og:description" content="Gas, grub and goods where 60 meets 61.">
+<meta property="og:image" content="share.png">
+<meta name="theme-color" content="#2B1A10">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rye&family=Bitter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --night:#2B1A10; --saddle:#6B3A1F; --leather:#8E5129; --rawhide:#F1E2C4; --hide:#E4CFA6; --dust:#C9AE80;
+  --rust:#B23A1E; --turq:#1F8A8A; --ink:#22160E; --soft:#6C5640;
+  --west:"Rye",Georgia,serif; --body:"Bitter",Georgia,serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--rawhide);color:var(--ink);font:400 18px/1.7 var(--body);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--turq);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+h1,h2,h3{font-weight:800;line-height:1.05;letter-spacing:-.01em}
+.concept{background:var(--ink);color:#d9c7a6;font-size:13px;text-align:center;padding:8px 16px}
+
+/* hero: night sky over the fork in the road */
+.hero{background:linear-gradient(180deg,#24314A 0%,#4D3A4E 46%,#B8573A 82%,#E39A55 100%);color:var(--rawhide);position:relative;overflow:hidden}
+.hero .top{display:flex;align-items:center;gap:12px;padding:18px 0;position:relative;z-index:3}
+.brand{font:400 22px/1 var(--west);text-decoration:none;color:var(--rawhide)}
+.hero nav{margin-left:auto;display:flex;gap:6px;align-items:center}
+.hero nav a{text-decoration:none;font-weight:600;font-size:16px;padding:8px 12px;border-radius:6px}
+.hero nav a:hover{background:rgba(255,255,255,.1)}
+@media(max-width:760px){.hero nav a.hide-sm{display:none}}
+.hero .stage{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:end;padding:26px 0 0;min-height:560px}
+@media(max-width:880px){.hero .stage{grid-template-columns:1fr;min-height:0}}
+.hero h1{font:400 clamp(46px,7.4vw,92px)/.95 var(--west);color:#FFF4DE;text-shadow:0 3px 0 rgba(0,0,0,.25)}
+.hero .say{margin:20px 0 26px;max-width:28em;color:#F6E6C8;font-size:clamp(18px,2vw,20px)}
+.acts{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;border:0;cursor:pointer;
+  font:800 17px/1 var(--body);padding:16px 22px;border-radius:8px;transition:transform .12s}
+.btn:active{transform:scale(.97)}
+.btn svg{width:20px;height:20px;flex:none}
+.b-turq{background:var(--turq);color:#fff;box-shadow:0 4px 0 #125858}
+.b-hide{background:var(--rawhide);color:var(--ink);box-shadow:0 4px 0 var(--dust)}
+.b-ink{background:var(--ink);color:var(--rawhide);box-shadow:0 4px 0 #000}
+.copy{padding-bottom:84px}
+@media(max-width:880px){.copy{padding-bottom:20px}}
+.stars-bg{position:absolute;inset:0 0 40% 0;z-index:1;opacity:.7;background-image:radial-gradient(1.5px 1.5px at 12% 18%,#fff,transparent),radial-gradient(1px 1px at 28% 8%,#fff,transparent),radial-gradient(1.5px 1.5px at 44% 24%,#fff,transparent),radial-gradient(1px 1px at 61% 12%,#fff,transparent),radial-gradient(1.5px 1.5px at 78% 20%,#fff,transparent),radial-gradient(1px 1px at 90% 6%,#fff,transparent),radial-gradient(1px 1px at 52% 4%,#fff,transparent),radial-gradient(1px 1px at 6% 34%,#fff,transparent)}
+
+/* the highway sign at the fork: the memorable thing */
+.post{position:relative;justify-self:center;width:min(440px,92vw);height:520px}
+@media(max-width:880px){.post{height:440px}}
+.pole{position:absolute;left:50%;bottom:0;width:22px;height:78%;transform:translateX(-50%);background:linear-gradient(90deg,#3A2416,#5A3720 50%,#3A2416)}
+.board{position:absolute;left:50%;padding:14px 22px;background:repeating-linear-gradient(0deg,#9A5B2E 0 9px,#8A5028 9px 10px);color:#FFF1D6;
+  border-radius:6px;box-shadow:0 8px 0 #4A2B16,0 18px 30px rgba(0,0,0,.35);font:400 26px/1 var(--west);white-space:nowrap;display:flex;align-items:center;gap:14px}
+.board small{font:800 13px var(--body);letter-spacing:.04em;opacity:.85}
+.board.l{top:18%;transform:translateX(-92%) rotate(-4deg);clip-path:polygon(9% 0,100% 0,100% 100%,9% 100%,0 50%)}
+.board.l{padding-left:40px}
+.board.r{top:34%;transform:translateX(-8%) rotate(3deg);clip-path:polygon(0 0,91% 0,100% 50%,91% 100%,0 100%)}
+.board.r{padding-right:40px}
+.board.y{top:2%;transform:translateX(-50%);background:var(--rust);box-shadow:0 8px 0 #6E2010,0 18px 30px rgba(0,0,0,.35);font-size:34px}
+.hang{position:absolute;left:50%;top:52%;transform-origin:50% 0;animation:swing 4.5s ease-in-out infinite}
+.hang::before,.hang::after{content:"";position:absolute;top:-30px;width:2px;height:30px;background:#2A1A10}
+.hang::before{left:22%}.hang::after{right:22%}
+.open{margin-left:-90px;width:180px;padding:12px 0;text-align:center;border-radius:8px;background:#FFF4DE;color:var(--ink);box-shadow:0 6px 0 var(--dust),0 14px 24px rgba(0,0,0,.3)}
+.open b{display:block;font:400 34px/1 var(--west);color:var(--turq)}
+.open span{font:800 14px var(--body)}
+.shut .open b{color:var(--rust)}
+@keyframes swing{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+@media(prefers-reduced-motion:reduce){.hang{animation:none}}
+.ground{position:relative;z-index:2;height:70px;background:var(--rawhide);clip-path:polygon(0 60%,8% 40%,22% 55%,38% 30%,52% 52%,66% 36%,80% 50%,92% 32%,100% 46%,100% 100%,0 100%)}
+.ground::after{content:"";position:absolute;left:50%;bottom:0;width:220px;height:70px;transform:translateX(-50%);background:#CDB48A;clip-path:polygon(40% 0,60% 0,100% 100%,0 100%)}
+
+/* tally board */
+.tally{display:grid;grid-template-columns:repeat(4,1fr);background:#fff8ea;border:3px solid var(--ink);border-radius:10px;margin-top:-8px;position:relative;z-index:3}
+.tally div{padding:18px 20px}
+.tally div+div{border-left:3px dotted var(--dust)}
+.tally b{display:block;font:800 22px/1.15 var(--body)}
+.tally span{color:var(--soft);font-size:15px}
+@media(max-width:860px){.tally{grid-template-columns:1fr 1fr}.tally div:nth-child(3){border-left:0}.tally div:nth-child(n+3){border-top:3px dotted var(--dust)}}
+
+section{padding:84px 0}
+h2{font:400 clamp(36px,5vw,58px)/1 var(--west);color:var(--saddle)}
+.lede{color:var(--soft);max-width:36em;margin-top:14px;font-size:19px}
+
+/* fuel: pump faces */
+.pumps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:36px}
+@media(max-width:860px){.pumps{grid-template-columns:1fr}}
+.pump{background:var(--ink);color:var(--rawhide);border-radius:16px 16px 10px 10px;padding:22px;position:relative}
+.pump .face{background:#11201F;border:3px solid #2E4442;border-radius:8px;padding:16px;text-align:center;margin-bottom:14px}
+.pump .face b{display:block;font:400 30px/1 var(--west);color:#7FE0D6}
+.pump .face span{font-size:14px;color:#9FB8B5}
+.pump p{color:#D9C7A6;font-size:16px}
+.pump.gas .face b{color:#FFD27A}
+.pump.prop .face b{color:#FF9B7A}
+
+/* kitchen + store: menu board and shelf list */
+.split{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;margin-top:36px}
+@media(max-width:860px){.split{grid-template-columns:1fr}}
+.menu{background:#203628;color:#F3EBD8;border:10px solid #7A4A26;border-radius:10px;padding:30px;box-shadow:inset 0 0 40px rgba(0,0,0,.35)}
+.menu h3{font:400 34px/1 var(--west);color:#FFE7A8;margin-bottom:6px}
+.menu .chalk{color:#CFE0CF;font-size:16px;margin-bottom:18px}
+.menu ul{list-style:none;display:grid;gap:10px}
+.menu li{display:flex;align-items:baseline;gap:10px;font-size:19px}
+.menu li::after{content:"";flex:1;border-bottom:2px dotted rgba(243,235,216,.35);order:1}
+.menu li em{order:2;font-style:normal;color:#FFE7A8;font-size:15px}
+.shelf{background:#fff8ea;border:3px solid var(--ink);border-radius:10px;padding:28px}
+.shelf h3{font:400 30px/1 var(--west);color:var(--saddle);margin-bottom:14px}
+.shelf ul{list-style:none;display:grid;gap:12px}
+.shelf li{padding-left:32px;position:relative}
+.shelf li::before{content:"";position:absolute;left:0;top:7px;width:18px;height:18px;background:var(--turq);clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)}
+
+/* Y-Bar */
+.ybar{background:var(--night);color:var(--rawhide);border-radius:14px;padding:clamp(28px,5vw,56px);display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:center;position:relative;overflow:hidden}
+.ybar h2{color:#FFE7A8}
+.ybar p{color:#D9C7A6}
+.ybar .neon{justify-self:center;font:400 clamp(60px,10vw,120px)/1 var(--west);color:#FFB36B;text-shadow:0 0 18px rgba(255,140,60,.8),0 0 2px #fff}
+@media(max-width:860px){.ybar{grid-template-columns:1fr}.ybar .neon{justify-self:start}}
+
+/* visit */
+.visit{display:grid;grid-template-columns:.9fr 1.1fr;gap:30px;margin-top:36px;align-items:start}
+@media(max-width:860px){.visit{grid-template-columns:1fr}}
+.hours{width:100%;border-collapse:collapse;background:#fff8ea;border:3px solid var(--ink);border-radius:10px;overflow:hidden}
+.hours td{padding:11px 16px;border-bottom:2px dotted var(--dust)}
+.hours tr:last-child td{border-bottom:0}
+.hours td:last-child{text-align:right;font-weight:800}
+.hours tr.now td{background:var(--turq);color:#fff}
+.where{margin-top:20px;font-size:19px}
+.where b{display:block;font:400 26px/1.1 var(--west);color:var(--saddle);margin-bottom:4px}
+.map{border:3px solid var(--ink);border-radius:10px;overflow:hidden;aspect-ratio:4/3;background:var(--hide)}
+.map iframe{width:100%;height:100%;border:0;display:block}
+
+.rating{display:flex;flex-wrap:wrap;gap:24px;align-items:center;background:var(--hide);border-radius:12px;padding:30px}
+.rating strong{font:400 76px/1 var(--west);color:var(--saddle)}
+.rating p{max-width:32em;color:var(--soft)}
+
+footer{background:var(--night);color:#CDB894;padding:44px 0 40px;font-size:16px}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px}
+footer b{display:block;font:400 24px var(--west);color:var(--rawhide)}
+.dock{position:fixed;left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom));z-index:40;display:none;gap:10px}
+.dock .btn{flex:1;padding:16px 8px}
+@media(max-width:760px){.dock{display:flex}footer{padding-bottom:110px}}
+</style>
+</head>
+<body>
+
+<div class="concept">Concept design by PXD2 for Stanford General Store &amp; Y-Bar. Not the store's official website.</div>
+
+<header class="hero">
+  <div class="stars-bg" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="top">
+      <a class="brand" href="#top">Stanford General Store</a>
+      <nav aria-label="Page"><a class="hide-sm" href="#fuel">Fuel</a><a class="hide-sm" href="#kitchen">Kitchen</a><a class="hide-sm" href="#ybar">Y-Bar</a><a href="#visit">Hours</a></nav>
+    </div>
+    <div class="stage" id="top">
+      <div class="copy">
+        <h1>Gas, grub &amp; goods at the Y.</h1>
+        <p class="say">Where Highway 60 meets 61 in Concho. Fill the tank, top off the propane, grab a hot pizza or a burger, and pick up what the ranch needs, all in one stop.</p>
+        <div class="acts">
+          <a class="btn b-turq" href="tel:+19283661205"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>Call (928) 366-1205</a>
+          <a class="btn b-hide" href="https://www.google.com/maps/dir/?api=1&amp;destination=Stanford+General+Store%2C+4+County+Rd+8235%2C+Concho%2C+AZ+85924" target="_blank" rel="noopener">Directions</a>
+        </div>
+      </div>
+      <div class="post" aria-hidden="true">
+        <div class="pole"></div>
+        <div class="board y">THE Y</div>
+        <div class="board l"><small>HWY</small>60</div>
+        <div class="board r">61<small>HWY</small></div>
+        <div class="hang" id="hang"><div class="open"><b id="openBig">Open</b><span id="openSmall">until 7 PM</span></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="ground"></div>
+</header>
+
+<div class="wrap">
+  <div class="tally" aria-label="At a glance">
+    <div><b id="tNow">Open now</b><span id="tSub">until 7 PM tonight</span></div>
+    <div><b>Fuel &amp; propane</b><span>Gas, diesel, propane refills</span></div>
+    <div><b>Hot kitchen</b><span>Pizza, burgers, sandwiches</span></div>
+    <div><b>4.5 ★ on Google</b><span>39 reviews</span></div>
+  </div>
+</div>
+
+<section id="fuel"><div class="wrap">
+  <h2>Fuel up before the long stretch</h2>
+  <p class="lede">The last good stop for miles in either direction. Top off the truck, the tractor, or the propane tank for the camper and the grill.</p>
+  <div class="pumps">
+    <div class="pump gas"><div class="face"><b>Gasoline</b><span>For the truck and the car</span></div><p>Fill up at the Y before heading to Show Low, St. Johns or out to the lake.</p></div>
+    <div class="pump"><div class="face"><b>Diesel</b><span>Trucks, rigs and ranch rigs</span></div><p>Diesel on site for work trucks, RVs and the ranch.</p></div>
+    <div class="pump prop"><div class="face"><b>Propane</b><span>Tank refills</span></div><p>Bring your tank for the grill, the camper or the heater and get it refilled.</p></div>
+  </div>
+</div></section>
+
+<section id="kitchen" style="padding-top:0"><div class="wrap">
+  <h2>Hot food and a full store</h2>
+  <p class="lede">Folks drive out for the kitchen alone. Then they remember the milk.</p>
+  <div class="split">
+    <div class="menu">
+      <h3>From the kitchen</h3>
+      <p class="chalk">Ask at the counter for today's specials.</p>
+      <ul>
+        <li>Pizza <em>whole or by the slice, ask</em></li>
+        <li>Burgers &amp; fries</li>
+        <li>Wings</li>
+        <li>Sandwiches</li>
+        <li>Soups &amp; chili</li>
+      </ul>
+    </div>
+    <div class="shelf">
+      <h3>On the shelves</h3>
+      <ul>
+        <li>Everyday groceries</li>
+        <li>Deli meats and cheeses by the pound</li>
+        <li>Specialty olive oils, herbs and sauces</li>
+        <li>Hardware for the fix you didn't plan on</li>
+        <li>Bulk water</li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<section id="ybar" style="padding-top:0"><div class="wrap">
+  <div class="ybar">
+    <div>
+      <h2>Then there's the Y-Bar</h2>
+      <p class="lede" style="color:#D9C7A6">Right next door. Cold drinks, good neighbors and live bands on music nights. Ask inside for who's playing next.</p>
+    </div>
+    <div class="neon" aria-hidden="true">Y-Bar</div>
+  </div>
+</div></section>
+
+<section id="visit" style="padding-top:0"><div class="wrap">
+  <h2>Hours &amp; how to find the Y</h2>
+  <div class="visit">
+    <div>
+      <table class="hours" id="hours"></table>
+      <p class="where"><b>Stanford General Store</b>4 County Rd 8235, Concho, AZ 85924<br>At the Y, where Highways 60 and 61 split</p>
+      <div class="acts" style="margin-top:16px">
+        <a class="btn b-ink" href="https://www.google.com/maps/dir/?api=1&amp;destination=Stanford+General+Store%2C+4+County+Rd+8235%2C+Concho%2C+AZ+85924" target="_blank" rel="noopener">Get directions</a>
+        <a class="btn b-hide" href="tel:+19283661205">(928) 366-1205</a>
+      </div>
+    </div>
+    <div class="map"><iframe title="Map showing Stanford General Store at the Y" loading="lazy"
+      src="https://www.openstreetmap.org/export/embed.html?bbox=-109.8467%2C34.2790%2C-109.8107%2C34.2970&amp;layer=mapnik&amp;marker=34.28798%2C-109.82867"></iframe></div>
+  </div>
+</div></section>
+
+<section style="padding-top:0"><div class="wrap">
+  <div class="rating">
+    <strong>4.5 ★</strong>
+    <div>
+      <p>Rated 4.5 out of 5 on Google from 39 reviews (November 2026). People talk about the food, the friendly crew, and a store that has a bit of everything.</p>
+      <div class="acts" style="margin-top:14px">
+        <a class="btn b-ink" href="https://search.google.com/local/writereview?placeid=ChIJMc1mTgBNL4cRshaQg5ci_8g" target="_blank" rel="noopener">Leave a review</a>
+        <a class="btn b-hide" href="https://www.google.com/maps/place/?q=place_id:ChIJMc1mTgBNL4cRshaQg5ci_8g" target="_blank" rel="noopener">Read the reviews</a>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <div><b>Stanford General Store &amp; Y-Bar</b>4 County Rd 8235, Concho, AZ 85924<br><a href="tel:+19283661205">(928) 366-1205</a></div>
+  <div style="align-self:end">Site concept by PXD2</div>
+</div></footer>
+
+<div class="dock">
+  <a class="btn b-turq" href="tel:+19283661205">Call</a>
+  <a class="btn b-ink" href="https://www.google.com/maps/dir/?api=1&amp;destination=Stanford+General+Store%2C+4+County+Rd+8235%2C+Concho%2C+AZ+85924" target="_blank" rel="noopener">Directions</a>
+</div>
+
+<script>
+/* Hours (Arizona time, no daylight saving). Sun 0 ... Sat 6: [open, close] in hours. */
+const HOURS = { 0: [6, 19], 1: [6, 19], 2: [6, 19], 3: [6, 21], 4: [6, 21], 5: [6, 21], 6: [6, 21] };
+const DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+const fmt = h => (h % 12 || 12) + (h < 12 ? " AM" : " PM");
+function paint() {
+  const n = new Date(new Date().toLocaleString("en-US", { timeZone: "America/Phoenix" }));
+  const d = n.getDay(), t = n.getHours() + n.getMinutes() / 60, [o, c] = HOURS[d], open = t >= o && t < c;
+  const next = t < o ? `opens ${fmt(o)}` : `opens ${fmt(HOURS[(d + 1) % 7][0])} tomorrow`;
+  document.getElementById("hang").parentElement.classList.toggle("shut", !open);
+  document.getElementById("openBig").textContent = open ? "Open" : "Closed";
+  document.getElementById("openSmall").textContent = open ? `until ${fmt(c)}` : next;
+  document.getElementById("tNow").textContent = open ? "Open now" : "Closed now";
+  document.getElementById("tSub").textContent = open ? `until ${fmt(c)} tonight` : next;
+  document.getElementById("hours").innerHTML = [1, 2, 3, 4, 5, 6, 0].map(k =>
+    `<tr class="${k === d ? "now" : ""}"><td>${DAYS[k]}${k === d ? " (today)" : ""}</td><td>${fmt(HOURS[k][0])} to ${fmt(HOURS[k][1])}</td></tr>`).join("");
+}
+paint(); setInterval(paint, 60000);
+</script>
+</body>
+</html>
