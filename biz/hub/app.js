@@ -18,13 +18,14 @@ const uid = () => [...crypto.getRandomValues(new Uint8Array(12))].map(b => b.toS
 
 // ------------------------------------------------------------------ storage (IndexedDB: session + outgoing queue)
 const DB = new Promise((ok, bad) => {
-  const r = indexedDB.open("pxd2_wan", 2);
+  const r = indexedDB.open("pxd2_wan", 3);
   r.onupgradeneeded = () => {
     const d = r.result, have = n => d.objectStoreNames.contains(n);
     if (!have("q")) d.createObjectStore("q", { keyPath: "id" });
     if (!have("kv")) d.createObjectStore("kv");
     if (!have("parts")) d.createObjectStore("parts");                 // pieces of files BASE1 is sending
     if (!have("got")) d.createObjectStore("got", { keyPath: "id" });  // files received from BASE1
+    if (!have("kit")) d.createObjectStore("kit");                      // unpacked client kits for the PITCH desktop
   };
   r.onsuccess = () => ok(r.result); r.onerror = () => bad(r.error);
 });
@@ -81,9 +82,9 @@ async function unseal(blob) {
 const send = async (header, body, to = HUB) => ghPut(`to/${to}/${stamp()}.env`, await seal(Object.assign({ from: S.dev }, header), body), `${S.dev} -> ${to}`);
 
 // ------------------------------------------------------------------ queue
-async function addFiles(list) {
-  const note = $("#fNote").value.trim();
-  for (const f of list) await qPut({ id: uid(), t: Date.now(), type: "file", name: f.name, size: f.size, blob: f, note, sent: 0 });
+async function addFiles(list, dest) {
+  const note = dest ? "" : $("#fNote").value.trim();
+  for (const f of list) await qPut({ id: uid(), t: Date.now(), type: "file", name: f.name, size: f.size, blob: f, note, sent: 0, dest: dest || null });
   $("#fNote").value = ""; toast(`${list.length} file(s) queued`); renderQueue(); drain();
 }
 async function sha256(blob) { return blob.size <= 512 * 1024 * 1024 ? [...new Uint8Array(await crypto.subtle.digest("SHA-256", await blob.arrayBuffer()))].map(b => b.toString(16).padStart(2, "0")).join("") : ""; }
@@ -92,7 +93,7 @@ async function sendFile(it) {
   const total = Math.max(1, Math.ceil(it.size / CHUNK));
   for (let i = Math.floor((it.sent || 0) / CHUNK); i < total; i++) {
     const piece = new Uint8Array(await it.blob.slice(i * CHUNK, Math.min((i + 1) * CHUNK, it.size)).arrayBuffer());
-    await send({ type: "file", id: it.id, name: it.name, idx: i, total, sha256: it.sha, note: it.note || "" }, piece);
+    await send({ type: "file", id: it.id, name: it.name, idx: i, total, sha256: it.sha, note: it.note || "", dest: it.dest || null }, piece);
     it.sent = Math.min((i + 1) * CHUNK, it.size); await qPut(it); renderQueue();
   }
 }
@@ -109,6 +110,7 @@ async function drain() {
           }
           await chatMark(it.id, "sent");
         }
+        else if (it.type === "fetch") await send({ type: "fetch", id: it.id, root: it.root, path: it.path });
         else if (it.type === "note") await send({ type: "note", id: it.id }, new TextEncoder().encode(it.text));
         else if (it.type === "task") await send({ type: "task", id: it.id, node: it.node, kind: it.kind, name: it.name, params: it.params });
         else await sendFile(it);
@@ -121,7 +123,7 @@ async function renderQueue() {
   const all = await qAll();
   $("#qCount").textContent = all.length ? `(${all.length})` : "";
   $("#qList").innerHTML = all.length ? all.map(it => it.type !== "file"
-    ? `<li><span class="n">${it.type === "task" ? "⚙ " + esc(it.kind) : "✎ " + esc(it.text.slice(0, 80))}</span><span class="m">${navigator.onLine ? "sending" : "waiting for signal"}</span></li>`
+    ? `<li><span class="n">${it.type === "task" ? "⚙ " + esc(it.kind) : it.type === "fetch" ? "⇩ ask BASE1 for " + esc(it.path || it.root) : "✎ " + esc((it.text || "").slice(0, 80))}</span><span class="m">${navigator.onLine ? "sending" : "waiting for signal"}</span></li>`
     : `<li style="display:block"><div class="row"><span class="n">${esc(it.name)}</span><span class="m">${fmt(it.sent || 0)} / ${fmt(it.size)}</span>
        <button data-del="${it.id}" style="min-height:32px;padding:4px 10px">✕</button></div><div class="bar"><i style="width:${(100 * (it.sent || 0) / Math.max(1, it.size)).toFixed(1)}%"></i></div></li>`).join("")
     : `<li class="dim">nothing waiting</li>`;
@@ -159,6 +161,7 @@ async function receivePiece(h, body) {
   await tx("got", "readwrite", st => st.put({ id: h.id, t: Date.now(), name: h.name, size: blob.size, blob, isNew: true }));
   await tx("parts", "readwrite", st => st.delete(IDBKeyRange.bound(h.id + "_", h.id + "_~")));
   toast(`${h.name} arrived from BASE1`);
+  if (/client-kit/i.test(h.name) && /\.zip$/i.test(h.name) && window.importKits) importKits(blob, h.name);
 }
 const MIME = { jpg: "image/jpeg", jpeg: "image/jpeg", png: "image/png", gif: "image/gif", webp: "image/webp", pdf: "application/pdf", mp4: "video/mp4", webm: "video/webm", mp3: "audio/mpeg", txt: "text/plain", html: "text/html", zip: "application/zip", docx: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" };
 const mime = n => MIME[(n.split(".").pop() || "").toLowerCase()] || "application/octet-stream";
@@ -224,7 +227,7 @@ async function chatAdd(m) {
   }
 }
 async function chatMark(id, st) { const c = await chatGet(); const m = c.find(x => x.id === id && x.mine); if (m) { m.st = st; await kvSet("chat", c); renderChat(); } }
-let unreadText = 0, curTab = "text";
+let unreadText = 0, curTab = "pitch";
 async function renderChat() {
   const c = await chatGet(), el = $("#thread"); if (!el) return;
   const atEnd = el.scrollTop + el.clientHeight >= el.scrollHeight - 30;
@@ -244,6 +247,45 @@ async function sendChat() {
 function fillTo() {
   const sel = $("#cTo"), cur = sel.value, opts = ["ALL"].concat(BASES, ((lastStatus && lastStatus.devices) || []).filter(d => d !== S.dev));
   if (sel.options.length !== opts.length) { sel.innerHTML = opts.map(o => `<option>${esc(o)}</option>`).join(""); sel.value = opts.includes(cur) ? cur : "ALL"; }
+}
+// ------------------------------------------------------------------ FILES: browse / pull / upload BASE1 shared folders
+let FX = null, fRoot = "", fDir = "";
+async function loadIndex(force) {
+  if (FX && !force && Date.now() - FX.at < 60000) return renderFiles();
+  try {
+    $("#fState").textContent = "· loading…";
+    const blob = await ghGet(`status/${HUB}_files.env`);
+    if (!blob) { $("#fState").textContent = "· BASE1 has not published its folders yet"; return; }
+    const [, body] = await unseal(blob);
+    FX = { at: Date.now(), idx: JSON.parse(new TextDecoder().decode(body)) };
+    await kvSet("filesIdx", FX);
+    $("#fState").textContent = "";
+  } catch (e) { FX = FX || (await kvGet("filesIdx")); $("#fState").textContent = "· offline copy"; }
+  renderFiles();
+}
+function renderFiles() {
+  if (!FX) return;
+  const q = $("#fFind").value.trim().toLowerCase();
+  $("#fPath").textContent = fRoot ? fRoot + (fDir ? " / " + fDir.replace(/\//g, " / ") : "") : "Shared folders";
+  $("#fUp").disabled = !fRoot; ["#fUpl", "#fZip"].forEach(x => $(x).classList.toggle("hide", !fRoot));
+  let rows;
+  if (q) rows = Object.entries(FX.idx).flatMap(([r, l]) => l.filter(x => x[0].toLowerCase().includes(q)).slice(0, 200).map(x => [r, ...x]));
+  else if (!fRoot) rows = Object.keys(FX.idx).map(r => [r, "", -1, 0, true]);
+  else rows = (FX.idx[fRoot] || []).filter(x => { const i = x[0].lastIndexOf("/"); return (i < 0 ? "" : x[0].slice(0, i)) === fDir; }).map(x => [fRoot, ...x]);
+  rows.sort((a, b) => (b[2] < 0) - (a[2] < 0) || a[1].localeCompare(b[1]));
+  $("#fList").innerHTML = rows.map(([r, p, size, mt, isRoot]) => {
+    const name = isRoot ? r : (q ? r + " / " + p : p.split("/").pop());
+    const dir = size < 0;
+    return `<li><span class="n" ${dir ? `data-open="${esc(r)}|${esc(isRoot ? "" : p)}" style="cursor:pointer"` : ""}>${dir ? "📁" : "📄"} ${esc(name)}</span>
+      <span class="m">${dir ? "" : fmt(size)}</span>
+      ${dir ? `<button data-open="${esc(r)}|${esc(isRoot ? "" : p)}" style="min-height:34px;padding:4px 10px">OPEN</button>` : `<button data-get="${esc(r)}|${esc(p)}" style="min-height:34px;padding:4px 10px">⇩ GET</button>`}</li>`;
+  }).join("") || `<li class="dim">empty</li>`;
+  document.querySelectorAll("[data-open]").forEach(b => b.onclick = () => { [fRoot, fDir] = b.dataset.open.split("|"); $("#fFind").value = ""; renderFiles(); });
+  document.querySelectorAll("[data-get]").forEach(b => b.onclick = () => { const [r, p] = b.dataset.get.split("|"); pull(r, p); b.textContent = "✓ asked"; b.disabled = true; });
+}
+async function pull(root, path) {
+  await qPut({ id: uid(), t: Date.now(), type: "fetch", root, path });
+  toast(`asked BASE1 for ${path.split("/").pop() || root} - watch FROM BASE`); drain();
 }
 let helloed = false;
 async function tick() {
@@ -278,6 +320,11 @@ drop.addEventListener("drop", e => addFiles([...e.dataTransfer.files]));
 $("#nSend").onclick = async () => { const t = $("#nText").value.trim(); if (!t) return; await qPut({ id: uid(), t: Date.now(), type: "note", text: t }); $("#nText").value = ""; toast(navigator.onLine ? "note sending" : "note saved - goes when there is signal"); renderQueue(); drain(); };
 $("#qRetry").onclick = tick;
 $("#cGo").onclick = sendChat;
+loaders.files = () => loadIndex();
+$("#fUp").onclick = () => { if (!fDir) fRoot = ""; else fDir = fDir.includes("/") ? fDir.slice(0, fDir.lastIndexOf("/")) : ""; renderFiles(); };
+$("#fZip").onclick = () => pull(fRoot, fDir);
+$("#fFind").oninput = renderFiles;
+$("#fUplIn").onchange = e => { addFiles([...e.target.files], { root: fRoot, dir: fDir }); e.target.value = ""; toast(`uploading into ${fRoot}${fDir ? " / " + fDir : ""}`); };
 $("#cText").addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendChat(); } });
 if (new URLSearchParams(location.search).has("mini")) { document.body.classList.add("mini"); document.title = "PXD2 TEXT"; }
 $("#tGo").onclick = async () => {
@@ -296,7 +343,7 @@ $("#pGo").onclick = async () => {
     const salt = unb64(JSON.parse(new TextDecoder().decode(meta)).salt);
     S.key = await deriveKey(pass, salt); S.dev = dev;
     await kvSet("session", { token, key: S.key, dev });               // the key is a non-extractable CryptoKey
-    show(); tick();
+    show(); tick(); if (loaders.pitch) loaders.pitch();
   } catch (e) { S.key = null; $("#pMsg").textContent = e.message; $("#pMsg").className = "bad"; }
 };
 function show() { $("#pairView").classList.toggle("hide", !!S.key); $("#appView").classList.toggle("hide", !S.key); }
@@ -304,6 +351,7 @@ function show() { $("#pairView").classList.toggle("hide", !!S.key); $("#appView"
 (async () => {
   const s = await kvGet("session"); if (s) S = s;
   show(); renderQueue(); renderFromBase(); renderChat(); tick();
+  if (S.key && loaders.pitch) loaders.pitch();
   if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(() => { });
   if (navigator.storage && navigator.storage.persist) navigator.storage.persist();
 })();
