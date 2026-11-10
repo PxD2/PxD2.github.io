@@ -55,3 +55,17 @@ Off-grid and satellite connections usually can't take incoming traffic on port 5
 A Pi on a connection with a public IP can serve plain DNS and DNS-over-TLS.
 
 Tested: UDP, TCP, DoT, DoH (GET/POST, HTTP and HTTPS), NXDOMAIN with SOA, sub-hub federation and clashes, the redirect, signed/tampered/rollback/wrong-authority registries, zone export, the iPhone profile.
+
+## PXD2 private hosting (ready now, switch on later)
+Today every `.pxd` name forwards to `pxd2.github.io`. When PXD2 has its own hosting machine, the same root serves the pages
+itself from a local copy of this repository, so client sites never depend on GitHub or Cloudflare and there is no per-site limit:
+
+```
+run_private_hosting.bat                      # as administrator: DNS :53 + web :80, pages from this copy
+run_private_hosting.bat --dns-port 5353 --web-port 8080   # try it without admin
+Update_Site_Copy.bat                         # pull the latest site + rebuild names, only when you run it
+```
+- `scrubhub.pxd/` serves `clients/scrub-hub-laundry-showers-5ec2ae/`; shared files fall back to the site root.
+- Names that point at another website (YouTube, TikTok) still redirect there.
+- Nothing outside the site folder can be read; every reply carries `X-PXD-Host: pxd2-private`.
+- Going live is a network step you take yourself: point the router's DNS (or Android Private DNS / the iPhone profile) at this machine.
