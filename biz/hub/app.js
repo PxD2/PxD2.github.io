@@ -60,9 +60,13 @@ async function seal(header, body = new Uint8Array()) {
   const plain = new Uint8Array(head.length + body.byteLength); plain.set(head); plain.set(new Uint8Array(body), head.length);
   const iv = crypto.getRandomValues(new Uint8Array(12));
   const ct = new Uint8Array(await crypto.subtle.encrypt({ name: "AES-GCM", iv, additionalData: AAD }, S.key, plain));
-  const out = new Uint8Array(12 + ct.length); out.set(iv); out.set(ct, 12); return out;
+  const out = new Uint8Array(12 + ct.length); out.set(iv); out.set(ct, 12);
+  return new TextEncoder().encode(ARMOR + b64(out));   // ASCII on GitHub: it re-encodes short binary files
 }
+const ARMOR = "PXD2A1:";
 async function unseal(blob) {
+  const tag = new TextDecoder().decode(blob.slice(0, ARMOR.length));
+  if (tag === ARMOR) blob = unb64(new TextDecoder().decode(blob.slice(ARMOR.length)));
   const plain = new Uint8Array(await crypto.subtle.decrypt({ name: "AES-GCM", iv: blob.slice(0, 12), additionalData: AAD }, S.key, blob.slice(12)));
   const nl = plain.indexOf(10);
   return [JSON.parse(new TextDecoder().decode(plain.slice(0, nl))), plain.slice(nl + 1)];
