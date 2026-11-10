@@ -318,9 +318,9 @@ async function popAlert(title, body, tag) {                  // on-screen pop-up
   try {
     if (!("Notification" in window) || Notification.permission !== "granted") return;
     if (!document.hidden && document.hasFocus()) return;      // looking at the app already: the toast is enough
-    const reg = await navigator.serviceWorker.ready;
-    await reg.showNotification(title, { body: (body || "").slice(0, 180), tag: tag || "pxd2", renotify: true, requireInteraction: true,
-      icon: "icon-192.png", badge: "icon-192.png", vibrate: [150, 80, 150], data: { tag } });
+    const opts = { body: (body || "").slice(0, 180), tag: tag || "pxd2", renotify: true, requireInteraction: true, icon: "icon-192.png", badge: "icon-192.png", data: { tag } };
+    try { await (await navigator.serviceWorker.ready).showNotification(title, opts); }
+    catch (e) { const n = new Notification(title, opts); n.onclick = () => { window.focus(); goTab(tag === "pxd2file" ? "outbox" : "text"); n.close(); }; }
   } catch (e) { }
 }
 function alertsUI() {
@@ -361,8 +361,9 @@ async function enablePush(ask) {
       try { sub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: u8(key) }); }
       catch (e) {                                              // device can't reach the push service: alerts from the open app
         localAlerts = true; alertsUI();
-        await reg.showNotification("PXD2 · alerts are ON ✓", { body: "Pop-ups work while PXD2 is open or minimized. (Closed-app alerts unavailable here: " + (e.message || e) + ")", icon: "icon-192.png", tag: "pxd2test" });
-        await send({ type: "note", id: uid() }, new TextEncoder().encode("[alerts] closed-app push failed on " + S.dev + ": " + (e.message || e)));
+        try { await reg.showNotification("PXD2 · alerts are ON ✓", { body: "Pop-ups work while PXD2 is open or minimized.", icon: "icon-192.png", tag: "pxd2test" }); }
+        catch (x) { try { new Notification("PXD2 · alerts are ON ✓", { body: "Pop-ups work while PXD2 is open or minimized." }); } catch (y) { } }
+        send({ type: "note", id: uid() }, new TextEncoder().encode("[alerts] closed-app push failed on " + S.dev + ": " + (e.message || e))).catch(() => { });
         return say("🔔 alerts ON while PXD2 is open or minimized");
       }
     }
