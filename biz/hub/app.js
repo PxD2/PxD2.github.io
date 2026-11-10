@@ -320,18 +320,31 @@ function alertsUI() {
   b.classList.toggle("hide", ok); $("#alertOn").classList.toggle("hide", !ok);
 }
 async function enablePush(ask) {
+  const say = t => { if (ask) { toast(t); const b = $("#alertBtn"); if (b) b.title = t; } };
   try {
-    if (!("serviceWorker" in navigator) || !("PushManager" in window) || !lastStatus || !lastStatus.vapid) return alertsUI();
-    if (Notification.permission !== "granted") { if (!ask) return alertsUI(); if ((await Notification.requestPermission()) !== "granted") { toast("alerts blocked - allow notifications for this site in Chrome settings"); return alertsUI(); } }
+    if (!("Notification" in window) || !("serviceWorker" in navigator) || !("PushManager" in window)) return say("this browser cannot do pop-up alerts - open the app in Chrome");
+    let perm = Notification.permission;
+    if (perm !== "granted") {
+      if (!ask) return alertsUI();
+      perm = await Notification.requestPermission();             // asked first, straight from the tap
+      if (perm !== "granted") {
+        showErr("Pop-up alerts are blocked for this app. Fix: tap the lock/tune icon left of the address (or ⋮ > App info) > Site settings > Notifications > Allow, then tap 🔔 again.");
+        return alertsUI();
+      }
+    }
+    if (!lastStatus || !lastStatus.vapid) { say("getting BASE1's alert key…"); await loadStatus(); }
+    if (!lastStatus || !lastStatus.vapid) return say("BASE1 has not sent its alert key yet - is the hub running? try again in a minute");
+    say("connecting alerts…");
     const reg = await navigator.serviceWorker.ready;
     let sub = await reg.pushManager.getSubscription();
     const key = lastStatus.vapid;
     if (sub && (await kvGet("pushKey")) !== key) { await sub.unsubscribe(); sub = null; }
     if (!sub) sub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: u8(key) });
     const js = JSON.stringify(sub);
-    if ((await kvGet("pushSent")) !== js + S.dev) { await send({ type: "push_sub" }, new TextEncoder().encode(js)); await kvSet("pushSent", js + S.dev); await kvSet("pushKey", key); }
-    pushDone = true; if (ask) toast("pop-up alerts ON - texts and files from base pop up even with the app closed");
-  } catch (e) { if (ask) toast("alerts: " + e.message); }
+    if (ask || (await kvGet("pushSent")) !== js + S.dev) { await send({ type: "push_sub" }, new TextEncoder().encode(js)); await kvSet("pushSent", js + S.dev); await kvSet("pushKey", key); }
+    pushDone = true;
+    say("🔔 pop-up alerts ON - BASE1 will send a test pop-up now");
+  } catch (e) { if (ask) showErr("alerts: " + (e.message || e)); }
   alertsUI();
 }
 let helloed = false;
