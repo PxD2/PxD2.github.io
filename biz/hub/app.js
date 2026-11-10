@@ -60,12 +60,35 @@ const qPut = x => tx("q", "readwrite", s => s.put(x));
 const qDel = id => tx("q", "readwrite", s => s.delete(id));
 const gotAll = async () => ((await tx("got", "readonly", s => s.getAll())) || []).sort((a, b) => b.t - a.t);
 
+// ------------------------------------------------------------------ sealed link file: the GitHub key, openable only with the mesh key
+async function linkToken(pass) {
+  const L = await (await fetch("link.enc?x=" + Date.now(), { cache: "no-store" })).json();
+  const k = await deriveKey(pass, unb64(L.salt));
+  const save = S.key; S.key = k;
+  try { const [, body] = await unseal(new TextEncoder().encode(L.env)); return new TextDecoder().decode(body).trim(); }
+  finally { S.key = save; }
+}
+let refreshing = null;
+async function refreshToken() {                    // BASE1 rotated the GitHub key: pick up the new one (needs the stored mesh key)
+  const L = await (await fetch("link.enc?x=" + Date.now(), { cache: "no-store" })).json();
+  const [, body] = await unseal(new TextEncoder().encode(L.env));    // same mesh key + same salt -> same S.key
+  S.token = new TextDecoder().decode(body).trim(); await kvSet("session", S); return S.token;
+}
+
 // ------------------------------------------------------------------ GitHub
 async function gh(method, path, body, raw) {
   const h = { Authorization: "Bearer " + S.token, Accept: raw ? "application/vnd.github.raw" : "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28" };
   if (body) h["Content-Type"] = "application/json";
   const r = await fetch(API + path, { method, headers: h, body: body ? JSON.stringify(body) : undefined, cache: "no-store" });
   if (r.status === 404) return null;
+  if (r.status === 401 && !path.includes("__retry")) {            // bad credentials: refresh the sealed key once, then retry
+    try { refreshing = refreshing || refreshToken(); await refreshing; } catch (e) { } finally { refreshing = null; }
+    const h2 = Object.assign({}, h, { Authorization: "Bearer " + S.token });
+    const r2 = await fetch(API + path, { method, headers: h2, body: body ? JSON.stringify(body) : undefined, cache: "no-store" });
+    if (r2.status === 404) return null;
+    if (!r2.ok) { let m = r2.statusText; try { m = (await r2.json()).message || m; } catch (e) { } throw Object.assign(new Error(m), { status: r2.status }); }
+    return raw ? new Uint8Array(await r2.arrayBuffer()) : r2.status === 204 ? {} : r2.json();
+  }
   if (!r.ok) { let m = r.statusText; try { m = (await r.json()).message || m; } catch (e) { } throw Object.assign(new Error(m), { status: r.status }); }
   return raw ? new Uint8Array(await r.arrayBuffer()) : r.status === 204 ? {} : r.json();
 }
@@ -425,8 +448,10 @@ $("#tGo").onclick = async () => {
 };
 $("#pGo").onclick = async () => {
   const dev = ($("#pName").value || "tablet").replace(/[^A-Za-z0-9_-]/g, "").slice(0, 32) || "tablet";
-  const token = $("#pTok").value.trim(), pass = $("#pCode").value.trim();
-  if (!token || !pass) return ($("#pMsg").textContent = "token and mesh key are both needed");
+  let token = $("#pTok").value.trim().replace(/\s+/g, "");
+  const pass = $("#pCode").value.trim();
+  if (!pass) return ($("#pMsg").textContent = "the mesh key is needed");
+  if (!token) { $("#pMsg").textContent = "unlocking the link with your mesh key…"; try { token = await linkToken(pass); } catch (e) { $("#pMsg").textContent = "mesh key did not open the link - check it (" + e.message + ")"; $("#pMsg").className = "bad"; return; } }
   $("#pMsg").textContent = "checking…";
   try {
     S.token = token;
