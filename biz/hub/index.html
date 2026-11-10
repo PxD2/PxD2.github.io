@@ -45,6 +45,16 @@ pre{white-space:pre-wrap;word-break:break-word;background:#0e151d;border:1px sol
 .hide{display:none!important}
 #toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:#173246;border:1px solid #2c5f80;padding:10px 16px;border-radius:10px;opacity:0;transition:opacity .25s;pointer-events:none;max-width:92vw}
 #toast.show{opacity:1}
+/* sticky-note texting */
+.thread{min-height:240px;max-height:52vh;overflow:auto;background:#fff27a;color:#2b2600;border-radius:10px;padding:10px}
+.msg{margin:0 0 10px;max-width:85%}.msg .w{font-size:11px;color:#8a7a20}.msg .b{white-space:pre-wrap;word-break:break-word}
+.msg.me{margin-left:auto;text-align:right;color:#1d4d7a}
+.compose{display:flex;gap:8px;margin-top:8px}.compose textarea{min-height:52px;flex:1;background:#fffbd0;color:#2b2600;border-color:#e8d84f}
+body.mini{background:#fff27a}body.mini header,body.mini nav{display:none!important}body.mini main{padding:6px}
+body.mini [data-pane]:not([data-pane=text]){display:none!important}body.mini [data-pane=text]{display:block!important}
+body.mini a[target=pxd2text]{display:none}body.mini .card{background:#fff27a;border:0;padding:4px;margin:0}body.mini .card h3{color:#8a7a20}
+body.mini .thread{max-height:calc(100vh - 150px);min-height:0;height:calc(100vh - 150px);padding:4px}
+body.mini select{background:#fffbd0;color:#2b2600;border-color:#e8d84f;padding:4px;min-height:0}
 </style>
 </head>
 <body>
@@ -66,7 +76,8 @@ pre{white-space:pre-wrap;word-break:break-word;background:#0e151d;border:1px sol
 
 <section id="appView" class="hide">
 <nav>
-  <button data-tab="send" class="on">SEND</button>
+  <button data-tab="text" class="on">TEXT <span id="tCount" class="ok"></span></button>
+  <button data-tab="send">SEND</button>
   <button data-tab="note">NOTE</button>
   <button data-tab="queue">OUTGOING <span id="qCount"></span></button>
   <button data-tab="outbox">FROM BASE <span id="fbCount" class="ok"></span></button>
@@ -74,7 +85,17 @@ pre{white-space:pre-wrap;word-break:break-word;background:#0e151d;border:1px sol
   <button data-tab="task">TASK</button>
 </nav>
 <main>
-  <div data-pane="send">
+  <div data-pane="text">
+    <div class="card">
+      <h3>✎ PXD2 TEXT <span id="tState" class="dim" style="letter-spacing:0;font-weight:400"></span>
+        <a href="?mini=1" target="pxd2text" style="float:right;color:var(--acc);font-size:11px;letter-spacing:.05em">POP-OUT STICKY</a></h3>
+      <div class="thread" id="thread"></div>
+      <div class="row" style="margin-top:8px;gap:6px"><span class="dim" style="font-size:12px">to</span><select id="cTo" style="width:auto;flex:1"><option>ALL</option><option>BASE1</option><option>BASE2</option></select></div>
+      <div class="compose"><textarea id="cText" placeholder="type… Enter sends" maxlength="4000"></textarea><button class="primary" id="cGo">SEND</button></div>
+    </div>
+  </div>
+
+  <div data-pane="send" class="hide">
     <div class="card">
       <h3>SEND FILES TO BASE1</h3>
       <div class="drop" id="drop">Drop files here, or<br><br>
