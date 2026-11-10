@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 200" width="600" height="200" role="img" aria-label="AMD ROCm Certified Associate — PXD2">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#16181d"/>
+      <stop offset="1" stop-color="#0a0b0e"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="596" height="196" rx="18" fill="url(#g)" stroke="#ed1c24" stroke-width="3"/>
+  <rect x="14" y="14" width="572" height="172" rx="12" fill="none" stroke="#3a3d45" stroke-width="1"/>
+  <!-- chip glyph -->
+  <g transform="translate(46 50)" fill="none" stroke="#ed1c24" stroke-width="5" stroke-linejoin="round">
+    <rect x="10" y="10" width="80" height="80" rx="8"/>
+    <rect x="32" y="32" width="36" height="36" rx="3" fill="#ed1c24" stroke="none"/>
+    <path d="M30 0v10M50 0v10M70 0v10M30 90v10M50 90v10M70 90v10M0 30h10M0 50h10M0 70h10M90 30h10M90 50h10M90 70h10" stroke-linecap="round"/>
+  </g>
+  <text x="180" y="84" font-family="Oswald, 'Arial Narrow', Arial, sans-serif" font-size="44" font-weight="700" fill="#ffffff" letter-spacing="1">AMD ROCm™</text>
+  <text x="182" y="126" font-family="Oswald, 'Arial Narrow', Arial, sans-serif" font-size="30" font-weight="600" fill="#ed1c24" letter-spacing="4">CERTIFIED ASSOCIATE</text>
+  <text x="183" y="160" font-family="Barlow, Arial, sans-serif" font-size="15" fill="#a3a8b3" letter-spacing="1">PXD2 · CORE ROCm™ APP DEVELOPMENT · 2026</text>
+</svg>
