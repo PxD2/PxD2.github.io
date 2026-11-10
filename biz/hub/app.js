@@ -184,7 +184,7 @@ async function receivePiece(h, body) {
   const blob = new Blob(pieces, { type: mime(h.name) });
   await tx("got", "readwrite", st => st.put({ id: h.id, t: Date.now(), name: h.name, size: blob.size, blob, isNew: true }));
   await tx("parts", "readwrite", st => st.delete(IDBKeyRange.bound(h.id + "_", h.id + "_~")));
-  toast(`${h.name} arrived from BASE1`);
+  toast(`${h.name} arrived from BASE1`); popAlert("PXD2 · file from BASE1", `${h.name} - open FROM BASE`, "pxd2file");
   if (/client-kit/i.test(h.name) && /\.zip$/i.test(h.name) && window.importKits) importKits(blob, h.name);
 }
 const MIME = { jpg: "image/jpeg", jpeg: "image/jpeg", png: "image/png", gif: "image/gif", webp: "image/webp", pdf: "application/pdf", mp4: "video/mp4", webm: "video/webm", mp3: "audio/mpeg", txt: "text/plain", html: "text/html", zip: "application/zip", docx: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" };
@@ -245,7 +245,7 @@ async function chatAdd(m) {
   c.push(m); await kvSet("chat", c.slice(-300)); renderChat();
   if (!m.mine) {
     if (navigator.vibrate) navigator.vibrate([120, 60, 120]);
-    if (document.hidden && "Notification" in window && Notification.permission === "granted") new Notification("PXD2 TEXT · " + m.from, { body: m.text.slice(0, 140), tag: "pxd2text" });
+    popAlert("PXD2 TEXT · " + m.from, m.text, "pxd2text");
     if (curTab !== "text") { unreadText++; $("#tCount").textContent = `(${unreadText})`; }
     toast(m.from + ": " + m.text.slice(0, 60));
   }
@@ -313,10 +313,19 @@ async function pull(root, path) {
 }
 // ------------------------------------------------------------------ pop-up alerts (Web Push from BASE1)
 const u8 = b => { const s = atob(b.replace(/-/g, "+").replace(/_/g, "/") + "===".slice((b.length + 3) % 4)); return Uint8Array.from(s, c => c.charCodeAt(0)); };
-let pushDone = false;
+let pushDone = false, localAlerts = false;
+async function popAlert(title, body, tag) {                  // on-screen pop-up from the app itself (works minimized)
+  try {
+    if (!("Notification" in window) || Notification.permission !== "granted") return;
+    if (!document.hidden && document.hasFocus()) return;      // looking at the app already: the toast is enough
+    const reg = await navigator.serviceWorker.ready;
+    await reg.showNotification(title, { body: (body || "").slice(0, 180), tag: tag || "pxd2", renotify: true, requireInteraction: true,
+      icon: "icon-192.png", badge: "icon-192.png", vibrate: [150, 80, 150], data: { tag } });
+  } catch (e) { }
+}
 function alertsUI() {
   const b = $("#alertBtn"); if (!b) return;
-  const ok = "Notification" in window && Notification.permission === "granted" && pushDone;
+  const ok = "Notification" in window && Notification.permission === "granted" && (pushDone || localAlerts);
   b.classList.toggle("hide", ok); $("#alertOn").classList.toggle("hide", !ok);
 }
 async function enablePush(ask) {
@@ -324,6 +333,7 @@ async function enablePush(ask) {
   try {
     if (!("Notification" in window) || !("serviceWorker" in navigator) || !("PushManager" in window)) return say("this browser cannot do pop-up alerts - open the app in Chrome");
     let perm = Notification.permission;
+    if (perm === "granted") localAlerts = true;
     if (perm !== "granted") {
       if (!ask) return alertsUI();
       perm = await Notification.requestPermission();             // asked first, straight from the tap
@@ -338,12 +348,24 @@ async function enablePush(ask) {
       try { const t = await ghGet("status/vapid.txt"); if (t) key = new TextDecoder().decode(t).trim(); } catch (e) { showErr("alert key: " + e.message); }
     }
     if (!key) { await loadStatus(); key = (lastStatus && lastStatus.vapid) || ""; }
-    if (!key) return showErr("BASE1's alert key could not be read. Link says: " + ($("#net").title || $("#net").textContent) + " - is Run_PXD2_WAN running on BASE1?");
+    if (!key) {
+      localAlerts = true; alertsUI();
+      await send({ type: "note", id: uid() }, new TextEncoder().encode("[alerts] no push key on " + S.dev + "; link: " + ($("#net").title || $("#net").textContent))).catch(() => { });
+      return say("🔔 alerts ON while PXD2 is open or minimized");
+    }
     say("connecting alerts…");
     const reg = await navigator.serviceWorker.ready;
     let sub = await reg.pushManager.getSubscription();
     if (sub && (await kvGet("pushKey")) !== key) { await sub.unsubscribe(); sub = null; }
-    if (!sub) sub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: u8(key) });
+    if (!sub) {
+      try { sub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: u8(key) }); }
+      catch (e) {                                              // device can't reach the push service: alerts from the open app
+        localAlerts = true; alertsUI();
+        await reg.showNotification("PXD2 · alerts are ON ✓", { body: "Pop-ups work while PXD2 is open or minimized. (Closed-app alerts unavailable here: " + (e.message || e) + ")", icon: "icon-192.png", tag: "pxd2test" });
+        await send({ type: "note", id: uid() }, new TextEncoder().encode("[alerts] closed-app push failed on " + S.dev + ": " + (e.message || e)));
+        return say("🔔 alerts ON while PXD2 is open or minimized");
+      }
+    }
     const js = JSON.stringify(sub);
     if (ask || (await kvGet("pushSent")) !== js + S.dev) { await send({ type: "push_sub" }, new TextEncoder().encode(js)); await kvSet("pushSent", js + S.dev); await kvSet("pushKey", key); }
     pushDone = true;
@@ -360,7 +382,7 @@ async function tick() {
 window.addEventListener("online", tick); window.addEventListener("offline", () => setNet(false));
 setInterval(tick, 30000);
 setInterval(async () => {                         // text-message speed: check this device's mailbox every 5 s while open
-  if (!S.key || !navigator.onLine || document.hidden) return;
+  if (!S.key || !navigator.onLine) return;
   await loadReplies(); drain();
   $("#tState").textContent = online ? "· live" : "· no link";
 }, 5000);
