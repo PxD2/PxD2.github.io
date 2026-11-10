@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PXD2 LINK</title>
+<meta name="theme-color" content="#0b1016">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+:root{--bg:#0b1016;--panel:#111821;--line:#22303d;--text:#e6edf3;--dim:#8a99a8;--acc:#7fd3f7;--ok:#6ee7a8;--warn:#f5c35b;--bad:#ff7a7a}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding:12px 16px;display:flex;align-items:center;gap:12px}
+header h1{margin:0;font-size:18px;letter-spacing:.12em;font-weight:800}
+header .sub{font-size:10px;letter-spacing:.2em;color:var(--dim)}
+#net{margin-left:auto;font-size:12px;font-weight:700;letter-spacing:.06em;white-space:nowrap}
+nav{display:flex;gap:4px;padding:8px 12px;border-bottom:1px solid var(--line);overflow-x:auto;background:var(--bg);position:sticky;top:57px;z-index:4}
+nav button{flex:0 0 auto}
+main{max-width:980px;margin:0 auto;padding:16px}
+button,.btn{background:#16212c;color:var(--text);border:1px solid var(--line);border-radius:8px;padding:10px 14px;font:inherit;font-weight:600;cursor:pointer;min-height:44px}
+button.on{border-color:var(--acc);color:var(--acc)}
+button.primary{background:#173246;border-color:#2c5f80;color:#dff4ff}
+button:disabled{opacity:.5}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px}
+.card h3{margin:0 0 6px;font-size:12px;letter-spacing:.16em;color:var(--dim)}
+.big{font-size:22px;font-weight:800}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+input,textarea,select{width:100%;background:#0e151d;color:var(--text);border:1px solid var(--line);border-radius:8px;padding:10px;font:inherit}
+textarea{min-height:110px;resize:vertical}
+label{display:block;font-size:12px;color:var(--dim);margin:10px 0 4px;letter-spacing:.06em}
+.drop{border:2px dashed var(--line);border-radius:12px;padding:26px 14px;text-align:center;color:var(--dim)}
+.drop.hot{border-color:var(--acc);color:var(--acc)}
+.list{list-style:none;margin:0;padding:0}
+.list li{display:flex;gap:10px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line);min-width:0}
+.list li .n{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.list li .m{color:var(--dim);font-size:12px;white-space:nowrap}
+.bar{height:6px;background:#1a2530;border-radius:3px;overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;background:var(--acc);width:0}
+.ok{color:var(--ok)}.warn{color:var(--warn)}.bad{color:var(--bad)}.dim{color:var(--dim)}
+pre{white-space:pre-wrap;word-break:break-word;background:#0e151d;border:1px solid var(--line);border-radius:8px;padding:10px;max-height:340px;overflow:auto;font-size:13px}
+.hide{display:none!important}
+#toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:#173246;border:1px solid #2c5f80;padding:10px 16px;border-radius:10px;opacity:0;transition:opacity .25s;pointer-events:none;max-width:92vw}
+#toast.show{opacity:1}
+</style>
+</head>
+<body>
+<header>
+  <div><h1>ASTRO COMS</h1><div class="sub">PXD2 LINK WAN · ASTRO COMS</div></div>
+  <div id="net" class="dim">…</div>
+</header>
+
+<section id="pairView" class="hide"><main>
+  <div class="card">
+    <h3>PXD2 LINK WAN · SIGN IN</h3>
+    <p>PXD2 only. Works on any network - Verizon hotspot, home, a client's Wi-Fi. Everything is sealed on this device (AES-256) before it leaves.</p>
+    <label>DEVICE NAME</label><input id="pName" placeholder="e.g. Tablet" maxlength="32">
+    <label>GITHUB TOKEN (PxD2/astrocoms)</label><input id="pTok" type="password" autocomplete="off">
+    <label>PXD2 MESH KEY (from BASE1: PXD2_WAN_Show_Key.bat)</label><input id="pCode" type="password" autocomplete="off">
+    <div class="row" style="margin-top:12px"><button class="primary" id="pGo">SIGN IN</button><span id="pMsg" class="dim"></span></div>
+  </div>
+</main></section>
+
+<section id="appView" class="hide">
+<nav>
+  <button data-tab="send" class="on">SEND</button>
+  <button data-tab="note">NOTE</button>
+  <button data-tab="queue">OUTGOING <span id="qCount"></span></button>
+  <button data-tab="outbox">REPLIES</button>
+  <button data-tab="fleet">BASE</button>
+  <button data-tab="task">TASK</button>
+</nav>
+<main>
+  <div data-pane="send">
+    <div class="card">
+      <h3>SEND FILES TO BASE1</h3>
+      <div class="drop" id="drop">Drop files here, or<br><br>
+        <label class="btn" style="display:inline-block;color:var(--text)">CHOOSE FILES<input type="file" id="files" multiple class="hide"></label>
+        <label class="btn" style="display:inline-block;color:var(--text)">CAMERA<input type="file" id="cam" accept="image/*,video/*" capture="environment" class="hide"></label>
+      </div>
+      <label>NOTE WITH THESE FILES (optional)</label><input id="fNote" placeholder="client, job, what to do with it" maxlength="2000">
+      <p class="dim" style="font-size:13px">No signal? Send anyway - it waits sealed on this device and goes the moment there is internet. Big files go in 8 MB pieces.</p>
+    </div>
+  </div>
+
+  <div data-pane="note" class="hide">
+    <div class="card">
+      <h3>NOTE TO BASE</h3>
+      <textarea id="nText" placeholder="Client asked for… / call back… / need render of…"></textarea>
+      <div class="row" style="margin-top:10px"><button class="primary" id="nSend">SEND NOTE</button></div>
+    </div>
+    <div class="card"><h3>RECENT NOTES</h3><pre id="notes" class="dim">…</pre></div>
+  </div>
+
+  <div data-pane="queue" class="hide">
+    <div class="card"><h3>WAITING / SENDING</h3><ul class="list" id="qList"></ul>
+      <div class="row" style="margin-top:10px"><button id="qRetry">SEND NOW</button></div></div>
+    <div class="card"><h3>RECENT IN BASE1 INBOX</h3><ul class="list" id="inList"></ul></div>
+  </div>
+
+  <div data-pane="outbox" class="hide">
+    <div class="card"><h3>MESSAGES FROM BASE</h3><ul class="list" id="outList"></ul></div>
+  </div>
+
+  <div data-pane="fleet" class="hide">
+    <div class="card"><h3>BASE1 HUB</h3><div id="hubState" class="dim">…</div></div><div class="grid" id="fleet"></div><div class="card"><h3>ACTIVITY</h3><ul class="list" id="act"></ul></div>
+  </div>
+
+  <div data-pane="task" class="hide">
+    <div class="card">
+      <h3>QUEUE A TASK ON THE FLEET</h3>
+      <label>MACHINE</label><select id="tNode"><option value="auto">auto (idlest)</option></select>
+      <label>KIND</label><select id="tKind">
+        <option>ollama</option><option>blender</option><option>comfy</option><option>python</option><option>download</option><option>unreal</option><option>powershell</option><option>open</option></select>
+      <label>NAME</label><input id="tName" placeholder="short name" maxlength="60">
+      <label>PARAMETERS (JSON)</label><textarea id="tParams">{"model": "gemma4:12b", "prompt": ""}</textarea>
+      
+      <div class="row" style="margin-top:12px"><button class="primary" id="tGo">QUEUE TASK</button></div>
+      <pre id="tOut" class="hide"></pre>
+    </div>
+  </div>
+</main>
+</section>
+<div id="toast"></div>
+<script src="app.js"></script>
+</body>
+</html>
