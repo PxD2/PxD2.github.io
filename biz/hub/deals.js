@@ -1,7 +1,7 @@
 // PXD2 DESKTOP - DEALS: service contracts and receipts (cash, card, check, trade) signed on the tablet.
 // Makes a PDF, keeps a copy on the device, and sends it sealed to BASE1 (filed in Desktop\PXD2 Deals + ledger.csv).
 "use strict";
-const PXD2 = { name: "PXD2", who: "Chad Aaron Peters, sole proprietor", addr: "PO Box 514, Concho, AZ 85924", phone: "928-457-6404", email: "pxdsquared@gmail.com" };
+const PXD2 = { name: "PXD2 Enterprises", who: "Chad Aaron Peters, owner", cfo: "Angie Wood, CFO", addr: "PO Box 514, Concho, AZ 85924", phone: "928-457-6404", email: "pxdsquared@gmail.com" };
 const PACKAGES = [
   { id: "web", label: "Client website", amount: 500, desc: "Custom website for the business: design, build, mobile layout, hours/location/contact, QR code kit and print-ready pieces, and launch on a PXD2 address." },
   { id: "order", label: "Online ordering + full menu", amount: 1500, ordering: true, desc: "Online menu with current items and prices, connected to the Client's own online-ordering/point-of-sale provider for pickup orders, with Order buttons across the site, plus setup support and staff walkthrough." },
@@ -33,7 +33,7 @@ function sigPad(canvas) {
   canvas.onpointerdown = e => { down = true; last = pt(e); canvas.setPointerCapture(e.pointerId); };
   canvas.onpointermove = e => { if (!down) return; const p = pt(e); ctx.beginPath(); ctx.moveTo(...last); ctx.lineTo(...p); ctx.stroke(); last = p; inked = true; };
   canvas.onpointerup = canvas.onpointercancel = () => { down = false; };
-  return { clear() { ctx.clearRect(0, 0, canvas.width, canvas.height); inked = false; }, get inked() { return inked; }, png: () => canvas.toDataURL("image/png") };
+  return { clear() { ctx.clearRect(0, 0, canvas.width, canvas.height); inked = false; }, get inked() { return inked; }, png: () => { const c = document.createElement("canvas"); c.width = 440; c.height = 140; const x = c.getContext("2d"); x.fillStyle = "#fff"; x.fillRect(0, 0, 440, 140); x.drawImage(canvas, 0, 0, 440, 140); return c.toDataURL("image/jpeg", 0.8); } };
 }
 
 // ---------------------------------------------------------------- views
@@ -144,7 +144,7 @@ async function form(kind) {
 
 // ---------------------------------------------------------------- PDF
 function makePdf(d) {
-  const { jsPDF } = window.jspdf; const doc = new jsPDF({ unit: "pt", format: "letter" });
+  const { jsPDF } = window.jspdf; const doc = new jsPDF({ unit: "pt", format: "letter", compress: true });
   const W = 612, M = 54; let y = 56;
   const C = d.kind === "contract";
   const need = h => { if (y + h > 740) { doc.addPage(); y = 56; } };
@@ -155,7 +155,8 @@ function makePdf(d) {
   const rule = () => { need(10); doc.setDrawColor(200); doc.line(M, y, W - M, y); y += 10; };
   doc.setFillColor(17, 17, 17); doc.rect(0, 0, W, 6, "F");
   doc.setFont("helvetica", "bold"); doc.setFontSize(22); doc.text("PXD2", M, y + 18);
-  doc.setFontSize(9); doc.setFont("helvetica", "normal"); doc.text([PXD2.addr, PXD2.phone + " · " + PXD2.email], W - M, y + 6, { align: "right" });
+  doc.setFontSize(10); doc.text("ENTERPRISES", M + 62, y + 18);
+  doc.setFontSize(9); doc.setFont("helvetica", "normal"); doc.text([PXD2.addr, PXD2.phone + " · " + PXD2.email, "Accounts: " + PXD2.cfo], W - M, y + 6, { align: "right" });
   y += 36;
   text(C ? "SERVICE AGREEMENT" : "RECEIPT", 16, "bold", 2);
   text(`${d.no}  ·  ${d.date}`, 10, "normal", 10);
@@ -163,7 +164,7 @@ function makePdf(d) {
   text(C ? "Between" : "Received from", 9, "bold", 2);
   text(`${d.client}${d.owner ? " (" + d.owner + ")" : ""}`, 11.5, "bold", 2);
   text([d.addr, d.phone, d.email].filter(Boolean).join("  ·  ") || " ", 10, "normal", 6);
-  if (C) { text("and", 9, "bold", 2); text(`${PXD2.name} (${PXD2.who}), ${PXD2.addr}`, 10.5, "normal", 8); }
+  if (C) { text("and", 9, "bold", 2); text(`${PXD2.name} (${PXD2.who}), ${PXD2.addr}. Billing and accounts: ${PXD2.cfo}.`, 10.5, "normal", 8); }
   if (d.ref) text(`For contract ${d.ref}`, 10, "normal", 6);
   rule();
   text(C ? "1. Services" : "Paid for", 11, "bold", 4);
@@ -196,11 +197,12 @@ function makePdf(d) {
     text(paid.join("\n") || d.method, 10.5, "normal", 6);
     need(18); doc.setFont("helvetica", "bold"); doc.setFontSize(11); doc.text("Balance remaining", M, y + 11); doc.text(usd(d.balance), W - M, y + 11, { align: "right" }); y += 22;
     if (d.trade) text("Trade note: both parties agree the traded goods/services have the value shown above. Keep this receipt for your records.", 9.5, "italic", 6);
+    text(`Questions about this account: ${PXD2.cfo}, ${PXD2.name}, ${PXD2.phone}.`, 9.5, "normal", 6);
   }
   if (d.notes) { text("Notes", 11, "bold", 4); text(d.notes, 10.5, "normal", 8); }
   need(170); y += 6; rule();
   const sig = (label, name, png, x) => {
-    if (png) doc.addImage(png, "PNG", x, y, 220, 70);
+    if (png) doc.addImage(png, "JPEG", x, y, 220, 70);
     doc.setDrawColor(60); doc.line(x, y + 74, x + 220, y + 74);
     doc.setFont("helvetica", "normal"); doc.setFontSize(9); doc.text(`${label}: ${name || ""}`, x, y + 88); doc.text(`Date: ${d.date}`, x, y + 100);
   };
