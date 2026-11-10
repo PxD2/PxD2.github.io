@@ -94,13 +94,13 @@
     },
     "invest": {
       "to": "/company/",
-      "title": "Company \u00b7 investors",
+      "title": "Company · investors",
       "added": "2026-10-11",
       "group": "Studio & company"
     },
     "investors": {
       "to": "/company/",
-      "title": "Company \u00b7 investors",
+      "title": "Company · investors",
       "added": "2026-10-11",
       "group": "Studio & company"
     },
@@ -245,7 +245,7 @@
     },
     "company": {
       "to": "/company/",
-      "title": "Company \u00b7 investors",
+      "title": "Company · investors",
       "group": "Studio & company",
       "native": true,
       "added": "2026-10-11"
@@ -259,14 +259,14 @@
     },
     "studioa": {
       "to": "/studioa/",
-      "title": "Studio A \u2014 the 5080 floor",
+      "title": "Studio A — the 5080 floor",
       "group": "Studio & company",
       "native": true,
       "added": "2026-10-11"
     },
     "hold": {
       "to": "/hold/",
-      "title": "HOLD \u2014 SFTP roots we host",
+      "title": "HOLD — SFTP roots we host",
       "group": "Studio & company",
       "native": true,
       "added": "2026-10-11"
@@ -404,7 +404,7 @@
     },
     "pxdz": {
       "to": "/pxd/",
-      "title": "PXD Data Lab \u00b7 the PXDZ data format",
+      "title": "PXD Data Lab · the PXDZ data format",
       "group": "Tools & making",
       "added": "2026-10-11"
     },
@@ -420,6 +420,151 @@
       "group": "Tools & making",
       "native": true,
       "added": "2026-10-11"
+    },
+    "scrubhub": {
+      "to": "/clients/scrub-hub-laundry-showers-5ec2ae/",
+      "title": "Scrub Hub Laundry & Showers, Concho AZ",
+      "added": "2026-11-10",
+      "group": "Client sites",
+      "status": "concept"
+    },
+    "stanfordstore": {
+      "to": "/clients/stanford-general-store-8b2a57/",
+      "title": "Stanford General Store & Y-Bar, Concho AZ",
+      "added": "2026-11-10",
+      "group": "Client sites",
+      "status": "concept"
+    },
+    "ybar": {
+      "to": "/clients/stanford-general-store-8b2a57/order.html",
+      "title": "Y-Bar & Nettie's Deli menu, Stanford General Store",
+      "added": "2026-11-10",
+      "group": "Client sites",
+      "status": "concept"
+    },
+    "bearwallow": {
+      "to": "/clients/bear-wallow-antiques-e141f7/",
+      "title": "Bear Wallow Antiques",
+      "added": "2026-11-10",
+      "group": "Client sites",
+      "status": "concept"
+    },
+    "antiquewarehouse": {
+      "to": "/clients/antique-consignment-warehouse-59cf3e/",
+      "title": "Antique & Consignment Warehouse",
+      "added": "2026-11-10",
+      "group": "Client sites",
+      "status": "concept"
+    },
+    "antiquemercantile": {
+      "to": "/clients/antique-mercantile-co-cf6199/",
+      "title": "Antique Mercantile Co.",
+      "added": "2026-11-10",
+      "group": "Client sites",
+      "status": "concept"
+    },
+    "itsasecret": {
+      "to": "/clients/its-a-secret-4a04bc/",
+      "title": "It's a Secret",
+      "added": "2026-11-10",
+      "group": "Client sites",
+      "status": "concept"
+    },
+    "littlelogcabin": {
+      "to": "/clients/little-log-cabin-antiques-ea9465/",
+      "title": "Little Log Cabin Antiques",
+      "added": "2026-11-10",
+      "group": "Client sites",
+      "status": "concept"
+    },
+    "oldtimeantiques": {
+      "to": "/clients/old-time-e-antiques-71d1f3/",
+      "title": "Old Time \"E\" Antiques",
+      "added": "2026-11-10",
+      "group": "Client sites",
+      "status": "concept"
+    },
+    "pinetopwarehouse": {
+      "to": "/clients/pinetop-warehouse-ec1360/",
+      "title": "Pinetop Warehouse",
+      "added": "2026-11-10",
+      "group": "Client sites",
+      "status": "concept"
+    },
+    "reddirt": {
+      "to": "/clients/red-dirt/",
+      "title": "Red Dirt Construction, Springerville AZ",
+      "added": "2026-11-10",
+      "group": "Client sites",
+      "status": "concept"
+    },
+    "reddoor": {
+      "to": "/clients/red-door-consignment-8d8063/",
+      "title": "Red Door Consignment",
+      "added": "2026-11-10",
+      "group": "Client sites",
+      "status": "concept"
+    },
+    "snowflakesmokehouse": {
+      "to": "/clients/snowflake-smokehouse/",
+      "title": "Snowflake Smokehouse, Snowflake AZ",
+      "added": "2026-11-10",
+      "group": "Client sites",
+      "status": "concept"
+    },
+    "streetsonmain": {
+      "to": "/clients/streets-on-main/",
+      "title": "Streets On Main, Snowflake AZ",
+      "added": "2026-11-10",
+      "group": "Client sites",
+      "status": "concept"
+    },
+    "suzys": {
+      "to": "/clients/suzys-consignment-ea6baa/",
+      "title": "Suzy's Consignment Shop",
+      "added": "2026-11-10",
+      "group": "Client sites",
+      "status": "concept"
+    },
+    "sweetpotato": {
+      "to": "/clients/the-sweet-potato-8837b8/",
+      "title": "The Sweet Potato",
+      "added": "2026-11-10",
+      "group": "Client sites",
+      "status": "concept"
+    },
+    "valsbistro": {
+      "to": "/clients/vals/",
+      "title": "Val's Bistro & Blooms, Snowflake AZ",
+      "added": "2026-11-10",
+      "group": "Client sites",
+      "status": "concept"
+    },
+    "vintagesisters": {
+      "to": "/clients/vintage-sisters-antiques-0b44d7/",
+      "title": "Vintage Sisters Antiques",
+      "added": "2026-11-10",
+      "group": "Client sites",
+      "status": "concept"
+    },
+    "walnutcreek": {
+      "to": "/clients/walnut-creek-antique-emporium-4b6cff/",
+      "title": "Walnut Creek Antique Emporium",
+      "added": "2026-11-10",
+      "group": "Client sites",
+      "status": "concept"
+    },
+    "blackfriday": {
+      "to": "/special/",
+      "title": "PXD2 $500 website, lifetime hosting",
+      "added": "2026-11-10",
+      "group": "Studio & company"
+    },
+    "website500": {
+      "to": "/special/",
+      "title": "PXD2 $500 website, lifetime hosting",
+      "added": "2026-11-10",
+      "group": "Studio & company"
     }
   },
   "groups": [

@@ -10,7 +10,7 @@ const DEFAULT_CFG = {
   addr: "PO Box 514, Concho, AZ 85924", phone: "928-457-6404", email: "pxdsquared@gmail.com"
 };
 const PACKAGES = [
-  { id: "web", label: "Client website", amount: 500, desc: "Custom website for the business: design, build, mobile layout, hours/location/contact, QR code kit and print-ready pieces, launch on a PXD2 address, and lifetime hosting by PXD2 with no monthly or yearly hosting fee." },
+  { id: "web", label: "Client website", amount: 500, desc: "Custom website for the business: design, build, mobile layout, hours/location/contact, QR code kit and print-ready pieces, launch on the Client's own .pxd name on the PXD2 network (free, no renewals), and lifetime hosting by PXD2 with no monthly or yearly hosting fee." },
   { id: "order", label: "Online ordering + full menu", amount: 1500, ordering: true, desc: "Online menu with current items and prices, connected to the Client's own online-ordering/point-of-sale provider for pickup orders, with Order buttons across the site, plus setup support and staff walkthrough." },
   { id: "custom", label: "Custom line", amount: 0, desc: "" }
 ];
@@ -29,7 +29,7 @@ const emailsIn = s => String(s || "").split(/[,;\s]+/).map(x => x.trim()).filter
 function defaultClauses(ordering) {
   const c = [];
   if (ordering) c.push({ h: "Merchant and ordering-platform fees", b: "Card processing fees, online-ordering platform subscriptions and any other merchant fees are charged to the Client directly by the Client's own provider (for example Toast, Square or Clover) under the Client's agreement with that provider. PXD2 does not process the Client's customer payments, does not hold customer card data, and receives no portion of those fees." });
-  c.push({ h: "Lifetime hosting", b: "PXD2 hosts the Client's website for the life of the site at no monthly or yearly hosting charge, included in the price above. If the Client chooses its own domain name (for example a .com), the domain registration is renewed by the Client with its registrar, and PXD2 connects it at no charge." });
+  c.push({ h: "Lifetime hosting", b: "PXD2 hosts the Client's website for the life of the site at no monthly or yearly hosting charge, included in the price above. The Client's .pxd name on the PXD2 network is included for life with no renewals. If the Client also chooses its own domain name (for example a .com), the domain registration is renewed by the Client with its registrar, and PXD2 connects it at no charge." });
   c.push({ h: "What the Client provides", b: "Business details, menu/products and prices, photos or permission to take them, and any account access PXD2 needs to connect services. The Client reviews and approves the work before launch." });
   c.push({ h: "Ownership", b: "The Client owns its business name, logo, content, photos, menu and customer data. PXD2 keeps ownership of its own code, templates and tools and grants the Client a license to use them for the Client's site for as long as the Client uses it." });
   c.push({ h: "Changes and support", b: "Work listed above is included. Changes outside that list are quoted before they are done." });
