@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Kitchen screen · Nettie's Deli</title>
+<link rel="icon" href="icon.png">
+<meta name="theme-color" content="#151009">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rye&family=Bitter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#151009;--col:#22180F;--card:#FFF4DE;--ink:#22160E;--soft:#6C5640;--turq:#1F8A8A;--rust:#B23A1E;--gold:#E6A93A;--ok:#3E9B5E}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:#F1E2C4;font:400 18px/1.45 "Bitter",Georgia,serif;min-height:100vh}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.bar{display:flex;align-items:center;gap:14px;padding:14px 20px;border-bottom:2px solid #3A2A1A}
+.bar h1{font:400 26px/1 "Rye",Georgia,serif}
+.bar .clock{margin-left:auto;font-weight:800;font-size:22px}
+.bar button{font:800 15px "Bitter",serif;border:0;border-radius:8px;padding:10px 14px;cursor:pointer;background:#3A2A1A;color:#F1E2C4}
+.bar button.on{background:var(--ok)}
+.note{font-size:13px;color:#B8A27E;padding:8px 20px;background:#1C140C}
+.board{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:16px;min-height:calc(100vh - 110px)}
+@media(max-width:900px){.board{grid-template-columns:1fr}}
+.col{background:var(--col);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:12px}
+.col h2{font:800 17px "Bitter",serif;display:flex;align-items:center;gap:8px;padding:4px 4px 0}
+.col h2 i{width:12px;height:12px;border-radius:50%}
+.col h2 span{margin-left:auto;background:#3A2A1A;border-radius:999px;padding:1px 10px;font-size:14px}
+.card{background:var(--card);color:var(--ink);border-radius:10px;padding:14px;border-top:8px solid var(--rust)}
+.card.cooking{border-top-color:var(--gold)}.card.ready{border-top-color:var(--ok)}
+.card.fresh{animation:flash 1.2s ease-in-out 3}
+@keyframes flash{50%{box-shadow:0 0 0 6px var(--gold)}}
+@media(prefers-reduced-motion:reduce){.card.fresh{animation:none}}
+.card .top{display:flex;align-items:baseline;gap:10px}
+.card .num{font:400 30px/1 "Rye",Georgia,serif}
+.card .who{font-weight:800}
+.card .age{margin-left:auto;font-weight:800;font-size:15px;color:var(--soft)}
+.card .age.late{color:var(--rust)}
+.card .pick{font-size:14px;color:var(--soft);margin:2px 0 8px}
+.card ul{list-style:none;display:grid;gap:4px;margin-bottom:12px}
+.card li b{display:inline-block;min-width:30px}
+.card li small{display:block;margin-left:30px;color:var(--rust);font-weight:600}
+.card .go{width:100%;font:800 17px "Bitter",serif;border:0;border-radius:8px;padding:12px;cursor:pointer;color:#fff;background:var(--turq)}
+.card.cooking .go{background:var(--ok)}.card.ready .go{background:#5A4632}
+.empty{color:#8E7B5E;text-align:center;padding:24px 8px;font-size:16px}
+</style>
+</head>
+<body>
+<div class="bar">
+  <h1>Nettie's Deli · kitchen</h1>
+  <button id="sound" type="button" aria-pressed="false">Tap to turn on order chime</button>
+  <button id="demo" type="button">Add a test order</button>
+  <div class="clock" id="clock"></div>
+</div>
+<div class="note">Concept preview by PXD2. On this device, orders from the store's Order ahead page appear here instantly. When online ordering goes live, this screen runs on the kitchen tablet and every web order lands here.</div>
+<div class="board">
+  <div class="col"><h2><i style="background:var(--rust)"></i>New<span id="nNew">0</span></h2><div id="cNew"></div></div>
+  <div class="col"><h2><i style="background:var(--gold)"></i>Cooking<span id="nCook">0</span></h2><div id="cCook"></div></div>
+  <div class="col"><h2><i style="background:var(--ok)"></i>Ready for pickup<span id="nReady">0</span></h2><div id="cReady"></div></div>
+</div>
+<script>
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const load = () => { try { return JSON.parse(localStorage.getItem("sgs_orders") || "[]"); } catch (e) { return []; } };
+const save = o => { try { localStorage.setItem("sgs_orders", JSON.stringify(o.slice(-60))); } catch (e) { } };
+let orders = load(), fresh = new Set(), ctx = null;
+const NEXT = { new: ["cooking", "Start cooking"], cooking: ["ready", "Mark ready"], ready: ["done", "Picked up"] };
+
+function chime() {
+  if (!ctx) return;
+  [660, 880, 990].forEach((f, i) => { const o = ctx.createOscillator(), g = ctx.createGain(); o.frequency.value = f; o.connect(g); g.connect(ctx.destination);
+    const t = ctx.currentTime + i * .18; g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(.3, t + .02); g.gain.exponentialRampToValueAtTime(.0001, t + .3); o.start(t); o.stop(t + .32); });
+}
+function arrive(o) {
+  if (orders.some(x => x.id === o.id)) return;
+  orders.push(o); save(orders); fresh.add(o.id); chime(); paint();
+}
+function paint() {
+  const now = Date.now(), cols = { new: [], cooking: [], ready: [] };
+  orders.filter(o => o.state !== "done").forEach(o => (cols[o.state] || cols.new).push(o));
+  const card = o => {
+    const mins = Math.floor((now - o.at) / 60000);
+    return `<div class="card ${o.state} ${fresh.has(o.id) ? "fresh" : ""}">
+      <div class="top"><span class="num">#${o.num}</span><span class="who">${esc(o.who)}</span><span class="age ${mins >= 15 && o.state !== "ready" ? "late" : ""}">${mins} min</span></div>
+      <div class="pick">Pickup: ${esc(o.pickup)}${o.tel ? " · " + esc(o.tel) : ""}</div>
+      <ul>${o.lines.map(l => `<li><b>${l.qty}×</b>${esc(l.name)}${l.note ? `<small>${esc(l.note)}</small>` : ""}</li>`).join("")}</ul>
+      <button class="go" data-id="${o.id}">${NEXT[o.state][1]}</button></div>`;
+  };
+  [["new", "#cNew", "#nNew"], ["cooking", "#cCook", "#nCook"], ["ready", "#cReady", "#nReady"]].forEach(([k, c, n]) => {
+    $(c).innerHTML = cols[k].map(card).join("") || `<p class="empty">${k === "new" ? "Waiting for orders" : "Nothing here"}</p>`;
+    $(n).textContent = cols[k].length;
+  });
+  document.querySelectorAll(".go").forEach(b => b.onclick = () => {
+    const o = orders.find(x => x.id === b.dataset.id); o.state = NEXT[o.state][0]; fresh.delete(o.id); save(orders); paint();
+  });
+}
+try { const bc = new BroadcastChannel("sgs-kitchen"); bc.onmessage = e => e.data && e.data.type === "order" && arrive(e.data.order); } catch (e) { }
+addEventListener("storage", e => { if (e.key === "sgs_orders") { const before = new Set(orders.map(o => o.id)); orders = load(); orders.filter(o => !before.has(o.id)).forEach(o => { fresh.add(o.id); chime(); }); paint(); } });
+$("#sound").onclick = () => { ctx = ctx || new (window.AudioContext || window.webkitAudioContext)(); ctx.resume(); chime(); $("#sound").textContent = "Chime on"; $("#sound").classList.add("on"); $("#sound").setAttribute("aria-pressed", "true"); };
+$("#demo").onclick = () => arrive({ id: Date.now().toString(36), num: 100 + (orders.length % 900) + 1, who: "Test", tel: "", pickup: "As soon as possible",
+  lines: [{ qty: 1, name: "Custom hamburger with house fries", note: "No onions, extra pickles" }, { qty: 2, name: "Fountain drink", note: "Dr Pepper" }], at: Date.now(), state: "new" });
+const tick = () => { $("#clock").textContent = new Date().toLocaleTimeString("en-US", { timeZone: "America/Phoenix", hour: "numeric", minute: "2-digit" }); paint(); };
+tick(); setInterval(tick, 30000);
+</script>
+</body>
+</html>

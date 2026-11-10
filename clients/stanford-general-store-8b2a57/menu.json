@@ -1,0 +1,28 @@
+{
+  "updated": "2026-11-10",
+  "note": "Items confirmed from public listings. Prices: null = 'priced at the counter' until the store's menu board is entered.",
+  "kitchen": "Nettie's Deli",
+  "pickup": { "open": 6, "close": 18.5, "lead_min": 20, "step_min": 15 },
+  "sections": [
+    { "id": "breakfast", "name": "Breakfast", "items": [
+      { "id": "bfast-plate", "name": "Hearty breakfast plate", "desc": "Ask what's on the griddle this morning.", "price": null }
+    ]},
+    { "id": "pizza", "name": "Pizza", "items": [
+      { "id": "pizza-custom", "name": "Made-to-order pizza", "desc": "Scratch-made. Tell us your toppings.", "price": null, "note": "Toppings" }
+    ]},
+    { "id": "grill", "name": "Burgers & grill", "items": [
+      { "id": "burger", "name": "Custom hamburger with house fries", "desc": "Built your way.", "price": null, "note": "How do you want it?" },
+      { "id": "wings", "name": "Wings", "desc": "A local favorite.", "price": null, "note": "Sauce" }
+    ]},
+    { "id": "deli", "name": "Deli", "items": [
+      { "id": "club", "name": "Classic club sandwich with onion rings", "desc": "", "price": null },
+      { "id": "sandwich", "name": "Deli sandwich", "desc": "Meats and cheeses from our deli case.", "price": null, "note": "Meat, cheese, bread" },
+      { "id": "soup", "name": "Soup of the day", "desc": "", "price": null },
+      { "id": "chili", "name": "Chili", "desc": "", "price": null }
+    ]},
+    { "id": "drinks", "name": "Drinks", "items": [
+      { "id": "fountain", "name": "Fountain drink", "desc": "Coca-Cola, Diet Coke, Sprite, Dr Pepper", "price": null, "note": "Which one?" },
+      { "id": "goldpeak", "name": "Gold Peak iced tea", "desc": "", "price": null }
+    ]}
+  ]
+}
