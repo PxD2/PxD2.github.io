@@ -17,6 +17,7 @@ const stamp = () => String(Date.now()).padStart(13, "0") + "_" + [...crypto.getR
 const uid = () => [...crypto.getRandomValues(new Uint8Array(12))].map(b => b.toString(16).padStart(2, "0")).join("");
 
 // ------------------------------------------------------------------ storage (IndexedDB: session + outgoing queue)
+let BC = null; try { BC = new BroadcastChannel("pxd2"); BC.onmessage = e => { if (e.data === "close-old" && window.__db) { window.__db.close(); location.reload(); } }; } catch (e) { }
 const DB = new Promise((ok, bad) => {
   const r = indexedDB.open("pxd2_wan", 3);
   r.onupgradeneeded = () => {
@@ -27,7 +28,22 @@ const DB = new Promise((ok, bad) => {
     if (!have("got")) d.createObjectStore("got", { keyPath: "id" });  // files received from BASE1
     if (!have("kit")) d.createObjectStore("kit");                      // unpacked client kits for the PITCH desktop
   };
-  r.onsuccess = () => ok(r.result); r.onerror = () => bad(r.error);
+  r.onsuccess = () => {
+    const db = r.result;
+    db.onversionchange = () => { db.close(); location.reload(); };
+    window.__db = db; const bl = document.getElementById("blocked"); if (bl) bl.remove();   // a newer PXD2 window is updating: step aside
+    try { BC.postMessage("ready"); } catch (e) { }
+    ok(db);
+  };
+  r.onerror = () => bad(r.error);
+  r.onblocked = () => {                                              // an older PXD2 window/tab still holds storage open
+    try { BC.postMessage("close-old"); } catch (e) { }
+    const b = document.createElement("div");
+    b.id = "blocked";
+    b.style.cssText = "position:fixed;inset:auto 12px 12px 12px;z-index:60;background:#7a1d1d;color:#fff;padding:14px;border-radius:10px;font-weight:600";
+    b.textContent = "PXD2 is updating - close the other PXD2 window (the sticky pop-out or another tab), then this screen loads by itself.";
+    (document.body || document.documentElement).appendChild(b);
+  };
 });
 async function tx(store, mode, fn) { const db = await DB; return new Promise((ok, bad) => { const t = db.transaction(store, mode); const r = fn(t.objectStore(store)); t.oncomplete = () => ok(r && r.result); t.onerror = () => bad(t.error); }); }
 const kvGet = k => tx("kv", "readonly", s => s.get(k));
@@ -150,7 +166,7 @@ async function loadStatus() {
     $("#act").innerHTML = (st.activity || []).slice().reverse().map(a => `<li><span class="n">${esc(a.text)}</span><span class="m">${esc(a.t.slice(11, 16))}</span></li>`).join("") || `<li class="dim">quiet</li>`;
     $("#inList").innerHTML = (st.inbox || []).map(f => `<li><span class="n">${esc(f.name)}</span><span class="m">${esc(f.folder)} · ${fmt(f.size)}</span></li>`).join("") || `<li class="dim">empty</li>`;
     $("#tNode").innerHTML = `<option value="auto">auto (idlest)</option>` + (st.fleet || []).filter(n => n.online).map(n => `<option>${esc(n.name)}</option>`).join("");
-    setNet(true); fillTo();
+    setNet(true); fillTo(); if (!pushDone) enablePush(false);
   } catch (e) { setNet(false, e.message); if (e.name === "OperationError") $("#hubState").textContent = "Mesh key does not match BASE1's - sign out and sign in with the right key."; }
 }
 async function receivePiece(h, body) {
@@ -288,6 +304,29 @@ async function pull(root, path) {
   await qPut({ id: uid(), t: Date.now(), type: "fetch", root, path });
   toast(`asked BASE1 for ${path.split("/").pop() || root} - watch FROM BASE`); drain();
 }
+// ------------------------------------------------------------------ pop-up alerts (Web Push from BASE1)
+const u8 = b => { const s = atob(b.replace(/-/g, "+").replace(/_/g, "/") + "===".slice((b.length + 3) % 4)); return Uint8Array.from(s, c => c.charCodeAt(0)); };
+let pushDone = false;
+function alertsUI() {
+  const b = $("#alertBtn"); if (!b) return;
+  const ok = "Notification" in window && Notification.permission === "granted" && pushDone;
+  b.classList.toggle("hide", ok); $("#alertOn").classList.toggle("hide", !ok);
+}
+async function enablePush(ask) {
+  try {
+    if (!("serviceWorker" in navigator) || !("PushManager" in window) || !lastStatus || !lastStatus.vapid) return alertsUI();
+    if (Notification.permission !== "granted") { if (!ask) return alertsUI(); if ((await Notification.requestPermission()) !== "granted") { toast("alerts blocked - allow notifications for this site in Chrome settings"); return alertsUI(); } }
+    const reg = await navigator.serviceWorker.ready;
+    let sub = await reg.pushManager.getSubscription();
+    const key = lastStatus.vapid;
+    if (sub && (await kvGet("pushKey")) !== key) { await sub.unsubscribe(); sub = null; }
+    if (!sub) sub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: u8(key) });
+    const js = JSON.stringify(sub);
+    if ((await kvGet("pushSent")) !== js + S.dev) { await send({ type: "push_sub" }, new TextEncoder().encode(js)); await kvSet("pushSent", js + S.dev); await kvSet("pushKey", key); }
+    pushDone = true; if (ask) toast("pop-up alerts ON - texts and files from base pop up even with the app closed");
+  } catch (e) { if (ask) toast("alerts: " + e.message); }
+  alertsUI();
+}
 let helloed = false;
 async function tick() {
   if (!S.key) return; if (!navigator.onLine) return setNet(false);
@@ -321,6 +360,7 @@ drop.addEventListener("drop", e => addFiles([...e.dataTransfer.files]));
 $("#nSend").onclick = async () => { const t = $("#nText").value.trim(); if (!t) return; await qPut({ id: uid(), t: Date.now(), type: "note", text: t }); $("#nText").value = ""; toast(navigator.onLine ? "note sending" : "note saved - goes when there is signal"); renderQueue(); drain(); };
 $("#qRetry").onclick = tick;
 $("#cGo").onclick = sendChat;
+$("#alertBtn").onclick = () => enablePush(true);
 loaders.files = () => loadIndex();
 $("#fUp").onclick = () => { if (!fDir) fRoot = ""; else fDir = fDir.includes("/") ? fDir.slice(0, fDir.lastIndexOf("/")) : ""; renderFiles(); };
 $("#fZip").onclick = () => pull(fRoot, fDir);
