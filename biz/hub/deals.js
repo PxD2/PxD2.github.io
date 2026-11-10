@@ -4,8 +4,8 @@
 "use strict";
 const DEFAULT_CFG = {
   sellers: ["PXD2 Enterprises", "PXD2 Studios", "PXD2 Hosting", "PXD2 Data Systems"],
-  founder: "Chad Aaron Peters", founderTitle: "Founder & owner",
-  head: "Angie Wood", headTitle: "CFO", headEmail: "",
+  founder: "Chad Aaron Peters", founderTitle: "Founder",
+  head: "Angie Wood", headTitle: "CEO", headEmail: "",
   rep: "", repEmail: "", ownerEmail: "pxdsquared@gmail.com",
   addr: "PO Box 514, Concho, AZ 85924", phone: "928-457-6404", email: "pxdsquared@gmail.com"
 };
@@ -19,7 +19,11 @@ const METHODS = ["Cash", "Check", "Card", "Trade", "Cash + trade", "Card + trade
 const $d = s => document.querySelector(s);
 const usd = n => "$" + (Math.round((+n || 0) * 100) / 100).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 const today = () => new Date().toLocaleDateString("en-US", { timeZone: "America/Phoenix", year: "numeric", month: "long", day: "numeric" });
-const cfg = async () => Object.assign({}, DEFAULT_CFG, (await kvGet("dealCfg")) || {});
+const cfg = async () => {
+  const saved = (await kvGet("dealCfg")) || {};
+  if (saved.v !== 2) { if (saved.headTitle === "CFO") saved.headTitle = "CEO"; if (/owner/i.test(saved.founderTitle || "")) saved.founderTitle = "Founder"; saved.v = 2; await kvSet("dealCfg", saved); }
+  return Object.assign({}, DEFAULT_CFG, saved);
+};
 const emailsIn = s => String(s || "").split(/[,;\s]+/).map(x => x.trim()).filter(x => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(x));
 
 function defaultClauses(ordering) {
@@ -64,11 +68,11 @@ function sigPad(canvas) {
 // ---------------------------------------------------------------- the document model (shared by every format)
 function model(d) {
   const C = d.kind === "contract", B = [];
-  B.push({ t: "brand", seller: d.seller, right: [d.co.addr, d.co.phone + " · " + d.co.email, `${d.co.founderTitle || "Founder & owner"}: ${d.co.founder || "Chad Aaron Peters"}`, `${d.co.headTitle}: ${d.co.head}`] });
+  B.push({ t: "brand", seller: d.seller, right: [d.co.addr, d.co.phone + " · " + d.co.email, `${d.co.founderTitle || "Founder"}: ${d.co.founder || "Chad Aaron Peters"}`, `${d.co.headTitle}: ${d.co.head}`] });
   B.push({ t: "title", text: C ? "SERVICE AGREEMENT" : "RECEIPT" }, { t: "meta", text: `${d.no}  ·  ${d.date}` }, { t: "rule" });
   B.push({ t: "label", text: C ? "Between" : "Received from" }, { t: "strong", text: `${d.client}${d.owner ? " (" + d.owner + ")" : ""}` });
   B.push({ t: "p", text: [d.addr, d.phone, d.email].filter(Boolean).join("  ·  ") || " " });
-  if (C) { B.push({ t: "label", text: "and" }, { t: "p", text: `${d.seller}, a PXD2 business of ${d.co.founder || "Chad Aaron Peters"} (${(d.co.founderTitle || "Founder & owner").toLowerCase()}), represented by ${d.co.head}, ${d.co.headTitle}. ${d.co.addr}.` }); }
+  if (C) { B.push({ t: "label", text: "and" }, { t: "p", text: `${d.seller}, founded by ${d.co.founder || "Chad Aaron Peters"}, represented by ${d.co.head}, ${d.co.headTitle}. ${d.co.addr}.` }); }
   if (d.ref) B.push({ t: "p", text: `For contract ${d.ref}` });
   B.push({ t: "rule" }, { t: "h", text: C ? "1. Services" : "Paid for" }, { t: "lines", lines: d.lines }, { t: "total", label: "Total", value: usd(d.total) });
   if (C) {
@@ -258,7 +262,7 @@ async function settings() {
     <label>OUR BUSINESS NAMES (one per line - pick one on each sale)</label><textarea id="sSell" style="min-height:90px">${esc(c.sellers.join("\n"))}</textarea>
     <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px">
       <div><label>FOUNDER / OWNER</label><input id="sFnd" value="${esc(c.founder || "Chad Aaron Peters")}"></div>
-      <div><label>FOUNDER TITLE</label><input id="sFndT" value="${esc(c.founderTitle || "Founder & owner")}"></div>
+      <div><label>FOUNDER TITLE</label><input id="sFndT" value="${esc(c.founderTitle || "Founder")}"></div>
       <div><label>RUNS THE BUSINESS (signs for PXD2)</label><input id="sHead" value="${esc(c.head)}"></div>
       <div><label>TITLE</label><input id="sHeadT" value="${esc(c.headTitle)}"></div>
       <div><label>HEAD'S EMAIL (gets a copy of every deal)</label><input id="sHeadE" type="email" value="${esc(c.headEmail)}"></div>
@@ -273,7 +277,7 @@ async function settings() {
   $d("#sBack").onclick = renderDeals;
   $d("#sSave").onclick = async () => {
     const v = id => $d(id).value.trim();
-    await kvSet("dealCfg", { founder: v("#sFnd"), founderTitle: v("#sFndT"), sellers: v("#sSell").split("\n").map(s => s.trim()).filter(Boolean), head: v("#sHead"), headTitle: v("#sHeadT"), headEmail: v("#sHeadE"),
+    await kvSet("dealCfg", { v: 2, founder: v("#sFnd"), founderTitle: v("#sFndT"), sellers: v("#sSell").split("\n").map(s => s.trim()).filter(Boolean), head: v("#sHead"), headTitle: v("#sHeadT"), headEmail: v("#sHeadE"),
       rep: v("#sRep"), repEmail: v("#sRepE"), ownerEmail: v("#sOwnE"), phone: v("#sPh"), email: v("#sEm"), addr: v("#sAddr") });
     toast("saved"); renderDeals();
   };
