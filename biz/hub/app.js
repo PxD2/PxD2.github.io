@@ -1,6 +1,13 @@
 // PXD2 LINK WAN - tablet / phone side. PXD2's own wide-area link to BASE1: sealed envelopes (AES-256-GCM) through the
 // private repo PxD2/astrocoms (branch "mesh"). Works on any network; nothing on GitHub is readable without the mesh key.
 "use strict";
+window.addEventListener("error", e => showErr(e.message + (e.filename ? " @ " + e.filename.split("/").pop() + ":" + e.lineno : "")));
+window.addEventListener("unhandledrejection", e => showErr("async: " + ((e.reason && e.reason.message) || e.reason)));
+function showErr(t) {                                  // faults show on screen instead of silently freezing the app
+  let b = document.getElementById("errbar");
+  if (!b) { b = document.createElement("div"); b.id = "errbar"; b.style.cssText = "position:fixed;left:8px;right:8px;top:8px;z-index:70;background:#7a1d1d;color:#fff;padding:8px 12px;border-radius:8px;font:12px/1.4 monospace;white-space:pre-wrap"; b.onclick = () => b.remove(); (document.body || document.documentElement).appendChild(b); }
+  b.textContent = "PXD2 error (tap to hide) - " + String(t).slice(0, 300);
+}
 const $ = s => document.querySelector(s);
 const REPO = "PxD2/astrocoms", BRANCH = "mesh", HUB = "BASE1", API = "https://api.github.com";
 const AAD = new TextEncoder().encode("pxd2-wan-v1");

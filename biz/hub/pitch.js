@@ -9,39 +9,54 @@ const kitPut = (k, blob) => tx("kit", "readwrite", s => s.put(blob, k));
 const kitGet = k => tx("kit", "readonly", s => s.get(k));
 const pretty = slug => slug.replace(/-/g, " ").replace("Time E ", "Time E-").replace(/Its a/, "It's a").replace(/Suzys/, "Suzy's");
 
+const unzipAsync = data => new Promise((ok, bad) => fflate.unzip(data, (err, out) => err ? bad(err) : ok(out)));   // off the main screen (worker)
+let importing = false;
 async function importKits(blob, name) {
   if (!window.fflate) return toast("unzip tool missing - reload the app");
-  toast(`unpacking ${name}…`);
-  const outer = fflate.unzipSync(new Uint8Array(await blob.arrayBuffer()));
-  const inner = Object.keys(outer).some(n => /-Client-Kit\.zip$/i.test(n))
-    ? Object.entries(outer).filter(([n]) => /-Client-Kit\.zip$/i.test(n)).map(([n, b]) => [n.replace(/-Client-Kit\.zip$/i, "").split("/").pop(), fflate.unzipSync(b)])
-    : [[name.replace(/-Client-Kit\.zip$/i, ""), outer]];
-  const kits = (await kvGet("kits")) || {};
-  for (const [slug, files] of inner) {
-    const list = [];
-    for (const [path, bytes] of Object.entries(files)) {
-      if (path.endsWith("/") || !bytes.length) continue;
-      const clean = path.replace(/^[^/]*-Client-Kit\//i, "");
-      await kitPut(`${slug}/${clean}`, new Blob([bytes], { type: mime(clean) }));
-      list.push([clean, bytes.length]);
+  if (importing) return; importing = true;
+  const bar = $("#pitchBody");
+  const say = t => { bar.innerHTML = `<div class="card"><h3>SETTING UP CLIENT KITS</h3><p>${esc(t)}</p><div class="bar"><i style="width:${say.pct || 0}%"></i></div><p class="dim" style="font-size:12px">The rest of the app works while this runs.</p></div>`; };
+  try {
+    say.pct = 2; say(`unpacking ${name}…`);
+    const outer = await unzipAsync(new Uint8Array(await blob.arrayBuffer()));
+    const kitsIn = Object.keys(outer).filter(n => /-Client-Kit\.zip$/i.test(n));
+    const list = kitsIn.length ? kitsIn : [null];
+    const kits = (await kvGet("kits")) || {};
+    for (let i = 0; i < list.length; i++) {
+      const n = list[i];
+      const slug = n ? n.replace(/-Client-Kit\.zip$/i, "").split("/").pop() : name.replace(/-Client-Kit\.zip$/i, "");
+      say.pct = Math.round(5 + 90 * i / list.length); say(`client ${i + 1} of ${list.length}: ${pretty(slug)}`);
+      const files = n ? await unzipAsync(outer[n]) : outer;
+      const rows = [];
+      for (const [path, bytes] of Object.entries(files)) {
+        if (path.endsWith("/") || !bytes.length) continue;
+        const clean = path.replace(/^[^/]*-Client-Kit\//i, "");
+        await kitPut(`${slug}/${clean}`, new Blob([bytes], { type: mime(clean) }));
+        rows.push([clean, bytes.length]);
+      }
+      const links = {};
+      const lt = files[Object.keys(files).find(p => /qr\/links\.txt$/i.test(p))];
+      if (lt) new TextDecoder().decode(lt).split("\n").forEach(l => { const m = l.match(/^([a-z-]+)\s+(\S.*)$/); if (m) links[m[1]] = m[2].trim(); });
+      const site = ((links.website || "").match(/opens (https:\/\/\S+?)\)/) || [])[1] || (links.website || "").split(/\s/)[0] || "";
+      kits[slug] = { slug, name: pretty(slug), files: rows, links, site, at: Date.now() };
+      await kvSet("kits", kits);                                   // saved client by client: never starts over
+      if (n) delete outer[n];
+      await new Promise(r => setTimeout(r, 0));                     // let taps through between clients
     }
-    let links = {};
-    const lt = files[Object.keys(files).find(p => /qr\/links\.txt$/i.test(p))];
-    if (lt) new TextDecoder().decode(lt).split("\n").forEach(l => { const m = l.match(/^([a-z-]+)\s+(\S.*)$/); if (m) links[m[1]] = m[2].trim(); });
-    const site = ((links.website || "").match(/opens (https:\/\/\S+?)\)/) || [])[1] || (links.website || "").split(/\s/)[0] || "";
-    kits[slug] = { slug, name: pretty(slug), files: list, links, site, at: Date.now() };
-  }
-  await kvSet("kits", kits);
-  toast(`${inner.length} client kit(s) ready on this tablet`);
+    toast(`${list.length} client kit(s) ready on this tablet`);
+  } catch (e) {
+    toast("could not unpack kits: " + e.message);
+    await kvSet("kitsFailed", name);
+  } finally { importing = false; }
   renderPitch();
 }
 window.importKits = importKits;
 
 async function autoImport() {
   const kits = (await kvGet("kits")) || {};
-  if (Object.keys(kits).length) return false;
+  if (Object.keys(kits).length || importing) return false;
   const z = (await gotAll()).find(g => /client-kit/i.test(g.name) && /\.zip$/i.test(g.name));
-  if (z) { await importKits(z.blob, z.name); return true; }
+  if (z && (await kvGet("kitsFailed")) !== z.name) { importKits(z.blob, z.name); return true; }   // runs in the background
   return false;
 }
 
