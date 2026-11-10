@@ -38,7 +38,14 @@ async function gh(method, path, body, raw) {
   if (!r.ok) { let m = r.statusText; try { m = (await r.json()).message || m; } catch (e) { } throw Object.assign(new Error(m), { status: r.status }); }
   return raw ? new Uint8Array(await r.arrayBuffer()) : r.status === 204 ? {} : r.json();
 }
-const ghGet = p => gh("GET", `/repos/${REPO}/contents/${p}?ref=${BRANCH}`, null, true);
+// exact bytes: the "raw" media type re-encodes small binary files, so read base64 (contents API, or the blob API past 1 MB)
+const ghGet = async p => {
+  const r = await gh("GET", `/repos/${REPO}/contents/${p}?ref=${BRANCH}`);
+  if (!r) return null;
+  if (r.encoding === "base64" && r.content) return unb64(r.content);
+  const b = await gh("GET", `/repos/${REPO}/git/blobs/${r.sha}`);
+  return b ? unb64(b.content) : null;
+};
 const ghLs = async p => (await gh("GET", `/repos/${REPO}/contents/${p}?ref=${BRANCH}`)) || [];
 const ghPut = (p, bytes, msg) => gh("PUT", `/repos/${REPO}/contents/${p}`, { message: msg, content: b64(bytes), branch: BRANCH });
 const ghDel = (p, sha) => gh("DELETE", `/repos/${REPO}/contents/${p}`, { message: "read", sha, branch: BRANCH });
