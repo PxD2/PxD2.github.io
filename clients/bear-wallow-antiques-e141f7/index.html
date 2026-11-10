@@ -1,0 +1,663 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Bear Wallow Antiques</title>
+<meta name="description" content="Bear Wallow Antiques & Things: room after room of yesteryear on White Mountain Blvd in Lakeside, Arizona.">
+<link rel="icon" href="icon.png">
+<meta property="og:title" content="Bear Wallow Antiques &amp; Things">
+<meta property="og:description" content="Room after room of yesteryear on White Mountain Blvd in Lakeside, Arizona.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Caveat:wght@500;700&family=Libre+Franklin:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --night:#12221C; --pine:#1E3A2F; --bark:#3B2A20; --barn:#5A3E2A;
+  --manila:#EBDDB5; --manila-edge:#D2BC83; --brass:#C6952F; --glow:#F2CF83;
+  --paper:#F8F6F1; --ink:#1B1A17; --muted:#5E5A50; --line:#DCD5C4;
+  --closed:#9A3B2C;
+  --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper) var(--grain);color:var(--ink);font:400 17px/1.65 "Libre Franklin",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+button{font:inherit;cursor:pointer}
+img{display:block;max-width:100%}
+:focus-visible{outline:3px solid var(--brass);outline-offset:3px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+.center{text-align:center}
+
+.concept{background:var(--bark);color:var(--manila);font-size:13px;text-align:center;padding:7px 16px}
+
+/* ---------- header ---------- */
+header.top{background:var(--night);color:var(--manila);border-bottom:1px solid rgba(235,221,181,.12)}
+header.top .wrap{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;padding-top:14px;padding-bottom:14px}
+nav.links{display:flex;gap:22px;font-weight:500;font-size:15px;align-items:center}
+nav.links a{text-decoration:none;opacity:.85}
+nav.links a:hover{opacity:1}
+nav.links.right{justify-content:flex-end}
+.mark{display:flex;align-items:center;gap:10px;text-decoration:none;justify-self:center}
+.mark svg{width:40px;height:40px}
+.mark b{font:400 18px/1 "Alfa Slab One",serif;letter-spacing:.02em}
+.call{border:1.5px solid var(--manila-edge);padding:7px 14px;border-radius:3px;opacity:1!important}
+@media(max-width:760px){header.top .wrap{grid-template-columns:auto 1fr}nav.links.left{display:none}.mark{justify-self:start}}
+
+/* ---------- hero / storefront ---------- */
+.hero{background:linear-gradient(#0F1D18,#1A3328 55%,#12221C 100%);color:var(--paper);overflow:hidden}
+.storefront{display:block;width:100%;max-width:1240px;height:auto;margin:0 auto}
+.hero-copy{padding:8px 20px 72px;text-align:center}
+.status-pill{display:inline-flex;align-items:center;gap:10px;padding:8px 16px 8px 12px;background:rgba(235,221,181,.08);box-shadow:inset 0 0 0 1px rgba(235,221,181,.24);border-radius:40px;font-size:15px;color:var(--manila)}
+.dot{width:10px;height:10px;border-radius:50%;background:#888}
+.dot.open{background:#5FBF77;box-shadow:0 0 0 4px rgba(95,191,119,.22)}
+.dot.closed{background:#D46A55}
+.hero h1{margin:22px auto 0;font:400 clamp(38px,5.6vw,70px)/1.02 "Alfa Slab One",serif;color:var(--manila);max-width:16ch}
+.hero .lede{margin:20px auto 0;font-size:19px;max-width:52ch;color:#D7DFD6}
+.ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.hero .ctas{justify-content:center}
+.btn{display:inline-flex;align-items:center;padding:14px 22px;font-weight:700;font-size:16px;text-decoration:none;border-radius:3px;border:0;transition:background .2s}
+.btn.solid{background:var(--manila);color:var(--night)}
+.btn.solid:hover{background:#F6EBCB}
+.btn.ghost{box-shadow:inset 0 0 0 2px var(--manila-edge);color:var(--manila);background:transparent}
+.btn.ghost:hover{background:rgba(235,221,181,.1)}
+.btn.pine{background:var(--pine);color:var(--manila)}
+.btn.pine:hover{background:var(--night)}
+@media(prefers-reduced-motion:no-preference){
+  .flicker{animation:flick 7s ease-in-out infinite}
+  .flicker.b{animation-delay:-3s}
+  @keyframes flick{0%,100%{opacity:1}46%{opacity:1}48%{opacity:.78}50%{opacity:1}52%{opacity:.88}54%{opacity:1}}
+}
+
+/* ---------- sections ---------- */
+section{padding:96px 0}
+.head{max-width:60ch;margin:0 auto 48px;text-align:center}
+h2{font:400 clamp(32px,4.2vw,50px)/1.06 "Alfa Slab One",serif;color:var(--pine)}
+.head p{margin-top:14px;color:var(--muted);font-size:18px}
+.kicker{display:block;font:700 28px/1 "Caveat",cursive;color:var(--brass);margin-bottom:8px}
+
+/* ---------- finder ---------- */
+.finder{background:var(--pine) var(--grain);color:var(--paper);padding:64px 0}
+.finder h2{color:var(--manila);font-size:clamp(28px,3.4vw,42px)}
+.finder .sub{margin-top:8px;color:#CFD9D1}
+.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:28px auto 0;max-width:860px}
+.chip{background:transparent;color:var(--manila);border:1.5px solid rgba(235,221,181,.45);padding:9px 16px;border-radius:40px;font-weight:500;font-size:15px;transition:background .15s,color .15s,border-color .15s}
+.chip:hover{border-color:var(--manila)}
+.chip[aria-pressed="true"]{background:var(--manila);color:var(--night);border-color:var(--manila)}
+.answer{margin-top:22px;min-height:40px;font-size:17px;color:#E7ECE6}
+.answer a{color:var(--glow);font-weight:700}
+
+/* ---------- rooms ---------- */
+.rooms{display:grid;grid-template-columns:repeat(4,1fr);gap:40px 26px}
+@media(max-width:980px){.rooms{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.rooms{grid-template-columns:1fr}}
+.tag{position:relative;background:var(--manila) var(--grain);clip-path:polygon(20% 0,80% 0,100% 13%,100% 100%,0 100%,0 13%);box-shadow:inset 0 0 0 1px var(--manila-edge)}
+.tag::before{content:"";position:absolute;top:16px;left:50%;width:14px;height:14px;margin-left:-7px;border-radius:50%;background:var(--paper);box-shadow:0 0 0 4px var(--manila-edge)}
+.room{padding:48px 24px 26px;text-align:center;transition:transform .3s ease}
+.room:nth-child(4n+1){transform:rotate(-1.3deg)}
+.room:nth-child(4n+2){transform:rotate(.8deg)}
+.room:nth-child(4n+3){transform:rotate(-.5deg)}
+.room:nth-child(4n){transform:rotate(1.1deg)}
+.room:hover,.room.lit{transform:rotate(0) translateY(-4px)}
+.room.lit{box-shadow:inset 0 0 0 3px var(--brass)}
+.room svg{width:64px;height:64px;margin:4px auto 10px;display:block}
+.room h3{font:700 31px/1.02 "Caveat",cursive;color:var(--bark)}
+.room p{margin-top:8px;font-size:15.5px;line-height:1.55;color:#3d3a33}
+
+/* ---------- gallery ---------- */
+.gallery{background:#EDE9DE var(--grain)}
+.frames{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+@media(max-width:860px){.frames{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.frames{grid-template-columns:1fr}}
+.frame{background:#fff;padding:12px 12px 14px;box-shadow:0 1px 2px rgba(59,42,32,.18),0 10px 24px -12px rgba(59,42,32,.35)}
+.frame:nth-child(odd){transform:rotate(-.8deg)}
+.frame:nth-child(even){transform:rotate(.7deg)}
+.frame .ph{aspect-ratio:4/3;background:var(--night);overflow:hidden;position:relative}
+.frame .ph img{width:100%;height:100%;object-fit:cover}
+.frame .ph svg{width:100%;height:100%;display:block}
+.frame figcaption{font:700 25px/1.1 "Caveat",cursive;color:var(--bark);text-align:center;margin-top:10px}
+.frame .soon{position:absolute;right:10px;bottom:10px;background:rgba(18,34,28,.82);color:var(--manila);font-size:12px;font-weight:500;padding:4px 9px;border-radius:2px}
+
+/* ---------- reviews ---------- */
+.reviews{display:grid;grid-template-columns:1fr 1fr;gap:26px;max-width:1000px;margin:0 auto}
+@media(max-width:640px){.reviews{grid-template-columns:1fr}}
+.review{position:relative;background:#fff;border:1px solid var(--line);padding:34px 34px 28px 34px;display:flex;flex-direction:column;justify-content:space-between;min-height:220px}
+.review::before{content:"\201C";position:absolute;top:-12px;left:26px;font:400 96px/1 "Alfa Slab One",serif;color:var(--brass)}
+.review blockquote{font:400 clamp(20px,2.1vw,25px)/1.35 "Alfa Slab One",serif;color:var(--pine);margin-top:22px}
+.review .src{display:flex;align-items:center;gap:10px;margin-top:22px;font-size:14px;color:var(--muted)}
+.review .src svg{width:18px;height:18px;flex:none}
+.review:nth-child(4n+2),.review:nth-child(4n+3){background:var(--manila) var(--grain);border-color:var(--manila-edge)}
+.reviews-cta{text-align:center;margin-top:40px}
+
+/* ---------- strip ---------- */
+.strip{background:var(--bark);color:var(--manila);padding:0;overflow:hidden}
+.strip .row{display:flex;gap:48px;white-space:nowrap;padding:18px 0;font:700 28px/1 "Caveat",cursive;width:max-content}
+.strip .row span::after{content:"✦";margin-left:48px;color:var(--brass);font-size:16px;vertical-align:middle}
+@media(prefers-reduced-motion:no-preference){.strip .row{animation:slide 60s linear infinite}@keyframes slide{to{transform:translateX(-50%)}}}
+
+/* ---------- visit ---------- */
+.visit{background:var(--paper) var(--grain)}
+.visit-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:52px;align-items:start}
+.hours{width:100%;border-collapse:collapse;margin-top:12px;font-size:17px}
+.hours td{padding:11px 4px;border-bottom:1px solid var(--line)}
+.hours td:last-child{text-align:right;font-variant-numeric:tabular-nums}
+.hours tr.today td{font-weight:700;color:var(--pine)}
+.hours tr.today td:first-child::after{content:"today";margin-left:10px;font:700 21px/1 "Caveat",cursive;color:var(--brass)}
+.hours tr.off td:last-child{color:var(--closed)}
+.contact{margin-top:30px;display:grid;gap:6px}
+.contact .big{font:400 30px/1.1 "Alfa Slab One",serif;color:var(--pine);text-decoration:none}
+.drive{margin-top:26px;display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line)}
+.drive div{padding:14px 10px 0 0}
+.drive b{display:block;font:400 21px/1.1 "Alfa Slab One",serif;color:var(--pine)}
+.drive span{font-size:14px;color:var(--muted)}
+.mapbox{position:relative;border:8px solid #fff;box-shadow:0 10px 24px -12px rgba(59,42,32,.4);aspect-ratio:4/3.4;width:100%;background:#D9D6CC}
+.mapbox iframe{width:100%;height:100%;border:0;display:block}
+.mapbox .open{position:absolute;left:12px;bottom:12px}
+.small-note{font-size:14px;color:var(--muted);margin-top:14px}
+@media(max-width:860px){.visit-grid{grid-template-columns:1fr}}
+
+/* ---------- 3d walk ---------- */
+.walk{background:var(--night) var(--grain);color:#D7DFD6}
+.walk .wrap{display:grid;grid-template-columns:1fr 1.1fr;gap:56px;align-items:center}
+.walk h2{color:var(--manila)}
+.walk p{margin-top:16px;font-size:18px;max-width:46ch}
+.plan{width:100%;height:auto;display:block}
+@media(max-width:860px){.walk .wrap{grid-template-columns:1fr}}
+
+footer{background:var(--bark);color:var(--manila);padding:48px 0 44px;font-size:14.5px;text-align:center}
+footer b{display:block;font:400 22px/1.2 "Alfa Slab One",serif;margin-bottom:6px}
+footer .by{opacity:.65;margin-top:16px}
+
+.callbar{display:none}
+@media(max-width:640px){
+  .callbar{display:grid;grid-template-columns:1fr 1fr;position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--night);box-shadow:0 -1px 0 rgba(235,221,181,.25)}
+  .callbar a{padding:15px 10px;text-align:center;font-weight:700;color:var(--manila);text-decoration:none}
+  .callbar a:first-child{background:var(--manila);color:var(--night)}
+  body{padding-bottom:54px}
+}
+</style>
+</head>
+<body>
+
+<div class="concept">Concept design by PXD2 for Bear Wallow Antiques. Not the shop's official website. <a href="tel:+19284576404" style="color:inherit;font-weight:700;margin-left:6px;white-space:nowrap">Want this site? Call PXD2 at 928-457-6404</a></div>
+
+<!-- shared drawings -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="55%" r="55%"><stop offset="0" stop-color="#FFE7A8"/><stop offset=".55" stop-color="#E9B860"/><stop offset="1" stop-color="#9C6E31"/></radialGradient>
+    <linearGradient id="floor" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#1E140D"/><stop offset="1" stop-color="#A27741"/></linearGradient>
+    <linearGradient id="wallL" x1="0" x2="1"><stop offset="0" stop-color="#1A2A22"/><stop offset="1" stop-color="#6B5430"/></linearGradient>
+    <linearGradient id="wallR" x1="1" x2="0"><stop offset="0" stop-color="#1A2A22"/><stop offset="1" stop-color="#6B5430"/></linearGradient>
+    <linearGradient id="ceil" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#101D17"/><stop offset="1" stop-color="#4D3C22"/></linearGradient>
+    <symbol id="s-lamp" viewBox="0 0 100 100"><path d="M28 6 H72 L84 38 H16 Z"/><rect x="47" y="38" width="6" height="56"/><ellipse cx="50" cy="96" rx="17" ry="4"/></symbol>
+    <symbol id="s-clock" viewBox="0 0 100 100"><path d="M32 22 Q50 0 68 22 V100 H32 Z"/><circle cx="50" cy="28" r="10" fill="#E9B860" fill-opacity=".55"/><rect x="40" y="48" width="20" height="38" fill="#E9B860" fill-opacity=".25"/></symbol>
+    <symbol id="s-rocker" viewBox="0 0 100 100"><path d="M26 6 h8 v48 h40 v8 H34 v24 h-8 Z"/><rect x="62" y="56" width="7" height="32"/><path d="M8 88 Q50 104 92 84 L92 89 Q50 109 8 93 Z"/><rect x="66" y="40" width="20" height="5"/><rect x="82" y="40" width="5" height="16"/></symbol>
+    <symbol id="s-hutch" viewBox="0 0 100 100"><path d="M14 8 H86 V14 H82 V54 H90 V100 H10 V54 H18 V14 H14 Z"/><rect x="24" y="18" width="23" height="32" fill="#E9B860" fill-opacity=".28"/><rect x="53" y="18" width="23" height="32" fill="#E9B860" fill-opacity=".28"/></symbol>
+    <symbol id="s-crate" viewBox="0 0 100 100"><path d="M18 30 L36 24 L40 60 Z"/><path d="M30 26 L48 22 L48 60 Z"/><path d="M44 24 L60 26 L54 60 Z"/><rect x="10" y="56" width="80" height="44"/></symbol>
+    <symbol id="s-mirror" viewBox="0 0 100 100"><ellipse cx="50" cy="40" rx="30" ry="38"/><ellipse cx="50" cy="40" rx="22" ry="30" fill="#E9B860" fill-opacity=".35"/><rect x="36" y="76" width="28" height="24"/></symbol>
+    <symbol id="s-pine" viewBox="0 0 100 200"><path d="M50 0 L64 34 H58 L76 70 H66 L86 110 H74 L96 154 H4 L26 110 H14 L34 70 H24 L42 34 H36 Z"/><rect x="45" y="154" width="10" height="46"/></symbol>
+
+    <!-- looking through the shop's rooms -->
+    <symbol id="tunnel" viewBox="0 0 600 600">
+      <rect width="600" height="600" fill="#13241D"/>
+      <polygon points="40,20 560,20 362.4,279.2 237.6,279.2" fill="url(#ceil)"/>
+      <polygon points="40,20 237.6,279.2 237.6,412.8 40,580" fill="url(#wallL)"/>
+      <polygon points="560,20 362.4,279.2 362.4,412.8 560,580" fill="url(#wallR)"/>
+      <polygon points="40,580 560,580 362.4,412.8 237.6,412.8" fill="url(#floor)"/>
+      <rect x="237.6" y="279.2" width="124.8" height="133.6" fill="url(#glow)"/>
+      <path fill-rule="evenodd" fill="#8A6A3A" d="M237.6 279.2 H362.4 V412.8 H237.6 Z M282.3 308.6 H317.7 V412.8 H282.3 Z"/>
+      <path d="M282.3 412.8 V308.6 H317.7 V412.8" fill="none" stroke="#C6952F" stroke-width="1.6"/>
+      <use href="#s-mirror" x="244" y="368" width="30" height="45" fill="#3A2A18"/>
+      <path fill-rule="evenodd" fill="#6E532F" d="M210.8 244.6 H389.2 V435.5 H210.8 Z M274.3 286.6 H325.7 V435.5 H274.3 Z"/>
+      <path d="M274.3 435.5 V286.6 H325.7 V435.5" fill="none" stroke="#C6952F" stroke-width="2"/>
+      <use href="#s-rocker" x="330" y="376" width="56" height="56" fill="#2B1F12"/>
+      <use href="#s-lamp" x="214" y="352" width="56" height="78" fill="#2B1F12"/>
+      <path fill-rule="evenodd" fill="#513E25" d="M172.6 193.4 H427.4 V467.8 H172.6 Z M263.3 253.8 H336.7 V467.8 H263.3 Z"/>
+      <path d="M263.3 467.8 V253.8 H336.7 V467.8" fill="none" stroke="#C6952F" stroke-width="2.6"/>
+      <use href="#s-clock" x="176" y="300" width="88" height="162" fill="#1F160D"/>
+      <use href="#s-crate" x="345" y="402" width="74" height="62" fill="#1F160D"/>
+      <path fill-rule="evenodd" fill="#3A2C1C" d="M118 122 H482 V514 H118 Z M250 208 H350 V514 H250 Z"/>
+      <path d="M250 514 V208 H350 V514" fill="none" stroke="#C6952F" stroke-width="3.2"/>
+      <use href="#s-hutch" x="356" y="330" width="130" height="180" fill="#120D08"/>
+      <use href="#s-lamp" x="120" y="300" width="132" height="208" fill="#120D08"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="top">
+  <div class="wrap">
+    <nav class="links left" aria-label="Sections">
+      <a href="#rooms">The rooms</a><a href="#photos">Photos</a><a href="#reviews">Reviews</a>
+    </nav>
+    <a class="mark" href="#" aria-label="Bear Wallow Antiques home">
+      <svg viewBox="0 0 48 48" aria-hidden="true">
+        <circle cx="24" cy="24" r="22.5" fill="none" stroke="#C6952F" stroke-width="2"/>
+        <path d="M24 9 L12 34 H36 Z" fill="#EBDDB5"/><path d="M24 17 L17 32 H31 Z" fill="#12221C"/>
+        <path d="M24 9 V40" stroke="#EBDDB5" stroke-width="2.4"/><path d="M9 37 H39" stroke="#EBDDB5" stroke-width="2.4" stroke-linecap="round"/>
+      </svg>
+      <b>Bear Wallow</b>
+    </a>
+    <nav class="links right" aria-label="Contact">
+      <a href="#visit" class="hide-sm">Visit</a>
+      <a href="tel:+19283686427" class="call">928-368-6427</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<!-- ================= HERO: THE STOREFRONT ================= -->
+<section class="hero" aria-labelledby="hero-title" style="padding:0">
+  <svg class="storefront" viewBox="0 0 1200 660" role="img" aria-label="Illustration of the Bear Wallow Antiques storefront at dusk, with lit windows and the front door open onto room after room">
+    <defs>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0F1D18"/><stop offset=".55" stop-color="#2C4A3B"/><stop offset="1" stop-color="#B27C46"/></linearGradient>
+      <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F7D78E"/><stop offset="1" stop-color="#B07A3A"/></linearGradient>
+      <radialGradient id="lanternGlow"><stop offset="0" stop-color="#FFD98A" stop-opacity=".75"/><stop offset="1" stop-color="#FFD98A" stop-opacity="0"/></radialGradient>
+      <pattern id="siding" width="40" height="18" patternUnits="userSpaceOnUse"><rect width="40" height="18" fill="#5A3E2A"/><path d="M0 17.5 H40" stroke="#2E2017" stroke-width="2"/><path d="M0 4 H40" stroke="#6B4C34" stroke-opacity=".5" stroke-width="1"/></pattern>
+      <pattern id="planks" width="60" height="12" patternUnits="userSpaceOnUse"><rect width="60" height="12" fill="#3B2A20"/><path d="M0 11.5 H60 M30 0 V12" stroke="#22170F" stroke-width="1.4"/></pattern>
+      <clipPath id="doorClip"><rect x="525" y="352" width="150" height="248"/></clipPath>
+    </defs>
+
+    <rect width="1200" height="660" fill="url(#sky)"/>
+    <g fill="#F2E9CF" opacity=".7"><circle cx="110" cy="60" r="1.6"/><circle cx="260" cy="38" r="1.2"/><circle cx="420" cy="74" r="1.4"/><circle cx="780" cy="44" r="1.3"/><circle cx="930" cy="80" r="1.6"/><circle cx="1090" cy="34" r="1.2"/><circle cx="640" cy="22" r="1.1"/></g>
+    <path d="M0 330 L90 262 L170 300 L260 228 L340 284 L430 240 L520 280 L610 226 L700 270 L790 232 L880 284 L980 236 L1070 278 L1200 240 V660 H0 Z" fill="#1B3028"/>
+    <path d="M0 380 L120 330 L220 360 L320 318 L420 350 L520 330 L640 352 L760 322 L860 352 L980 326 L1100 356 L1200 330 V660 H0 Z" fill="#162920"/>
+
+    <!-- pines -->
+    <g fill="#0D1813">
+      <use href="#s-pine" x="-10" y="200" width="150" height="420"/>
+      <use href="#s-pine" x="90" y="290" width="110" height="330"/>
+      <use href="#s-pine" x="150" y="350" width="80" height="260"/>
+      <use href="#s-pine" x="1060" y="200" width="150" height="420"/>
+      <use href="#s-pine" x="990" y="300" width="110" height="320"/>
+      <use href="#s-pine" x="960" y="372" width="70" height="240"/>
+    </g>
+
+    <!-- building -->
+    <path d="M210 250 V176 H520 V140 H680 V176 H990 V250 Z" fill="url(#siding)"/>
+    <rect x="220" y="250" width="760" height="355" fill="url(#siding)"/>
+    <path d="M206 176 H520 V140 H680 V176 H994" fill="none" stroke="#2E2017" stroke-width="10" stroke-linejoin="round"/>
+    <path d="M220 250 H980" stroke="#2E2017" stroke-width="8"/>
+
+    <!-- sign -->
+    <rect x="338" y="150" width="524" height="94" fill="#EBDDB5" stroke="#C6952F" stroke-width="4"/>
+    <rect x="348" y="160" width="504" height="74" fill="none" stroke="#3B2A20" stroke-opacity=".35" stroke-width="1.5"/>
+    <text x="600" y="203" text-anchor="middle" font-family="'Alfa Slab One', Georgia, serif" font-size="44" fill="#3B2A20" textLength="440" lengthAdjust="spacingAndGlyphs">BEAR WALLOW</text>
+    <text x="600" y="230" text-anchor="middle" font-family="'Alfa Slab One', Georgia, serif" font-size="17" letter-spacing="9" fill="#1E3A2F">ANTIQUES &amp; THINGS</text>
+
+    <!-- left window -->
+    <rect x="262" y="318" width="212" height="210" fill="#2E2017"/>
+    <rect x="272" y="328" width="192" height="190" fill="url(#glass)"/>
+    <g fill="#2A1B10" opacity=".88">
+      <use href="#s-lamp" x="278" y="398" width="80" height="118"/>
+      <use href="#s-clock" x="350" y="350" width="74" height="168"/>
+      <use href="#s-crate" x="404" y="458" width="60" height="58"/>
+    </g>
+    <path d="M368 328 V518 M272 410 H464" stroke="#2E2017" stroke-width="6"/>
+    <path d="M280 336 L330 336 L290 380 Z" fill="#fff" opacity=".12"/>
+    <rect x="252" y="528" width="232" height="14" fill="#2E2017"/>
+
+    <!-- right window with OPEN sign -->
+    <rect x="726" y="318" width="212" height="210" fill="#2E2017"/>
+    <rect x="736" y="328" width="192" height="190" fill="url(#glass)"/>
+    <g fill="#2A1B10" opacity=".88">
+      <use href="#s-hutch" x="742" y="390" width="112" height="128"/>
+      <use href="#s-rocker" x="840" y="438" width="84" height="80"/>
+    </g>
+    <path d="M832 328 V518 M736 410 H928" stroke="#2E2017" stroke-width="6"/>
+    <path d="M744 336 L794 336 L754 380 Z" fill="#fff" opacity=".12"/>
+    <g id="openSign">
+      <rect x="760" y="342" width="76" height="34" rx="6" fill="#1B1A17" stroke="#C6952F" stroke-width="2"/>
+      <text id="openText" x="798" y="366" text-anchor="middle" font-family="'Libre Franklin', sans-serif" font-weight="700" font-size="17" letter-spacing="2" fill="#FF8A5C">OPEN</text>
+    </g>
+    <rect x="716" y="528" width="232" height="14" fill="#2E2017"/>
+
+    <!-- porch roof + posts -->
+    <path d="M478 300 H722 L742 318 H458 Z" fill="#2E2017"/>
+    <rect x="488" y="318" width="10" height="287" fill="#2E2017"/>
+    <rect x="702" y="318" width="10" height="287" fill="#2E2017"/>
+
+    <!-- open door looking through the rooms -->
+    <rect x="515" y="342" width="170" height="263" fill="#2E2017"/>
+    <g clip-path="url(#doorClip)">
+      <use href="#tunnel" x="458" y="350" width="284" height="284"/>
+    </g>
+    <path d="M675 352 L700 344 V606 L675 600 Z" fill="#4A3324"/>
+    <rect x="680" y="360" width="13" height="80" fill="url(#glass)" opacity=".7"/>
+    <path d="M600 330 V352" stroke="#D2BC83" stroke-width="1.4"/>
+    <path d="M578 352 H622 L630 360 V384 H570 V360 Z" fill="#EBDDB5"/>
+    <text x="600" y="378" text-anchor="middle" font-family="Caveat, cursive" font-weight="700" font-size="18" fill="#3B2A20">come in</text>
+
+    <!-- lanterns -->
+    <g class="flicker"><circle cx="476" cy="372" r="46" fill="url(#lanternGlow)"/></g>
+    <g class="flicker b"><circle cx="724" cy="372" r="46" fill="url(#lanternGlow)"/></g>
+    <path d="M466 356 h20 l-3 26 h-14 Z M724 356 h20 l-3 26 h-14 Z" fill="#1B1A17" transform="translate(-0 0)"/>
+    <rect x="469" y="360" width="14" height="18" fill="#FFD98A"/><rect x="717" y="360" width="14" height="18" fill="#FFD98A"/>
+    <path d="M462 356 h28 M710 356 h28" stroke="#1B1A17" stroke-width="3"/>
+    <rect x="466" y="356" width="20" height="26" fill="none" stroke="#1B1A17" stroke-width="3"/>
+    <rect x="714" y="356" width="20" height="26" fill="none" stroke="#1B1A17" stroke-width="3"/>
+
+    <!-- boardwalk + porch props -->
+    <rect x="200" y="605" width="800" height="22" fill="url(#planks)"/>
+    <rect x="200" y="627" width="800" height="6" fill="#22170F"/>
+    <g fill="#22170F">
+      <!-- bench -->
+      <rect x="290" y="566" width="140" height="10"/><rect x="298" y="576" width="8" height="29"/><rect x="414" y="576" width="8" height="29"/><rect x="290" y="546" width="140" height="8"/>
+      <!-- barrel -->
+      <path d="M800 548 Q796 576 800 605 H850 Q854 576 850 548 Z"/>
+    </g>
+    <path d="M800 560 H850 M798 592 H852" stroke="#5A3E2A" stroke-width="3"/>
+    <!-- wagon wheel -->
+    <g fill="none" stroke="#22170F" stroke-width="5"><circle cx="910" cy="566" r="38"/><circle cx="910" cy="566" r="6" fill="#22170F"/><path d="M910 528 V604 M872 566 H948 M883 539 L937 593 M937 539 L883 593" stroke-width="3"/></g>
+    <rect x="0" y="633" width="1200" height="27" fill="#12221C"/>
+  </svg>
+
+  <div class="hero-copy">
+    <div class="status-pill" role="status" aria-live="polite"><span class="dot" id="dot"></span><span id="statusText">Checking today's hours…</span></div>
+    <h1 id="hero-title">Room after room of yesteryear.</h1>
+    <p class="lede">Bear Wallow Antiques &amp; Things, on White Mountain Blvd in Lakeside. Furniture, kitchenware, books, records, vintage clothes, jewelry, and the thing you didn't know you were looking for.</p>
+    <div class="ctas">
+      <a class="btn solid" href="https://www.google.com/maps/dir/?api=1&destination=3100+W+White+Mountain+Blvd+Ste+D,+Lakeside,+AZ+85929" target="_blank" rel="noopener">Get directions</a>
+      <a class="btn ghost" href="tel:+19283686427">Call 928-368-6427</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FINDER ================= -->
+<section class="finder center" aria-labelledby="finder-title">
+  <div class="wrap">
+    <h2 id="finder-title">What are you hunting for?</h2>
+    <p class="sub">Pick one and we'll point you to the right room.</p>
+    <div class="chips" id="chips"></div>
+    <div class="answer" id="answer" aria-live="polite">Tap a find to see where it lives.</div>
+  </div>
+</section>
+
+<!-- ================= ROOMS ================= -->
+<section id="rooms" aria-labelledby="rooms-title">
+  <div class="wrap">
+    <div class="head">
+      <span class="kicker">inside the shop</span>
+      <h2 id="rooms-title">Wander the rooms</h2>
+      <p>The shop runs deeper than it looks from the road. Here's what turns up, and it changes every week.</p>
+    </div>
+    <div class="rooms">
+      <article class="tag room" id="r-kitchen">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#3B2A20" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 30 h32 v6 a16 16 0 0 1 -32 0 z"/><path d="M46 33 c8 -2 10 6 2 10"/><path d="M14 33 L6 26"/><path d="M24 30 v-4 h12 v4"/><path d="M30 26 v-4"/><circle cx="30" cy="20" r="2"/><path d="M12 54 h36"/></svg>
+        <h3>The kitchen</h3><p>Cast iron, berry strainers, glassware, china, and the gadget nobody can name.</p></article>
+      <article class="tag room" id="r-furniture">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#3B2A20" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8 v28 h28"/><path d="M24 36 v16 M44 36 v16"/><path d="M8 52 q24 8 48 -2"/><path d="M38 28 h12 v8"/><path d="M18 14 h6 M18 22 h6 M18 30 h6"/></svg>
+        <h3>Furniture</h3><p>Hutches, rockers, chests and tables with a few lifetimes already behind them.</p></article>
+      <article class="tag room" id="r-books">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#3B2A20" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="38" cy="32" r="18"/><circle cx="38" cy="32" r="5"/><circle cx="38" cy="32" r="11" stroke-dasharray="2 4"/><path d="M8 14 v40 M14 18 v36 M20 12 v42"/></svg>
+        <h3>Books &amp; records</h3><p>Shelves of old reads and crates of vinyl worth flipping through slowly.</p></article>
+      <article class="tag room" id="r-jewelry">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#3B2A20" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="38" r="16"/><path d="M24 14 l8 -6 l8 6 l-8 8 z"/><path d="M24 14 h16"/></svg>
+        <h3>Clothes &amp; jewelry</h3><p>Vintage wear, costume pieces and the brooch that finishes the outfit.</p></article>
+      <article class="tag room" id="r-decor">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#3B2A20" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="12" width="44" height="36"/><rect x="16" y="18" width="32" height="24"/><path d="M16 40 l10 -10 l8 8 l5 -5 l9 9"/><circle cx="40" cy="25" r="2.5"/><path d="M32 4 l-8 8 M32 4 l8 8"/></svg>
+        <h3>Art &amp; decor</h3><p>Frames, lamps, signs and wall pieces for a cabin or a city kitchen.</p></article>
+      <article class="tag room" id="r-yard">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#3B2A20" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 30 c6 -10 18 -10 22 -2 l14 -4 l-12 8 c-2 8 -14 12 -22 6 l-10 4 z"/><circle cx="36" cy="26" r="1.5" fill="#3B2A20"/><path d="M32 40 v18"/><path d="M24 58 h16"/></svg>
+        <h3>Out in the yard</h3><p>Hummingbird stakes, garden pieces and old iron for the porch.</p></article>
+      <article class="tag room" id="r-keys">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#3B2A20" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="20" r="9"/><circle cx="18" cy="20" r="3"/><path d="M24 26 L52 54"/><path d="M42 44 l5 -5 M47 49 l5 -5"/></svg>
+        <h3>Keys &amp; hardware</h3><p>Lost the key to grandma's china hutch? Ask. There's a good chance we have one.</p></article>
+      <article class="tag room" id="r-gifts">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#3B2A20" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="26" width="44" height="28"/><path d="M8 18 h48 v8 H8 z"/><path d="M32 18 v36"/><path d="M32 18 c-4 -10 -16 -10 -12 -2 c2 3 8 2 12 2 c4 0 10 1 12 -2 c4 -8 -8 -8 -12 2"/></svg>
+        <h3>Gifts</h3><p>One-of-a-kinds for the person who's impossible to shop for.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PHOTOS ================= -->
+<section class="gallery" id="photos" aria-labelledby="photos-title">
+  <div class="wrap">
+    <div class="head">
+      <span class="kicker">take a look around</span>
+      <h2 id="photos-title">Around the shop</h2>
+    </div>
+    <div class="frames" id="frames"></div>
+  </div>
+</section>
+
+<!-- ================= REVIEWS ================= -->
+<section id="reviews" aria-labelledby="reviews-title">
+  <div class="wrap">
+    <div class="head">
+      <span class="kicker">from our visitors</span>
+      <h2 id="reviews-title">What folks find here</h2>
+    </div>
+    <div class="reviews" id="reviewGrid"></div>
+    <div class="reviews-cta"><a class="btn pine" href="https://www.google.com/maps/search/?api=1&query=Bear+Wallow+Antiques+3100+W+White+Mountain+Blvd+Lakeside+AZ" target="_blank" rel="noopener">Read every review on Google</a></div>
+  </div>
+</section>
+
+<div class="strip" aria-hidden="true"><div class="row" id="strip"></div></div>
+
+<!-- ================= VISIT ================= -->
+<section class="visit" id="visit" aria-labelledby="visit-title">
+  <div class="wrap visit-grid">
+    <div>
+      <h2 id="visit-title">Come see us</h2>
+      <table class="hours" aria-label="Store hours"><tbody id="hoursBody"></tbody></table>
+      <div class="contact">
+        <a class="big" href="tel:+19283686427">928-368-6427</a>
+        <span>3100 W White Mountain Blvd, Ste D<br>Lakeside, Arizona 85929</span>
+      </div>
+      <div class="drive">
+        <div><b>Show Low</b><span>a short drive up the highway</span></div>
+        <div><b>Pinetop</b><span>right next door</span></div>
+        <div><b>Phoenix</b><span>about three hours</span></div>
+      </div>
+      <p class="small-note">Mountain hours can shift with weather and holidays. If you're driving up special, give us a call first.</p>
+    </div>
+    <div class="mapbox">
+      <a href="https://www.google.com/maps/dir/?api=1&destination=3100+W+White+Mountain+Blvd+Ste+D,+Lakeside,+AZ+85929" target="_blank" rel="noopener" aria-label="Open directions to Bear Wallow Antiques in Google Maps" style="display:block;width:100%;height:100%">
+      <svg viewBox="0 0 600 510" preserveAspectRatio="xMidYMid slice" style="width:100%;height:100%;display:block" aria-hidden="true">
+        <defs>
+          <pattern id="mapPines" width="46" height="40" patternUnits="userSpaceOnUse">
+            <path d="M10 4 l6 12 h-4 l6 10 h-16 l6 -10 h-4 z" fill="#B9C7B4"/>
+            <path d="M34 22 l5 10 h-3 l5 8 h-14 l5 -8 h-3 z" fill="#C5D1C0"/>
+          </pattern>
+        </defs>
+        <rect width="600" height="510" fill="#E4E9DD"/>
+        <rect width="600" height="510" fill="url(#mapPines)" opacity=".7"/>
+        <!-- side streets -->
+        <g stroke="#FFFFFF" stroke-width="7" fill="none" stroke-linecap="round">
+          <path d="M120 40 L210 250"/><path d="M330 300 L250 500"/><path d="M420 120 L520 300"/>
+          <path d="M40 330 L200 300"/><path d="M380 420 L590 380"/>
+        </g>
+        <!-- AZ-260 / White Mountain Blvd -->
+        <path d="M-20 70 C120 120, 200 170, 300 235 S 480 360, 620 450" fill="none" stroke="#D9A441" stroke-width="22" stroke-linecap="round"/>
+        <path d="M-20 70 C120 120, 200 170, 300 235 S 480 360, 620 450" fill="none" stroke="#F3D58A" stroke-width="14" stroke-linecap="round"/>
+        <g font-family="'Libre Franklin',sans-serif" font-size="13" font-weight="700" fill="#7A5A1E">
+          <text transform="translate(40 96) rotate(19)">WHITE MOUNTAIN BLVD</text>
+        </g>
+        <!-- 260 shield -->
+        <g transform="translate(420 318)">
+          <path d="M-17 -16 H17 V6 Q17 18 0 22 Q-17 18 -17 6 Z" fill="#fff" stroke="#1B1A17" stroke-width="2"/>
+          <text y="7" text-anchor="middle" font-family="'Libre Franklin',sans-serif" font-weight="700" font-size="14" fill="#1B1A17">260</text>
+        </g>
+        <!-- direction labels -->
+        <g font-family="Caveat, cursive" font-weight="700" font-size="28" fill="#1E3A2F">
+          <text x="24" y="44">↖ to Show Low</text>
+          <text x="420" y="494">to Pinetop ↘</text>
+        </g>
+        <text x="60" y="372" font-family="'Alfa Slab One',Georgia,serif" font-size="30" fill="#1E3A2F" opacity=".22">LAKESIDE</text>
+        <!-- compass -->
+        <g transform="translate(548 56)">
+          <circle r="24" fill="#fff" stroke="#D2BC83" stroke-width="2"/>
+          <path d="M0 -17 L6 2 H-6 Z" fill="#9A3B2C"/><path d="M0 17 L6 -2 H-6 Z" fill="#B7AE9A"/>
+          <text y="-28" text-anchor="middle" font-family="'Libre Franklin',sans-serif" font-weight="700" font-size="12" fill="#3B2A20">N</text>
+        </g>
+        <!-- shop pin -->
+        <g transform="translate(262 210)">
+          <ellipse cx="0" cy="4" rx="16" ry="5" fill="#000" opacity=".2"/>
+          <path d="M0 0 C-22 -26, -22 -58, 0 -60 C22 -58, 22 -26, 0 0 Z" fill="#1E3A2F" stroke="#fff" stroke-width="3"/>
+          <circle cy="-40" r="8" fill="#EBDDB5"/>
+        </g>
+        <!-- label tag -->
+        <g transform="translate(296 118)">
+          <path d="M0 26 L18 0 H262 V64 H18 Z" fill="#EBDDB5" stroke="#D2BC83" stroke-width="2"/>
+          <circle cx="16" cy="32" r="4" fill="#E4E9DD"/>
+          <text x="34" y="27" font-family="'Alfa Slab One',Georgia,serif" font-size="18" fill="#3B2A20">Bear Wallow Antiques</text>
+          <text x="34" y="50" font-family="'Libre Franklin',sans-serif" font-size="13" fill="#5E5A50">3100 W White Mountain Blvd, Ste D</text>
+        </g>
+      </svg>
+      </a>
+      <a class="btn solid open" href="https://www.google.com/maps/dir/?api=1&destination=3100+W+White+Mountain+Blvd+Ste+D,+Lakeside,+AZ+85929" target="_blank" rel="noopener">Open in Google Maps</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 3D WALK ================= -->
+<section class="walk" aria-labelledby="walk-title">
+  <div class="wrap">
+    <div>
+      <h2 id="walk-title">Walk the shop from home</h2>
+      <p>A 3D walk-through of every room is coming. Browse from the Valley before you make the drive, and know exactly which room to head for when you get here.</p>
+      <div class="ctas"><a class="btn solid" href="tel:+19283686427">Call about a piece you saw</a></div>
+    </div>
+    <svg class="plan" viewBox="0 0 420 300" role="img" aria-label="Sketch of the shop as connected rooms with a dotted path winding through them">
+      <g fill="none" stroke="#EBDDB5" stroke-width="2.5" stroke-linejoin="round">
+        <rect x="20" y="20" width="160" height="116"/><rect x="180" y="20" width="114" height="74"/>
+        <rect x="294" y="20" width="106" height="136"/><rect x="180" y="94" width="114" height="116"/>
+        <rect x="20" y="136" width="160" height="144"/><rect x="294" y="156" width="106" height="124"/>
+        <rect x="180" y="210" width="114" height="70"/>
+      </g>
+      <g stroke="#12221C" stroke-width="6">
+        <path d="M180 46 V68"/><path d="M294 50 V72"/><path d="M62 136 H96"/><path d="M212 94 H244"/>
+        <path d="M294 176 V200"/><path d="M180 156 V184"/><path d="M220 210 H252"/><path d="M80 280 H124"/>
+      </g>
+      <path d="M102 282 C102 226, 96 194, 128 172 S 220 186 236 150 S 256 62 336 74 S 364 210 338 236" fill="none" stroke="#C6952F" stroke-width="2.5" stroke-dasharray="6 7" stroke-linecap="round"/>
+      <circle cx="102" cy="282" r="6" fill="#C6952F"/>
+      <g font-family="Caveat, cursive" font-weight="700" font-size="23" fill="#EBDDB5">
+        <text x="44" y="74">kitchen</text><text x="202" y="64">books</text><text x="306" y="98">furniture</text>
+        <text x="196" y="160">jewelry</text><text x="40" y="212">front room</text><text x="316" y="226">yard</text><text x="208" y="252">gifts</text>
+      </g>
+    </svg>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <b>Bear Wallow Antiques &amp; Things</b>
+    3100 W White Mountain Blvd, Ste D, Lakeside, AZ 85929 &nbsp;|&nbsp; <a href="tel:+19283686427">928-368-6427</a>
+    <div class="by">Site concept by PXD2</div>
+  </div>
+</footer>
+
+<nav class="callbar" aria-label="Quick actions">
+  <a href="tel:+19283686427">Call the shop</a>
+  <a href="https://www.google.com/maps/dir/?api=1&destination=3100+W+White+Mountain+Blvd+Ste+D,+Lakeside,+AZ+85929" target="_blank" rel="noopener">Directions</a>
+</nav>
+
+<script>
+/* ===== EDIT HERE ===================================================
+   PHOTOS: put image files in a "photos" folder next to this page,
+   using these file names. Any photo that's missing shows an
+   illustrated stand-in until it's added.
+   REVIEWS: short excerpts from the shop's Google reviews. The owners
+   can swap in their favorites.
+==================================================================== */
+var PHOTOS = [
+  ["photos/storefront.jpg", "The front porch"],
+  ["photos/front-room.jpg", "The front room"],
+  ["photos/kitchen.jpg",    "The kitchen room"],
+  ["photos/furniture.jpg",  "Furniture"],
+  ["photos/records.jpg",    "Books & records"],
+  ["photos/jewelry.jpg",    "The jewelry cases"]
+];
+var REVIEWS = [
+  "It's like we stepped into a time capsule when we walked through the door.",
+  "Excellent customer service. They went above & beyond today for my mother and I.",
+  "Such a fun store to browse. Definitely worth going to if you're into antiquing.",
+  "So many things to see that you have to go around the store twice!"
+];
+
+(function(){
+  /* ---- hours (Arizona time, no DST) ---- */
+  var hours={0:[10,15],1:[10,16],2:null,3:[10,16],4:[10,16],5:[10,16],6:[10,16]};
+  var names=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+  function fmt(h){return (h%12||12)+" "+(h>=12?"pm":"am");}
+  var now;
+  try{
+    var p=new Intl.DateTimeFormat("en-US",{timeZone:"America/Phoenix",weekday:"short",hour:"numeric",minute:"numeric",hour12:false}).formatToParts(new Date());
+    var g=function(t){for(var i=0;i<p.length;i++)if(p[i].type===t)return p[i].value;};
+    now={day:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].indexOf(g("weekday")),h:(parseInt(g("hour"),10)%24)+parseInt(g("minute"),10)/60};
+  }catch(e){var d=new Date();now={day:d.getDay(),h:d.getHours()+d.getMinutes()/60};}
+
+  var body=document.getElementById("hoursBody");
+  [1,2,3,4,5,6,0].forEach(function(d){
+    var tr=document.createElement("tr"),c=[];
+    if(d===now.day)c.push("today"); if(!hours[d])c.push("off"); tr.className=c.join(" ");
+    tr.innerHTML="<td>"+names[d]+"</td><td>"+(hours[d]?fmt(hours[d][0])+" – "+fmt(hours[d][1]):"Closed")+"</td>";
+    body.appendChild(tr);
+  });
+  var t=hours[now.day],isOpen=!!(t&&now.h>=t[0]&&now.h<t[1]);
+  var dot=document.getElementById("dot"),st=document.getElementById("statusText");
+  function nextOpen(){for(var i=1;i<=7;i++){var d=(now.day+i)%7;if(hours[d])return (i===1?"tomorrow":names[d])+" at "+fmt(hours[d][0]);}}
+  if(isOpen){dot.className="dot open";st.innerHTML="<b>Open now</b> until "+fmt(t[1]);}
+  else if(t&&now.h<t[0]){dot.className="dot closed";st.innerHTML="<b>Opens today</b> at "+fmt(t[0]);}
+  else{dot.className="dot closed";st.innerHTML="<b>Closed now.</b> Opens "+nextOpen();}
+  var ot=document.getElementById("openText");
+  if(!isOpen){ot.textContent="CLOSED";ot.setAttribute("fill","#8C7F6A");ot.setAttribute("font-size","14");}
+  else{ot.setAttribute("style","filter:drop-shadow(0 0 4px #FF6A3D)");}
+
+  /* ---- finder ---- */
+  var finds=[
+    ["Cast iron","r-kitchen","The kitchen room."],["Glassware & china","r-kitchen","The kitchen room, on the shelves."],
+    ["Vinyl records","r-books","Books & records. Bring time to flip."],["Old books","r-books","Books & records."],
+    ["A hutch or dresser","r-furniture","The furniture rooms."],["Vintage jewelry","r-jewelry","Clothes & jewelry, by the counter cases."],
+    ["Vintage clothes","r-jewelry","Clothes & jewelry."],["Western decor","r-decor","Art & decor."],
+    ["Yard art","r-yard","Out in the yard pieces."],["A missing key","r-keys","Keys & hardware. Ask at the counter."],
+    ["A gift","r-gifts","Gifts, and honestly, every room."]
+  ];
+  var chips=document.getElementById("chips"),ans=document.getElementById("answer");
+  finds.forEach(function(f){
+    var b=document.createElement("button");b.className="chip";b.type="button";b.textContent=f[0];b.setAttribute("aria-pressed","false");
+    b.addEventListener("click",function(){
+      chips.querySelectorAll(".chip").forEach(function(x){x.setAttribute("aria-pressed","false");});
+      b.setAttribute("aria-pressed","true");
+      document.querySelectorAll(".room.lit").forEach(function(r){r.classList.remove("lit");});
+      document.getElementById(f[1]).classList.add("lit");
+      ans.innerHTML=f[2]+' <a href="#'+f[1]+'">Show me the room</a>';
+    });
+    chips.appendChild(b);
+  });
+
+  /* ---- photos ---- */
+  var frames=document.getElementById("frames");
+  var stand='<svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><use href="#tunnel" x="-50" y="-100" width="500" height="500"/></svg>';
+  PHOTOS.forEach(function(ph){
+    var fig=document.createElement("figure");fig.className="frame";
+    var box=document.createElement("div");box.className="ph";
+    var img=new Image();img.alt=ph[1]+" at Bear Wallow Antiques";img.loading="lazy";
+    img.onerror=function(){box.innerHTML=stand+'<span class="soon">Photo coming soon</span>';};
+    img.src=ph[0];box.appendChild(img);
+    fig.appendChild(box);
+    var cap=document.createElement("figcaption");cap.textContent=ph[1];fig.appendChild(cap);
+    frames.appendChild(fig);
+  });
+
+  /* ---- reviews, in rows of two ---- */
+  var g2=document.getElementById("reviewGrid");
+  var gIcon='<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M22.5 12.3c0-.8-.1-1.5-.2-2.3H12v4.3h5.9a5 5 0 0 1-2.2 3.3v2.7h3.5c2.1-1.9 3.3-4.7 3.3-8z"/><path fill="#34A853" d="M12 23c3 0 5.4-1 7.2-2.7l-3.5-2.7c-1 .7-2.2 1-3.7 1-2.9 0-5.3-1.9-6.2-4.5H2.2v2.8A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.8 14.1a6.6 6.6 0 0 1 0-4.2V7.1H2.2a11 11 0 0 0 0 9.8z"/><path fill="#EA4335" d="M12 5.4c1.6 0 3.1.6 4.2 1.7l3.1-3.1A11 11 0 0 0 2.2 7.1l3.6 2.8C6.7 7.3 9.1 5.4 12 5.4z"/></svg>';
+  REVIEWS.forEach(function(r){
+    var a=document.createElement("figure");a.className="review";
+    a.innerHTML="<blockquote></blockquote><figcaption class='src'>"+gIcon+"<span>Visitor review on Google</span></figcaption>";
+    a.querySelector("blockquote").textContent=r;
+    g2.appendChild(a);
+  });
+
+  /* ---- marquee ---- */
+  var words=["cast iron","vinyl","brooches","hutch keys","berry strainers","old signs","rocking chairs","china","hummingbird stakes","first editions","lamps","quilts"];
+  var row=document.getElementById("strip"),html="";
+  for(var k=0;k<2;k++)words.forEach(function(w){html+="<span>"+w+"</span>";});
+  row.innerHTML=html;
+})();
+</script>
+</body>
+</html>
