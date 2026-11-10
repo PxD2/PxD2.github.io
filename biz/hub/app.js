@@ -149,7 +149,7 @@ async function drain() {
     for (const it of await qAll()) {
       if (!navigator.onLine) break;
       try {
-        if (it.type === "chat" && it.to === "AI") { await send({ type: "ask", id: it.id }, new TextEncoder().encode(it.text)); await chatMark(it.id, "sent"); }
+        if (it.type === "chat" && it.to === "AI") { await send({ type: "ask", id: it.id, base: it.base || null, voice: it.voice ? 1 : 0 }, new TextEncoder().encode(it.text)); await chatMark(it.id, "sent"); }
         else if (it.type === "chat") {
           for (const d of chatTargets(it.to).filter(d => !(it.done || []).includes(d))) {
             await send({ type: "chat", id: it.id, to: it.to }, new TextEncoder().encode(it.text), d);
@@ -224,7 +224,7 @@ async function loadReplies() {
       try {
         const [h, body] = await unseal(await ghGet(it.path));
         if (h.type === "file") await receivePiece(h, body);
-        else if (h.type === "chat" || (h.type === "note" && h.from)) { await chatAdd({ id: h.id || uid(), t: Date.now(), from: h.from || HUB, to: h.to || S.dev, text: new TextDecoder().decode(body) }); }
+        else if (h.type === "chat" || (h.type === "note" && h.from)) { await chatAdd({ id: h.id || uid(), t: Date.now(), from: h.from || HUB, to: h.to || S.dev, text: new TextDecoder().decode(body), voice: h.voice ? 1 : 0, status: h.status ? 1 : 0 }); }
         else {
           if (h.type === "note") h.text = new TextDecoder().decode(body), h.isNote = true;
           keep.unshift({ t: Date.now(), h });
@@ -269,7 +269,8 @@ const chatTargets = to => to === "ALL" ? BASES.concat((lastStatus && lastStatus.
 const chatGet = async () => (await kvGet("chat")) || [];
 async function chatAdd(m) {
   const c = await chatGet(); if (c.some(x => x.id === m.id && x.from === m.from)) return;
-  c.push(m); await kvSet("chat", c.slice(-300)); renderChat();
+  c.push(m); await kvSet("chat", c.slice(-300)); renderChat(); if (window.aiOnChat) aiOnChat(m);
+  if (!m.mine && m.from === "AI" && curTab === "ai") return;   // the AI tab shows (and reads out) its own answers
   if (!m.mine) {
     if (navigator.vibrate) navigator.vibrate([120, 60, 120]);
     popAlert("PXD2 TEXT · " + m.from, m.text, "pxd2text");
@@ -479,3 +480,60 @@ function show() { $("#pairView").classList.toggle("hide", !!S.key); $("#appView"
   }
   if (navigator.storage && navigator.storage.persist) navigator.storage.persist();
 })();
+
+
+// ------------------------------------------------------------------ PXD2 AI: tap and talk; BASE1 or BASE2 answers, whichever is free
+let aiBase = "auto", aiRec = null, aiListening = false;
+const aiRender = async () => {
+  const c = (await chatGet()).filter(m => m.to === "AI" || m.from === "AI").slice(-40);
+  const el = $("#aiLog"); if (!el) return;
+  el.innerHTML = c.map(m => m.mine ? `<div class="q">you${m.base ? " → " + esc(m.base) : ""}: ${esc(m.text)}</div>`
+    : m.status ? `<div class="s">${esc(m.text)}</div>` : `<div class="a">${esc(m.text)}</div>`).join("") || `<p class="dim">Tap the red button and ask. Say "base two, …" to send it to BASE2.</p>`;
+  el.scrollTop = el.scrollHeight;
+};
+function aiSpeak(t) {
+  if (!$("#aiSpeak").checked || !("speechSynthesis" in window)) return;
+  try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(t.replace(/[🤖⚙✓✕]/gu, "").slice(0, 900)); u.rate = 1.03; speechSynthesis.speak(u); } catch (e) { }
+}
+window.aiOnChat = m => {
+  if (m.from === "AI" || m.to === "AI") aiRender();
+  if (m.from === "AI" && !m.status) { $("#aiState").textContent = ""; if (m.voice || curTab === "ai") aiSpeak(m.text); }
+  if (m.from === "AI" && m.status) $("#aiState").textContent = "· " + m.text;
+};
+async function aiAsk(text, voice) {
+  text = (text || "").trim(); if (!text) return;
+  const id = uid(), base = aiBase === "auto" ? null : aiBase;
+  await chatAdd({ id, t: Date.now(), from: S.dev, to: "AI", text, mine: true, base });
+  await qPut({ id, t: Date.now(), type: "chat", to: "AI", text, base, voice: voice ? 1 : 0 });
+  $("#aiState").textContent = navigator.onLine ? "· sending…" : "· saved, goes when there is signal";
+  drain();
+}
+function aiListen() {
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SR) { $("#aiHeard").textContent = "Voice isn't available in this browser - tap the box and use the keyboard's mic key."; $("#aiText").focus(); return; }
+  if (aiListening && aiRec) { aiRec.stop(); return; }
+  try { speechSynthesis.cancel(); } catch (e) { }
+  aiRec = new SR(); aiRec.lang = "en-US"; aiRec.interimResults = true; aiRec.maxAlternatives = 1;
+  let final = "";
+  aiRec.onstart = () => { aiListening = true; $("#aiMic").classList.add("live"); $("#aiMicT").textContent = "LISTENING…"; $("#aiHeard").textContent = ""; };
+  aiRec.onresult = e => { let t = ""; for (const r of e.results) { t += r[0].transcript; if (r.isFinal) final = t; } $("#aiHeard").textContent = t; };
+  aiRec.onerror = e => { $("#aiHeard").textContent = e.error === "not-allowed" ? "Allow the microphone for this app, then tap again." : e.error === "no-speech" ? "Didn't hear anything - tap and try again." : "Voice error: " + e.error; };
+  aiRec.onend = () => { aiListening = false; $("#aiMic").classList.remove("live"); $("#aiMicT").textContent = "TAP & TALK"; const t = (final || $("#aiHeard").textContent || "").trim(); if (t && !/^(Voice|Didn't|Allow)/.test(t)) aiAsk(t, true); };
+  aiRec.start();
+}
+$("#aiMic").onclick = aiListen;
+$("#aiGo").onclick = () => { const t = $("#aiText").value; $("#aiText").value = ""; aiAsk(t, false); };
+$("#aiText").addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); $("#aiGo").click(); } });
+document.querySelectorAll("[data-aib]").forEach(b => b.onclick = () => {
+  aiBase = b.dataset.aib; document.querySelectorAll("[data-aib]").forEach(x => x.setAttribute("aria-pressed", x === b)); kvSet("aiBase", aiBase);
+});
+kvGet("aiBase").then(v => { if (v) { const b = document.querySelector(`[data-aib="${v}"]`); if (b) b.click(); } }).catch(() => { });
+loaders.ai = async () => {
+  aiRender();
+  try { await loadStatus(); } catch (e) { }
+  const f = (lastStatus && lastStatus.fleet) || [];
+  for (const n of ["BASE1", "BASE2"]) {
+    const r = f.find(x => x.name === n), el = document.querySelector(`[data-aiup="${n}"]`); if (!el) continue;
+    el.textContent = !r ? "" : !r.online ? "· off" : (r.util >= 60 ? "· busy" : "· ready");
+  }
+};

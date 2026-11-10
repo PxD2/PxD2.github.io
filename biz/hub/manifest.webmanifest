@@ -1,3 +1,4 @@
 {"name":"PXD2 DESKTOP","short_name":"PXD2","id":"./","start_url":"./","scope":"./","display":"standalone",
  "background_color":"#000000","theme_color":"#000000",
+ "shortcuts":[{"name":"PXD2 AI","short_name":"AI","url":"./?tab=ai","icons":[{"src":"icon-192.png","sizes":"192x192"}]},{"name":"PXD2 TEXT","short_name":"TEXT","url":"./?tab=text"}],
  "icons":[{"src":"icon-192.png","sizes":"192x192","type":"image/png"},{"src":"icon-512.png","sizes":"512x512","type":"image/png"},{"src":"icon-512.png","sizes":"512x512","type":"image/png","purpose":"maskable"}]}
