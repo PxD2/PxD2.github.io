@@ -501,10 +501,41 @@ class Web(BaseHTTPRequestHandler):
             z = ZONE
         kind, val = lookup(z, labels[:-1])
         if kind == "name":
+            if CFG.site and self._serve_local(val[1]):
+                return
             self.send_response(302); self.send_header("Location", val[1]["url"]); self.end_headers(); return
         if kind == "apex":
             self.send_response(302); self.send_header("Location", "https://pxd2.github.io/names/"); self.end_headers(); return
         self._send(404, f"{'.'.join(labels)} is not registered. See https://pxd2.github.io/names/", "text/plain; charset=utf-8")
+
+    def _serve_local(self, entry):
+        """PXD2 private hosting (--site): serve the name's pages from our own copy of the site instead of sending the
+        visitor to GitHub. scrubhub.pxd/x -> <site>/clients/scrub-hub.../x, falling back to <site>/x for shared files."""
+        to = entry.get("to") or ""
+        if not to.startswith("/"):
+            return False                      # a name that points at another website still redirects there
+        root = os.path.realpath(CFG.site)
+        req = urllib.parse.unquote(urllib.parse.urlsplit(self.path).path)
+        base = to if to.endswith("/") else os.path.dirname(to) + "/"
+        first = to if (req in ("", "/") and not to.endswith("/")) else base + req.lstrip("/")
+        for rel in (first, req):
+            f = os.path.realpath(os.path.join(root, rel.lstrip("/")))
+            if not (f == root or f.startswith(root + os.sep)):
+                continue                      # never outside the site folder
+            if os.path.isdir(f):
+                if not req.endswith("/") and rel == first and req not in ("", "/"):
+                    self.send_response(301); self.send_header("Location", req + "/"); self.end_headers(); return True
+                f = os.path.join(f, "index.html")
+            if os.path.isfile(f):
+                import mimetypes
+                ctype = mimetypes.guess_type(f)[0] or "application/octet-stream"
+                if ctype.startswith("text/") or ctype in ("application/javascript", "application/json"):
+                    ctype += "; charset=utf-8"
+                with open(f, "rb") as fh:
+                    self._send(200, fh.read(), ctype, {"Cache-Control": "max-age=300", "X-PXD-Host": "pxd2-private"})
+                return True
+        self._send(404, "not found on PXD2 private hosting", "text/plain; charset=utf-8")
+        return True
 
     def log_message(self, *a):
         pass
@@ -529,6 +560,7 @@ def main():
     ap.add_argument("--https-port", type=int, default=443); ap.add_argument("--dot-port", type=int, default=853)
     ap.add_argument("--public-url", default="", help="public https address of this root (for the iPhone profile)")
     ap.add_argument("--refresh", type=int, default=600, help="seconds between registry reloads")
+    ap.add_argument("--site", default="", help="PXD2 private hosting: serve .pxd names from this local copy of the site (the folder holding names.json) instead of redirecting to GitHub")
     ap.add_argument("--export-zone", metavar="DIR", help="write pxd.zone and pxd2.zone to DIR, then exit")
     a = ap.parse_args()
     if a.authority:
@@ -564,6 +596,8 @@ def main():
     t = threading.Timer(a.refresh, tick); t.daemon = True; t.start()
     print(f"PXD Root Server 2: {len(ZONE.names)} names under .{' .'.join(TLDS)} · serial {ZONE.serial} · registry {ZONE.trust['state']}")
     print(f"  DNS udp/tcp :{a.dns_port}  web + DoH :{a.web_port}/dns-query" + (f"  DoT :{a.dot_port}  HTTPS :{a.https_port}" if a.tls_cert else ""))
+    if a.site:
+        print(f"  PXD2 private hosting ON: pages served from {a.site}")
     print(f"  names point to {', '.join(a.edge_ips + a.edge_ips6)} · forwarding {'off' if a.no_forward else ', '.join(h for h, _ in a.upstreams)}")
     webs[0].serve_forever()
 
