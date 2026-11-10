@@ -1,5 +1,5 @@
 // PXD2 LINK shell cache: the app opens with no signal (the outgoing queue lives in IndexedDB). GitHub API calls are never cached.
-const SHELL = "pxd2-link-v10", FILES = ["./", "index.html", "app.js", "pitch.js", "fflate.min.js", "manifest.webmanifest", "icon-192.png", "icon-512.png", "pxd2-logo.png"];
+const SHELL = "pxd2-link-v11", FILES = ["./", "index.html", "app.js", "pitch.js", "fflate.min.js", "manifest.webmanifest", "icon-192.png", "icon-512.png", "pxd2-logo.png"];
 self.addEventListener("install", e => { e.waitUntil(caches.open(SHELL).then(c => c.addAll(FILES))); self.skipWaiting(); });
 self.addEventListener("activate", e => { e.waitUntil(caches.keys().then(k => Promise.all(k.filter(x => x !== SHELL).map(x => caches.delete(x))))); self.clients.claim(); });
 self.addEventListener("fetch", e => {
@@ -16,8 +16,14 @@ self.addEventListener("push", e => {
 });
 self.addEventListener("notificationclick", e => {
   e.notification.close();
-  e.waitUntil(self.clients.matchAll({ type: "window", includeUncontrolled: true }).then(cs => {
-    const c = cs.find(x => x.url.includes("/biz/hub/")); if (c) return c.focus();
-    return self.clients.openWindow("./");
-  }));
+  const tab = ((e.notification.data || {}).tag === "pxd2file") ? "outbox" : "text";
+  const url = new URL("./?tab=" + tab, self.registration.scope).href;
+  e.waitUntil((async () => {
+    const cs = (await self.clients.matchAll({ type: "window", includeUncontrolled: true }))
+      .filter(c => c.url.startsWith(self.registration.scope)).sort((a, b) => a.url.includes("mini") - b.url.includes("mini"));
+    for (const c of cs) {
+      try { c.postMessage({ tab }); await c.focus(); return; } catch (x) { }   // bring the open app forward on that tab
+    }
+    try { await self.clients.openWindow(url); } catch (x) { }                // app closed: open it on that tab
+  })());
 });

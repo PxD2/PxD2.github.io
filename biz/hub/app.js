@@ -367,6 +367,9 @@ $("#fZip").onclick = () => pull(fRoot, fDir);
 $("#fFind").oninput = renderFiles;
 $("#fUplIn").onchange = e => { addFiles([...e.target.files], { root: fRoot, dir: fDir }); e.target.value = ""; toast(`uploading into ${fRoot}${fDir ? " / " + fDir : ""}`); };
 $("#cText").addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendChat(); } });
+function goTab(t) { const b = document.querySelector(`nav button[data-tab="${t}"]`); if (b) b.click(); }
+if ("serviceWorker" in navigator) navigator.serviceWorker.addEventListener("message", e => { if (e.data && e.data.tab) { goTab(e.data.tab); tick(); } });
+if (new URLSearchParams(location.search).get("tab")) setTimeout(() => goTab(new URLSearchParams(location.search).get("tab")), 300);
 if (new URLSearchParams(location.search).has("mini")) { document.body.classList.add("mini"); document.title = "PXD2 TEXT"; }
 $("#tGo").onclick = async () => {
   let params; try { params = JSON.parse($("#tParams").value || "{}"); } catch (e) { return toast("parameters are not valid JSON"); }
