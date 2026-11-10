@@ -69,7 +69,7 @@ pre{white-space:pre-wrap;word-break:break-word;background:#0e151d;border:1px sol
   <button data-tab="send" class="on">SEND</button>
   <button data-tab="note">NOTE</button>
   <button data-tab="queue">OUTGOING <span id="qCount"></span></button>
-  <button data-tab="outbox">REPLIES</button>
+  <button data-tab="outbox">FROM BASE <span id="fbCount" class="ok"></span></button>
   <button data-tab="fleet">BASE</button>
   <button data-tab="task">TASK</button>
 </nav>
@@ -102,7 +102,8 @@ pre{white-space:pre-wrap;word-break:break-word;background:#0e151d;border:1px sol
   </div>
 
   <div data-pane="outbox" class="hide">
-    <div class="card"><h3>MESSAGES FROM BASE</h3><ul class="list" id="outList"></ul></div>
+    <div class="card"><h3>FILES FROM BASE1</h3><ul class="list" id="gotList"></ul></div>
+    <div class="card"><h3>MESSAGES FROM BASE1</h3><ul class="list" id="outList"></ul></div>
   </div>
 
   <div data-pane="fleet" class="hide">
