@@ -332,12 +332,16 @@ async function enablePush(ask) {
         return alertsUI();
       }
     }
-    if (!lastStatus || !lastStatus.vapid) { say("getting BASE1's alert key…"); await loadStatus(); }
-    if (!lastStatus || !lastStatus.vapid) return say("BASE1 has not sent its alert key yet - is the hub running? try again in a minute");
+    let key = (lastStatus && lastStatus.vapid) || "";
+    if (!key) {
+      say("getting BASE1's alert key…");
+      try { const t = await ghGet("status/vapid.txt"); if (t) key = new TextDecoder().decode(t).trim(); } catch (e) { showErr("alert key: " + e.message); }
+    }
+    if (!key) { await loadStatus(); key = (lastStatus && lastStatus.vapid) || ""; }
+    if (!key) return showErr("BASE1's alert key could not be read. Link says: " + ($("#net").title || $("#net").textContent) + " - is Run_PXD2_WAN running on BASE1?");
     say("connecting alerts…");
     const reg = await navigator.serviceWorker.ready;
     let sub = await reg.pushManager.getSubscription();
-    const key = lastStatus.vapid;
     if (sub && (await kvGet("pushKey")) !== key) { await sub.unsubscribe(); sub = null; }
     if (!sub) sub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: u8(key) });
     const js = JSON.stringify(sub);
