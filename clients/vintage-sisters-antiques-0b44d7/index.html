@@ -7,7 +7,7 @@
 <title>Vintage Sisters Antiques</title>
 <meta name="description" content="Vintage Sisters Antiques, 1976 N Niels Hansen Dr, Lakeside, AZ 85929. Fenton and vintage glass, kitchenware, tools, butter churns and old pieces in great shape. Open every day, run by sisters who know their stuff.">
 <meta property="og:title" content="Vintage Sisters Antiques">
-<meta property="og:description" content="Glass, cookware, tools — and not junk. Lakeside, Arizona.">
+<meta property="og:description" content="Glass, cookware and tools in great shape. Lakeside, Arizona.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Caveat:wght@500;700&family=Libre+Franklin:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -95,6 +95,15 @@ h2{font:400 clamp(30px,4vw,48px)/1.06 "Alfa Slab One",serif;color:var(--night)}
 @media(max-width:520px){.dircard{grid-template-columns:1fr}.dircard .qrwrap{width:150px}}
 .walk{background:var(--night);color:rgba(255,255,255,.82);text-align:center}.walk h2{color:var(--sign)}.walk p{margin:14px auto 0;max-width:52ch;font-size:18px}
 footer{background:var(--ink);color:var(--sign);padding:44px 0 40px;font-size:14.5px;text-align:center}footer b{display:block;font:400 21px/1.2 "Alfa Slab One",serif;margin-bottom:6px}footer .by{opacity:.65;margin-top:14px}
+dialog.item{border:0;padding:0;border-radius:14px;width:min(860px,94vw);max-height:92vh;background:var(--paper);color:var(--text)}
+dialog.item::backdrop{background:rgba(0,0,0,.6)}
+.it{display:grid;grid-template-columns:1.1fr 1fr}@media(max-width:700px){.it{grid-template-columns:1fr}}
+.it .media{background:var(--night);min-height:300px;display:grid;place-items:center;color:var(--sign);font:400 40px/1 "Alfa Slab One",serif}
+.it .media img,.it model-viewer{width:100%;height:100%;min-height:300px;object-fit:cover;display:block}
+.it .body{padding:24px;display:flex;flex-direction:column;gap:10px}
+.it .icode{font:700 14px/1 ui-monospace,Menlo,monospace;color:var(--accent);letter-spacing:.04em}
+.it h2{font-size:28px}.it .iprice{font:400 26px/1 "Alfa Slab One",serif;color:var(--night)}
+.it .x{position:absolute;top:10px;right:10px;width:38px;height:38px;border-radius:50%;border:0;background:rgba(0,0,0,.6);color:#fff;font-size:20px;cursor:pointer;z-index:2}
 .callbar{display:none}
 @media(max-width:640px){.callbar{display:grid;grid-template-columns:1fr 1fr;position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--night)}.callbar a{padding:15px 10px;text-align:center;font-weight:700;color:var(--sign);text-decoration:none}.callbar a:first-child{background:var(--sign);color:var(--night)}body{padding-bottom:54px}}
 </style>
@@ -168,7 +177,7 @@ footer{background:var(--ink);color:var(--sign);padding:44px 0 40px;font-size:14.
 </svg>
  <div class="hero-copy">
   <div class="pill" role="status" aria-live="polite"><span class="dot" id="dot"></span><span id="st">Checking today's hours…</span></div>
-  <h1 id="t">Glass, cookware, tools — and not junk.</h1>
+  <h1 id="t">Glass, cookware and tools in great shape.</h1>
   <p class="lede">Fenton and vintage glass, kitchenware, tools, butter churns and old pieces in great shape. Open every day, run by sisters who know their stuff.</p>
   <div class="ctas"><a class="btn solid" href="https://www.google.com/maps/dir/?api=1&destination=Vintage+Sisters+Antiques,+1976+N+Niels+Hansen+Dr,+Lakeside,+AZ+85929" target="_blank" rel="noopener">Get directions</a><a class="btn ghost" href="tel:+17656250215">Call 765-625-0215</a></div>
   <a class="ratechip" href="https://www.google.com/maps/place/?q=place_id:ChIJnYVL2AHLKIcRHaE60jmfFYc" target="_blank" rel="noopener"><b>4.7</b> <span aria-hidden="true">★★★★★</span> 54 Google reviews</a>
@@ -180,7 +189,7 @@ footer{background:var(--ink);color:var(--sign);padding:44px 0 40px;font-size:14.
  <div class="rooms"><article class="tag room" id="room-0"><svg viewBox="0 0 64 64" fill="none" stroke="#3B2A3E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M26 8 h12 v6 c0 6 12 10 12 24 c0 12 -8 18 -18 22 c-10 -4 -18 -10 -18 -22 c0 -14 12 -18 12 -24 z"/><path d="M18 34 h28"/></svg><h3>Vintage glass</h3><p>Fenton, Depression glass and colored pieces.</p></article><article class="tag room" id="room-1"><svg viewBox="0 0 64 64" fill="none" stroke="#3B2A3E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 30 h32 v6 a16 16 0 0 1 -32 0 z"/><path d="M46 33 c8 -2 10 6 2 10 M14 33 L6 26 M24 30 v-4 h12 v4"/><path d="M12 56 h36"/></svg><h3>Cookware</h3><p>Cast iron, enamelware and kitchen classics.</p></article><article class="tag room" id="room-2"><svg viewBox="0 0 64 64" fill="none" stroke="#3B2A3E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 50 L40 24"/><path d="M36 14 a10 10 0 0 0 14 14 l-6 -6 l2 -6 l6 -2 z"/><path d="M44 50 L22 28 M18 18 l-6 6 l8 8 l6 -6 z"/></svg><h3>Tools</h3><p>Old hand tools that still work.</p></article><article class="tag room" id="room-3"><svg viewBox="0 0 64 64" fill="none" stroke="#3B2A3E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M30 4 v14 M34 4 v14"/><path d="M22 18 h20 l4 38 H18 z"/><path d="M20 32 h24 M19 46 h26"/></svg><h3>Farmhouse</h3><p>Churns, crocks and country pieces.</p></article><article class="tag room" id="room-4"><svg viewBox="0 0 64 64" fill="none" stroke="#3B2A3E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="32" cy="38" r="16"/><path d="M24 14 l8 -6 l8 6 l-8 8 z M24 14 h16"/></svg><h3>Jewelry</h3><p>Rings and vintage pieces by the counter.</p></article><article class="tag room" id="room-5"><svg viewBox="0 0 64 64" fill="none" stroke="#3B2A3E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="10" y="12" width="44" height="36"/><rect x="16" y="18" width="32" height="24"/><path d="M16 40 l10 -10 l8 8 l5 -5 l9 9"/><path d="M32 4 l-8 8 M32 4 l8 8"/></svg><h3>Farmhouse decor</h3><p>Country pieces for the kitchen and porch.</p></article></div>
 </div></section>
 <div class="strip" aria-hidden="true"><div class="row"><span>Fenton glass</span><span>cast iron</span><span>butter churns</span><span>crocks</span><span>hand tools</span><span>enamelware</span><span>rings</span><span>Depression glass</span><span>Fenton glass</span><span>cast iron</span><span>butter churns</span><span>crocks</span><span>hand tools</span><span>enamelware</span><span>rings</span><span>Depression glass</span></div></div>
-<section aria-labelledby="gt"><div class="wrap"><div class="head"><span class="kicker">before you go</span><h2 id="gt">Good to know</h2></div><div class="tips"><div class="tip"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M34 6 h22 v22 L28 56 L8 36 z"/><circle cx="46" cy="16" r="4"/></svg><div><b>Open every day</b><p>Seven days a week, 10 to 5.</p></div></div><div class="tip"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M26 8 h12 v6 c0 6 12 10 12 24 c0 12 -8 18 -18 22 c-10 -4 -18 -10 -18 -22 c0 -14 12 -18 12 -24 z"/><path d="M18 34 h28"/></svg><div><b>Real antiques, not junk</b><p>Visitors say pieces are old and in great shape.</p></div></div><div class="tip"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M30 4 v14 M34 4 v14"/><path d="M22 18 h20 l4 38 H18 z"/><path d="M20 32 h24 M19 46 h26"/></svg><div><b>Saw it last time?</b><p>Call ahead and ask if it&#x27;s still here.</p></div></div></div></div></section>
+<section aria-labelledby="gt"><div class="wrap"><div class="head"><span class="kicker">before you go</span><h2 id="gt">Good to know</h2></div><div class="tips"><div class="tip"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M34 6 h22 v22 L28 56 L8 36 z"/><circle cx="46" cy="16" r="4"/></svg><div><b>Open every day</b><p>Seven days a week, 10 to 5.</p></div></div><div class="tip"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M26 8 h12 v6 c0 6 12 10 12 24 c0 12 -8 18 -18 22 c-10 -4 -18 -10 -18 -22 c0 -14 12 -18 12 -24 z"/><path d="M18 34 h28"/></svg><div><b>Real antiques in great shape</b><p>Visitors say the pieces are old and well cared for.</p></div></div><div class="tip"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M30 4 v14 M34 4 v14"/><path d="M22 18 h20 l4 38 H18 z"/><path d="M20 32 h24 M19 46 h26"/></svg><div><b>Saw it last time?</b><p>Call ahead and ask if it&#x27;s still here.</p></div></div></div></div></section>
 <section class="gallery" aria-labelledby="g"><div class="wrap">
  <div class="head"><span class="kicker">take a look around</span><h2 id="g">Around the shop</h2></div>
  <div class="frames" id="frames"></div>
@@ -207,6 +216,7 @@ footer{background:var(--ink);color:var(--sign);padding:44px 0 40px;font-size:14.
 </div></section>
 </main>
 <footer><div class="wrap"><b>Vintage Sisters Antiques</b>1976 N Niels Hansen Dr, Lakeside, AZ 85929 &nbsp;|&nbsp; <a href="tel:+17656250215">765-625-0215</a><div class="by">Site concept by PXD2</div></div></footer>
+<dialog class="item" id="itemDlg" aria-labelledby="itTitle"><div style="position:relative"><button class="x" id="itX" aria-label="Close">×</button><div class="it" id="itBody"></div></div></dialog>
 <nav class="callbar" aria-label="Quick actions"><a href="tel:+17656250215">Call the shop</a><a href="https://www.google.com/maps/dir/?api=1&destination=Vintage+Sisters+Antiques,+1976+N+Niels+Hansen+Dr,+Lakeside,+AZ+85929" target="_blank" rel="noopener">Directions</a></nav>
 <script>
 /* EDIT HERE: hours (0=Sun..6=Sat, [open,close] 24h, null=closed; whole thing null = not published) and photos (put files in /photos). */
@@ -232,6 +242,24 @@ var PHOTOS = [["photos/storefront.jpg","Out front"],["photos/inside-1.jpg","Insi
    chips.querySelectorAll(".chip").forEach(function(x){x.setAttribute("aria-pressed","false")});c.setAttribute("aria-pressed","true");
    document.querySelectorAll(".room.lit").forEach(function(r){r.classList.remove("lit")});var r=document.getElementById("room-"+c.dataset.room);if(!r)return;r.classList.add("lit");
    document.getElementById("answer").innerHTML="Look for <b>"+r.querySelector("h3").textContent+"</b>. <a href='#room-"+c.dataset.room+"'>Show me</a>";})})}
+ /* Inventory: tags print as QR codes that open #CODE-0001 here. items.json (from PXD2 Market Studio) fills in the piece. */
+ var SHOPCODE="VSA",TEL="+17656250215",PHONE="765-625-0215",ITEMS=null;
+ function esc(t){return String(t==null?"":t).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+ function money(n){return n==null||n===""?"":"$"+Number(n).toLocaleString("en-US")}
+ function loadItems(){if(ITEMS)return Promise.resolve(ITEMS);return fetch("items.json",{cache:"no-store"}).then(function(r){return r.ok?r.json():{items:[]}}).catch(function(){return{items:[]}}).then(function(j){ITEMS=j.items||[];return ITEMS})}
+ function showItem(){var code=decodeURIComponent(location.hash.slice(1)).toUpperCase(),dlg=document.getElementById("itemDlg");
+  if(!new RegExp("^"+SHOPCODE+"-[0-9]{4}$").test(code)){if(dlg.open)dlg.close();return}
+  loadItems().then(function(list){var i=list.find(function(x){return x.code===code}),h;
+   if(i){var media=i.model?'<model-viewer src="'+esc(i.model)+'" '+(i.photos&&i.photos[0]?'poster="'+esc(i.photos[0])+'" ':'')+'camera-controls auto-rotate ar ar-modes="webxr scene-viewer quick-look" alt="3D model of '+esc(i.title)+'"></model-viewer>':(i.photos&&i.photos[0]?'<img src="'+esc(i.photos[0])+'" alt="">':'<span>'+esc(code)+'</span>');
+    if(i.model&&!window.customElements.get("model-viewer")){var sc=document.createElement("script");sc.type="module";sc.src="https://unpkg.com/@google/model-viewer@3.5.0/dist/model-viewer.min.js";document.head.appendChild(sc)}
+    h='<div class="media">'+media+'</div><div class="body"><span class="icode">'+esc(code)+(i.status==="sold"?" · SOLD":i.status==="hold"?" · ON HOLD":"")+'</span><h2 id="itTitle">'+esc(i.title)+'</h2>'+(i.price!=null?'<span class="iprice">'+money(i.price)+'</span>':'')+
+     '<div>'+[i.era,i.condition,i.dimensions].filter(Boolean).map(esc).join(" · ")+'</div>'+(i.description?'<p>'+esc(i.description)+'</p>':'')+
+     (i.status!=="sold"?'<a class="btn solid" style="background:var(--night);color:var(--sign);align-self:flex-start" href="tel:'+TEL+'">Call '+esc(PHONE)+' about '+esc(code)+'</a>':'<p>This piece has sold. Stop in to see what&#39;s new.</p>')+'</div>'}
+   else h='<div class="media"><span>'+esc(code)+'</span></div><div class="body"><span class="icode">ITEM '+esc(code)+'</span><h2 id="itTitle">Ask about this piece</h2><p>Photos and details for this piece are on the way. Call the shop and mention the tag number.</p><a class="btn solid" style="background:var(--night);color:var(--sign);align-self:flex-start" href="tel:'+TEL+'">Call '+esc(PHONE)+' about '+esc(code)+'</a></div>';
+   document.getElementById("itBody").innerHTML=h;if(!dlg.open)dlg.showModal()})}
+ document.getElementById("itX").onclick=function(){document.getElementById("itemDlg").close()};
+ document.getElementById("itemDlg").addEventListener("close",function(){if(location.hash)history.replaceState(null,"",location.pathname)});
+ window.addEventListener("hashchange",showItem);showItem();
  var fr=document.getElementById("frames"),stand='<svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><use href="#tunnel" x="-50" y="-100" width="500" height="500"/></svg>';
  PHOTOS.forEach(function(ph){var f=document.createElement("figure");f.className="frame";var b=document.createElement("div");b.className="ph";
   var im=new Image();im.alt=ph[1];im.loading="lazy";im.onerror=function(){b.innerHTML=stand+'<span class="soon">Photo coming soon</span>';};im.src=ph[0];b.appendChild(im);f.appendChild(b);

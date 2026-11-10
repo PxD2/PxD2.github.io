@@ -95,6 +95,15 @@ h2{font:400 clamp(30px,4vw,48px)/1.06 "Alfa Slab One",serif;color:var(--night)}
 @media(max-width:520px){.dircard{grid-template-columns:1fr}.dircard .qrwrap{width:150px}}
 .walk{background:var(--night);color:rgba(255,255,255,.82);text-align:center}.walk h2{color:var(--sign)}.walk p{margin:14px auto 0;max-width:52ch;font-size:18px}
 footer{background:var(--ink);color:var(--sign);padding:44px 0 40px;font-size:14.5px;text-align:center}footer b{display:block;font:400 21px/1.2 "Alfa Slab One",serif;margin-bottom:6px}footer .by{opacity:.65;margin-top:14px}
+dialog.item{border:0;padding:0;border-radius:14px;width:min(860px,94vw);max-height:92vh;background:var(--paper);color:var(--text)}
+dialog.item::backdrop{background:rgba(0,0,0,.6)}
+.it{display:grid;grid-template-columns:1.1fr 1fr}@media(max-width:700px){.it{grid-template-columns:1fr}}
+.it .media{background:var(--night);min-height:300px;display:grid;place-items:center;color:var(--sign);font:400 40px/1 "Alfa Slab One",serif}
+.it .media img,.it model-viewer{width:100%;height:100%;min-height:300px;object-fit:cover;display:block}
+.it .body{padding:24px;display:flex;flex-direction:column;gap:10px}
+.it .icode{font:700 14px/1 ui-monospace,Menlo,monospace;color:var(--accent);letter-spacing:.04em}
+.it h2{font-size:28px}.it .iprice{font:400 26px/1 "Alfa Slab One",serif;color:var(--night)}
+.it .x{position:absolute;top:10px;right:10px;width:38px;height:38px;border-radius:50%;border:0;background:rgba(0,0,0,.6);color:#fff;font-size:20px;cursor:pointer;z-index:2}
 .callbar{display:none}
 @media(max-width:640px){.callbar{display:grid;grid-template-columns:1fr 1fr;position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--night)}.callbar a{padding:15px 10px;text-align:center;font-weight:700;color:var(--sign);text-decoration:none}.callbar a:first-child{background:var(--sign);color:var(--night)}body{padding-bottom:54px}}
 </style>
@@ -207,6 +216,7 @@ footer{background:var(--ink);color:var(--sign);padding:44px 0 40px;font-size:14.
 </div></section>
 </main>
 <footer><div class="wrap"><b>Antique &amp; Consignment Warehouse</b>727 S Woodland Ln, Lakeside, AZ 85929 &nbsp;|&nbsp; <a href="tel:+19283696077">928-369-6077</a><div class="by">Site concept by PXD2</div></div></footer>
+<dialog class="item" id="itemDlg" aria-labelledby="itTitle"><div style="position:relative"><button class="x" id="itX" aria-label="Close">×</button><div class="it" id="itBody"></div></div></dialog>
 <nav class="callbar" aria-label="Quick actions"><a href="tel:+19283696077">Call the shop</a><a href="https://www.google.com/maps/dir/?api=1&destination=Antique+%26+Consignment+Warehouse,+727+S+Woodland+Ln,+Lakeside,+AZ+85929" target="_blank" rel="noopener">Directions</a></nav>
 <script>
 /* EDIT HERE: hours (0=Sun..6=Sat, [open,close] 24h, null=closed; whole thing null = not published) and photos (put files in /photos). */
@@ -232,6 +242,24 @@ var PHOTOS = [["photos/storefront.jpg","Out front"],["photos/inside-1.jpg","Insi
    chips.querySelectorAll(".chip").forEach(function(x){x.setAttribute("aria-pressed","false")});c.setAttribute("aria-pressed","true");
    document.querySelectorAll(".room.lit").forEach(function(r){r.classList.remove("lit")});var r=document.getElementById("room-"+c.dataset.room);if(!r)return;r.classList.add("lit");
    document.getElementById("answer").innerHTML="Look for <b>"+r.querySelector("h3").textContent+"</b>. <a href='#room-"+c.dataset.room+"'>Show me</a>";})})}
+ /* Inventory: tags print as QR codes that open #CODE-0001 here. items.json (from PXD2 Market Studio) fills in the piece. */
+ var SHOPCODE="ACW",TEL="+19283696077",PHONE="928-369-6077",ITEMS=null;
+ function esc(t){return String(t==null?"":t).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+ function money(n){return n==null||n===""?"":"$"+Number(n).toLocaleString("en-US")}
+ function loadItems(){if(ITEMS)return Promise.resolve(ITEMS);return fetch("items.json",{cache:"no-store"}).then(function(r){return r.ok?r.json():{items:[]}}).catch(function(){return{items:[]}}).then(function(j){ITEMS=j.items||[];return ITEMS})}
+ function showItem(){var code=decodeURIComponent(location.hash.slice(1)).toUpperCase(),dlg=document.getElementById("itemDlg");
+  if(!new RegExp("^"+SHOPCODE+"-[0-9]{4}$").test(code)){if(dlg.open)dlg.close();return}
+  loadItems().then(function(list){var i=list.find(function(x){return x.code===code}),h;
+   if(i){var media=i.model?'<model-viewer src="'+esc(i.model)+'" '+(i.photos&&i.photos[0]?'poster="'+esc(i.photos[0])+'" ':'')+'camera-controls auto-rotate ar ar-modes="webxr scene-viewer quick-look" alt="3D model of '+esc(i.title)+'"></model-viewer>':(i.photos&&i.photos[0]?'<img src="'+esc(i.photos[0])+'" alt="">':'<span>'+esc(code)+'</span>');
+    if(i.model&&!window.customElements.get("model-viewer")){var sc=document.createElement("script");sc.type="module";sc.src="https://unpkg.com/@google/model-viewer@3.5.0/dist/model-viewer.min.js";document.head.appendChild(sc)}
+    h='<div class="media">'+media+'</div><div class="body"><span class="icode">'+esc(code)+(i.status==="sold"?" · SOLD":i.status==="hold"?" · ON HOLD":"")+'</span><h2 id="itTitle">'+esc(i.title)+'</h2>'+(i.price!=null?'<span class="iprice">'+money(i.price)+'</span>':'')+
+     '<div>'+[i.era,i.condition,i.dimensions].filter(Boolean).map(esc).join(" · ")+'</div>'+(i.description?'<p>'+esc(i.description)+'</p>':'')+
+     (i.status!=="sold"?'<a class="btn solid" style="background:var(--night);color:var(--sign);align-self:flex-start" href="tel:'+TEL+'">Call '+esc(PHONE)+' about '+esc(code)+'</a>':'<p>This piece has sold. Stop in to see what&#39;s new.</p>')+'</div>'}
+   else h='<div class="media"><span>'+esc(code)+'</span></div><div class="body"><span class="icode">ITEM '+esc(code)+'</span><h2 id="itTitle">Ask about this piece</h2><p>Photos and details for this piece are on the way. Call the shop and mention the tag number.</p><a class="btn solid" style="background:var(--night);color:var(--sign);align-self:flex-start" href="tel:'+TEL+'">Call '+esc(PHONE)+' about '+esc(code)+'</a></div>';
+   document.getElementById("itBody").innerHTML=h;if(!dlg.open)dlg.showModal()})}
+ document.getElementById("itX").onclick=function(){document.getElementById("itemDlg").close()};
+ document.getElementById("itemDlg").addEventListener("close",function(){if(location.hash)history.replaceState(null,"",location.pathname)});
+ window.addEventListener("hashchange",showItem);showItem();
  var fr=document.getElementById("frames"),stand='<svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><use href="#tunnel" x="-50" y="-100" width="500" height="500"/></svg>';
  PHOTOS.forEach(function(ph){var f=document.createElement("figure");f.className="frame";var b=document.createElement("div");b.className="ph";
   var im=new Image();im.alt=ph[1];im.loading="lazy";im.onerror=function(){b.innerHTML=stand+'<span class="soon">Photo coming soon</span>';};im.src=ph[0];b.appendChild(im);f.appendChild(b);
