@@ -92,6 +92,7 @@ header{background:#000}nav{background:#000}
 <nav>
   <button data-tab="pitch" class="on">PITCH</button>
   <button data-tab="text">TEXT <span id="tCount" class="ok"></span></button>
+  <button data-tab="deals">DEALS</button>
   <button data-tab="files">FILES</button>
   <button data-tab="send">SEND</button>
   <button data-tab="note">NOTE</button>
@@ -112,6 +113,8 @@ header{background:#000}nav{background:#000}
       <div class="compose"><textarea id="cText" placeholder="type… Enter sends" maxlength="4000"></textarea><button class="primary" id="cGo">SEND</button></div>
     </div>
   </div>
+
+  <div data-pane="deals" class="hide"><div id="dealsBody"></div></div>
 
   <div data-pane="files" class="hide">
     <div class="card">
@@ -178,8 +181,10 @@ header{background:#000}nav{background:#000}
 </main>
 </section>
 <div id="toast"></div>
-<script src="app.js?v=17"></script>
-<script src="fflate.min.js?v=17"></script>
-<script src="pitch.js?v=17"></script>
+<script src="app.js?v=18"></script>
+<script src="fflate.min.js?v=18"></script>
+<script src="pitch.js?v=18"></script>
+<script src="jspdf.umd.min.js?v=18"></script>
+<script src="deals.js?v=18"></script>
 </body>
 </html>

@@ -157,6 +157,10 @@ async function drain() {
           }
           await chatMark(it.id, "sent");
         }
+        else if (it.type === "deal") {
+          await send({ type: "deal", id: it.id, kind: it.kind, meta: it.meta, name: it.name }, new Uint8Array(await it.blob.arrayBuffer()));
+          if (window.dealSent) window.dealSent(it.id);
+        }
         else if (it.type === "fetch") await send({ type: "fetch", id: it.id, root: it.root, path: it.path });
         else if (it.type === "note") await send({ type: "note", id: it.id }, new TextEncoder().encode(it.text));
         else if (it.type === "task") await send({ type: "task", id: it.id, node: it.node, kind: it.kind, name: it.name, params: it.params });
@@ -170,7 +174,7 @@ async function renderQueue() {
   const all = await qAll();
   $("#qCount").textContent = all.length ? `(${all.length})` : "";
   $("#qList").innerHTML = all.length ? all.map(it => it.type !== "file"
-    ? `<li><span class="n">${it.type === "task" ? "⚙ " + esc(it.kind) : it.type === "fetch" ? "⇩ ask BASE1 for " + esc(it.path || it.root) : "✎ " + esc((it.text || "").slice(0, 80))}</span><span class="m">${navigator.onLine ? "sending" : "waiting for signal"}</span></li>`
+    ? `<li><span class="n">${it.type === "task" ? "⚙ " + esc(it.kind) : it.type === "fetch" ? "⇩ ask BASE1 for " + esc(it.path || it.root) : it.type === "deal" ? "📝 " + esc(it.name) : "✎ " + esc((it.text || "").slice(0, 80))}</span><span class="m">${navigator.onLine ? "sending" : "waiting for signal"}</span></li>`
     : `<li style="display:block"><div class="row"><span class="n">${esc(it.name)}</span><span class="m">${fmt(it.sent || 0)} / ${fmt(it.size)}</span>
        <button data-del="${it.id}" style="min-height:32px;padding:4px 10px">✕</button></div><div class="bar"><i style="width:${(100 * (it.sent || 0) / Math.max(1, it.size)).toFixed(1)}%"></i></div></li>`).join("")
     : `<li class="dim">nothing waiting</li>`;
