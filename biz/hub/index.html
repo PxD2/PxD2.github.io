@@ -55,6 +55,16 @@ body.mini [data-pane]:not([data-pane=text]){display:none!important}body.mini [da
 body.mini a[target=pxd2text]{display:none}body.mini .card{background:#fff27a;border:0;padding:4px;margin:0}body.mini .card h3{color:#8a7a20}
 body.mini .thread{max-height:calc(100vh - 150px);min-height:0;height:calc(100vh - 150px);padding:4px}
 body.mini select{background:#fffbd0;color:#2b2600;border-color:#e8d84f;padding:4px;min-height:0}
+/* pitch desktop */
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.ptile{display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 8px;min-height:150px;text-align:center;font-size:14px;line-height:1.2}
+.ptile img{width:72px;height:72px;object-fit:contain;border-radius:14px;background:#fff}
+.pfb{width:72px;height:72px;border-radius:14px;background:#173246;display:grid;place-items:center;font-size:34px;font-weight:800}
+.pqrs{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px}
+.pqr,.psoc{display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px;background:#16212c;border:1px solid var(--line);border-radius:10px;color:var(--text);text-decoration:none;font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+.pqr img{width:100%;max-width:120px;background:#fff;border-radius:6px;padding:4px}.psoc img{width:100%;height:90px;object-fit:cover;border-radius:6px}
+.pbig{position:fixed;inset:0;z-index:50;background:#fff;color:#111;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:20px}
+.pbig img{width:min(78vw,72vh);height:auto;image-rendering:pixelated}.pbn{font-size:22px;font-weight:800;text-align:center}.pbl{font-size:13px;color:#555;word-break:break-all;text-align:center}.pbx{font-size:12px;color:#999}
 </style>
 </head>
 <body>
@@ -76,7 +86,9 @@ body.mini select{background:#fffbd0;color:#2b2600;border-color:#e8d84f;padding:4
 
 <section id="appView" class="hide">
 <nav>
-  <button data-tab="text" class="on">TEXT <span id="tCount" class="ok"></span></button>
+  <button data-tab="pitch" class="on">PITCH</button>
+  <button data-tab="text">TEXT <span id="tCount" class="ok"></span></button>
+  <button data-tab="files">FILES</button>
   <button data-tab="send">SEND</button>
   <button data-tab="note">NOTE</button>
   <button data-tab="queue">OUTGOING <span id="qCount"></span></button>
@@ -85,13 +97,28 @@ body.mini select{background:#fffbd0;color:#2b2600;border-color:#e8d84f;padding:4
   <button data-tab="task">TASK</button>
 </nav>
 <main>
-  <div data-pane="text">
+  <div data-pane="pitch"><div id="pitchBody"><div class="card dim">loading client kits…</div></div></div>
+
+  <div data-pane="text" class="hide">
     <div class="card">
       <h3>✎ PXD2 TEXT <span id="tState" class="dim" style="letter-spacing:0;font-weight:400"></span>
         <a href="?mini=1" target="pxd2text" style="float:right;color:var(--acc);font-size:11px;letter-spacing:.05em">POP-OUT STICKY</a></h3>
       <div class="thread" id="thread"></div>
       <div class="row" style="margin-top:8px;gap:6px"><span class="dim" style="font-size:12px">to</span><select id="cTo" style="width:auto;flex:1"><option>ALL</option><option>BASE1</option><option>BASE2</option></select></div>
       <div class="compose"><textarea id="cText" placeholder="type… Enter sends" maxlength="4000"></textarea><button class="primary" id="cGo">SEND</button></div>
+    </div>
+  </div>
+
+  <div data-pane="files" class="hide">
+    <div class="card">
+      <h3>BASE1 SHARED FOLDERS <span id="fState" class="dim" style="letter-spacing:0;font-weight:400"></span></h3>
+      <div class="row" style="gap:6px;margin-bottom:6px"><button id="fUp" style="min-height:36px;padding:6px 12px">↑ UP</button>
+        <span id="fPath" style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600"></span>
+        <label class="btn hide" id="fUpl" style="min-height:36px;padding:6px 12px;color:var(--text)">⇪ UPLOAD HERE<input type="file" id="fUplIn" multiple class="hide"></label>
+        <button id="fZip" class="hide" style="min-height:36px;padding:6px 12px">⇩ WHOLE FOLDER .ZIP</button></div>
+      <input id="fFind" placeholder="search all shared files…" style="margin-bottom:6px">
+      <ul class="list" id="fList"></ul>
+      <p class="dim" style="font-size:12px">⇩ GET asks BASE1 to send it - it lands in FROM BASE in seconds (big files a bit longer). Uploads go straight into the folder you are in.</p>
     </div>
   </div>
 
@@ -148,5 +175,7 @@ body.mini select{background:#fffbd0;color:#2b2600;border-color:#e8d84f;padding:4
 </section>
 <div id="toast"></div>
 <script src="app.js"></script>
+<script src="fflate.min.js"></script>
+<script src="pitch.js"></script>
 </body>
 </html>
