@@ -78,7 +78,7 @@ async function unseal(blob) {
   const nl = plain.indexOf(10);
   return [JSON.parse(new TextDecoder().decode(plain.slice(0, nl))), plain.slice(nl + 1)];
 }
-const send = async (header, body) => ghPut(`to/${HUB}/${stamp()}.env`, await seal(Object.assign({ from: S.dev }, header), body), `${S.dev} -> ${HUB}`);
+const send = async (header, body, to = HUB) => ghPut(`to/${to}/${stamp()}.env`, await seal(Object.assign({ from: S.dev }, header), body), `${S.dev} -> ${to}`);
 
 // ------------------------------------------------------------------ queue
 async function addFiles(list) {
@@ -102,7 +102,14 @@ async function drain() {
     for (const it of await qAll()) {
       if (!navigator.onLine) break;
       try {
-        if (it.type === "note") await send({ type: "note", id: it.id }, new TextEncoder().encode(it.text));
+        if (it.type === "chat") {
+          for (const d of chatTargets(it.to).filter(d => !(it.done || []).includes(d))) {
+            await send({ type: "chat", id: it.id, to: it.to }, new TextEncoder().encode(it.text), d);
+            it.done = (it.done || []).concat(d); await qPut(it);
+          }
+          await chatMark(it.id, "sent");
+        }
+        else if (it.type === "note") await send({ type: "note", id: it.id }, new TextEncoder().encode(it.text));
         else if (it.type === "task") await send({ type: "task", id: it.id, node: it.node, kind: it.kind, name: it.name, params: it.params });
         else await sendFile(it);
         await qDel(it.id);
@@ -140,7 +147,7 @@ async function loadStatus() {
     $("#act").innerHTML = (st.activity || []).slice().reverse().map(a => `<li><span class="n">${esc(a.text)}</span><span class="m">${esc(a.t.slice(11, 16))}</span></li>`).join("") || `<li class="dim">quiet</li>`;
     $("#inList").innerHTML = (st.inbox || []).map(f => `<li><span class="n">${esc(f.name)}</span><span class="m">${esc(f.folder)} · ${fmt(f.size)}</span></li>`).join("") || `<li class="dim">empty</li>`;
     $("#tNode").innerHTML = `<option value="auto">auto (idlest)</option>` + (st.fleet || []).filter(n => n.online).map(n => `<option>${esc(n.name)}</option>`).join("");
-    setNet(true);
+    setNet(true); fillTo();
   } catch (e) { setNet(false, e.message); if (e.name === "OperationError") $("#hubState").textContent = "Mesh key does not match BASE1's - sign out and sign in with the right key."; }
 }
 async function receivePiece(h, body) {
@@ -163,6 +170,7 @@ async function loadReplies() {
       try {
         const [h, body] = await unseal(await ghGet(it.path));
         if (h.type === "file") await receivePiece(h, body);
+        else if (h.type === "chat" || (h.type === "note" && h.from)) { await chatAdd({ id: h.id || uid(), t: Date.now(), from: h.from || HUB, to: h.to || S.dev, text: new TextDecoder().decode(body) }); }
         else {
           if (h.type === "note") h.text = new TextDecoder().decode(body), h.isNote = true;
           keep.unshift({ t: Date.now(), h });
@@ -201,6 +209,42 @@ async function markSeen() {
   const keep = (await kvGet("replies")) || []; keep.forEach(r => r.seen = true); await kvSet("replies", keep);
   $("#fbCount").textContent = "";
 }
+// ------------------------------------------------------------------ sticky texting
+const BASES = ["BASE1", "BASE2"];
+const chatTargets = to => to === "ALL" ? BASES.concat((lastStatus && lastStatus.devices) || []).filter(d => d && d !== S.dev) : [to];
+const chatGet = async () => (await kvGet("chat")) || [];
+async function chatAdd(m) {
+  const c = await chatGet(); if (c.some(x => x.id === m.id && x.from === m.from)) return;
+  c.push(m); await kvSet("chat", c.slice(-300)); renderChat();
+  if (!m.mine) {
+    if (navigator.vibrate) navigator.vibrate([120, 60, 120]);
+    if (document.hidden && "Notification" in window && Notification.permission === "granted") new Notification("PXD2 TEXT · " + m.from, { body: m.text.slice(0, 140), tag: "pxd2text" });
+    if (curTab !== "text") { unreadText++; $("#tCount").textContent = `(${unreadText})`; }
+    toast(m.from + ": " + m.text.slice(0, 60));
+  }
+}
+async function chatMark(id, st) { const c = await chatGet(); const m = c.find(x => x.id === id && x.mine); if (m) { m.st = st; await kvSet("chat", c); renderChat(); } }
+let unreadText = 0, curTab = "text";
+async function renderChat() {
+  const c = await chatGet(), el = $("#thread"); if (!el) return;
+  const atEnd = el.scrollTop + el.clientHeight >= el.scrollHeight - 30;
+  el.innerHTML = c.map(m => `<div class="msg ${m.mine ? "me" : ""}"><div class="w">${m.mine ? "me → " + esc(m.to) : esc(m.from)} · ${new Date(m.t).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })}${m.mine ? (m.st === "sent" ? " ✓" : " · waiting") : ""}</div><div class="b">${esc(m.text)}</div></div>`).join("")
+    || `<div class="dim" style="color:#8a7a20">No texts yet. Anything BASE1 or BASE2 sends lands here within seconds.</div>`;
+  if (atEnd) el.scrollTop = el.scrollHeight;
+}
+async function sendChat() {
+  const text = $("#cText").value.trim(); if (!text) return;
+  const to = $("#cTo").value, id = uid();
+  $("#cText").value = "";
+  await chatAdd({ id, t: Date.now(), from: S.dev, to, text, mine: true });
+  await qPut({ id, t: Date.now(), type: "chat", to, text });
+  if ("Notification" in window && Notification.permission === "default") Notification.requestPermission();
+  drain();
+}
+function fillTo() {
+  const sel = $("#cTo"), cur = sel.value, opts = ["ALL"].concat(BASES, ((lastStatus && lastStatus.devices) || []).filter(d => d !== S.dev));
+  if (sel.options.length !== opts.length) { sel.innerHTML = opts.map(o => `<option>${esc(o)}</option>`).join(""); sel.value = opts.includes(cur) ? cur : "ALL"; }
+}
 let helloed = false;
 async function tick() {
   if (!S.key) return; if (!navigator.onLine) return setNet(false);
@@ -208,11 +252,19 @@ async function tick() {
   await loadStatus(); await loadReplies(); drain();
 }
 window.addEventListener("online", tick); window.addEventListener("offline", () => setNet(false));
-setInterval(tick, 15000);
+setInterval(tick, 30000);
+setInterval(async () => {                         // text-message speed: check this device's mailbox every 5 s while open
+  if (!S.key || !navigator.onLine || document.hidden) return;
+  await loadReplies(); drain();
+  $("#tState").textContent = online ? "· live" : "· no link";
+}, 5000);
+document.addEventListener("visibilitychange", () => { if (!document.hidden) tick(); });
 
 // ------------------------------------------------------------------ UI
 const loaders = { queue: renderQueue, outbox: async () => { await loadReplies(); setTimeout(markSeen, 4000); }, fleet: loadStatus, task: loadStatus, note: () => { $("#notes").textContent = "notes go into BASE1's ASTRO Inbox\\notes.md"; } };
+loaders.text = () => { unreadText = 0; $("#tCount").textContent = ""; renderChat(); setTimeout(() => { const t = $("#thread"); t.scrollTop = t.scrollHeight; }, 50); };
 document.querySelectorAll("nav button").forEach(b => b.onclick = () => {
+  curTab = b.dataset.tab;
   document.querySelectorAll("nav button").forEach(x => x.classList.toggle("on", x === b));
   document.querySelectorAll("[data-pane]").forEach(p => p.classList.toggle("hide", p.dataset.pane !== b.dataset.tab));
   (loaders[b.dataset.tab] || (() => { }))();
@@ -225,6 +277,9 @@ const drop = $("#drop");
 drop.addEventListener("drop", e => addFiles([...e.dataTransfer.files]));
 $("#nSend").onclick = async () => { const t = $("#nText").value.trim(); if (!t) return; await qPut({ id: uid(), t: Date.now(), type: "note", text: t }); $("#nText").value = ""; toast(navigator.onLine ? "note sending" : "note saved - goes when there is signal"); renderQueue(); drain(); };
 $("#qRetry").onclick = tick;
+$("#cGo").onclick = sendChat;
+$("#cText").addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendChat(); } });
+if (new URLSearchParams(location.search).has("mini")) { document.body.classList.add("mini"); document.title = "PXD2 TEXT"; }
 $("#tGo").onclick = async () => {
   let params; try { params = JSON.parse($("#tParams").value || "{}"); } catch (e) { return toast("parameters are not valid JSON"); }
   await qPut({ id: uid(), t: Date.now(), type: "task", node: $("#tNode").value, kind: $("#tKind").value, name: $("#tName").value, params });
@@ -248,7 +303,7 @@ function show() { $("#pairView").classList.toggle("hide", !!S.key); $("#appView"
 
 (async () => {
   const s = await kvGet("session"); if (s) S = s;
-  show(); renderQueue(); renderFromBase(); tick();
+  show(); renderQueue(); renderFromBase(); renderChat(); tick();
   if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(() => { });
   if (navigator.storage && navigator.storage.persist) navigator.storage.persist();
 })();
