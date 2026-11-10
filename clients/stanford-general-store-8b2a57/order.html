@@ -4,7 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
-<title>Order ahead · Nettie's Deli at Stanford General Store</title>
+<title>Menu &amp; order online · Stanford General Store &amp; Y-Bar</title>
+<meta name="description" content="Full menu with prices for Nettie's Deli and the Y-Bar at Stanford General Store, Concho AZ. Order online for pickup.">
 <link rel="icon" href="icon.png">
 <meta name="theme-color" content="#2B1A10">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,154 +15,99 @@
 :root{--night:#2B1A10;--saddle:#6B3A1F;--rawhide:#F1E2C4;--hide:#E4CFA6;--dust:#C9AE80;--rust:#B23A1E;--turq:#1F8A8A;--ink:#22160E;--soft:#6C5640;
   --west:"Rye",Georgia,serif;--body:"Bitter",Georgia,serif}
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--rawhide);color:var(--ink);font:400 17px/1.6 var(--body);-webkit-font-smoothing:antialiased}
+body{background:var(--rawhide);color:var(--ink);font:400 17px/1.55 var(--body);-webkit-font-smoothing:antialiased}
 a{color:inherit}
 :focus-visible{outline:3px solid var(--turq);outline-offset:3px}
 .concept{background:var(--ink);color:#d9c7a6;font-size:13px;text-align:center;padding:8px 16px}
 header{background:var(--night);color:var(--rawhide)}
-header .in{max-width:1100px;margin:0 auto;padding:18px 20px;display:flex;align-items:center;gap:14px}
+header .in{max-width:1100px;margin:0 auto;padding:22px 20px 26px}
 header a.back{text-decoration:none;font-weight:600;font-size:15px;opacity:.85}
-header h1{font:400 clamp(26px,4vw,38px)/1 var(--west);margin-left:auto;text-align:right}
-header h1 small{display:block;font:600 14px var(--body);opacity:.8;margin-top:4px}
-.layout{max-width:1100px;margin:0 auto;padding:22px 20px 140px;display:grid;grid-template-columns:1fr 360px;gap:26px;align-items:start}
-@media(max-width:900px){.layout{grid-template-columns:1fr}}
-.tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;position:sticky;top:0;background:var(--rawhide);z-index:5;padding-top:10px}
-.tabs a{white-space:nowrap;text-decoration:none;font-weight:800;font-size:15px;padding:9px 14px;border-radius:999px;background:#fff8ea;border:2px solid var(--dust)}
-.sec{margin-top:26px;scroll-margin-top:64px}
-.sec h2{font:400 30px/1 var(--west);color:var(--saddle);margin-bottom:12px}
-.item{display:grid;grid-template-columns:1fr auto;gap:10px 16px;align-items:center;background:#fff8ea;border:2px solid var(--ink);border-radius:10px;padding:16px 18px;margin-bottom:10px}
-.item b{font-size:19px}
-.item p{color:var(--soft);font-size:15px}
-.item .price{font-weight:800;color:var(--saddle);font-size:15px}
-.add{font:800 16px var(--body);border:0;cursor:pointer;background:var(--turq);color:#fff;border-radius:8px;padding:12px 16px;box-shadow:0 3px 0 #125858;white-space:nowrap}
-.item .more{grid-column:1/-1;display:none;gap:8px}
-.item.open .more{display:flex}
-.more input{flex:1;font:400 16px var(--body);padding:11px 12px;border:2px solid var(--dust);border-radius:8px}
-.cart{position:sticky;top:12px;background:#fff8ea;border:3px solid var(--ink);border-radius:12px;padding:20px}
-@media(max-width:900px){.cart{position:fixed;left:0;right:0;bottom:0;top:auto;border-radius:16px 16px 0 0;max-height:82vh;overflow:auto;transform:translateY(calc(100% - 74px));transition:transform .25s;z-index:20;padding-bottom:calc(20px + env(safe-area-inset-bottom))}
-  .cart.up{transform:none}}
-.cart h3{font:400 26px/1 var(--west);display:flex;align-items:center;gap:10px;cursor:pointer}
-.cart h3 span{margin-left:auto;font:800 15px var(--body);background:var(--rust);color:#fff;border-radius:999px;padding:3px 10px}
-.lines{list-style:none;margin:14px 0;display:grid;gap:10px}
-.lines li{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:start;border-bottom:2px dotted var(--dust);padding-bottom:10px}
-.lines .q{display:flex;align-items:center;gap:6px}
-.lines .q button{width:30px;height:30px;border-radius:6px;border:2px solid var(--dust);background:#fff;font:800 16px var(--body);cursor:pointer}
-.lines small{display:block;color:var(--soft)}
-.empty{color:var(--soft);margin:14px 0}
-label{display:block;font-weight:800;font-size:14px;margin:12px 0 4px}
-select,.cart input{width:100%;font:400 16px var(--body);padding:12px;border:2px solid var(--dust);border-radius:8px;background:#fff}
-.send{width:100%;margin-top:16px;font:800 18px var(--body);border:0;cursor:pointer;background:var(--rust);color:#fff;border-radius:10px;padding:16px;box-shadow:0 4px 0 #6E2010}
-.send:disabled{opacity:.5;cursor:not-allowed}
-.pay{font-size:14px;color:var(--soft);margin-top:10px}
-.err{color:var(--rust);font-weight:800;font-size:14px;min-height:1em;margin-top:8px}
-.ticket{display:none;text-align:center}
-.ticket.on{display:block}
-.ticket .num{font:400 64px/1 var(--west);color:var(--turq);margin:10px 0}
-.ticket p{color:var(--soft)}
-.demo{margin-top:12px;font-size:13px;color:var(--soft);background:var(--hide);border-radius:8px;padding:10px}
+header h1{font:400 clamp(34px,6vw,60px)/1 var(--west);margin:14px 0 8px;color:#FFF4DE}
+header p{color:#E7D5B4;max-width:40em}
+.order{display:inline-flex;align-items:center;gap:10px;margin-top:18px;text-decoration:none;font:800 18px/1 var(--body);background:var(--rust);color:#fff;
+  padding:17px 24px;border-radius:10px;box-shadow:0 4px 0 #6E2010}
+.meta{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:14px;font-size:15px;color:#D9C7A6}
+.bar{position:sticky;top:0;z-index:10;background:var(--rawhide);border-bottom:3px solid var(--ink)}
+.bar .in{max-width:1100px;margin:0 auto;padding:10px 20px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.menus{display:flex;gap:6px;overflow-x:auto}
+.menus button{white-space:nowrap;font:800 15px var(--body);border:2px solid var(--ink);background:#fff8ea;color:var(--ink);border-radius:999px;padding:9px 14px;cursor:pointer}
+.menus button[aria-pressed=true]{background:var(--ink);color:var(--rawhide)}
+.find{margin-left:auto;flex:1;min-width:180px;max-width:300px;font:400 16px var(--body);padding:10px 14px;border:2px solid var(--dust);border-radius:999px;background:#fff}
+.secs{max-width:1100px;margin:0 auto;padding:6px 20px 0;display:flex;gap:8px;flex-wrap:wrap}
+.secs a{font-size:14px;font-weight:600;text-decoration:none;color:var(--saddle);padding:4px 0;margin-right:10px;border-bottom:2px solid transparent}
+.secs a:hover{border-color:var(--saddle)}
+main{max-width:1100px;margin:0 auto;padding:10px 20px 130px}
+.age{background:var(--night);color:var(--rawhide);border-radius:10px;padding:14px 18px;margin-top:16px;font-size:15px}
+section{margin-top:30px;scroll-margin-top:72px}
+section h2{font:400 32px/1 var(--west);color:var(--saddle);margin-bottom:12px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media(max-width:760px){.grid{grid-template-columns:1fr}}
+.it{display:grid;grid-template-columns:1fr auto;gap:2px 14px;align-items:baseline;background:#fff8ea;border:2px solid var(--ink);border-radius:10px;padding:14px 16px}
+.it b{font-size:18px}
+.it .p{font-weight:800;color:var(--saddle);font-size:18px}
+.it small{grid-column:1/-1;color:var(--soft);font-size:15px}
+.none{margin-top:30px;color:var(--soft)}
+.src{margin-top:40px;font-size:13px;color:var(--soft)}
+.dock{position:fixed;left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom));z-index:20;display:flex;justify-content:center}
+.dock a{display:flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;font:800 18px/1 var(--body);background:var(--rust);color:#fff;
+  padding:17px 26px;border-radius:12px;box-shadow:0 4px 0 #6E2010,0 12px 30px -10px rgba(0,0,0,.5);width:min(520px,100%)}
 </style>
 </head>
 <body>
 <div class="concept">Concept design by PXD2 for Stanford General Store &amp; Y-Bar. Not the store's official website.</div>
 <header><div class="in">
   <a class="back" href="./">&larr; Store home</a>
-  <h1>Order ahead<small>Nettie's Deli · pick up at the counter</small></h1>
+  <h1>The menu</h1>
+  <p>Nettie's Deli breakfast and lunch, fountain drinks and coffee, and the Y-Bar. Prices from the store's own online ordering.</p>
+  <div class="meta"><span>Pickup only</span><span>Ready in about 20 to 25 minutes</span><span>Takeout 6 AM to 6:30 PM</span></div>
+  <a class="order" id="orderTop" href="#" target="_blank" rel="noopener">Order online for pickup</a>
 </div></header>
 
-<div class="layout">
-  <main>
-    <nav class="tabs" id="tabs" aria-label="Menu sections"></nav>
-    <div id="menu"></div>
-  </main>
+<div class="bar"><div class="in">
+  <div class="menus" id="menus" role="group" aria-label="Menus"></div>
+  <input class="find" id="find" type="search" placeholder="Find an item" aria-label="Find an item">
+</div></div>
+<nav class="secs" id="secs" aria-label="Sections"></nav>
 
-  <aside class="cart" id="cart" aria-label="Your order">
-    <div id="build">
-      <h3 id="cartHead">Your order <span id="count">0</span></h3>
-      <ul class="lines" id="lines"></ul>
-      <p class="empty" id="empty">Nothing yet. Tap Add on anything that looks good.</p>
-      <label for="when">Pickup time</label>
-      <select id="when"></select>
-      <label for="who">Name for the order</label>
-      <input id="who" autocomplete="given-name" maxlength="40" placeholder="First name">
-      <label for="tel">Phone (so we can reach you)</label>
-      <input id="tel" type="tel" autocomplete="tel" maxlength="20" placeholder="Optional">
-      <button class="send" id="send" disabled>Send order to the kitchen</button>
-      <p class="pay" id="pay">Pay at the counter when you pick up.</p>
-      <div class="err" id="err" role="alert"></div>
-    </div>
-    <div class="ticket" id="ticket" aria-live="polite">
-      <h3>Order sent</h3>
-      <div class="num" id="tNum"></div>
-      <p id="tLine"></p>
-      <button class="send" id="again" style="background:var(--turq);box-shadow:0 4px 0 #125858">Start a new order</button>
-      <p class="demo">Concept preview: this order went to the kitchen screen on this device (open <a href="kitchen.html" target="_blank">kitchen.html</a> to see it arrive). When the store turns on online ordering, orders go to the tablet in Nettie's Deli.</p>
-    </div>
-  </aside>
-</div>
+<main id="main"></main>
+
+<div class="dock"><a id="orderDock" href="#" target="_blank" rel="noopener">Order online for pickup</a></div>
 
 <script>
 const $ = s => document.querySelector(s);
-const money = c => "$" + (c / 100).toFixed(2);
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-let MENU = null, cart = [];
-const BC = (() => { try { return new BroadcastChannel("sgs-kitchen"); } catch (e) { return null; } })();
-
-fetch("menu.json", { cache: "no-cache" }).then(r => r.json()).then(m => { MENU = m; draw(); slots(); });
-
+const money = c => "$" + (c / 100).toFixed(2);
+let M = null, cur = null;
+fetch("menu.json", { cache: "no-cache" }).then(r => r.json()).then(m => {
+  M = m; ["orderTop", "orderDock"].forEach(id => $("#" + id).href = m.order_url);
+  const want = (location.hash.match(/menu=(\w+)/) || [])[1];
+  cur = m.menus.find(x => x.id === want) ? want : (new Date(new Date().toLocaleString("en-US", { timeZone: "America/Phoenix" })).getHours() < 11 ? "breakfast" : "food");
+  $("#menus").innerHTML = m.menus.map(x => `<button type="button" data-m="${x.id}">${esc(x.name)}</button>`).join("");
+  document.querySelectorAll("#menus button").forEach(b => b.onclick = () => { cur = b.dataset.m; $("#find").value = ""; draw(); scrollTo({ top: $("#main").offsetTop - 140 }); });
+  draw();
+  $("#src").textContent = `Menu and prices from the store's Toast online ordering, ${m.updated}. Prices can change; your total shows at checkout.`;
+});
+$("#find").oninput = draw;
 function draw() {
-  $("#tabs").innerHTML = MENU.sections.map(s => `<a href="#s-${s.id}">${esc(s.name)}</a>`).join("");
-  $("#menu").innerHTML = MENU.sections.map(s => `<section class="sec" id="s-${s.id}"><h2>${esc(s.name)}</h2>${s.items.map(i => `
-    <div class="item" data-id="${i.id}">
-      <div><b>${esc(i.name)}</b>${i.desc ? `<p>${esc(i.desc)}</p>` : ""}<div class="price">${i.price != null ? money(i.price) : "Priced at the counter"}</div></div>
-      <button class="add" type="button">Add</button>
-      <div class="more"><input placeholder="${esc(i.note || "Anything special?")}" maxlength="120" aria-label="${esc(i.note || "Special request")} for ${esc(i.name)}"><button class="add" type="button" data-confirm>Add to order</button></div>
-    </div>`).join("")}</section>`).join("");
-  document.querySelectorAll(".item").forEach(el => {
-    const item = MENU.sections.flatMap(s => s.items).find(i => i.id === el.dataset.id);
-    el.querySelector(".add").onclick = () => { el.classList.add("open"); el.querySelector("input").focus(); };
-    el.querySelector("[data-confirm]").onclick = () => {
-      const note = el.querySelector("input").value.trim();
-      const same = cart.find(l => l.id === item.id && l.note === note);
-      same ? same.qty++ : cart.push({ id: item.id, name: item.name, price: item.price, note, qty: 1 });
-      el.classList.remove("open"); el.querySelector("input").value = ""; render();
-    };
-  });
+  const q = $("#find").value.trim().toLowerCase();
+  document.querySelectorAll("#menus button").forEach(b => b.setAttribute("aria-pressed", b.dataset.m === cur && !q));
+  const menus = q ? M.menus : M.menus.filter(x => x.id === cur);
+  const secs = [];
+  let html = "";
+  for (const mn of menus) {
+    if (mn.id === "bar" && !q) html += `<p class="age">The Y-Bar is 21 and over. Bring your ID, and order drinks at the bar.</p>`;
+    for (const s of mn.sections) {
+      const items = s.items.filter(i => !q || (i.name + " " + i.desc).toLowerCase().includes(q));
+      if (!items.length) continue;
+      secs.push(s);
+      html += `<section id="sec-${s.id}"><h2>${esc(s.name)}</h2><div class="grid">${items.map(i =>
+        `<div class="it"><b>${esc(i.name)}</b><span class="p">${money(i.price)}</span>${i.desc ? `<small>${esc(i.desc)}</small>` : ""}</div>`).join("")}</div></section>`;
+    }
+  }
+  $("#main").innerHTML = (html || `<p class="none">Nothing matches "${esc(q)}". Try another word.</p>`) + `<p class="src" id="src">${esc($("#src") ? $("#src").textContent : "")}</p>`;
+  if (M) $("#src").textContent = `Menu and prices from the store's Toast online ordering, ${M.updated}. Prices can change; your total shows at checkout.`;
+  $("#secs").innerHTML = q ? "" : secs.map(s => `<a href="#sec-${s.id}">${esc(s.name)}</a>`).join("");
 }
-function render() {
-  $("#lines").innerHTML = cart.map((l, k) => `<li><div class="q"><button data-k="${k}" data-d="-1" aria-label="One fewer">−</button>${l.qty}<button data-k="${k}" data-d="1" aria-label="One more">+</button></div>
-    <div>${esc(l.name)}${l.note ? `<small>${esc(l.note)}</small>` : ""}</div><div>${l.price != null ? money(l.price * l.qty) : ""}</div></li>`).join("");
-  document.querySelectorAll(".lines button").forEach(b => b.onclick = () => { const l = cart[b.dataset.k]; l.qty += +b.dataset.d; if (l.qty <= 0) cart.splice(b.dataset.k, 1); render(); });
-  const n = cart.reduce((a, l) => a + l.qty, 0);
-  $("#count").textContent = n; $("#empty").style.display = n ? "none" : "block"; $("#send").disabled = !n;
-  const priced = cart.every(l => l.price != null);
-  $("#pay").textContent = n && priced ? `Total ${money(cart.reduce((a, l) => a + l.price * l.qty, 0))} plus tax. Pay at the counter when you pick up.` : "Pay at the counter when you pick up.";
-}
-function slots() {
-  const n = new Date(new Date().toLocaleString("en-US", { timeZone: "America/Phoenix" }));
-  const p = MENU.pickup, now = n.getHours() * 60 + n.getMinutes(), first = Math.max(p.open * 60, Math.ceil((now + p.lead_min) / p.step_min) * p.step_min);
-  const fmt = m => { const h = Math.floor(m / 60), mm = m % 60; return (h % 12 || 12) + ":" + String(mm).padStart(2, "0") + (h < 12 ? " AM" : " PM"); };
-  let o = "";
-  for (let m = first; m <= p.close * 60; m += p.step_min) o += `<option value="${m}">${m === first ? "As soon as possible (" + fmt(m) + ")" : fmt(m)}</option>`;
-  $("#when").innerHTML = o || `<option value="">Kitchen is closed for today</option>`;
-  if (!o) $("#send").disabled = true;
-}
-$("#cartHead").onclick = () => $("#cart").classList.toggle("up");
-$("#send").onclick = () => {
-  const who = $("#who").value.trim();
-  if (!who) { $("#who").focus(); return $("#err").textContent = "Add a name so the kitchen knows whose order it is."; }
-  if (!$("#when").value) return $("#err").textContent = "The kitchen is closed for today.";
-  $("#err").textContent = "";
-  let orders = []; try { orders = JSON.parse(localStorage.getItem("sgs_orders") || "[]"); } catch (e) { }
-  const num = 100 + (orders.length % 900) + 1;
-  const order = { id: Date.now().toString(36), num, who, tel: $("#tel").value.trim(), pickup: $("#when").selectedOptions[0].textContent, lines: cart, at: Date.now(), state: "new" };
-  orders.push(order);
-  try { localStorage.setItem("sgs_orders", JSON.stringify(orders.slice(-60))); } catch (e) { }
-  if (BC) BC.postMessage({ type: "order", order });
-  $("#tNum").textContent = "#" + num;
-  $("#tLine").textContent = `${who}, pickup: ${order.pickup}. We'll have it ready at the counter.`;
-  $("#build").style.display = "none"; $("#ticket").classList.add("on"); $("#cart").classList.add("up");
-};
-$("#again").onclick = () => { cart = []; render(); slots(); $("#build").style.display = ""; $("#ticket").classList.remove("on"); $("#cart").classList.remove("up"); };
 </script>
 </body>
 </html>
