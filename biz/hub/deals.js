@@ -399,3 +399,14 @@ async function form(kind) {
 
 loaders.deals = renderDeals;
 window.dealSent = async id => { const all = (await kvGet("deals")) || []; const d = all.find(x => x.id === id); if (d) { d.sent = true; await kvSet("deals", all); if (curTab === "deals") renderDeals(); } };
+
+// 11/11 same-day close: a lead on the LEADS tab opens a contract already filled in (business, phone, address, packages)
+window.dealFromLead = async x => {
+  goTab("deals"); await new Promise(r => setTimeout(r, 150));
+  await form("contract");
+  const set = (id, v) => { const e = $d(id); if (e && v) { e.value = v; e.dispatchEvent(new Event("input")); } };
+  set("#fBiz", x.n); set("#fPhone", x.p); set("#fAddr", [x.a, x.t].filter(Boolean).join(", "));
+  const pk = id => { const b = document.querySelector(`[data-pkg="${id}"]`); if (b) b.click(); };
+  pk("web"); if (/ordering/i.test(x.o || "")) pk("order");
+  window.scrollTo({ top: 0 });
+};

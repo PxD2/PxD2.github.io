@@ -556,6 +556,14 @@ async function ldLoad(force) {
   if (!LD) LD = await kvGet("leadsCache");
   return LD;
 }
+function ldSample(x) {      // the closest finished PXD2 site to show this kind of business
+  const t = ((x.ty || "") + " " + x.n).toLowerCase();
+  const pick = /restaurant|cafe|bar|grill|pizza|food|diner|coffee|bbq|steak|bakery|ice cream/.test(t) ? "stanfordstore"
+    : /antique|thrift|second|consign|gift|collect|furniture|boutique|vintage/.test(t) ? "bearwallow"
+    : /laundr|wash|clean|salon|hair|beauty|spa/.test(t) ? "scrubhub"
+    : /construct|roof|contract|build|craft|plumb|electric|carpent|hvac|landscap/.test(t) ? "reddirt" : "blackfriday";
+  return `https://pxd2.github.io/${pick}/`;
+}
 function ldPitch(x) {
   const site = x.c ? ` Here's one we already built for you: ${x.c}` : "";
   return `Hi, this is ${esc((S.dev || "PXD2"))} with PXD2 in the White Mountains. We build phone-ready websites for local businesses: $500 one time, hosted for life, plus a free ad in our new game Mud for Blood.${site} Can I show you?`;
@@ -581,7 +589,8 @@ async function ldRender() {
     <div class="row" style="gap:6px">
       ${x.p ? `<a class="btn primary" href="tel:${esc(x.p.replace(/[^0-9+]/g, ""))}" data-call="${x.id}">📞 ${esc(x.p)}</a><a class="btn" href="sms:${esc(x.p.replace(/[^0-9+]/g, ""))}?&body=${encodeURIComponent(ldPitch(x))}">💬 Text</a>` : `<span class="dim">no phone listed</span>`}
       <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/search?q=${encodeURIComponent(x.n + " " + (x.t || "") + " AZ")}">🔎</a>
-      ${x.c ? `<a class="btn" target="_blank" rel="noopener" href="${esc(x.c)}">🌐 Their PXD2 site</a>` : ""}
+      ${x.c ? `<a class="btn" target="_blank" rel="noopener" href="${esc(x.c)}">🌐 Their PXD2 site</a>` : `<a class="btn" target="_blank" rel="noopener" href="${ldSample(x)}">👁 Show a sample</a>`}
+      <button class="primary" data-deal="${x.id}">📝 Start deal</button>
       ${x.w ? `<a class="btn" target="_blank" rel="noopener" href="${esc(/^https?:/.test(x.w) ? x.w : "https://" + x.w)}">their site</a>` : ""}
     </div>
     <div class="row" style="gap:6px;margin-top:8px;flex-wrap:nowrap"><select data-st="${x.id}" style="width:auto">${ST.map(s => `<option${(x.st || "New") === s ? " selected" : ""}>${s}</option>`).join("")}</select>
@@ -598,8 +607,11 @@ async function ldRender() {
   box.querySelectorAll("[data-call]").forEach(el => el.addEventListener("click", async () => {
     const e = await ldLocal(); if (!e[el.dataset.call]?.st) save(el.dataset.call, { st: "Called" });
   }));
+  box.querySelectorAll("[data-deal]").forEach(el => el.onclick = () => { const x = L.find(y => y.id === el.dataset.deal); if (x && window.dealFromLead) dealFromLead(x); });
   const more = $("#ldMore"); if (more) more.onclick = () => { ldShow += 60; ldRender(); };
 }
 loaders.leads = async () => { ldShow = 60; await ldRender(); ldLoad(true).then(() => ldRender()); };
 ["#ldReg", "#ldStage", "#ldPhone"].forEach(id => $(id).onchange = () => { ldShow = 60; ldRender(); });
 $("#ldFind").oninput = () => { ldShow = 60; ldRender(); };
+
+loaders.office = () => window.PXD2Office && PXD2Office.show();
