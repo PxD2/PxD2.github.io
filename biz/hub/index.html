@@ -65,7 +65,8 @@ body.mini select{background:#fffbd0;color:#2b2600;border-color:#e8d84f;padding:4
 .pqr img{width:100%;max-width:120px;background:#fff;border-radius:6px;padding:4px}.psoc img{width:100%;height:90px;object-fit:cover;border-radius:6px}
 .pbig{position:fixed;inset:0;z-index:50;background:#fff;color:#111;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:20px}
 .pbig img{width:min(78vw,72vh);height:auto;image-rendering:pixelated}.pbn{font-size:22px;font-weight:800;text-align:center}.pbl{font-size:13px;color:#555;word-break:break-all;text-align:center}.pbx{font-size:12px;color:#999}
-header{background:#000;border-bottom:2px solid var(--red)}nav{background:#000}
+header{background:#000;border-bottom:2px solid var(--red)}
+body.kiosk header,body.kiosk nav{display:none!important}body.kiosk main{max-width:1200px}nav{background:#000}
 button.on{background:#1a0605}
 /* PXD2 AI voice */
 .ai-mic{width:min(220px,56vw);height:min(220px,56vw);border-radius:50%;border:0;background:var(--red);color:#fff;font-size:20px;font-weight:900;letter-spacing:.06em;display:grid;place-items:center;margin:26px auto 8px;box-shadow:0 0 0 10px #2a0403,0 18px 40px -10px rgba(225,6,0,.6)}
@@ -108,6 +109,7 @@ button.on{background:#1a0605}
   <button data-tab="ai">🎙 AI</button>
   <button data-tab="leads">LEADS</button>
   <button data-tab="pitch" class="on">PITCH</button>
+  <button data-tab="kiosk">SIGN-UP</button>
   <button data-tab="office">OFFICE</button>
   <button data-tab="text">TEXT <span id="tCount" class="ok"></span></button>
   <button data-tab="deals">DEALS</button>
@@ -147,6 +149,8 @@ button.on{background:#1a0605}
     </div>
     <div class="card"><h3>CONVERSATION</h3><div class="ai-log" id="aiLog"></div></div>
   </div>
+
+  <div data-pane="kiosk" class="hide"><div id="kioskBody"></div></div>
 
   <div data-pane="office" class="hide"><div id="officeBody"></div></div>
 
@@ -229,13 +233,13 @@ button.on{background:#1a0605}
 </main>
 </section>
 <div id="toast"></div>
-<script src="app.js?v=29"></script>
-<script src="fflate.min.js?v=29"></script>
-<script src="pitch.js?v=29"></script>
-<script src="jspdf.umd.min.js?v=29"></script>
-<script src="deals.js?v=29"></script>
-<script src="xlsx.full.min.js?v=29"></script>
-<script src="pptxgen.bundle.js?v=29"></script>
-<script src="office.js?v=29"></script>
+<script src="app.js?v=30"></script>
+<script src="fflate.min.js?v=30"></script>
+<script src="pitch.js?v=30"></script>
+<script src="jspdf.umd.min.js?v=30"></script>
+<script src="deals.js?v=30"></script>
+<script src="xlsx.full.min.js?v=30"></script>
+<script src="pptxgen.bundle.js?v=30"></script>
+<script src="office.js?v=30"></script>
 </body>
 </html>

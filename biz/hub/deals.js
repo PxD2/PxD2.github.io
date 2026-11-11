@@ -410,3 +410,116 @@ window.dealFromLead = async x => {
   pk("web"); if (/ordering/i.test(x.o || "")) pk("order");
   window.scrollTo({ top: 0 });
 };
+
+// ---------------------------------------------------------------- 11/11 PXD2 SIGN-UP KIOSK (?kiosk=1): no rep needed. A business owner picks a
+// site, fills in their details and signs on the touch screen (the R2 Pi kiosk, a tablet on a counter, any PC). The signed
+// contract goes to BASE1 like a rep's, marked "awaiting PXD2 countersignature", and every party gets the email copy.
+const KIOSK_PLANS = [
+  { id: "site", name: "Website", price: 500, tag: "No menu",
+    pts: ["Phone-first site in your own look", "Hours, directions, tap-to-call", "QR code kit + print-ready pieces", "Hosted for life, your own .pxd name", "Free ad in Mud for Blood (32 spots)"], pkgs: ["web"] },
+  { id: "menu", name: "Website + menu & online ordering", price: 2000, tag: "Restaurants",
+    pts: ["Everything in Website", "Your full menu with prices", "Order button tied to your own ordering system", "Card fees stay with your provider", "Free ad in Mud for Blood (32 spots)"], pkgs: ["web", "order"] }];
+async function kiosk() {
+  const box = $d("#kioskBody"); let plan = null, step = 0, idle = null;
+  const reset = () => { clearTimeout(idle); idle = setTimeout(() => { plan = null; step = 0; draw(); }, 180000); };
+  ["pointerdown", "keydown"].forEach(ev => box.addEventListener(ev, reset));
+  const big = "font-size:22px;min-height:64px;padding:14px 26px";
+  function draw() {
+    reset();
+    if (step === 0) box.innerHTML = `<div style="text-align:center;padding:6vh 4vw">
+      <img src="pxd2-logo.png" alt="PXD2 Studios" style="height:90px">
+      <h1 style="font-size:clamp(36px,6vw,64px);margin:18px 0 6px;font-style:italic;text-transform:uppercase;letter-spacing:-.01em">Your business online today</h1>
+      <p style="font-size:22px;color:var(--dim);margin:0 0 30px">Pick a site, sign here, and PXD2 builds it. Hosted for life, no monthly bill.</p>
+      <div class="row" style="justify-content:center;gap:14px"><button class="primary" id="kGo" style="${big}">START</button><button id="kEx" style="${big}">SEE EXAMPLES</button></div></div>`;
+    if (step === 0) { $d("#kGo").onclick = () => { step = 1; draw(); }; $d("#kEx").onclick = examples; return; }
+    if (step === 1) {
+      box.innerHTML = `<h2 style="font-size:32px;margin:10px 0 18px;text-align:center">1 · Pick your site</h2>
+        <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px">${KIOSK_PLANS.map(p => `<button data-plan="${p.id}" style="text-align:left;padding:24px;min-height:340px;border-radius:18px;border:2px solid ${plan === p.id ? "var(--red)" : "var(--line)"};background:var(--panel)">
+          <div style="color:var(--dim);font-size:15px;letter-spacing:.1em;text-transform:uppercase">${esc(p.tag)}</div>
+          <div style="font-size:28px;font-weight:800;margin:6px 0">${esc(p.name)}</div>
+          <div style="font-size:52px;font-weight:900;font-style:italic;color:var(--acc)">${usd(p.price).replace(".00", "")}</div>
+          <div style="font-size:15px;color:var(--dim);margin-bottom:10px">one time</div>
+          <ul style="font-size:18px;line-height:1.6;padding-left:20px;margin:0">${p.pts.map(x => `<li>${esc(x)}</li>`).join("")}</ul></button>`).join("")}</div>
+        <div class="row" style="justify-content:space-between;margin-top:20px"><button id="kBack" style="${big}">Back</button><button class="primary" id="kNext" style="${big}" ${plan ? "" : "disabled"}>NEXT</button></div>`;
+      box.querySelectorAll("[data-plan]").forEach(b => b.onclick = () => { plan = b.dataset.plan; draw(); });
+    }
+    if (step === 2) {
+      box.innerHTML = `<h2 style="font-size:32px;margin:10px 0 18px;text-align:center">2 · About your business</h2>
+        <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;font-size:18px">
+          ${[["kBiz", "Business name", "text"], ["kOwner", "Your name (owner / signer)", "text"], ["kPhone", "Phone", "tel"], ["kEmail", "Email (your signed copy goes here)", "email"], ["kAddr", "Business address", "text"], ["kWhat", "What do you sell or do?", "text"]].map(([id, l, t]) =>
+            `<div><label style="font-size:15px">${l}</label><input id="${id}" type="${t}" style="font-size:20px;min-height:56px" value="${esc((kiosk.data || {})[id] || "")}"></div>`).join("")}</div>
+        <p id="kErr" class="bad" style="font-size:18px;min-height:1.2em"></p>
+        <div class="row" style="justify-content:space-between;margin-top:10px"><button id="kBack" style="${big}">Back</button><button class="primary" id="kNext" style="${big}">NEXT</button></div>`;
+    }
+    if (step === 3) {
+      const P = KIOSK_PLANS.find(p => p.id === plan), D = kiosk.data;
+      box.innerHTML = `<h2 style="font-size:32px;margin:10px 0 18px;text-align:center">3 · Review and sign</h2>
+        <div class="card" style="font-size:19px;line-height:1.6"><b>${esc(D.kBiz)}</b> · ${esc(D.kOwner)}<br>${esc(P.name)}: <b>${usd(P.price)}</b> one time, paid when your site goes live.
+          <br>Includes lifetime hosting, your own .pxd name, and a free ad in Global Theaters: Mud for Blood while spots last.
+          <details style="margin-top:8px"><summary style="cursor:pointer">Read the full terms</summary><div style="font-size:15px;color:var(--dim)">${defaultClauses(plan === "menu").map(c => `<p><b>${esc(c.h)}.</b> ${esc(c.b)}</p>`).join("")}</div></details></div>
+        <label style="font-size:16px">Sign with your finger</label>
+        <canvas id="kSig" style="width:100%;height:200px;background:#fff;border-radius:12px;touch-action:none"></canvas>
+        <div class="row" style="gap:10px;margin-top:8px"><button id="kClr" style="${big}">Clear</button><label style="display:flex;gap:10px;align-items:center;font-size:18px;margin:0"><input type="checkbox" id="kAgree" style="width:28px;height:28px"> I agree to these terms</label></div>
+        <p id="kErr" class="bad" style="font-size:18px;min-height:1.2em"></p>
+        <div class="row" style="justify-content:space-between"><button id="kBack" style="${big}">Back</button><button class="primary" id="kNext" style="${big}">SIGN UP</button></div>`;
+      kiosk.sig = sigPad($d("#kSig")); $d("#kClr").onclick = () => kiosk.sig.clear();
+    }
+    if (step === 4) {
+      box.innerHTML = `<div style="text-align:center;padding:8vh 4vw"><div style="font-size:72px">✓</div>
+        <h1 style="font-size:44px;margin:10px 0">You're signed up!</h1>
+        <p style="font-size:22px;color:var(--dim)">A copy of your agreement is on its way to your email. PXD2 will call you to get your photos and start building.<br>Questions: 928-457-6404</p>
+        <button class="primary" id="kDone" style="${big};margin-top:24px">DONE</button></div>`;
+      $d("#kDone").onclick = () => { kiosk.data = {}; plan = null; step = 0; draw(); };
+      return;
+    }
+    const back = $d("#kBack"), next = $d("#kNext");
+    if (back) back.onclick = () => { step--; draw(); };
+    if (next) next.onclick = async () => {
+      const err = t => { $d("#kErr").textContent = t; };
+      if (step === 1 && !plan) return;
+      if (step === 2) {
+        const g = id => $d("#" + id).value.trim(); kiosk.data = {}; ["kBiz", "kOwner", "kPhone", "kEmail", "kAddr", "kWhat"].forEach(id => kiosk.data[id] = g(id));
+        if (!kiosk.data.kBiz) return err("Please add your business name.");
+        if (!kiosk.data.kOwner) return err("Please add your name.");
+        if (!kiosk.data.kPhone && !kiosk.data.kEmail) return err("Please add a phone or email so we can reach you.");
+        if (kiosk.data.kEmail && !emailsIn(kiosk.data.kEmail).length) return err("That email doesn't look right.");
+      }
+      if (step === 3) {
+        if (!kiosk.sig.inked) return err("Please sign in the white box.");
+        if (!$d("#kAgree").checked) return err("Please tick 'I agree'.");
+        next.disabled = true; next.textContent = "SAVING…";
+        try { await kioskDeal(plan, kiosk.data, kiosk.sig.jpg()); } catch (e) { next.disabled = false; next.textContent = "SIGN UP"; return err("Something went wrong saving - please ask staff. (" + (e.message || e) + ")"); }
+      }
+      step++; draw();
+    };
+  }
+  function examples() {
+    const ex = [["Restaurant", "stanfordstore"], ["Antique shop", "bearwallow"], ["Laundry & showers", "scrubhub"], ["Contractor", "reddirt"]];
+    box.innerHTML = `<div class="row" style="gap:10px;margin-bottom:10px">${ex.map(([l, n], i) => `<button data-ex="${n}" style="${big}"${i ? "" : ' class="primary"'}>${l}</button>`).join("")}<span style="flex:1"></span><button id="kExDone" style="${big}">START MY SITE</button></div>
+      <iframe id="kFrame" src="https://pxd2.github.io/${ex[0][1]}/" style="width:100%;height:78vh;border:0;border-radius:14px;background:#fff"></iframe>`;
+    box.querySelectorAll("[data-ex]").forEach(b => b.onclick = () => { $d("#kFrame").src = `https://pxd2.github.io/${b.dataset.ex}/`; box.querySelectorAll("[data-ex]").forEach(x => x.classList.toggle("primary", x === b)); });
+    $d("#kExDone").onclick = () => { step = 1; draw(); };
+  }
+  draw();
+}
+async function kioskDeal(planId, D, sigJpg) {
+  const co = await cfg(), P = KIOSK_PLANS.find(p => p.id === planId);
+  const lines = P.pkgs.map(id => { const k = PACKAGES.find(x => x.id === id); return { desc: k.label + ": " + k.desc, amount: k.amount, ordering: !!k.ordering }; });
+  const total = lines.reduce((a, l) => a + l.amount, 0);
+  const d = { id: uid(), kind: "contract", no: await nextNo("contract"), date: today(), at: Date.now(), seller: co.sellers[0] || "PXD2 Enterprises", co,
+    client: D.kBiz, owner: D.kOwner, phone: D.kPhone, email: D.kEmail, addr: D.kAddr, lines, total, terms: TERMS[2], method: "", cash: 0, refNo: "", ref: "",
+    tradeDesc: "", trade: 0, start: "", notes: `Signed by the client at the PXD2 sign-up kiosk (${S.dev}). Business: ${D.kWhat || "-"}. Awaiting PXD2 countersignature.`,
+    rep: "Awaiting PXD2 countersignature", device: S.dev, clauses: defaultClauses(P.pkgs.includes("order")), sig1: sigJpg, sig2: "" };
+  d.balance = total;
+  const mail = { to: emailsIn(d.email), cc: [...new Set(emailsIn([co.headEmail, co.repEmail, co.ownerEmail].join(",")))] };
+  const blob = toPDF(d);
+  const meta = Object.assign({}, d, { mail, kiosk: 1 }); delete meta.sig1; delete meta.sig2;
+  await qPut({ id: d.id, t: Date.now(), type: "deal", kind: "contract", meta, blob, name: d.no + ".pdf" });
+  drain();
+}
+loaders.kiosk = kiosk;
+if (new URLSearchParams(location.search).get("kiosk")) {
+  document.body.classList.add("kiosk");
+  const go = () => { if (!S.key) return setTimeout(go, 800); goTab("kiosk"); };
+  setTimeout(go, 400);
+}
