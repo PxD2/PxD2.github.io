@@ -5,8 +5,8 @@
 const DEFAULT_CFG = {
   sellers: ["PXD2 Enterprises", "PXD2 Studios", "PXD2 Hosting", "PXD2 Data Systems"],
   founder: "Chad Aaron Peters", founderTitle: "Founder",
-  head: "Angie Wood", headTitle: "CEO", headEmail: "",
-  rep: "Angie Wood", repEmail: "", ownerEmail: "pxdsquared@gmail.com",   // 11/11: Angie is the rep and CEO for now
+  head: "Angie Wood", headTitle: "CEO", headEmail: "pxd2angi@gmail.com",
+  rep: "Angie Wood", repEmail: "pxd2angi@gmail.com", ownerEmail: "pxdsquared@gmail.com",   // 11/11: Angie is the rep and CEO for now
   addr: "PO Box 514, Concho, AZ 85924", phone: "928-457-6404", email: "pxdsquared@gmail.com"
 };
 const PACKAGES = [
@@ -22,6 +22,8 @@ const today = () => new Date().toLocaleDateString("en-US", { timeZone: "America/
 const cfg = async () => {
   const saved = (await kvGet("dealCfg")) || {};
   if (!saved.rep) saved.rep = "Angie Wood";
+  if (!saved.headEmail) saved.headEmail = "pxd2angi@gmail.com";
+  if (!saved.repEmail && /angie/i.test(saved.rep || "")) saved.repEmail = "pxd2angi@gmail.com";
   if (saved.v !== 2) { if (saved.headTitle === "CFO") saved.headTitle = "CEO"; if (/owner/i.test(saved.founderTitle || "")) saved.founderTitle = "Founder"; saved.v = 2; await kvSet("dealCfg", saved); }
   return Object.assign({}, DEFAULT_CFG, saved);
 };
