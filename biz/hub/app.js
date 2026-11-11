@@ -157,6 +157,7 @@ async function drain() {
           }
           await chatMark(it.id, "sent");
         }
+        else if (it.type === "lead") { await send({ type: "lead", id: it.lid, stage: it.stage, notes: it.notes }); }
         else if (it.type === "deal") {
           await send({ type: "deal", id: it.id, kind: it.kind, meta: it.meta, name: it.name }, new Uint8Array(await it.blob.arrayBuffer()));
           if (window.dealSent) window.dealSent(it.id);
@@ -537,3 +538,68 @@ loaders.ai = async () => {
     el.textContent = !r ? "" : !r.online ? "· off" : (r.util >= 60 ? "· busy" : "· ready");
   }
 };
+
+
+// ------------------------------------------------------------------ LEADS: businesses with no website, by region; tap to call / text, stage syncs to BASE1
+let LD = null, ldShow = 60;
+const ldLocal = async () => (await kvGet("leadEdits")) || {};
+async function ldLoad(force) {
+  if (LD && !force) return LD;
+  try {
+    const blob = await ghGet("status/leads.env");
+    if (blob) {
+      const [h, body] = await unseal(blob);
+      const raw = h.gz ? fflate.gunzipSync(new Uint8Array(body)) : body;
+      LD = JSON.parse(new TextDecoder().decode(raw)); await kvSet("leadsCache", LD);
+    }
+  } catch (e) { }
+  if (!LD) LD = await kvGet("leadsCache");
+  return LD;
+}
+function ldPitch(x) {
+  const site = x.c ? ` Here's one we already built for you: ${x.c}` : "";
+  return `Hi, this is ${esc((S.dev || "PXD2"))} with PXD2 in the White Mountains. We build phone-ready websites for local businesses: $500 one time, hosted for life, plus a free ad in our new game Mud for Blood.${site} Can I show you?`;
+}
+async function ldRender() {
+  const box = $("#ldList"); if (!box) return;
+  const d = await ldLoad(); const edits = await ldLocal();
+  if (!d) { box.innerHTML = `<div class="card dim">No leads yet - BASE1 publishes them when its hub runs.</div>`; return; }
+  const regSel = $("#ldReg"), cur = regSel.value;
+  const regs = [...new Set(d.leads.map(x => x.r))];
+  if (regSel.options.length !== regs.length + 1) { regSel.innerHTML = `<option value="">All regions (${d.leads.length})</option>` + regs.map(r => `<option>${esc(r)}</option>`).join(""); regSel.value = cur; }
+  const q = $("#ldFind").value.trim().toLowerCase(), stF = $("#ldStage").value, phoneOnly = $("#ldPhone").checked;
+  const L = d.leads.map(x => Object.assign({}, x, edits[x.id] || {})).filter(x =>
+    (!regSel.value || x.r === regSel.value) && (!stF || (x.st || "New") === stF) && (!phoneOnly || x.p) &&
+    (!q || (x.n + " " + (x.t || "") + " " + (x.ty || "")).toLowerCase().includes(q)));
+  L.sort((a, b) => (b.sc || 0) - (a.sc || 0));
+  $("#ldCount").textContent = `${L.length} shown · ${d.leads.filter(x => (edits[x.id]?.st || x.st) === "Sold").length} sold`;
+  const ST = ["New", "Called", "Interested", "Sold", "Has a site", "Not now", "Closed / gone"];
+  box.innerHTML = L.slice(0, ldShow).map(x => `<div class="card ld" data-id="${x.id}">
+    <div class="row" style="justify-content:space-between;gap:6px"><b style="font-size:17px">${esc(x.n)}</b><span class="dim" style="font-size:12px">${esc(x.t || "")}${x.r && x.r !== "White Mountains" ? " · " + esc(x.r) : ""}</span></div>
+    <div class="dim" style="font-size:13px">${esc(x.ty || "")}${x.a ? " · " + esc(x.a) : ""} · <span class="${x.s === "HAS WEBSITE" ? "" : "bad"}">${esc(x.s)}</span></div>
+    <div style="margin:6px 0;font-size:14px"><b>${esc(x.o || "$500 site")}</b> + <span class="ok">free ad in Mud for Blood</span></div>
+    <div class="row" style="gap:6px">
+      ${x.p ? `<a class="btn primary" href="tel:${esc(x.p.replace(/[^0-9+]/g, ""))}" data-call="${x.id}">📞 ${esc(x.p)}</a><a class="btn" href="sms:${esc(x.p.replace(/[^0-9+]/g, ""))}?&body=${encodeURIComponent(ldPitch(x))}">💬 Text</a>` : `<span class="dim">no phone listed</span>`}
+      <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/search?q=${encodeURIComponent(x.n + " " + (x.t || "") + " AZ")}">🔎</a>
+      ${x.c ? `<a class="btn" target="_blank" rel="noopener" href="${esc(x.c)}">🌐 Their PXD2 site</a>` : ""}
+      ${x.w ? `<a class="btn" target="_blank" rel="noopener" href="${esc(/^https?:/.test(x.w) ? x.w : "https://" + x.w)}">their site</a>` : ""}
+    </div>
+    <div class="row" style="gap:6px;margin-top:8px;flex-wrap:nowrap"><select data-st="${x.id}" style="width:auto">${ST.map(s => `<option${(x.st || "New") === s ? " selected" : ""}>${s}</option>`).join("")}</select>
+      <input data-no="${x.id}" placeholder="notes (who you talked to, call back when)" value="${esc(x.no || "")}"></div>
+  </div>`).join("") + (L.length > ldShow ? `<button id="ldMore" style="width:100%">Show more (${L.length - ldShow} left)</button>` : "");
+  const save = async (id, patch) => {
+    const e = await ldLocal(); e[id] = Object.assign(e[id] || {}, patch); await kvSet("leadEdits", e);
+    const cur = Object.assign({}, LD.leads.find(x => x.id === id), e[id]);
+    await qPut({ id: uid(), t: Date.now(), type: "lead", lid: id, stage: cur.st || "New", notes: cur.no || "", name: cur.n }); drain();
+    toast("saved - BASE1 gets it"); $("#ldCount").textContent = $("#ldCount").textContent;
+  };
+  box.querySelectorAll("[data-st]").forEach(el => el.onchange = () => save(el.dataset.st, { st: el.value }));
+  box.querySelectorAll("[data-no]").forEach(el => el.onchange = () => save(el.dataset.no, { no: el.value }));
+  box.querySelectorAll("[data-call]").forEach(el => el.addEventListener("click", async () => {
+    const e = await ldLocal(); if (!e[el.dataset.call]?.st) save(el.dataset.call, { st: "Called" });
+  }));
+  const more = $("#ldMore"); if (more) more.onclick = () => { ldShow += 60; ldRender(); };
+}
+loaders.leads = async () => { ldShow = 60; await ldRender(); ldLoad(true).then(() => ldRender()); };
+["#ldReg", "#ldStage", "#ldPhone"].forEach(id => $(id).onchange = () => { ldShow = 60; ldRender(); });
+$("#ldFind").oninput = () => { ldShow = 60; ldRender(); };

@@ -106,6 +106,7 @@ button.on{background:#1a0605}
 <section id="appView" class="hide">
 <nav>
   <button data-tab="ai">🎙 AI</button>
+  <button data-tab="leads">LEADS</button>
   <button data-tab="pitch" class="on">PITCH</button>
   <button data-tab="text">TEXT <span id="tCount" class="ok"></span></button>
   <button data-tab="deals">DEALS</button>
@@ -118,6 +119,18 @@ button.on{background:#1a0605}
   <button data-tab="task">TASK</button>
 </nav>
 <main>
+  <div data-pane="leads" class="hide">
+    <div class="card">
+      <h3>LEADS <span id="ldCount" class="dim" style="letter-spacing:0;font-weight:400"></span></h3>
+      <div class="row" style="gap:6px"><select id="ldReg" style="width:auto;flex:1"><option value="">All regions</option></select>
+        <select id="ldStage" style="width:auto"><option value="">Any stage</option><option>New</option><option>Called</option><option>Interested</option><option>Sold</option><option>Has a site</option><option>Not now</option><option>Closed / gone</option></select></div>
+      <div class="row" style="gap:6px;margin-top:6px"><input id="ldFind" placeholder="search name, town, type" style="flex:1">
+        <label style="display:flex;gap:6px;align-items:center;margin:0;white-space:nowrap"><input type="checkbox" id="ldPhone" checked style="width:auto"> has phone</label></div>
+      <p class="dim" style="font-size:12px;margin:8px 0 0">Best leads first. Calling marks it Called; stage and notes go to BASE1 (PXD2 Leads\leads_log.csv). Every deal includes a free ad in Mud for Blood - 32 spots.</p>
+    </div>
+    <div id="ldList"></div>
+  </div>
+
   <div data-pane="ai" class="hide">
     <div class="card" style="text-align:center">
       <h3>PXD2 AI <span id="aiState" class="dim" style="letter-spacing:0;font-weight:400"></span></h3>
@@ -213,10 +226,10 @@ button.on{background:#1a0605}
 </main>
 </section>
 <div id="toast"></div>
-<script src="app.js?v=27"></script>
-<script src="fflate.min.js?v=27"></script>
-<script src="pitch.js?v=27"></script>
-<script src="jspdf.umd.min.js?v=27"></script>
-<script src="deals.js?v=27"></script>
+<script src="app.js?v=28"></script>
+<script src="fflate.min.js?v=28"></script>
+<script src="pitch.js?v=28"></script>
+<script src="jspdf.umd.min.js?v=28"></script>
+<script src="deals.js?v=28"></script>
 </body>
 </html>
