@@ -10,7 +10,7 @@ const DEFAULT_CFG = {
   addr: "PO Box 514, Concho, AZ 85924", phone: "928-457-6404", email: "pxdsquared@gmail.com"
 };
 const PACKAGES = [
-  { id: "web", label: "Client website", amount: 500, desc: "Custom website for the business: design, build, mobile layout, hours/location/contact, QR code kit and print-ready pieces, launch on the Client's own .pxd name on the PXD2 network (free, no renewals), lifetime hosting by PXD2 with no monthly or yearly hosting fee, and a free in-game advertisement for the business inside PXD2 game environments." },
+  { id: "web", label: "Client website", amount: 500, desc: "Custom website for the business: design, build, mobile layout, hours/location/contact, QR code kit and print-ready pieces, launch on the Client's own .pxd name on the PXD2 network (free, no renewals), lifetime hosting by PXD2 with no monthly or yearly hosting fee, and a free in-game advertisement for the business on the Times Square ad screens in Global Theaters: Mud for Blood (limited spots, first signed first placed), carried into Rouge Racer: Route 66." },
   { id: "order", label: "Online ordering + full menu", amount: 1500, ordering: true, desc: "Online menu with current items and prices, connected to the Client's own online-ordering/point-of-sale provider for pickup orders, with Order buttons across the site, plus setup support and staff walkthrough." },
   { id: "custom", label: "Custom line", amount: 0, desc: "" }
 ];
