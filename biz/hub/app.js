@@ -566,7 +566,7 @@ function ldSample(x) {      // the closest finished PXD2 site to show this kind 
 }
 function ldPitch(x) {
   const site = x.c ? ` Here's one we already built for you: ${x.c}` : "";
-  return `Hi, this is ${esc((S.dev || "PXD2"))} with PXD2 in the White Mountains. We build phone-ready websites for local businesses: $500 one time, hosted for life, plus a free ad in our new game Mud for Blood.${site} Can I show you?`;
+  return `Hi, this is Angie Wood with PXD2 in the White Mountains. We build phone-ready websites for local businesses: $500 one time, hosted for life, plus a free ad in our new game Mud for Blood.${site} Can I show you? We take cash, card, check or part trade.`;
 }
 async function ldRender() {
   const box = $("#ldList"); if (!box) return;
