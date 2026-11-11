@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Events calendar · PXD2 Demo Diner</title><link rel="icon" href="icon.png"><meta name="theme-color" content="#2B1A10">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rye&family=Bitter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--night:#2B1A10;--saddle:#6B3A1F;--rawhide:#F1E2C4;--hide:#E4CFA6;--dust:#C9AE80;--rust:#B23A1E;--turq:#1F8A8A;--ink:#22160E;--soft:#6C5640;--west:"Rye",Georgia,serif;--body:"Bitter",Georgia,serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--rawhide);color:var(--ink);font:400 18px/1.6 var(--body)}
+.concept{background:#22160E;color:#d9c7a6;font-size:13px;text-align:center;padding:8px 16px}
+header{background:var(--night);color:var(--rawhide);padding:18px 20px} header a{color:#FFE7A8;font-weight:600;text-decoration:none}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px} section{padding:34px 0 60px}
+h2{font:400 clamp(30px,5vw,46px)/1 var(--west);color:var(--saddle)} .lede{color:var(--soft);margin-top:8px;max-width:40em}
+.links{display:flex;gap:16px;flex-wrap:wrap;margin-top:14px} .links a{color:var(--turq);font-weight:700}
+/* events calendar */
+.cal{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:30px;align-items:start}
+@media(max-width:860px){.cal{grid-template-columns:1fr}}
+.cal h3{font:400 28px/1 var(--west);color:var(--saddle);margin-bottom:14px}
+.evlist{list-style:none;display:grid;gap:10px}
+.ev{display:grid;grid-template-columns:62px 1fr;gap:14px;background:#fff8ea;border:3px solid var(--ink);border-radius:10px;padding:12px 14px}
+.ev .d{text-align:center;border-right:2px dotted var(--dust);padding-right:10px}
+.ev .d small{display:block;font-weight:800;font-size:13px;letter-spacing:.06em;color:var(--rust)}
+.ev .d b{display:block;font:400 32px/1 var(--west);color:var(--saddle)}
+.ev .t{font-weight:800;font-size:19px;line-height:1.2}
+.ev .k{display:inline-block;color:#fff;font-size:12.5px;font-weight:800;border-radius:999px;padding:1px 9px;margin-right:6px;vertical-align:2px}
+.ev .w{color:var(--soft);font-size:15.5px}
+.ev p{font-size:15.5px;margin-top:4px}
+.ev .add{margin-top:6px;border:0;background:none;color:var(--turq);font:700 14.5px var(--body);text-decoration:underline;cursor:pointer;padding:0}
+.evnone{color:var(--soft)}
+.month{background:#fff8ea;border:3px solid var(--ink);border-radius:10px;padding:16px}
+.mhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.mhead b{font:400 24px/1 var(--west);color:var(--saddle)}
+.mhead button{width:40px;height:40px;border-radius:50%;border:2px solid var(--ink);background:var(--rawhide);font-size:24px;line-height:1;cursor:pointer}
+.grid7{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
+#mDays span{font-weight:800;font-size:13px;color:var(--soft)}
+#mGrid button{aspect-ratio:1;border:0;border-radius:8px;background:transparent;font:600 16px var(--body);cursor:pointer;position:relative;color:var(--ink)}
+#mGrid button.has{background:var(--hide);font-weight:800}
+#mGrid button.has::after{content:"";position:absolute;left:50%;bottom:6px;width:7px;height:7px;margin-left:-3.5px;border-radius:50%;background:var(--rust)}
+#mGrid button.today{outline:2px solid var(--turq)}
+#mGrid button.sel{background:var(--ink);color:var(--rawhide)}
+#mGrid button:disabled{color:#bfae8e;cursor:default}
+.mday{margin-top:12px}
+.mday .evlist{gap:8px}
+
+</style></head><body>
+<div class="concept">PXD2 demo: a pretend restaurant to show what your restaurant's site can do.</div>
+<header><a href="../">&larr; PXD2 for restaurants</a></header>
+<section id="events"><div class="wrap">
+  <h2>What's on at the Demo Diner</h2>
+  <p class="lede">Music nights, karaoke and kitchen specials, posted by the restaurant from a phone. These are example events.</p>
+  <div class="cal">
+    <div class="up"><h3>Coming up</h3><ul id="evUp" class="evlist"><li class="evnone">Loading the calendar...</li></ul></div>
+    <div class="month">
+      <div class="mhead"><button type="button" id="mPrev" aria-label="Previous month">&lsaquo;</button><b id="mName"></b><button type="button" id="mNext" aria-label="Next month">&rsaquo;</button></div>
+      <div class="grid7" id="mDays" aria-hidden="true"><span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span></div>
+      <div class="grid7" id="mGrid"></div>
+      <div id="mDay" class="mday" aria-live="polite"></div>
+    </div>
+  </div>
+<div class="links"><a href="manage.html">Post an event from your phone (try it)</a><a href="order.html">Order page</a><a href="kitchen.html">Kitchen screen</a></div>
+</div></section>
+
+
+<script src="events.js"></script>
+<script>
+(async () => {
+  const E = window.DemoEvents, $e = s => document.querySelector(s);
+  const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const MON = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"], DOW = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+  const events = await E.load(), t0 = E.today();
+  const card = o => { const d = E.parse(o.on), k = E.KINDS[o.kind] || E.KINDS.other;
+    return `<li class="ev"><div class="d"><small>${DOW[d.getDay()]}</small><b>${d.getDate()}</b><small>${MON[d.getMonth()]}</small></div>
+      <div><div class="t">${esc(o.title)}</div><div class="w"><span class="k" style="background:${k[1]}">${k[0]}</span>${esc(E.when(o) || "All day")}${o.where ? " · " + esc(o.where) : ""}</div>
+      ${o.details ? `<p>${esc(o.details)}</p>` : ""}<button class="add" type="button" data-id="${esc(o.id)}" data-on="${o.on}">Add to my calendar</button></div></li>`; };
+  const wire = root => root.querySelectorAll(".add").forEach(b => b.onclick = () => E.ics(E.occurrences(events, E.parse(b.dataset.on), E.parse(b.dataset.on)).find(x => x.id === b.dataset.id)));
+  const up = E.occurrences(events, t0, new Date(t0.getFullYear(), t0.getMonth() + 4, 0)).slice(0, 6);
+  $e("#evUp").innerHTML = up.map(card).join("") || `<li class="evnone">Nothing posted yet. The restaurant posts events from its phone.</li>`;
+  wire($e("#evUp"));
+  let view = new Date(t0.getFullYear(), t0.getMonth(), 1), sel = null;
+  function month() {
+    const last = new Date(view.getFullYear(), view.getMonth() + 1, 0), occ = E.occurrences(events, view, last), byDay = {};
+    occ.forEach(o => (byDay[o.on] = byDay[o.on] || []).push(o));
+    $e("#mName").textContent = view.toLocaleDateString("en-US", { month: "long", year: "numeric" });
+    let h = "";
+    for (let i = 0; i < view.getDay(); i++) h += "<span></span>";
+    for (let d = 1; d <= last.getDate(); d++) {
+      const dt = new Date(view.getFullYear(), view.getMonth(), d), k = E.ymd(dt), n = (byDay[k] || []).length;
+      h += `<button type="button" data-d="${k}" class="${n ? "has" : ""} ${dt.getTime() === t0.getTime() ? "today" : ""} ${k === sel ? "sel" : ""}" ${n ? "" : "disabled"}
+        aria-label="${dt.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}${n ? ", " + n + " event" + (n > 1 ? "s" : "") : ""}">${d}</button>`;
+    }
+    $e("#mGrid").innerHTML = h;
+    $e("#mGrid").querySelectorAll("button.has").forEach(b => b.onclick = () => { sel = b.dataset.d; month(); });
+    $e("#mDay").innerHTML = sel && byDay[sel] ? `<ul class="evlist">${byDay[sel].map(card).join("")}</ul>` : `<p class="evnone">${occ.length ? "Tap a marked day to see what's on." : "Nothing posted for this month yet."}</p>`;
+    wire($e("#mDay"));
+    $e("#mPrev").disabled = view <= new Date(t0.getFullYear(), t0.getMonth(), 1);
+  }
+  $e("#mPrev").onclick = () => { view = new Date(view.getFullYear(), view.getMonth() - 1, 1); sel = null; month(); };
+  $e("#mNext").onclick = () => { view = new Date(view.getFullYear(), view.getMonth() + 1, 1); sel = null; month(); };
+  month();
+})();
+</script>
+</body></html>

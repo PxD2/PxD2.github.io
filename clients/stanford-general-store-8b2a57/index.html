@@ -123,6 +123,36 @@ h2{font:400 clamp(36px,5vw,58px)/1 var(--west);color:var(--saddle)}
 .ybar .neon{justify-self:center;font:400 clamp(60px,10vw,120px)/1 var(--west);color:#FFB36B;text-shadow:0 0 18px rgba(255,140,60,.8),0 0 2px #fff}
 @media(max-width:860px){.ybar{grid-template-columns:1fr}.ybar .neon{justify-self:start}}
 
+/* events calendar */
+.cal{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:30px;align-items:start}
+@media(max-width:860px){.cal{grid-template-columns:1fr}}
+.cal h3{font:400 28px/1 var(--west);color:var(--saddle);margin-bottom:14px}
+.evlist{list-style:none;display:grid;gap:10px}
+.ev{display:grid;grid-template-columns:62px 1fr;gap:14px;background:#fff8ea;border:3px solid var(--ink);border-radius:10px;padding:12px 14px}
+.ev .d{text-align:center;border-right:2px dotted var(--dust);padding-right:10px}
+.ev .d small{display:block;font-weight:800;font-size:13px;letter-spacing:.06em;color:var(--rust)}
+.ev .d b{display:block;font:400 32px/1 var(--west);color:var(--saddle)}
+.ev .t{font-weight:800;font-size:19px;line-height:1.2}
+.ev .k{display:inline-block;color:#fff;font-size:12.5px;font-weight:800;border-radius:999px;padding:1px 9px;margin-right:6px;vertical-align:2px}
+.ev .w{color:var(--soft);font-size:15.5px}
+.ev p{font-size:15.5px;margin-top:4px}
+.ev .add{margin-top:6px;border:0;background:none;color:var(--turq);font:700 14.5px var(--body);text-decoration:underline;cursor:pointer;padding:0}
+.evnone{color:var(--soft)}
+.month{background:#fff8ea;border:3px solid var(--ink);border-radius:10px;padding:16px}
+.mhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.mhead b{font:400 24px/1 var(--west);color:var(--saddle)}
+.mhead button{width:40px;height:40px;border-radius:50%;border:2px solid var(--ink);background:var(--rawhide);font-size:24px;line-height:1;cursor:pointer}
+.grid7{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
+#mDays span{font-weight:800;font-size:13px;color:var(--soft)}
+#mGrid button{aspect-ratio:1;border:0;border-radius:8px;background:transparent;font:600 16px var(--body);cursor:pointer;position:relative;color:var(--ink)}
+#mGrid button.has{background:var(--hide);font-weight:800}
+#mGrid button.has::after{content:"";position:absolute;left:50%;bottom:6px;width:7px;height:7px;margin-left:-3.5px;border-radius:50%;background:var(--rust)}
+#mGrid button.today{outline:2px solid var(--turq)}
+#mGrid button.sel{background:var(--ink);color:var(--rawhide)}
+#mGrid button:disabled{color:#bfae8e;cursor:default}
+.mday{margin-top:12px}
+.mday .evlist{gap:8px}
+
 /* visit */
 .visit{display:grid;grid-template-columns:.9fr 1.1fr;gap:30px;margin-top:36px;align-items:start}
 @media(max-width:860px){.visit{grid-template-columns:1fr}}
@@ -149,15 +179,15 @@ footer b{display:block;font:400 24px var(--west);color:var(--rawhide)}
 </style>
 </head>
 <body>
-
 <div class="concept">Concept design by PXD2 for Stanford General Store &amp; Y-Bar. Not the store's official website.</div>
+
 
 <header class="hero">
   <div class="stars-bg" aria-hidden="true"></div>
   <div class="wrap">
     <div class="top">
       <a class="brand" href="#top">Stanford General Store</a>
-      <nav aria-label="Page"><a class="hide-sm" href="#fuel">Fuel</a><a class="hide-sm" href="#kitchen">Kitchen</a><a class="hide-sm" href="#ybar">Y-Bar</a><a href="#visit">Hours</a></nav>
+      <nav aria-label="Page"><a class="hide-sm" href="#fuel">Fuel</a><a class="hide-sm" href="#kitchen">Kitchen</a><a class="hide-sm" href="#ybar">Y-Bar</a><a href="#events">Events</a><a href="#visit">Hours</a></nav>
     </div>
     <div class="stage" id="top">
       <div class="copy">
@@ -234,9 +264,23 @@ footer b{display:block;font:400 24px var(--west);color:var(--rawhide)}
   <div class="ybar">
     <div>
       <h2>Then there's the Y-Bar</h2>
-      <p class="lede" style="color:#D9C7A6">Right next door. Cold drinks, good neighbors and live bands on music nights. Ask inside for who's playing next.</p>
+      <p class="lede" style="color:#D9C7A6">Right next door. Cold drinks, good neighbors and live bands on music nights. See who's playing next on the calendar below.</p>
     </div>
     <div class="neon" aria-hidden="true">Y-Bar</div>
+  </div>
+</div></section>
+
+<section id="events" style="padding-top:0"><div class="wrap">
+  <h2>Live at the Y</h2>
+  <p class="lede">Music nights, karaoke, kitchen specials and anything else happening at the store and the Y-Bar.</p>
+  <div class="cal">
+    <div class="up"><h3>Coming up</h3><ul id="evUp" class="evlist"><li class="evnone">Loading the calendar...</li></ul></div>
+    <div class="month">
+      <div class="mhead"><button type="button" id="mPrev" aria-label="Previous month">&lsaquo;</button><b id="mName"></b><button type="button" id="mNext" aria-label="Next month">&rsaquo;</button></div>
+      <div class="grid7" id="mDays" aria-hidden="true"><span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span></div>
+      <div class="grid7" id="mGrid"></div>
+      <div id="mDay" class="mday" aria-live="polite"></div>
+    </div>
   </div>
 </div></section>
 
@@ -271,7 +315,7 @@ footer b{display:block;font:400 24px var(--west);color:var(--rawhide)}
 
 <footer><div class="wrap">
   <div><b>Stanford General Store &amp; Y-Bar</b>4 County Rd 8235, Concho, AZ 85924<br><a href="tel:+19285377755">(928) 537-7755</a></div>
-  <div style="align-self:end">Site concept by PXD2 · <a href="kitchen.html">Kitchen screen (staff)</a></div>
+  <div style="align-self:end">Site concept by PXD2 · Staff: <a href="kitchen.html">kitchen screen</a> · <a href="manage.html">event calendar</a></div>
 </div></footer>
 
 <div class="dock">
@@ -298,6 +342,44 @@ function paint() {
     `<tr class="${k === d ? "now" : ""}"><td>${DAYS[k]}${k === d ? " (today)" : ""}</td><td>${fmt(HOURS[k][0])} to ${fmt(HOURS[k][1])}</td></tr>`).join("");
 }
 paint(); setInterval(paint, 60000);
+</script>
+<script src="events.js"></script>
+<script>
+(async () => {
+  const E = window.SGSEvents, $e = s => document.querySelector(s);
+  const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const MON = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"], DOW = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+  const events = await E.load(), t0 = E.today();
+  const card = o => { const d = E.parse(o.on), k = E.KINDS[o.kind] || E.KINDS.other;
+    return `<li class="ev"><div class="d"><small>${DOW[d.getDay()]}</small><b>${d.getDate()}</b><small>${MON[d.getMonth()]}</small></div>
+      <div><div class="t">${esc(o.title)}</div><div class="w"><span class="k" style="background:${k[1]}">${k[0]}</span>${esc(E.when(o) || "All day")}${o.where ? " · " + esc(o.where) : ""}</div>
+      ${o.details ? `<p>${esc(o.details)}</p>` : ""}<button class="add" type="button" data-id="${esc(o.id)}" data-on="${o.on}">Add to my calendar</button></div></li>`; };
+  const wire = root => root.querySelectorAll(".add").forEach(b => b.onclick = () => E.ics(E.occurrences(events, E.parse(b.dataset.on), E.parse(b.dataset.on)).find(x => x.id === b.dataset.id)));
+  const up = E.occurrences(events, t0, new Date(t0.getFullYear(), t0.getMonth() + 4, 0)).slice(0, 6);
+  $e("#evUp").innerHTML = up.map(card).join("") || `<li class="evnone">Nothing posted yet. Call (928) 537-7755 or stop in to ask what's coming up.</li>`;
+  wire($e("#evUp"));
+  let view = new Date(t0.getFullYear(), t0.getMonth(), 1), sel = null;
+  function month() {
+    const last = new Date(view.getFullYear(), view.getMonth() + 1, 0), occ = E.occurrences(events, view, last), byDay = {};
+    occ.forEach(o => (byDay[o.on] = byDay[o.on] || []).push(o));
+    $e("#mName").textContent = view.toLocaleDateString("en-US", { month: "long", year: "numeric" });
+    let h = "";
+    for (let i = 0; i < view.getDay(); i++) h += "<span></span>";
+    for (let d = 1; d <= last.getDate(); d++) {
+      const dt = new Date(view.getFullYear(), view.getMonth(), d), k = E.ymd(dt), n = (byDay[k] || []).length;
+      h += `<button type="button" data-d="${k}" class="${n ? "has" : ""} ${dt.getTime() === t0.getTime() ? "today" : ""} ${k === sel ? "sel" : ""}" ${n ? "" : "disabled"}
+        aria-label="${dt.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}${n ? ", " + n + " event" + (n > 1 ? "s" : "") : ""}">${d}</button>`;
+    }
+    $e("#mGrid").innerHTML = h;
+    $e("#mGrid").querySelectorAll("button.has").forEach(b => b.onclick = () => { sel = b.dataset.d; month(); });
+    $e("#mDay").innerHTML = sel && byDay[sel] ? `<ul class="evlist">${byDay[sel].map(card).join("")}</ul>` : `<p class="evnone">${occ.length ? "Tap a marked day to see what's on." : "Nothing posted for this month yet."}</p>`;
+    wire($e("#mDay"));
+    $e("#mPrev").disabled = view <= new Date(t0.getFullYear(), t0.getMonth(), 1);
+  }
+  $e("#mPrev").onclick = () => { view = new Date(view.getFullYear(), view.getMonth() - 1, 1); sel = null; month(); };
+  $e("#mNext").onclick = () => { view = new Date(view.getFullYear(), view.getMonth() + 1, 1); sel = null; month(); };
+  month();
+})();
 </script>
 </body>
 </html>

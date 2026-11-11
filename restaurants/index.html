@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Restaurant websites with online ordering · PXD2</title>
+<meta name="description" content="Your full menu online, orders on a kitchen ticket screen, pay now or pay at pickup, and an events calendar you run from your phone. Built by PXD2 in Concho, AZ, hosted for life.">
+<meta property="og:title" content="Your menu online. Orders on a ticket. Hosted for life.">
+<meta property="og:description" content="Restaurant website + online ordering + kitchen screen + events calendar. $2,000 once, no monthly fee. PXD2, Concho AZ.">
+<meta property="og:image" content="img/phone-order.jpg">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="../biz/hub/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;1,800;1,900&family=Barlow:wght@400;500;700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--black:#000;--steel:#1C1C1F;--rail:#3A3A40;--white:#FFF;--silver:#C9CBD1;--mute:#8E929B;--red:#E10600;--red-deep:#9E0400;--paper:#FBF7EE;--ink:#1A1714;
+  --disp:"Barlow Condensed",Impact,"Arial Narrow",sans-serif;--body:"Barlow",system-ui,sans-serif;--tick:"Courier Prime","Courier New",monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font:400 18px/1.55 var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--red);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+.disp{font-family:var(--disp);font-style:italic;font-weight:900;text-transform:uppercase;letter-spacing:-.01em;line-height:.9}
+.top{display:flex;align-items:center;gap:14px;padding:16px 0}
+.top img{height:42px;width:auto}
+.top a.call{margin-left:auto;font-weight:700;text-decoration:none;color:var(--silver)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:54px;padding:0 22px;border-radius:10px;font:800 italic 21px/1 var(--disp);text-transform:uppercase;text-decoration:none;letter-spacing:.01em;cursor:pointer;border:0}
+.b-red{background:var(--red);color:#fff;box-shadow:0 4px 0 var(--red-deep)}
+.b-line{border:2px solid var(--silver);color:#fff;background:transparent}
+.b-white{background:#fff;color:#000}
+
+/* hero: the ticket rail */
+.hero{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:center;padding:24px 0 80px}
+@media(max-width:900px){.hero{grid-template-columns:1fr;padding-bottom:50px}}
+.hero h1{font-size:clamp(46px,7.4vw,86px)}
+.hero h1 b{color:var(--red);font-weight:900}
+.hero p.lede{color:var(--silver);font-size:20px;max-width:30em;margin-top:18px}
+.price{display:flex;align-items:baseline;gap:12px;margin-top:22px}
+.price strong{font:900 italic 64px/1 var(--disp)}
+.price span{color:var(--silver);font-size:17px;max-width:16em;line-height:1.35}
+.ctas{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.rail{position:relative;padding-top:26px;min-height:420px}
+.rail::before{content:"";position:absolute;left:-6%;right:-6%;top:12px;height:16px;border-radius:8px;background:linear-gradient(180deg,#6a6a72,#2c2c31 60%,#18181b);box-shadow:0 6px 14px rgba(0,0,0,.6)}
+.tickets{display:flex;gap:18px;justify-content:center;align-items:flex-start}
+.ticket{position:relative;width:min(240px,46%);background:var(--paper);color:var(--ink);font:400 15px/1.45 var(--tick);padding:26px 16px 22px;box-shadow:0 18px 30px -12px rgba(0,0,0,.8);transform-origin:50% 0;
+  clip-path:polygon(0 0,100% 0,100% calc(100% - 8px),95% 100%,90% calc(100% - 8px),85% 100%,80% calc(100% - 8px),75% 100%,70% calc(100% - 8px),65% 100%,60% calc(100% - 8px),55% 100%,50% calc(100% - 8px),45% 100%,40% calc(100% - 8px),35% 100%,30% calc(100% - 8px),25% 100%,20% calc(100% - 8px),15% 100%,10% calc(100% - 8px),5% 100%,0 calc(100% - 8px))}
+.ticket::before{content:"";position:absolute;top:-4px;left:50%;width:36px;height:16px;margin-left:-18px;background:#9a9aa2;border-radius:3px}
+.ticket:nth-child(1){transform:rotate(-2.5deg)}
+.ticket:nth-child(2){transform:rotate(2deg);margin-top:18px}
+.ticket .num{font:700 34px/1 var(--tick)}
+.ticket .row{display:flex;justify-content:space-between;gap:8px}
+.ticket hr{border:0;border-top:2px dashed #b5ab95;margin:10px 0}
+.ticket .note{display:block;padding-left:28px;color:#B23A1E;font-weight:700}
+.ticket .stamp{display:inline-block;margin-top:10px;border:3px solid var(--red);color:var(--red);font-weight:700;padding:2px 8px;transform:rotate(-4deg)}
+.ticket .stamp.paid{border-color:#2F7D4A;color:#2F7D4A}
+@media(prefers-reduced-motion:no-preference){
+  .ticket{animation:swing 1.6s cubic-bezier(.3,1.6,.5,1) both}
+  .ticket:nth-child(2){animation-delay:.25s}
+  @keyframes swing{0%{transform:translateY(-30px) rotate(9deg);opacity:0}25%{opacity:1}100%{}}
+}
+
+section{padding:70px 0}
+h2.disp{font-size:clamp(40px,6vw,64px)}
+h2.disp em{color:var(--red);font-style:italic}
+.sub{color:var(--silver);max-width:40em;margin-top:12px;font-size:19px}
+
+/* try it */
+.try{background:var(--steel);border-radius:18px;padding:clamp(24px,4vw,44px);display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center}
+@media(max-width:760px){.try{grid-template-columns:1fr}}
+.try img.qr{width:190px;height:190px;background:#fff;border-radius:12px;padding:10px}
+.steps{list-style:none;display:grid;gap:12px;margin-top:16px;counter-reset:s}
+.steps li{display:grid;grid-template-columns:40px 1fr;gap:12px;align-items:start}
+.steps li::before{counter-increment:s;content:counter(s);width:40px;height:40px;border-radius:50%;background:var(--red);display:grid;place-items:center;font:900 italic 22px/1 var(--disp)}
+.steps a{color:#fff;font-weight:700}
+
+/* features */
+.feat{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;padding:34px 0;border-top:1px solid #26262a}
+.feat:nth-of-type(even) .shot{order:-1}
+@media(max-width:860px){.feat{grid-template-columns:1fr;gap:20px}.feat:nth-of-type(even) .shot{order:0}}
+.feat h3{font:900 italic clamp(32px,4.6vw,46px)/.95 var(--disp);text-transform:uppercase}
+.feat p{color:var(--silver);margin-top:12px}
+.feat ul{margin:14px 0 0 20px;color:var(--silver)}
+.feat li{margin-top:6px}
+.shot{display:flex;justify-content:center}
+.phone{width:min(300px,80%);border-radius:34px;border:10px solid #26262b;box-shadow:0 30px 60px -20px rgba(225,6,0,.35),0 0 0 2px #3a3a40;overflow:hidden;background:#000}
+.phone img,.screen img{display:block;width:100%;height:auto}
+.screen{width:100%;border-radius:14px;border:8px solid #26262b;overflow:hidden;box-shadow:0 30px 60px -20px rgba(225,6,0,.35)}
+.pair{display:flex;gap:16px;justify-content:center}.pair .phone{width:min(240px,46%)}
+
+/* money */
+.money{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;margin-top:30px}
+@media(max-width:860px){.money{grid-template-columns:1fr}}
+.bill{background:var(--paper);color:var(--ink);font:400 17px/1.5 var(--tick);padding:28px 26px;border-radius:4px}
+.bill .row{display:flex;justify-content:space-between;gap:12px;padding:6px 0}
+.bill hr{border:0;border-top:2px dashed #b5ab95;margin:10px 0}
+.bill .tot{font-weight:700;font-size:22px}
+.bill small{display:block;color:#6b6152;font-size:14px;margin-top:10px}
+.keep{background:var(--steel);border-radius:14px;padding:26px}
+.keep h3{font:900 italic 30px/1 var(--disp);text-transform:uppercase;margin-bottom:12px}
+.keep ul{list-style:none;display:grid;gap:12px}
+.keep li{padding-left:30px;position:relative;color:var(--silver)}
+.keep li::before{content:"";position:absolute;left:0;top:8px;width:16px;height:10px;border-left:3px solid var(--red);border-bottom:3px solid var(--red);transform:rotate(-45deg)}
+.keep b{color:#fff}
+
+/* how it goes */
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px;counter-reset:h}
+@media(max-width:860px){.how{grid-template-columns:1fr}}
+.how div{background:var(--steel);border-radius:14px;padding:22px;border-top:4px solid var(--red)}
+.how div::before{counter-increment:h;content:"Step " counter(h);display:block;color:var(--red);font:900 italic 20px/1 var(--disp);text-transform:uppercase;margin-bottom:8px}
+.how b{display:block;font-size:20px;margin-bottom:6px}
+.how p{color:var(--silver);font-size:16.5px}
+
+.faq{margin-top:24px;display:grid;gap:10px}
+.faq details{background:var(--steel);border-radius:12px;padding:16px 18px}
+.faq summary{font-weight:700;cursor:pointer;font-size:19px}
+.faq p{color:var(--silver);margin-top:8px}
+
+.close{background:var(--red);border-radius:18px;padding:clamp(28px,5vw,56px);text-align:center}
+.close h2{font-size:clamp(40px,6.5vw,72px)}
+.close p{margin-top:10px;font-size:19px}
+.close .ctas{justify-content:center}
+.close .b-line{border-color:#fff}
+footer{padding:36px 0 120px;color:var(--mute);font-size:15px}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+.dock{position:fixed;left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom));z-index:20;display:none;gap:10px}
+.dock .btn{flex:1;min-height:52px}
+@media(max-width:760px){.dock{display:flex}}
+
+/* printable one-page flyer */
+.flyer{display:none}
+@media print{
+  @page{size:letter;margin:0.45in}
+  body{background:#fff;color:#000}
+  body > *:not(.flyer){display:none!important}
+  .flyer{display:block;font:400 12.5pt/1.4 var(--body);color:#000}
+  .flyer .fh{display:flex;justify-content:space-between;align-items:center;border-bottom:4pt solid var(--red);padding-bottom:10pt}
+  .flyer .fh img{height:40pt;background:#000;padding:6pt 10pt;border-radius:6pt}
+  .flyer h1{font:900 italic 44pt/.95 var(--disp);text-transform:uppercase;margin:16pt 0 8pt}
+  .flyer h1 b{color:var(--red)}
+  .flyer .cols{display:grid;grid-template-columns:1.3fr 1fr;gap:18pt;margin-top:10pt}
+  .flyer ul{margin-left:16pt}.flyer li{margin-top:6pt}
+  .flyer .pr{font:900 italic 34pt/1 var(--disp);margin-top:12pt}
+  .flyer .qr{text-align:center;border:2pt solid #000;border-radius:10pt;padding:10pt}
+  .flyer .qr img{width:150pt;height:150pt}
+  .flyer .shots{display:flex;gap:8pt;margin-top:14pt}.flyer .shots img{width:31%;height:3.3in;object-fit:cover;object-position:top;border:1pt solid #999;border-radius:8pt}
+  .flyer .ft{margin-top:14pt;border-top:1pt solid #999;padding-top:8pt;font-size:11pt}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><img src="../special/pxd2-logo.png" alt="PXD2"><a class="call" href="tel:+19284576404">928-457-6404</a></div>
+
+  <div class="hero">
+    <div>
+      <h1 class="disp">Your menu online. Orders on a <b>ticket.</b> Hosted for life.</h1>
+      <p class="lede">A phone-first website for your restaurant with your full menu, online ordering, a kitchen ticket screen and an events calendar you run from your own phone. Built by PXD2 here in the White Mountains.</p>
+      <div class="price"><strong>$2,000</strong><span>one time. No monthly fee, no cut of your orders, hosting for life.</span></div>
+      <div class="ctas">
+        <a class="btn b-red" href="demo/order.html">Try the demo</a>
+        <a class="btn b-line" href="sms:+19284576404?&body=Hi%20PXD2%2C%20I%27d%20like%20the%20restaurant%20website%20with%20online%20ordering%20for%3A%20">Text us</a>
+      </div>
+    </div>
+    <div class="rail" aria-label="Example order tickets">
+      <div class="tickets">
+        <div class="ticket">
+          <div class="row"><span class="num">#104</span><span>5:15 PM</span></div>
+          <div>SAM · PICKUP</div><hr>
+          <div>1x Green Chile Cheeseburger<span class="note">no onions</span></div>
+          <div>2x Chicken Tenders</div><hr>
+          <div class="row"><b>TOTAL</b><b>$38.00</b></div>
+          <span class="stamp">PAY AT COUNTER</span>
+        </div>
+        <div class="ticket">
+          <div class="row"><span class="num">#105</span><span>5:30 PM</span></div>
+          <div>MARIA · PICKUP</div><hr>
+          <div>1x Supreme Pizza<span class="note">well done</span></div>
+          <div>1x Wings, 8<span class="note">BBQ</span></div>
+          <div>2x Fountain Drink</div><hr>
+          <div class="row"><b>TOTAL</b><b>$40.00</b></div>
+          <span class="stamp paid">PAID ONLINE</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section style="padding-top:0"><div class="wrap">
+  <div class="try">
+    <img class="qr" src="img/qr-demo.svg" alt="QR code: open the PXD2 demo restaurant on your phone">
+    <div>
+      <h2 class="disp">Try it on <em>your phone</em></h2>
+      <p class="sub">Our Demo Diner is a pretend restaurant running the real system. Scan the code, or tap the steps below.</p>
+      <ol class="steps">
+        <li><span><a href="demo/order.html">Order something</a> the way your customers would.</span></li>
+        <li><span>Open <a href="demo/kitchen.html">the kitchen screen</a> on another screen and watch the ticket show up.</span></li>
+        <li><span><a href="demo/manage.html">Post an event</a> from your phone, then see it on <a href="demo/calendar.html">the calendar</a>.</span></li>
+      </ol>
+    </div>
+  </div>
+</div></section>
+
+<section style="padding-top:20px"><div class="wrap">
+  <h2 class="disp">What you <em>get</em></h2>
+  <div class="feat">
+    <div><h3>Your whole menu, on every phone</h3>
+      <p>Every item and price, split into your menus and sections, with search. Customers tap Add, write a special request, and see their total as they go.</p>
+      <ul><li>Breakfast before 11, lunch and dinner after, automatically</li><li>We load it from your current online menu or a photo of your printed one</li></ul></div>
+    <div class="shot"><div class="phone"><img src="img/phone-menu.jpg" alt="Demo Diner menu on a phone with three items in the order" loading="lazy" width="390" height="780"></div></div>
+  </div>
+  <div class="feat">
+    <div><h3>Two ways to pay</h3>
+      <p><b>Pay at pickup:</b> the order goes straight to your kitchen with a name, phone and pickup time. <b>Pay now:</b> the customer checks out with the card provider you already use, like Toast, Square or Clover, so your card fees and payouts stay exactly as they are.</p></div>
+    <div class="shot"><div class="phone"><img src="img/phone-order.jpg" alt="Order sheet with name, pickup time, Send to the kitchen and Pay now online buttons" loading="lazy" width="390" height="780"></div></div>
+  </div>
+  <div class="feat">
+    <div><h3>Orders land on a ticket screen</h3>
+      <p>Any tablet in your kitchen becomes the order board. New orders chime and flash. Tap once to start cooking, once for ready, once when it's picked up. Late orders turn red.</p>
+      <ul><li>Shows pay-at-counter or paid online on every ticket</li><li>Runs in the tablet's web browser, no app to install</li></ul></div>
+    <div class="shot"><div class="screen"><img src="img/kitchen.jpg" alt="Kitchen screen with new, cooking and ready-for-pickup orders" loading="lazy" width="1180" height="700"></div></div>
+  </div>
+  <div class="feat">
+    <div><h3>An events calendar you run from your phone</h3>
+      <p>Live music, karaoke, taco Tuesday, holiday hours. Post it from your phone in a few taps and it's on your site right away, with a month calendar and an "Add to my calendar" button for your customers.</p>
+      <ul><li>Weekly events repeat on their own</li><li>Nothing to log in to but your own phone</li></ul></div>
+    <div class="shot"><div class="pair"><div class="phone"><img src="img/phone-manage.jpg" alt="Posting a live music event from a phone" loading="lazy" width="390" height="780"></div><div class="phone"><img src="img/phone-calendar.jpg" alt="Events calendar on the restaurant site" loading="lazy" width="390" height="780"></div></div></div>
+  </div>
+</div></section>
+
+<section style="padding-top:20px"><div class="wrap">
+  <h2 class="disp">What it <em>costs</em></h2>
+  <div class="money">
+    <div class="bill">
+      <div class="row"><span>Restaurant website</span><span>$500</span></div>
+      <div class="row"><span>Full menu + online ordering</span><span>$1,500</span></div>
+      <div class="row"><span>Kitchen ticket screen</span><span>included</span></div>
+      <div class="row"><span>Events calendar</span><span>included</span></div>
+      <div class="row"><span>Hosting, for life</span><span>$0 / month</span></div>
+      <div class="row"><span>Your own .pxd name</span><span>included</span></div>
+      <hr><div class="row tot"><span>TOTAL, ONE TIME</span><span>$2,000</span></div>
+      <small>Cash, card, check, or part trade. Only need the website? That's $500 on its own.</small>
+    </div>
+    <div class="keep">
+      <h3>You keep</h3>
+      <ul>
+        <li><b>Every dollar of every order.</b> PXD2 takes no cut and charges no per-order fee.</li>
+        <li><b>Your card provider.</b> Pay-now checkout stays with the provider you already use.</li>
+        <li><b>Your customers.</b> Their orders come to you, not to a delivery app.</li>
+        <li><b>A free ad in our game.</b> Your business on the Times Square screens in Global Theaters: Mud for Blood, while the 32 spots last.</li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<section style="padding-top:20px"><div class="wrap">
+  <h2 class="disp">How it <em>goes</em></h2>
+  <div class="how">
+    <div><b>We build it from your menu</b><p>Send us your online menu link or a photo of your printed menu, plus your hours and logo. We do the rest.</p></div>
+    <div><b>You check it on your phone</b><p>You see the whole site before anyone else does. Change anything you want.</p></div>
+    <div><b>We launch and set up the kitchen</b><p>Your site goes live, we set up the kitchen tablet, and we show your crew how it works.</p></div>
+  </div>
+  <div class="faq">
+    <details><summary>Do I need Toast or Square?</summary><p>No. Pay at pickup works on its own. If you already take cards online, the pay-now button goes to that provider so nothing about your card processing changes.</p></details>
+    <details><summary>Who changes the menu when prices change?</summary><p>Text us the change and we update it. Events and specials you post yourself from your phone, any time.</p></details>
+    <details><summary>What does "hosted for life" mean?</summary><p>No monthly or yearly hosting bill from PXD2, ever. It's written into your agreement.</p></details>
+    <details><summary>What do I need in the kitchen?</summary><p>Any tablet or laptop with a web browser and Wi-Fi. Leave the kitchen screen open and orders show up with a chime.</p></details>
+  </div>
+</div></section>
+
+<section style="padding-top:20px"><div class="wrap">
+  <div class="close">
+    <h2 class="disp">Your menu online this week.</h2>
+    <p>Text or call PXD2: 928-457-6404</p>
+    <div class="ctas" style="margin-top:20px">
+      <a class="btn b-white" href="sms:+19284576404?&body=Hi%20PXD2%2C%20I%27d%20like%20the%20restaurant%20website%20with%20online%20ordering%20for%3A%20">Text us</a>
+      <a class="btn b-line" href="tel:+19284576404">Call</a>
+      <button class="btn b-line" type="button" onclick="print()">Print the flyer</button>
+    </div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <span>PXD2 · PO Box 514, Concho, AZ 85924 · <a href="tel:+19284576404">928-457-6404</a> · <a href="mailto:pxdsquared@gmail.com">pxdsquared@gmail.com</a></span>
+  <span>The Demo Diner is pretend. Prices shown are PXD2's.</span>
+</div></footer>
+
+<div class="dock"><a class="btn b-red" href="demo/order.html">Try the demo</a><a class="btn b-white" href="tel:+19284576404">Call</a></div>
+
+<div class="flyer" aria-hidden="true">
+  <div class="fh"><img src="../special/pxd2-logo.png" alt=""><b>928-457-6404 · pxdsquared@gmail.com</b></div>
+  <h1>Your menu online. Orders on a <b>ticket.</b> Hosted for life.</h1>
+  <div class="cols">
+    <div>
+      <ul>
+        <li><b>Your full menu</b> on every phone, with search</li>
+        <li><b>Online ordering:</b> pay now with your own card provider, or pay at pickup</li>
+        <li><b>Kitchen ticket screen</b> on any tablet: orders chime in</li>
+        <li><b>Events calendar</b> you update from your phone</li>
+        <li><b>Hosted for life</b>, your own .pxd name, no cut of your orders</li>
+        <li><b>Free ad</b> in our game Global Theaters: Mud for Blood (32 spots)</li>
+      </ul>
+      <div class="pr">$2,000 ONE TIME</div>
+      <div>Website only: $500. Cash, card, check or part trade.</div>
+    </div>
+    <div class="qr"><img src="img/qr-demo.svg" alt=""><div><b>Scan to try the demo</b><br>order something, watch it hit the kitchen</div></div>
+  </div>
+  <div class="shots"><img src="img/phone-menu.jpg" alt=""><img src="img/phone-order.jpg" alt=""><img src="img/phone-calendar.jpg" alt=""></div>
+  <div class="ft">PXD2 · Concho, Arizona · pxd2.github.io/restaurants</div>
+</div>
+</body>
+</html>

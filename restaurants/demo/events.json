@@ -1,0 +1,41 @@
+{
+ "updated": "demo",
+ "events": [
+  {
+   "id": "d1",
+   "title": "Live music on the patio",
+   "kind": "music",
+   "where": "Outside",
+   "date": "2026-11-13",
+   "start": "18:00",
+   "end": "21:00",
+   "repeat": "weekly",
+   "until": "2027-12-31",
+   "details": "Example event in the PXD2 demo."
+  },
+  {
+   "id": "d2",
+   "title": "Karaoke night",
+   "kind": "karaoke",
+   "where": "Bar",
+   "date": "2026-11-12",
+   "start": "19:00",
+   "end": "22:00",
+   "repeat": "weekly",
+   "until": "2027-12-31",
+   "details": "Example event in the PXD2 demo."
+  },
+  {
+   "id": "d3",
+   "title": "Taco Tuesday: 3 for $6",
+   "kind": "food",
+   "where": "Kitchen",
+   "date": "2026-11-10",
+   "start": "11:00",
+   "end": "20:00",
+   "repeat": "weekly",
+   "until": "2027-12-31",
+   "details": "Example kitchen special in the PXD2 demo."
+  }
+ ]
+}

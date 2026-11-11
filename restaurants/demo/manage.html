@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Store calendar · Demo Diner</title>
+<link rel="icon" href="icon.png">
+<link rel="manifest" href="data:application/manifest+json,{&quot;name&quot;:&quot;Demo Diner calendar&quot;,&quot;short_name&quot;:&quot;Calendar&quot;,&quot;display&quot;:&quot;standalone&quot;,&quot;background_color&quot;:&quot;#F1E2C4&quot;,&quot;theme_color&quot;:&quot;#2B1A10&quot;}">
+<meta name="theme-color" content="#2B1A10">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rye&family=Bitter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--night:#2B1A10;--saddle:#6B3A1F;--rawhide:#F1E2C4;--hide:#E4CFA6;--dust:#C9AE80;--rust:#B23A1E;--turq:#1F8A8A;--ink:#22160E;--soft:#6C5640;--card:#FFF8EA}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--rawhide);color:var(--ink);font:400 17px/1.45 "Bitter",Georgia,serif;-webkit-font-smoothing:antialiased;padding-bottom:100px}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--turq);outline-offset:2px}
+[hidden]{display:none!important}
+header{background:var(--night);color:var(--rawhide);padding:18px 18px 20px}
+header h1{font:400 30px/1 "Rye",Georgia,serif;color:#FFF4DE}
+header p{color:#D9C7A6;font-size:15px;margin-top:6px}
+header a{color:#FFE7A8;font-size:15px}
+.wrap{max-width:640px;margin:0 auto;padding:16px}
+.note{background:#FFF1C9;border:2px solid #E6A93A;border-radius:10px;padding:10px 14px;font-size:14.5px;margin-bottom:14px}
+.big{width:100%;border:0;border-radius:12px;padding:16px;font-weight:800;font-size:19px;background:var(--rust);color:#fff;box-shadow:0 4px 0 #6E2010;cursor:pointer}
+.quick{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 4px}
+.quick button{white-space:nowrap;border:2px solid var(--ink);background:var(--card);border-radius:999px;padding:8px 13px;font-weight:700;font-size:15px;cursor:pointer}
+h2{font:400 24px/1 "Rye",Georgia,serif;color:var(--saddle);margin:22px 0 10px}
+.list{list-style:none;display:grid;gap:10px}
+.ev{background:var(--card);border:2px solid var(--ink);border-radius:10px;padding:12px 14px;display:grid;grid-template-columns:1fr auto;gap:4px 10px;align-items:center}
+.ev b{font-size:18px}
+.ev .w{grid-column:1;color:var(--soft);font-size:15px}
+.ev .k{display:inline-block;color:#fff;font-size:12.5px;font-weight:800;border-radius:999px;padding:1px 9px;margin-right:6px}
+.ev .edit{grid-row:1/3;grid-column:2;border:2px solid var(--ink);background:var(--rawhide);border-radius:8px;padding:10px 14px;font-weight:800;cursor:pointer}
+.empty{color:var(--soft)}
+.sheet{position:fixed;inset:0;z-index:20;background:rgba(34,22,14,.55);display:flex;align-items:flex-end;justify-content:center}
+.sheet form{background:var(--rawhide);width:min(640px,100%);max-height:94vh;overflow:auto;border-radius:16px 16px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom));display:grid;gap:12px}
+.sheet h3{font:400 26px/1 "Rye",Georgia,serif;color:var(--saddle)}
+label{display:grid;gap:4px;font-weight:700;font-size:15px}
+input,select,textarea{padding:12px;border:2px solid var(--dust);border-radius:10px;background:#fff;font-size:17px}
+textarea{min-height:90px;resize:vertical}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.check{display:flex;gap:10px;align-items:center;font-weight:700}
+.check input{width:24px;height:24px}
+.btns{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
+.btns button{border:0;border-radius:10px;padding:14px;font-weight:800;font-size:17px;cursor:pointer}
+.save{background:var(--turq);color:#fff}
+.cancel{background:var(--hide)}
+.del{grid-column:1/-1;background:none;color:var(--rust);text-decoration:underline}
+.err{color:var(--rust);font-weight:700;min-height:1.2em}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--ink);color:var(--rawhide);border-radius:10px;padding:12px 18px;font-weight:700;z-index:30}
+.signin{display:grid;gap:12px;background:var(--card);border:2px solid var(--ink);border-radius:12px;padding:16px}
+.concept{background:#22160E;color:#d9c7a6;font-size:13px;text-align:center;padding:8px 16px}
+</style>
+</head>
+<body>
+<div class="concept">PXD2 demo: a pretend restaurant to show what your restaurant's site can do. Try it - order something, then open the kitchen screen.</div>
+<header><h1>Store calendar</h1><p>Demo Diner · <a href="calendar.html" target="_blank">See it on the website</a></p></header>
+<div class="wrap">
+  <p class="note" id="previewNote" hidden>Preview: changes are saved on this phone only, until PXD2 turns on the online calendar. Then everything you post here shows on the website for everyone.</p>
+
+  <form class="signin" id="signin" hidden>
+    <b>Sign in to post events</b>
+    <label>Store calendar key (from PXD2)<input id="key" autocomplete="current-password" type="password"></label>
+    <button class="big" type="submit">Sign in</button>
+    <p class="err" id="signErr"></p>
+  </form>
+
+  <div id="app" hidden>
+    <button class="big" id="add" type="button">+ Add an event</button>
+    <div class="quick" aria-label="Quick add">
+      <button type="button" data-q="music">Live band</button><button type="button" data-q="karaoke">Karaoke night</button>
+      <button type="button" data-q="food">Kitchen special</button><button type="button" data-q="hours">Closed / holiday hours</button>
+    </div>
+    <h2>Coming up</h2>
+    <ul class="list" id="up"></ul>
+    <h2>Every week</h2>
+    <ul class="list" id="weekly"></ul>
+    <details style="margin-top:20px"><summary style="font-weight:700;cursor:pointer">Past events</summary><ul class="list" id="past" style="margin-top:10px"></ul></details>
+    <p style="margin-top:28px;font-size:14px;color:var(--soft)">Signed in on this phone. <button type="button" id="out" style="border:0;background:none;color:var(--rust);text-decoration:underline;cursor:pointer">Sign out</button></p>
+  </div>
+</div>
+
+<div class="sheet" id="sheet" hidden>
+  <form id="form" autocomplete="off">
+    <h3 id="fTitle">New event</h3>
+    <label>What's happening<input id="fName" required maxlength="80" placeholder="Live music: The Desert Rats"></label>
+    <div class="row">
+      <label>Kind<select id="fKind"></select></label>
+      <label>Where<select id="fWhere"><option>Dining room</option><option>Bar</option><option>Kitchen</option><option>Outside</option></select></label>
+    </div>
+    <label>Date<input id="fDate" type="date" required></label>
+    <div class="row">
+      <label>Starts<input id="fStart" type="time"></label>
+      <label>Ends<input id="fEnd" type="time"></label>
+    </div>
+    <label class="check"><input id="fWeekly" type="checkbox"> Repeats every week</label>
+    <label id="fUntilL" hidden>Last week it runs (optional)<input id="fUntil" type="date"></label>
+    <label>Details (optional)<textarea id="fDetails" maxlength="400" placeholder="No cover. Kitchen open till 8."></textarea></label>
+    <p class="err" id="fErr"></p>
+    <div class="btns"><button type="button" class="cancel" id="fCancel">Cancel</button><button type="submit" class="save">Save</button>
+      <button type="button" class="del" id="fDel" hidden>Delete this event</button></div>
+  </form>
+</div>
+
+<script src="events.js"></script>
+<script>
+const E = window.DemoEvents, $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+let events = [], key = "", editing = null, relay = false;
+try { key = localStorage.getItem("demo_calendar_key") || ""; } catch (e) { }
+$("#fKind").innerHTML = Object.entries(E.KINDS).map(([k, v]) => `<option value="${k}">${v[0]}</option>`).join("");
+
+(async () => {
+  const c = await E.config(); relay = !!c.relay;
+  $("#previewNote").hidden = relay;
+  if (relay && !key) { $("#signin").hidden = false; return; }
+  start();
+})();
+$("#signin").onsubmit = async e => {
+  e.preventDefault(); const k = $("#key").value.trim();
+  if (!(await E.check(k).catch(() => false))) { $("#signErr").textContent = "That key didn't work. Check it with PXD2."; return; }
+  key = k; try { localStorage.setItem("demo_calendar_key", k); } catch (er) { }
+  $("#signin").hidden = true; start();
+};
+$("#out").onclick = () => { try { localStorage.removeItem("demo_calendar_key"); } catch (e) { } location.reload(); };
+
+async function start() { events = await E.load(); $("#app").hidden = false; draw(); }
+function row(e, on) {
+  const k = E.KINDS[e.kind] || E.KINDS.other, d = E.parse(on || e.date);
+  const day = e.repeat === "weekly" ? "Every " + d.toLocaleDateString("en-US", { weekday: "long" }) + (e.until ? " until " + E.parse(e.until).toLocaleDateString("en-US", { month: "short", day: "numeric" }) : "")
+                                    : d.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
+  return `<li class="ev"><b>${esc(e.title)}</b><button class="edit" type="button" data-id="${esc(e.id)}">Edit</button>
+    <div class="w"><span class="k" style="background:${k[1]}">${k[0]}</span>${esc(day)}${E.when(e) ? " · " + esc(E.when(e)) : ""}</div></li>`;
+}
+function draw() {
+  const t0 = E.ymd(E.today());
+  const one = events.filter(e => e.repeat !== "weekly").sort((a, b) => (a.date + a.start).localeCompare(b.date + b.start));
+  const up = one.filter(e => e.date >= t0), past = one.filter(e => e.date < t0).reverse(), wk = events.filter(e => e.repeat === "weekly");
+  $("#up").innerHTML = up.map(e => row(e)).join("") || `<li class="empty">Nothing coming up. Tap "Add an event".</li>`;
+  $("#weekly").innerHTML = wk.map(e => row(e)).join("") || `<li class="empty">No weekly events.</li>`;
+  $("#past").innerHTML = past.map(e => row(e)).join("") || `<li class="empty">None.</li>`;
+  document.querySelectorAll(".edit").forEach(b => b.onclick = () => open(events.find(x => x.id === b.dataset.id)));
+}
+const QUICK = { music: { title: "Live music: ", kind: "music", where: "Bar", start: "19:00", end: "22:00" },
+                karaoke: { title: "Karaoke night", kind: "karaoke", where: "Bar", start: "19:00", end: "22:00" },
+                food: { title: "Kitchen special: ", kind: "food", where: "Kitchen", start: "11:00", end: "20:00" },
+                hours: { title: "Closed for the holiday", kind: "hours", where: "Dining room", start: "", end: "" } };
+function open(e, quick) {
+  editing = e || null; const v = e || Object.assign({ date: E.ymd(E.today()) }, quick || {});
+  $("#fTitle").textContent = e ? "Change event" : "New event";
+  $("#fName").value = v.title || ""; $("#fKind").value = v.kind || "other"; $("#fWhere").value = v.where || "Bar";
+  $("#fDate").value = v.date || ""; $("#fStart").value = v.start || ""; $("#fEnd").value = v.end || "";
+  $("#fWeekly").checked = v.repeat === "weekly"; $("#fUntil").value = v.until || ""; $("#fUntilL").hidden = !$("#fWeekly").checked;
+  $("#fDetails").value = v.details || ""; $("#fDel").hidden = !e; $("#fErr").textContent = "";
+  $("#sheet").hidden = false; const n = $("#fName"); n.focus(); n.setSelectionRange(n.value.length, n.value.length);
+}
+$("#add").onclick = () => open();
+document.querySelectorAll("[data-q]").forEach(b => b.onclick = () => open(null, QUICK[b.dataset.q]));
+$("#fWeekly").onchange = () => { $("#fUntilL").hidden = !$("#fWeekly").checked; };
+$("#fCancel").onclick = () => { $("#sheet").hidden = true; };
+$("#sheet").onclick = e => { if (e.target.id === "sheet") $("#sheet").hidden = true; };
+async function commit(next, msg) {
+  try { const r = await E.save(next, key); events = next; draw(); $("#sheet").hidden = true; toast(msg + (r.preview ? " (on this phone)" : " - it's on the website now")); }
+  catch (e) { $("#fErr").textContent = e.message + ". Try again, or call PXD2."; }
+}
+$("#form").onsubmit = e => {
+  e.preventDefault();
+  const v = { id: editing ? editing.id : Date.now().toString(36) + Math.random().toString(36).slice(2, 5), title: $("#fName").value.trim(), kind: $("#fKind").value,
+              where: $("#fWhere").value, date: $("#fDate").value, start: $("#fStart").value, end: $("#fEnd").value,
+              repeat: $("#fWeekly").checked ? "weekly" : "none", until: $("#fWeekly").checked ? $("#fUntil").value : "", details: $("#fDetails").value.trim() };
+  if (!v.title || !v.date) { $("#fErr").textContent = "An event needs a name and a date."; return; }
+  if (v.start && v.end && v.end <= v.start && v.end > "04:00") { $("#fErr").textContent = "The end time is before the start time."; return; }
+  commit(editing ? events.map(x => x.id === v.id ? v : x) : events.concat(v), editing ? "Saved" : "Added");
+};
+$("#fDel").onclick = () => { if (editing && confirm(`Delete "${editing.title}"?`)) commit(events.filter(x => x.id !== editing.id), "Deleted"); };
+function toast(t) { const d = document.createElement("div"); d.className = "toast"; d.textContent = t; document.body.appendChild(d); setTimeout(() => d.remove(), 2600); }
+</script>
+</body>
+</html>

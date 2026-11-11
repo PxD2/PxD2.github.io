@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Order online · Demo Diner</title>
+<meta name="description" content="Full menu and online ordering for Demo Diner at Demo Diner, at the Y in Concho AZ. Pay now or pay when you pick up.">
+<link rel="icon" href="icon.png">
+<meta name="theme-color" content="#2B1A10">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rye&family=Bitter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--night:#2B1A10;--saddle:#6B3A1F;--rawhide:#F1E2C4;--hide:#E4CFA6;--dust:#C9AE80;--rust:#B23A1E;--turq:#1F8A8A;--ink:#22160E;--soft:#6C5640;--card:#FFF8EA;
+  --west:"Rye",Georgia,serif;--body:"Bitter",Georgia,serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--rawhide);color:var(--ink);font:400 17px/1.5 var(--body);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--turq);outline-offset:3px}
+header{background:var(--night);color:var(--rawhide)}
+header .in{max-width:1240px;margin:0 auto;padding:20px 20px 24px}
+header a.back{text-decoration:none;font-weight:600;font-size:15px;opacity:.85}
+header h1{font:400 clamp(32px,5.5vw,56px)/1 var(--west);margin:12px 0 8px;color:#FFF4DE}
+header p{color:#E7D5B4;max-width:44em}
+.facts{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:12px;font-size:15px;color:#D9C7A6}
+.facts b{color:#FFE7A8}
+.open{display:inline-block;padding:2px 10px;border-radius:999px;background:#3E9B5E;color:#fff;font-weight:800;font-size:14px}
+.open.closed{background:var(--rust)}
+.bar{position:sticky;top:0;z-index:10;background:var(--rawhide);border-bottom:3px solid var(--ink)}
+.bar .in{max-width:1240px;margin:0 auto;padding:10px 20px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.menus{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.menus button{white-space:nowrap;font-weight:800;font-size:15px;border:2px solid var(--ink);background:var(--card);border-radius:999px;padding:9px 14px;cursor:pointer}
+.menus button[aria-pressed=true]{background:var(--ink);color:var(--rawhide)}
+.find{margin-left:auto;flex:1;min-width:170px;max-width:300px;padding:10px 14px;border:2px solid var(--dust);border-radius:999px;background:#fff}
+.layout{max-width:1240px;margin:0 auto;padding:0 20px;display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:28px;align-items:start}
+.secs{display:flex;gap:4px 16px;flex-wrap:wrap;padding:12px 0 0}
+.secs a{font-size:14px;font-weight:600;text-decoration:none;color:var(--saddle);border-bottom:2px solid transparent}
+.secs a:hover{border-color:var(--saddle)}
+main{padding-bottom:140px;min-width:0}
+.age{background:var(--night);color:var(--rawhide);border-radius:10px;padding:14px 18px;margin-top:16px;font-size:15px}
+section{margin-top:28px;scroll-margin-top:76px}
+section h2{font:400 30px/1 var(--west);color:var(--saddle);margin-bottom:12px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.it{display:grid;grid-template-columns:1fr auto;gap:4px 12px;background:var(--card);border:2px solid var(--ink);border-radius:10px;padding:13px 14px;align-content:start}
+.it b{font-size:17px;line-height:1.25}
+.it .p{font-weight:800;color:var(--saddle)}
+.it small{grid-column:1/-1;color:var(--soft);font-size:14.5px}
+.it .add{grid-column:1/-1;justify-self:start;margin-top:6px;border:0;border-radius:8px;background:var(--turq);color:#fff;font-weight:800;font-size:15px;padding:8px 14px;cursor:pointer}
+.it .add .n{display:none;background:#fff;color:var(--turq);border-radius:999px;padding:0 7px;margin-left:6px;font-size:13px}
+.it.in .add .n{display:inline-block}
+.it .note{grid-column:1/-1;display:none;gap:6px;margin-top:6px}
+.it.writing .note{display:flex}
+.it .note input{flex:1;min-width:0;padding:8px 10px;border:2px solid var(--dust);border-radius:8px;background:#fff;font-size:15px}
+.it .note button{border:0;border-radius:8px;background:var(--ink);color:var(--rawhide);font-weight:800;padding:8px 12px;cursor:pointer}
+.none{margin-top:30px;color:var(--soft)}
+.src{margin-top:40px;font-size:13px;color:var(--soft)}
+/* the order */
+.cart{position:sticky;top:76px;margin-top:20px;background:#fff;border:3px solid var(--ink);border-radius:14px;overflow:hidden;max-height:calc(100vh - 96px);display:flex;flex-direction:column}
+.cart .head{display:flex;align-items:center;gap:10px;padding:14px 16px;background:var(--ink);color:var(--rawhide);border:0;width:100%;text-align:left;cursor:default}
+.cart .head h2{font:400 24px/1 var(--west)}
+.cart .head .count{margin-left:auto;background:var(--rust);color:#fff;border-radius:999px;min-width:28px;padding:2px 9px;text-align:center;font-weight:800}
+.cart .body{overflow:auto;padding:14px 16px 16px}
+.empty{color:var(--soft);font-size:15px}
+.lines{list-style:none;display:grid;gap:10px}
+.lines li{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:start;padding-bottom:10px;border-bottom:1px dashed var(--dust)}
+.lines li small{display:block;color:var(--rust);font-size:14px}
+.q{display:flex;align-items:center;gap:6px;font-weight:800}
+.q button{width:30px;height:30px;border-radius:50%;border:2px solid var(--ink);background:var(--card);font-weight:800;cursor:pointer;line-height:1}
+.tot{display:flex;justify-content:space-between;font-weight:800;font-size:18px;margin:12px 0 4px}
+.tax{font-size:13px;color:var(--soft)}
+.form{display:grid;gap:10px;margin-top:14px}
+.form label{display:grid;gap:4px;font-weight:600;font-size:15px}
+.form input,.form select{padding:10px 12px;border:2px solid var(--dust);border-radius:8px;background:#fff}
+.how{display:grid;gap:8px;margin-top:6px}
+.how button{display:grid;gap:2px;text-align:left;border:0;border-radius:10px;padding:13px 14px;cursor:pointer;color:#fff;font-weight:800;font-size:17px}
+.how button small{font-weight:400;font-size:13.5px;opacity:.9}
+.how .pickup{background:var(--rust);box-shadow:0 4px 0 #6E2010}
+.how .toast{background:var(--turq);box-shadow:0 4px 0 #125A5A}
+.how button:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.err{color:var(--rust);font-weight:600;font-size:15px;min-height:1.2em}
+.ticket{display:none;text-align:center;padding:6px 0}
+.ticket.on{display:block}
+.ticket .num{font:400 56px/1 var(--west);color:var(--rust);margin:6px 0}
+.ticket p{color:var(--soft)}
+.ticket button{margin-top:14px;border:2px solid var(--ink);background:var(--card);border-radius:8px;padding:10px 14px;font-weight:800;cursor:pointer}
+.toastlist{display:none;margin-top:12px;background:#E7F4F4;border:2px solid var(--turq);border-radius:10px;padding:12px 14px;font-size:15px}
+.toastlist.on{display:block}
+.toastlist ol{margin:6px 0 0 20px}
+.demo{margin-top:10px;font-size:13px;color:var(--soft)}
+.fab{display:none}
+.cart .head .close{display:none;font-size:22px;line-height:1}
+@media(max-width:980px){
+  .layout{grid-template-columns:1fr}
+  .grid{grid-template-columns:1fr}
+  .cart{position:fixed;left:8px;right:8px;bottom:calc(8px + env(safe-area-inset-bottom));top:auto;margin:0;z-index:30;max-height:82vh;box-shadow:0 -8px 40px rgba(0,0,0,.35);transform:translateY(calc(100% + 20px));transition:transform .2s}
+  .cart.up{transform:none}
+  .cart .head{cursor:pointer}
+  .cart .head .close{display:inline}
+  .fab{display:flex;position:fixed;left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom));z-index:20;justify-content:center}
+  .fab button{display:flex;align-items:center;justify-content:center;gap:12px;width:min(520px,100%);border:0;border-radius:12px;padding:16px 22px;background:var(--rust);color:#fff;font-weight:800;font-size:18px;box-shadow:0 4px 0 #6E2010,0 12px 30px -10px rgba(0,0,0,.5);cursor:pointer}
+  .fab b{background:#fff;color:var(--rust);border-radius:999px;padding:0 9px}
+}
+@media(prefers-reduced-motion:reduce){.cart{transition:none}}
+.concept{background:#22160E;color:#d9c7a6;font-size:13px;text-align:center;padding:8px 16px}
+</style>
+</head>
+<body>
+<div class="concept">PXD2 demo: a pretend restaurant to show what your restaurant's site can do. Try it - order something, then open the kitchen screen.</div>
+<header><div class="in">
+  <a class="back" href="../">&larr; PXD2 for restaurants</a>
+  <h1>Order from the Demo Diner</h1>
+  <p>Breakfast, lunch, pizza and burgers from the grill. Pick what you want, choose a pickup time, then pay now online or pay when you pick it up.</p>
+  <div class="facts"><span id="openNow" class="open">Open</span><span>Pickup at the counter</span><span>Ready in about <b id="lead">20</b> minutes</span><span>Kitchen orders 6 AM to 8:30 PM</span><span>(928) 457-6404</span></div>
+</div></header>
+
+<div class="bar"><div class="in">
+  <div class="menus" id="menus" role="group" aria-label="Menus"></div>
+  <input class="find" id="find" type="search" placeholder="Find an item" aria-label="Find an item">
+</div></div>
+
+<div class="layout">
+  <main id="mainWrap">
+    <nav class="secs" id="secs" aria-label="Sections"></nav>
+    <div id="main"></div>
+  </main>
+
+  <aside class="cart" id="cart" aria-label="Your order">
+    <button class="head" id="cartHead" type="button" aria-expanded="false"><h2>Your order</h2><span class="count" id="count">0</span><span class="close" aria-hidden="true">▾</span></button>
+    <div class="body">
+      <div id="build">
+        <p class="empty" id="empty">Nothing yet. Tap <b>Add</b> on anything from the kitchen.</p>
+        <ul class="lines" id="lines"></ul>
+        <div id="sum" hidden>
+          <div class="tot"><span>Food total</span><span id="total">$0.00</span></div>
+          <div class="tax">Plus Arizona sales tax.</div>
+          <div class="form">
+            <label>Name for the order<input id="who" autocomplete="given-name" maxlength="40" placeholder="First name"></label>
+            <label>Phone, in case we have a question<input id="tel" type="tel" autocomplete="tel" maxlength="20" placeholder="928-555-0100"></label>
+            <label>Pickup time<select id="when"></select></label>
+          </div>
+          <p class="err" id="err" role="alert"></p>
+          <div class="how">
+            <button class="pickup" id="sendPickup" type="button">Send to the kitchen<small>Pay at the counter when you pick it up</small></button>
+            <button class="toast" id="payToast" type="button">Pay now online<small>Checkout with the restaurant's own card provider</small></button>
+          </div>
+          <div class="toastlist" id="toastList"><b>Your order is open on Toast in a new tab.</b> Toast keeps its own cart, so add these same items there, then pay:<ol id="toastItems"></ol></div>
+        </div>
+      </div>
+      <div class="ticket" id="ticket" aria-live="polite">
+        <div>Order sent to the kitchen</div>
+        <div class="num" id="tNum">#101</div>
+        <p id="tLine"></p>
+        <p class="demo" id="tDemo" hidden>Preview mode: this order went to the kitchen screen on this device only. Open <a href="kitchen.html" target="_blank">the kitchen screen</a> in another tab to watch it arrive.</p>
+        <button id="again" type="button">Start a new order</button>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<div class="fab"><button id="fab" type="button">View your order <b id="fabCount">0</b> <span id="fabTotal"></span></button></div>
+
+<script>
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const money = c => "$" + (c / 100).toFixed(2);
+const AZ = () => new Date(new Date().toLocaleString("en-US", { timeZone: "America/Phoenix" }));
+const store = { get(k, d) { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch (e) { return d; } }, set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { } } };
+const BC = (() => { try { return new BroadcastChannel("demo-kitchen"); } catch (e) { return null; } })();
+let M = null, cur = null, cart = store.get("demo_cart", []);
+const ORDERABLE = id => id !== "bar";
+
+fetch("menu.json", { cache: "no-cache" }).then(r => r.json()).then(m => {
+  M = m; $("#lead").textContent = m.pickup.lead_min;
+  const want = (location.hash.match(/menu=([\w-]+)/) || [])[1];
+  cur = m.menus.find(x => x.id === want) ? want : (AZ().getHours() < 11 ? "breakfast" : "food");
+  $("#menus").innerHTML = m.menus.map(x => `<button type="button" data-m="${x.id}">${esc(x.name)}</button>`).join("");
+  document.querySelectorAll("#menus button").forEach(b => b.onclick = () => { cur = b.dataset.m; $("#find").value = ""; draw(); scrollTo({ top: $("#mainWrap").offsetTop - 70 }); });
+  draw(); slots(); render(); openNow();
+});
+$("#find").oninput = draw;
+
+function items() { return M.menus.flatMap(mn => mn.sections.flatMap(s => s.items.map(i => Object.assign({ menu: mn.id }, i)))); }
+function draw() {
+  const q = $("#find").value.trim().toLowerCase();
+  document.querySelectorAll("#menus button").forEach(b => b.setAttribute("aria-pressed", b.dataset.m === cur && !q));
+  const menus = q ? M.menus : M.menus.filter(x => x.id === cur), secs = [];
+  let html = "";
+  for (const mn of menus) {
+    if (mn.id === "bar" && !q) html += `<p class="age">The Bar is 21 and over, so drinks are ordered at the bar, not online. Bring your ID.</p>`;
+    for (const s of mn.sections) {
+      const its = s.items.filter(i => !q || (i.name + " " + (i.desc || "")).toLowerCase().includes(q));
+      if (!its.length) continue;
+      secs.push(s);
+      html += `<section id="sec-${s.id}"><h2>${esc(s.name)}</h2><div class="grid">${its.map(i => `
+        <div class="it" data-id="${esc(i.id)}"><b>${esc(i.name)}</b><span class="p">${money(i.price)}</span>${i.desc ? `<small>${esc(i.desc)}</small>` : ""}
+        ${ORDERABLE(mn.id) ? `<button class="add" type="button">Add<span class="n"></span></button>
+        <div class="note"><input maxlength="120" placeholder="Anything special? (optional)" aria-label="Special request for ${esc(i.name)}"><button type="button" class="ok">Add to order</button></div>` : ""}</div>`).join("")}</div></section>`;
+    }
+  }
+  $("#main").innerHTML = (html || `<p class="none">Nothing matches "${esc(q)}". Try another word.</p>`) +
+    `<p class="src">Menu and prices from the store's own online ordering, ${esc(M.updated)}. Prices can change at the counter.</p>`;
+  $("#secs").innerHTML = q ? "" : secs.map(s => `<a href="#sec-${s.id}">${esc(s.name)}</a>`).join("");
+  document.querySelectorAll(".it .add").forEach(b => {
+    const el = b.closest(".it");
+    b.onclick = () => { document.querySelectorAll(".it.writing").forEach(x => x !== el && x.classList.remove("writing")); el.classList.toggle("writing"); if (el.classList.contains("writing")) el.querySelector(".note input").focus(); };
+    const add = () => { const it = items().find(i => i.id === el.dataset.id), note = el.querySelector(".note input").value.trim();
+      const same = cart.find(l => l.id === it.id && l.note === note);
+      same ? same.qty++ : cart.push({ id: it.id, name: it.name, price: it.price, note, qty: 1 });
+      el.classList.remove("writing"); el.querySelector(".note input").value = ""; render(); };
+    el.querySelector(".note .ok").onclick = add;
+    el.querySelector(".note input").onkeydown = e => { if (e.key === "Enter") add(); };
+  });
+  marks();
+}
+function marks() {
+  document.querySelectorAll(".it[data-id]").forEach(el => {
+    const n = cart.filter(l => l.id === el.dataset.id).reduce((a, l) => a + l.qty, 0);
+    el.classList.toggle("in", n > 0); const s = el.querySelector(".add .n"); if (s) s.textContent = n;
+  });
+}
+function render() {
+  store.set("demo_cart", cart);
+  const n = cart.reduce((a, l) => a + l.qty, 0), tot = cart.reduce((a, l) => a + l.price * l.qty, 0);
+  $("#lines").innerHTML = cart.map((l, k) => `<li><div class="q"><button data-k="${k}" data-d="-1" aria-label="One fewer ${esc(l.name)}">−</button>${l.qty}<button data-k="${k}" data-d="1" aria-label="One more ${esc(l.name)}">+</button></div>
+    <div>${esc(l.name)}${l.note ? `<small>${esc(l.note)}</small>` : ""}</div><div>${money(l.price * l.qty)}</div></li>`).join("");
+  document.querySelectorAll("#lines button").forEach(b => b.onclick = () => { const l = cart[+b.dataset.k]; l.qty += +b.dataset.d; if (l.qty <= 0) cart.splice(+b.dataset.k, 1); render(); });
+  $("#count").textContent = $("#fabCount").textContent = n; $("#fabTotal").textContent = n ? money(tot) : "";
+  $("#total").textContent = money(tot); $("#empty").hidden = !!n; $("#sum").hidden = !n;
+  $("#toastList").classList.remove("on");
+  marks();
+}
+function slots() {
+  const n = AZ(), p = M.pickup, now = n.getHours() * 60 + n.getMinutes(), first = Math.max(p.open * 60, Math.ceil((now + p.lead_min) / p.step_min) * p.step_min);
+  const fmt = m => { const h = Math.floor(m / 60), mm = m % 60; return (h % 12 || 12) + ":" + String(mm).padStart(2, "0") + (h < 12 ? " AM" : " PM"); };
+  let o = "";
+  for (let m = first; m <= p.close * 60; m += p.step_min) o += `<option value="${m}">${m === first ? "As soon as it's ready (about " + fmt(m) + ")" : fmt(m)}</option>`;
+  $("#when").innerHTML = o || `<option value="">The kitchen is closed for today</option>`;
+  $("#sendPickup").disabled = !o;
+}
+function openNow() {
+  const n = AZ(), h = n.getHours() + n.getMinutes() / 60, open = h >= M.pickup.open && h < M.pickup.close;
+  $("#openNow").textContent = open ? "Kitchen open now" : "Kitchen closed - orders resume at 6 AM";
+  $("#openNow").classList.toggle("closed", !open);
+}
+function check() {
+  const who = $("#who").value.trim();
+  if (!cart.length) return null;
+  if (!who) { $("#who").focus(); $("#err").textContent = "Add a name so the kitchen knows whose order it is."; return null; }
+  $("#err").textContent = ""; return who;
+}
+$("#sendPickup").onclick = async () => {
+  const who = check(); if (!who) return;
+  if (!$("#when").value) { $("#err").textContent = "The kitchen is closed for today."; return; }
+  const order = { id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6), who, tel: $("#tel").value.trim(), pickup: $("#when").selectedOptions[0].textContent,
+                  lines: cart.map(l => ({ id: l.id, name: l.name, qty: l.qty, note: l.note, price: l.price })), total: cart.reduce((a, l) => a + l.price * l.qty, 0), pay: "at pickup", at: Date.now(), state: "new" };
+  $("#sendPickup").disabled = true; $("#sendPickup").firstChild.textContent = "Sending...";
+  let num = null, demo = false;
+  try {
+    if (M.relay) {
+      const r = await fetch(M.relay.replace(/\/$/, "") + "/order", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(order) });
+      const j = await r.json(); if (!r.ok) throw new Error(j.error || "The kitchen did not get the order");
+      num = j.num;
+    } else {                      // preview: the kitchen screen on this same device
+      const all = store.get("demo_orders", []); num = 100 + (all.length % 900) + 1; order.num = num;
+      all.push(order); store.set("demo_orders", all.slice(-60)); if (BC) BC.postMessage({ type: "order", order }); demo = true;
+    }
+  } catch (e) {
+    $("#err").textContent = (e.message || "The order did not go through") + ". Please call (928) 457-6404.";
+    $("#sendPickup").disabled = false; $("#sendPickup").firstChild.textContent = "Send to the kitchen"; return;
+  }
+  $("#tNum").textContent = "#" + num;
+  $("#tLine").textContent = `${who}, pickup ${order.pickup.replace("As soon as it's ready", "as soon as it's ready")}. Pay at the counter. Total ${money(order.total)} plus tax.`;
+  $("#tDemo").hidden = !demo;
+  $("#build").hidden = true; $("#ticket").classList.add("on"); $("#cart").classList.add("up");
+  cart = []; store.set("demo_cart", cart); marks();
+  $("#sendPickup").disabled = false; $("#sendPickup").firstChild.textContent = "Send to the kitchen";
+};
+$("#payToast").onclick = () => {
+  if (!cart.length) return;
+  $("#toastItems").innerHTML = cart.map(l => `<li>${l.qty} × ${esc(l.name)}${l.note ? " (" + esc(l.note) + ")" : ""}</li>`).join("");
+  $("#toastList").classList.add("on");
+  if (M.order_url) window.open(M.order_url, "_blank", "noopener");
+  else $("#toastList").firstElementChild.textContent = "On a real restaurant's site this opens their own checkout (Toast, Square, Clover...) so the card fees stay with their provider. This is the list the customer pays for:";
+};
+$("#again").onclick = () => { render(); slots(); $("#build").hidden = false; $("#ticket").classList.remove("on"); $("#cart").classList.remove("up"); };
+const toggle = () => { const up = $("#cart").classList.toggle("up"); $("#cartHead").setAttribute("aria-expanded", up); };
+$("#cartHead").onclick = () => { if (matchMedia("(max-width:980px)").matches) toggle(); };
+$("#fab").onclick = toggle;
+setInterval(() => { if (M) { slots(); openNow(); } }, 60000);
+</script>
+</body>
+</html>
