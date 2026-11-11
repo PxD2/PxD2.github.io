@@ -108,6 +108,7 @@ button.on{background:#1a0605}
   <button data-tab="ai">🎙 AI</button>
   <button data-tab="leads">LEADS</button>
   <button data-tab="pitch" class="on">PITCH</button>
+  <button data-tab="office">OFFICE</button>
   <button data-tab="text">TEXT <span id="tCount" class="ok"></span></button>
   <button data-tab="deals">DEALS</button>
   <button data-tab="files">FILES</button>
@@ -146,6 +147,8 @@ button.on{background:#1a0605}
     </div>
     <div class="card"><h3>CONVERSATION</h3><div class="ai-log" id="aiLog"></div></div>
   </div>
+
+  <div data-pane="office" class="hide"><div id="officeBody"></div></div>
 
   <div data-pane="pitch"><div id="pitchBody"><div class="card dim">loading client kits…</div></div></div>
 
@@ -226,10 +229,13 @@ button.on{background:#1a0605}
 </main>
 </section>
 <div id="toast"></div>
-<script src="app.js?v=28"></script>
-<script src="fflate.min.js?v=28"></script>
-<script src="pitch.js?v=28"></script>
-<script src="jspdf.umd.min.js?v=28"></script>
-<script src="deals.js?v=28"></script>
+<script src="app.js?v=29"></script>
+<script src="fflate.min.js?v=29"></script>
+<script src="pitch.js?v=29"></script>
+<script src="jspdf.umd.min.js?v=29"></script>
+<script src="deals.js?v=29"></script>
+<script src="xlsx.full.min.js?v=29"></script>
+<script src="pptxgen.bundle.js?v=29"></script>
+<script src="office.js?v=29"></script>
 </body>
 </html>
