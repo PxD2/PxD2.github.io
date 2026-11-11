@@ -1,0 +1,254 @@
+{
+ "updated": "demo menu",
+ "source": "PXD2 demo restaurant (pretend)",
+ "order_url": "",
+ "relay": "",
+ "pickup": {
+  "open": 6,
+  "close": 20.5,
+  "lead_min": 15,
+  "step_min": 15
+ },
+ "menus": [
+  {
+   "id": "breakfast",
+   "name": "Breakfast",
+   "sections": [
+    {
+     "id": "plates",
+     "name": "Plates",
+     "items": [
+      {
+       "id": "plates-two-eggs-any-style",
+       "name": "Two Eggs Any Style",
+       "desc": "With hash browns and toast",
+       "price": 950
+      },
+      {
+       "id": "plates-chicken-fried-steak-eggs",
+       "name": "Chicken Fried Steak & Eggs",
+       "desc": "Country gravy, two eggs, hash browns",
+       "price": 1500
+      },
+      {
+       "id": "plates-breakfast-burrito",
+       "name": "Breakfast Burrito",
+       "desc": "Eggs, potatoes, cheese, green chile; bacon or chorizo",
+       "price": 1100
+      },
+      {
+       "id": "plates-biscuits-gravy",
+       "name": "Biscuits & Gravy",
+       "desc": "Two buttermilk biscuits, sausage gravy",
+       "price": 800
+      },
+      {
+       "id": "plates-short-stack",
+       "name": "Short Stack",
+       "desc": "Three pancakes, butter and syrup",
+       "price": 700
+      },
+      {
+       "id": "plates-huevos-rancheros",
+       "name": "Huevos Rancheros",
+       "desc": "Corn tortillas, eggs, beans, red chile",
+       "price": 1200
+      }
+     ]
+    },
+    {
+     "id": "sides-am",
+     "name": "Sides",
+     "items": [
+      {
+       "id": "sides-am-bacon",
+       "name": "Bacon",
+       "desc": "",
+       "price": 400
+      },
+      {
+       "id": "sides-am-sausage-patties",
+       "name": "Sausage Patties",
+       "desc": "",
+       "price": 400
+      },
+      {
+       "id": "sides-am-hash-browns",
+       "name": "Hash Browns",
+       "desc": "",
+       "price": 350
+      },
+      {
+       "id": "sides-am-fruit-cup",
+       "name": "Fruit Cup",
+       "desc": "",
+       "price": 400
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "food",
+   "name": "Grill & Pizza",
+   "sections": [
+    {
+     "id": "burgers",
+     "name": "Burgers",
+     "items": [
+      {
+       "id": "burgers-classic-burger",
+       "name": "Classic Burger",
+       "desc": "1/3 lb, lettuce, tomato, onion, pickles, fries",
+       "price": 1200
+      },
+      {
+       "id": "burgers-green-chile-cheeseburger",
+       "name": "Green Chile Cheeseburger",
+       "desc": "Roasted green chile, pepper jack, fries",
+       "price": 1400
+      },
+      {
+       "id": "burgers-bacon-bbq-burger",
+       "name": "Bacon BBQ Burger",
+       "desc": "Cheddar, bacon, onion rings, BBQ sauce",
+       "price": 1500
+      },
+      {
+       "id": "burgers-patty-melt",
+       "name": "Patty Melt",
+       "desc": "Swiss, grilled onions, rye",
+       "price": 1300
+      }
+     ]
+    },
+    {
+     "id": "pizza",
+     "name": "Pizza (14 in.)",
+     "items": [
+      {
+       "id": "pizza-cheese",
+       "name": "Cheese",
+       "desc": "",
+       "price": 1400
+      },
+      {
+       "id": "pizza-pepperoni",
+       "name": "Pepperoni",
+       "desc": "",
+       "price": 1600
+      },
+      {
+       "id": "pizza-supreme",
+       "name": "Supreme",
+       "desc": "Pepperoni, sausage, peppers, onions, mushrooms, olives",
+       "price": 2000
+      },
+      {
+       "id": "pizza-green-chile-chicken",
+       "name": "Green Chile Chicken",
+       "desc": "Grilled chicken, green chile, red onion",
+       "price": 1900
+      }
+     ]
+    },
+    {
+     "id": "baskets",
+     "name": "Baskets & sandwiches",
+     "items": [
+      {
+       "id": "baskets-chicken-tenders",
+       "name": "Chicken Tenders",
+       "desc": "Four tenders, fries, ranch",
+       "price": 1200
+      },
+      {
+       "id": "baskets-philly-cheesesteak",
+       "name": "Philly Cheesesteak",
+       "desc": "Grilled peppers and onions, provolone",
+       "price": 1500
+      },
+      {
+       "id": "baskets-fish-chips",
+       "name": "Fish & Chips",
+       "desc": "",
+       "price": 1400
+      },
+      {
+       "id": "baskets-club-sandwich",
+       "name": "Club Sandwich",
+       "desc": "Turkey, ham, bacon, triple decker",
+       "price": 1300
+      }
+     ]
+    },
+    {
+     "id": "sides",
+     "name": "Sides",
+     "items": [
+      {
+       "id": "sides-fries",
+       "name": "Fries",
+       "desc": "",
+       "price": 400
+      },
+      {
+       "id": "sides-onion-rings",
+       "name": "Onion Rings",
+       "desc": "",
+       "price": 600
+      },
+      {
+       "id": "sides-side-salad",
+       "name": "Side Salad",
+       "desc": "",
+       "price": 500
+      },
+      {
+       "id": "sides-wings-8",
+       "name": "Wings, 8",
+       "desc": "Buffalo, BBQ or lemon pepper",
+       "price": 1200
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "drinks",
+   "name": "Drinks",
+   "sections": [
+    {
+     "id": "drinks",
+     "name": "Drinks",
+     "items": [
+      {
+       "id": "drinks-fountain-drink",
+       "name": "Fountain Drink",
+       "desc": "",
+       "price": 250
+      },
+      {
+       "id": "drinks-iced-tea",
+       "name": "Iced Tea",
+       "desc": "",
+       "price": 250
+      },
+      {
+       "id": "drinks-coffee",
+       "name": "Coffee",
+       "desc": "",
+       "price": 200
+      },
+      {
+       "id": "drinks-milkshake",
+       "name": "Milkshake",
+       "desc": "Vanilla, chocolate or strawberry",
+       "price": 600
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

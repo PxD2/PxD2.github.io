@@ -44,16 +44,25 @@ body{background:var(--bg);color:#F1E2C4;font:400 18px/1.45 "Bitter",Georgia,seri
 .card .go{width:100%;font:800 17px "Bitter",serif;border:0;border-radius:8px;padding:12px;cursor:pointer;color:#fff;background:var(--turq)}
 .card.cooking .go{background:var(--ok)}.card.ready .go{background:#5A4632}
 .empty{color:#8E7B5E;text-align:center;padding:24px 8px;font-size:16px}
+.link[hidden]{display:none}
+.link{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:10px 20px;background:#2A1E12}
+.link input{flex:1;min-width:200px;max-width:420px;padding:10px 12px;border-radius:8px;border:2px solid #5A4632;background:#1C140C;color:#F1E2C4;font:inherit}
+.link button{font:800 15px "Bitter",serif;border:0;border-radius:8px;padding:10px 14px;background:var(--turq);color:#fff;cursor:pointer}
+.card .paid{display:inline-block;font-size:13px;font-weight:800;border-radius:999px;padding:1px 9px;background:#F5D9A6;color:#6B3A1F;margin-left:6px}
+.card .tot{font-weight:800;margin:-4px 0 10px}
+.concept{background:#22160E;color:#d9c7a6;font-size:13px;text-align:center;padding:8px 16px}
 </style>
 </head>
 <body>
+<div class="concept">Concept design by PXD2 for Stanford General Store &amp; Y-Bar. Not the store's official website.</div>
 <div class="bar">
   <h1>Nettie's Deli · kitchen</h1>
   <button id="sound" type="button" aria-pressed="false">Tap to turn on order chime</button>
   <button id="demo" type="button">Add a test order</button>
   <div class="clock" id="clock"></div>
 </div>
-<div class="note">Concept preview by PXD2. On this device, orders from the store's Order ahead page appear here instantly. When online ordering goes live, this screen runs on the kitchen tablet and every web order lands here.</div>
+<div class="note" id="note">Preview mode: orders placed on this device show up here. Link this tablet to go live.</div>
+<form class="link" id="link" hidden><b>Link this kitchen tablet</b><input id="key" placeholder="Kitchen key from PXD2" autocomplete="off" aria-label="Kitchen key"><button>Link</button><span id="linkMsg"></span></form>
 <div class="board">
   <div class="col"><h2><i style="background:var(--rust)"></i>New<span id="nNew">0</span></h2><div id="cNew"></div></div>
   <div class="col"><h2><i style="background:var(--gold)"></i>Cooking<span id="nCook">0</span></h2><div id="cCook"></div></div>
@@ -83,18 +92,40 @@ function paint() {
     const mins = Math.floor((now - o.at) / 60000);
     return `<div class="card ${o.state} ${fresh.has(o.id) ? "fresh" : ""}">
       <div class="top"><span class="num">#${o.num}</span><span class="who">${esc(o.who)}</span><span class="age ${mins >= 15 && o.state !== "ready" ? "late" : ""}">${mins} min</span></div>
-      <div class="pick">Pickup: ${esc(o.pickup)}${o.tel ? " · " + esc(o.tel) : ""}</div>
+      <div class="pick">Pickup: ${esc(o.pickup)}${o.tel ? " · " + esc(o.tel) : ""}<span class="paid">${o.pay === "at pickup" ? "PAY AT COUNTER" : "PAID"}</span></div>
       <ul>${o.lines.map(l => `<li><b>${l.qty}×</b>${esc(l.name)}${l.note ? `<small>${esc(l.note)}</small>` : ""}</li>`).join("")}</ul>
-      <button class="go" data-id="${o.id}">${NEXT[o.state][1]}</button></div>`;
+      ${o.total ? `<div class="tot">$${(o.total / 100).toFixed(2)} + tax</div>` : ""}<button class="go" data-id="${o.id}">${NEXT[o.state][1]}</button></div>`;
   };
   [["new", "#cNew", "#nNew"], ["cooking", "#cCook", "#nCook"], ["ready", "#cReady", "#nReady"]].forEach(([k, c, n]) => {
     $(c).innerHTML = cols[k].map(card).join("") || `<p class="empty">${k === "new" ? "Waiting for orders" : "Nothing here"}</p>`;
     $(n).textContent = cols[k].length;
   });
   document.querySelectorAll(".go").forEach(b => b.onclick = () => {
-    const o = orders.find(x => x.id === b.dataset.id); o.state = NEXT[o.state][0]; fresh.delete(o.id); save(orders); paint();
+    const o = orders.find(x => x.id === b.dataset.id); o.state = NEXT[o.state][0]; fresh.delete(o.id); save(orders); pushState(o); paint();
   });
 }
+// ---- live: orders from the PXD2 order relay (menu.json "relay"); the kitchen key stays on this tablet only
+let RELAY = "", KEY = (() => { try { return localStorage.getItem("sgs_kitchen_key") || ""; } catch (e) { return ""; } })(), since = 0;
+fetch("menu.json", { cache: "no-cache" }).then(r => r.json()).then(m => {
+  RELAY = (m.relay || "").replace(/\/$/, "");
+  if (!RELAY) return;
+  $("#link").hidden = !!KEY;
+  $("#note").textContent = KEY ? "Live: web orders for Nettie's Deli land here. Keep this screen open." : "Online ordering is live. Link this tablet with the kitchen key to start receiving orders.";
+  if (KEY) poll();
+});
+$("#link").onsubmit = e => { e.preventDefault(); KEY = $("#key").value.trim(); try { localStorage.setItem("sgs_kitchen_key", KEY); } catch (er) { }
+  $("#link").hidden = true; $("#note").textContent = "Live: web orders for Nettie's Deli land here. Keep this screen open."; poll(); };
+async function poll() {
+  try {
+    const r = await fetch(`${RELAY}/orders?since=${since}`, { headers: { Authorization: "Bearer " + KEY } });
+    if (r.status === 401) { $("#link").hidden = false; $("#linkMsg").textContent = "That key was not accepted."; return; }
+    const j = await r.json();
+    (j.orders || []).forEach(o => { since = Math.max(since, o.at); const have = orders.find(x => x.id === o.id); if (have) { have.state = o.state; } else arrive(o); });
+    paint();
+  } catch (e) { $("#note").textContent = "Lost the connection - retrying. Orders are not lost; they wait on the relay."; }
+  setTimeout(poll, 5000);
+}
+function pushState(o) { if (RELAY && KEY) fetch(`${RELAY}/state`, { method: "POST", headers: { "Content-Type": "application/json", Authorization: "Bearer " + KEY }, body: JSON.stringify({ id: o.id, state: o.state }) }).catch(() => { }); }
 try { const bc = new BroadcastChannel("sgs-kitchen"); bc.onmessage = e => e.data && e.data.type === "order" && arrive(e.data.order); } catch (e) { }
 addEventListener("storage", e => { if (e.key === "sgs_orders") { const before = new Set(orders.map(o => o.id)); orders = load(); orders.filter(o => !before.has(o.id)).forEach(o => { fresh.add(o.id); chime(); }); paint(); } });
 $("#sound").onclick = () => { ctx = ctx || new (window.AudioContext || window.webkitAudioContext)(); ctx.resume(); chime(); $("#sound").textContent = "Chime on"; $("#sound").classList.add("on"); $("#sound").setAttribute("aria-pressed", "true"); };
