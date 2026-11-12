@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PXD2 Studio — Mud for Blood, the campaign film and the game</title>
+<meta name="description" content="PXD2 Studio's production page for GLOBAL THEATERS: Mud for Blood. A full campaign film shot inside the game, a two-sided FPS MMO, and every model built in-house, off-grid in Arizona.">
+<meta name="theme-color" content="#0b0b0a">
+<link rel="canonical" href="https://pxd2.github.io/studio/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://pxd2.github.io/studio/">
+<meta property="og:title" content="PXD2 Studio — Mud for Blood">
+<meta property="og:description" content="The campaign film and the game. Shot inside the engine, built in-house, off-grid in Arizona.">
+<meta property="og:image" content="https://pxd2.github.io/games/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://pxd2.github.io/games/og.jpg">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a production call sheet. Hero and slate up top, then reels numbered like a film can label. Shares the /games palette so the two pages read as one title. */
+:root {
+  --bg: #0b0b0a;
+  --panel: #151412;
+  --panel-2: #1c1a17;
+  --line: #2e2a24;
+  --fg: #e8dfc8;
+  --muted: #a39a88;
+  --accent: #c9a46a;
+  --blood: #b01e22;
+  --blood-hi: #d8352b;
+  --display: "Black Ops One", Impact, "Arial Narrow", sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+html, body { margin: 0; }
+body { background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+a { color: var(--accent); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+.mono { font-family: var(--mono); }
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
+
+/* top bar */
+header.top { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; padding: 18px 0 14px; border-bottom: 1px solid var(--line); }
+.brand { display: flex; align-items: center; gap: 10px; font-family: var(--display); font-size: 21px; letter-spacing: .06em; }
+.brand svg { width: 22px; height: 22px; flex: none; }
+.top nav { display: flex; gap: 18px; flex-wrap: wrap; font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; }
+.top nav a { color: var(--muted); text-decoration: none; }
+.top nav a:hover { color: var(--fg); }
+
+/* hero */
+.hero { position: relative; padding: 56px 0 34px; overflow: hidden; }
+.hero::before { /* faint film-gate glow behind the logo */
+  content: ""; position: absolute; inset: 0 -20px; pointer-events: none;
+  background:
+    radial-gradient(60% 55% at 70% 40%, rgba(176,30,34,.20), transparent 70%),
+    radial-gradient(50% 60% at 20% 30%, rgba(201,164,106,.10), transparent 70%);
+}
+.hero > * { position: relative; }
+.hero h1 { margin: 14px -1% 0; }
+.hero h1 img { display: block; width: 100%; height: auto; }
+.hero .lede { font-size: clamp(18px, 2.5vw, 22px); line-height: 1.45; max-width: 60ch; margin: 22px 0 0; }
+.ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
+.btn { font-family: var(--mono); font-size: 13px; letter-spacing: .08em; text-transform: uppercase; padding: 13px 18px; border: 1px solid var(--accent); color: var(--accent); background: transparent; text-decoration: none; display: inline-block; cursor: pointer; transition: background .15s, color .15s; }
+.btn:hover { background: var(--accent); color: #14100a; }
+.btn.primary { background: var(--blood); border-color: var(--blood); color: var(--fg); }
+.btn.primary:hover { background: var(--blood-hi); border-color: var(--blood-hi); color: #fff; }
+
+/* slate */
+.slate { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border: 1px solid var(--line); background: var(--panel); margin-top: 8px; }
+.slate::before { /* clapper stripes */
+  content: ""; grid-column: 1 / -1; height: 14px;
+  background: repeating-linear-gradient(-45deg, var(--fg) 0 18px, var(--bg) 18px 36px);
+  opacity: .85;
+}
+.slate div { padding: 14px 16px; border-right: 1px solid var(--line); border-top: 1px solid var(--line); min-width: 0; }
+.slate div:nth-child(4n) { border-right: 0; }
+.slate dt, .slate .k { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.slate .v { display: block; font-family: var(--display); font-size: clamp(17px, 2.2vw, 22px); text-transform: uppercase; letter-spacing: .03em; line-height: 1.2; margin-top: 4px; overflow-wrap: anywhere; }
+
+/* reels */
+section.reel { display: grid; grid-template-columns: 132px 1fr; gap: 24px; padding: 48px 0; border-top: 1px solid var(--line); }
+section.reel:first-of-type { border-top: 0; }
+.can { font-family: var(--mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); padding-top: 6px; }
+.can b { display: block; font-family: var(--display); font-weight: 400; font-size: 34px; letter-spacing: 0; color: var(--blood-hi); line-height: 1; margin-bottom: 6px; }
+section.reel > div { min-width: 0; }
+h2 { font-family: var(--display); font-weight: 400; text-transform: uppercase; font-size: clamp(28px, 4.6vw, 44px); line-height: 1; letter-spacing: .02em; margin: 0 0 16px; text-wrap: balance; }
+section.reel p { max-width: 66ch; margin: 0 0 14px; }
+.muted { color: var(--muted); }
+
+blockquote.line { margin: 22px 0 6px; padding: 18px 20px; border-left: 3px solid var(--blood); background: var(--panel); font-family: var(--display); font-size: clamp(19px, 2.8vw, 26px); line-height: 1.25; text-transform: uppercase; letter-spacing: .02em; }
+blockquote.line cite { display: block; margin-top: 10px; font-family: var(--mono); font-size: 12px; font-style: normal; letter-spacing: .12em; color: var(--muted); }
+
+.cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 20px; }
+.cards.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.card { border: 1px solid var(--line); background: var(--panel); padding: 16px; display: grid; gap: 6px; align-content: start; }
+.card .k { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+.card .v { font-family: var(--display); font-size: 21px; text-transform: uppercase; line-height: 1.1; }
+.card p { font-size: 14.5px; color: var(--muted); margin: 0; }
+a.card { text-decoration: none; color: inherit; transition: border-color .15s, background .15s; }
+a.card:hover { border-color: var(--accent); background: var(--panel-2); }
+
+/* pipeline */
+ol.pipe { list-style: none; counter-reset: step; padding: 0; margin: 20px 0 0; display: grid; gap: 0; }
+ol.pipe li { counter-increment: step; display: grid; grid-template-columns: 54px 170px 1fr; gap: 14px; align-items: baseline; padding: 13px 0; border-bottom: 1px dashed var(--line); }
+ol.pipe li::before { content: counter(step, decimal-leading-zero); font-family: var(--mono); font-size: 13px; color: var(--blood-hi); }
+ol.pipe li b { font-family: var(--display); font-weight: 400; text-transform: uppercase; font-size: 18px; letter-spacing: .03em; }
+ol.pipe li span { color: var(--muted); font-size: 15px; }
+
+/* locations */
+.locs { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin-top: 20px; }
+.loc { position: relative; aspect-ratio: 16 / 10; border: 1px solid var(--line); padding: 14px; display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden; isolation: isolate; }
+.loc::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--g); }
+.loc::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(to top, rgba(11,11,10,.92), rgba(11,11,10,.15) 70%); }
+.loc .k { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+.loc .v { font-family: var(--display); font-size: 23px; text-transform: uppercase; line-height: 1.05; }
+.loc p { margin: 4px 0 0; font-size: 13.5px; color: var(--muted); max-width: none; }
+
+/* rules table */
+table.rules { width: 100%; border-collapse: collapse; margin-top: 18px; font-variant-numeric: tabular-nums; }
+table.rules td { padding: 10px 0; border-bottom: 1px dashed var(--line); vertical-align: top; }
+table.rules td:last-child { text-align: right; font-family: var(--mono); color: var(--accent); padding-left: 16px; white-space: nowrap; }
+
+.contact { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 18px; }
+.contact code { font-family: var(--mono); font-size: 15px; background: var(--panel); border: 1px solid var(--line); padding: 11px 13px; user-select: all; overflow-wrap: anywhere; }
+#copyMsg { font-family: var(--mono); font-size: 12px; color: var(--accent); }
+
+footer { border-top: 1px solid var(--line); padding: 20px 0 90px; font-family: var(--mono); font-size: 12px; color: var(--muted); }
+
+@media (max-width: 720px) {
+  .hero { padding-top: 36px; }
+  .slate { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .slate div:nth-child(2n) { border-right: 0; }
+  section.reel { grid-template-columns: 1fr; gap: 8px; padding: 36px 0; }
+  .can b { display: inline; font-size: 26px; margin-right: 8px; }
+  .cards, .cards.two { grid-template-columns: 1fr; }
+  ol.pipe li { grid-template-columns: 34px 1fr; }
+  ol.pipe li span { grid-column: 2; }
+  table.rules td:last-child { white-space: normal; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .btn, a.card { transition: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="brand">
+      <svg viewBox="0 0 24 24" aria-hidden="true" fill="#b01e22"><path d="M10.5 3h3v7.5H21v3h-7.5V21h-3v-7.5H3v-3h7.5z"/><path d="M4.4 4h1.2v1.4H7v1.2H5.6V8H4.4V6.6H3V5.4h1.4zM18.4 4h1.2v1.4H21v1.2h-1.4V8h-1.2V6.6H17V5.4h1.4zM4.4 16h1.2v1.4H7v1.2H5.6V20H4.4v-1.4H3v-1.2h1.4zM18.4 16h1.2v1.4H21v1.2h-1.4V20h-1.2v-1.4H17v-1.2h1.4z"/></svg>
+      PXD2 STUDIO
+    </div>
+    <nav aria-label="Page">
+      <a href="#film">Film</a>
+      <a href="#story">Story</a>
+      <a href="#game">Game</a>
+      <a href="#floor">Floor</a>
+      <a href="#calls">Open calls</a>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <div class="eyebrow">Now in production · Feature campaign film + PC game</div>
+    <h1><img src="/games/logo.png" alt="Global Theaters: Mud for Blood. A PXD2 Studios theater of war." width="2048" height="570"></h1>
+    <p class="lede">One story, two ways in. Play the campaign, then watch it as a feature film shot inside the same world, with the game itself as the set.</p>
+    <div class="ctas">
+      <a class="btn primary" href="#film">The film</a>
+      <a class="btn" href="#game">The game</a>
+      <a class="btn" href="https://www.youtube.com/@PXD2Games" target="_blank" rel="noopener">Watch on YouTube</a>
+    </div>
+  </div>
+
+  <div class="slate" role="group" aria-label="Production slate">
+    <div><span class="k">Production</span><span class="v">Mud for Blood</span></div>
+    <div><span class="k">Studio</span><span class="v">PXD2 Studio</span></div>
+    <div><span class="k">Engine</span><span class="v">Unreal</span></div>
+    <div><span class="k">Location</span><span class="v">Concho, AZ</span></div>
+    <div><span class="k">Store review</span><span class="v">Thanksgiving 2026</span></div>
+    <div><span class="k">Target launch</span><span class="v">Jan 1, 2027</span></div>
+    <div><span class="k">First store</span><span class="v">Epic Games</span></div>
+    <div><span class="k">Then</span><span class="v">Steam</span></div>
+  </div>
+
+  <main>
+
+  <section class="reel" id="film">
+    <div class="can"><b>R1</b>The film</div>
+    <div>
+      <h2>A campaign you can watch</h2>
+      <p>The Mud for Blood campaign is being made into a full feature, start to finish, before any trailer. These are written character scenes from the story, staged and shot for the screen. They are not recorded gameplay with a filter on top.</p>
+      <p>The game is the film set. The same streets, vehicles and soldiers the player fights through are the ones the camera moves through, so every scene matches the world you play in.</p>
+      <div class="cards">
+        <div class="card"><span class="k">Picture</span><span class="v">Hybrid</span><p>3D renders from the game world combined with AI-generated shots.</p></div>
+        <div class="card"><span class="k">Camera</span><span class="v">PXD2 rig</span><p>Our own Blender camera rig, built for the cutscenes and the film.</p></div>
+        <div class="card"><span class="k">Voice</span><span class="v">Recorded here</span><p>Every line is performed in-house. Nomad speaks in the founder's own voice.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="reel" id="story">
+    <div class="can"><b>R2</b>The story</div>
+    <div>
+      <h2>The modern crusade</h2>
+      <p>The United States has fallen. A few states hold. One company saw it coming and built what would be needed: PXD2, founded by the operator known as <strong>Nomad</strong>.</p>
+      <p>Out of it comes the <strong>PXD2 Peter and David Coalition Forces</strong>, fighting alongside a New Order alliance of American, Russian, British and Polish units. They wear one mark so they can tell each other apart on a crowded battlefield: a red Jerusalem cross, front and back.</p>
+      <p>Across the line stand the Socialists of America and their aligned bloc. The campaign is told from the Coalition side. In the MMO, both sides are playable.</p>
+      <blockquote class="line">We used to ride horse and wear steel. Now we ride steel horse and better steel.<cite>— Mud for Blood, campaign premise</cite></blockquote>
+      <div class="cards two">
+        <div class="card"><span class="k">Player</span><span class="v">Nomad</span><p>Founder of PXD2 in the story. Hard realism, decisions with consequences.</p></div>
+        <div class="card"><span class="k">HQ</span><span class="v">Oracle</span><p>The voice in your ear from headquarters, start to finish.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="reel" id="game">
+    <div class="can"><b>R3</b>The game</div>
+    <div>
+      <h2>Built for top-end PCs</h2>
+      <p>GLOBAL THEATERS: Mud for Blood is PXD2's first release and the first title in the franchise. It ships with two things: the story campaign and a two-sided FPS MMO. It plays on screen, or streamed from the PC to a VR headset, and it is VR treadmill capable.</p>
+      <p>Everything in the world can be destroyed, helicopters included. Vehicles take damage when they hit things. Aircraft that fly into walls do not fly out.</p>
+      <table class="rules" aria-label="Match rules">
+        <tr><td>Team Deathmatch</td><td>First to 200</td></tr>
+        <tr><td>SUPPRESS (domination)</td><td>First to 1,000</td></tr>
+        <tr><td>Lethality</td><td>2 chest · 1 head</td></tr>
+        <tr><td>40mm against vehicles</td><td>Heavy damage or a kill</td></tr>
+        <tr><td>Ranks</td><td>Classic military ladder</td></tr>
+        <tr><td>Updates</td><td>Patch-only downloads</td></tr>
+      </table>
+      <div class="locs" aria-label="Theaters at release">
+        <div class="loc" style="--g:linear-gradient(160deg,#27313a,#12161a 60%,#3a2a20)"><span class="k">Theater</span><span class="v">New York</span><p>Street-level fighting between towers.</p></div>
+        <div class="loc" style="--g:linear-gradient(160deg,#3a342a,#17150f 60%,#4a3f2c)"><span class="k">Theater</span><span class="v">No Man's Land</span><p>Open ground, craters and cover you make yourself.</p></div>
+        <div class="loc" style="--g:linear-gradient(160deg,#3d1420,#140a12 55%,#5a3a12)"><span class="k">Theater</span><span class="v">Vegas</span><p>The Strip at night under PXD2 neon.</p></div>
+        <div class="loc" style="--g:linear-gradient(160deg,#1e3324,#0c140e 60%,#2c3a1e)"><span class="k">Theater</span><span class="v">Jungle</span><p>Close canopy, short sight lines.</p></div>
+        <div class="loc" style="--g:linear-gradient(160deg,#2b2a26,#131210 60%,#3b2f1f)"><span class="k">Opening map</span><span class="v">Training Center</span><p>The PXD2 range where every recruit starts.</p></div>
+      </div>
+      <p class="muted" style="margin-top:16px">Later, as DLC: WW3 and WW3 Slaughter House modes.</p>
+    </div>
+  </section>
+
+  <section class="reel" id="floor">
+    <div class="can"><b>R4</b>The floor</div>
+    <div>
+      <h2>Made here, owned here</h2>
+      <p>PXD2 Studio is a production studio for film, animation and games, run from a fully off-grid shop in Concho, Arizona. Solar runs the machines. The work stays on our own hardware.</p>
+      <p>We don't buy game assets. Every vehicle, weapon and building is modeled in-house in Blender and brought into Unreal, and each one carries a PXD2 name and a PXD2 livery.</p>
+      <ol class="pipe" aria-label="How a scene gets made">
+        <li><b>Story</b><span>Scenes are written from the campaign, beat by beat.</span></li>
+        <li><b>Set</b><span>The game map is dressed and lit as the location.</span></li>
+        <li><b>Camera</b><span>The PXD2 rig flies the move in Blender.</span></li>
+        <li><b>Render</b><span>Two workstations share the queue, one job at a time.</span></li>
+        <li><b>Voice</b><span>Lines are recorded and matched to each character.</span></li>
+        <li><b>Approval</b><span>Every shot is signed off by the founder before it goes in the cut.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="reel" id="calls">
+    <div class="can"><b>R5</b>Open calls</div>
+    <div>
+      <h2>Work with the production</h2>
+      <div class="cards">
+        <div class="card"><span class="k">Music</span><span class="v">Theme song</span><p>We are looking for an artist to write and record an original Mud for Blood theme.</p></div>
+        <div class="card"><span class="k">Veterans</span><span class="v">Testers and modders</span><p>Veteran communities play early builds and build the mil-sim mods. Always-on vet channels are planned inside the MMO.</p></div>
+        <div class="card"><span class="k">Sponsors</span><span class="v">In-game signage</span><p>Ad space on the maps is open now and carries forward into the next title, Rouge Racer: Route 66.</p></div>
+      </div>
+      <div class="contact">
+        <code id="email">pxd2games@gmail.com</code>
+        <button class="btn" id="copyBtn" type="button">Copy email</button>
+        <span id="copyMsg" aria-live="polite"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="reel" id="follow">
+    <div class="can"><b>R6</b>Follow</div>
+    <div>
+      <h2>Follow the build</h2>
+      <div class="cards">
+        <a class="card" href="https://www.youtube.com/@PXD2Games" target="_blank" rel="noopener"><span class="k">YouTube</span><span class="v">@PXD2Games</span><p>Gameplay, walkthroughs and film scenes as they land.</p></a>
+        <a class="card" href="https://www.tiktok.com/@pxd2.games" target="_blank" rel="noopener"><span class="k">TikTok</span><span class="v">@pxd2.games</span><p>Short combat clips.</p></a>
+        <a class="card" href="https://www.instagram.com/pxd2games" target="_blank" rel="noopener"><span class="k">Instagram</span><span class="v">@pxd2games</span><p>Screens, renders and dev notes.</p></a>
+      </div>
+    </div>
+  </section>
+
+  </main>
+
+  <footer>PXD2 Studio · Concho, Arizona · 100% off-grid · Mud for Blood is in production; dates and features may change.</footer>
+</div>
+
+<script>
+(function () {
+  var btn = document.getElementById('copyBtn'), msg = document.getElementById('copyMsg'), em = document.getElementById('email');
+  btn.addEventListener('click', function () {
+    var text = em.textContent;
+    function fallback() {
+      var r = document.createRange(); r.selectNodeContents(em);
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      msg.textContent = 'Selected. Press Ctrl+C to copy.';
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () { msg.textContent = 'Copied.'; }, fallback);
+    } else { fallback(); }
+  });
+})();
+</script>
+<script src="/sites.js" defer></script>
+</body>
+</html>
