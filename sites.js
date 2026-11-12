@@ -16,6 +16,7 @@
     { name: "House", href: "/hornet/house.html" },
     { name: "Lens", href: "/hornet/lens.html" },
     { name: "Alexandria", href: "/alexandria/" },
+    { name: "Studio", href: "/studio/" },
     { name: "Studio A", href: "/studioa/" },
     { name: "GitHub", href: "https://github.com/PxD2" }
   ];
