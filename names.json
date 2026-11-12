@@ -775,6 +775,19 @@
       "added": "2026-11-11",
       "group": "Client sites",
       "status": "concept"
+    },
+    "restaurants": {
+      "to": "/restaurants/",
+      "title": "PXD2 for restaurants: website, menu, ordering and calendar",
+      "added": "2026-11-11",
+      "group": "Studio & company",
+      "native": true
+    },
+    "demodiner": {
+      "to": "/restaurants/demo/order.html",
+      "title": "Demo Diner: try PXD2 online ordering",
+      "added": "2026-11-11",
+      "group": "Studio & company"
     }
   },
   "groups": [
