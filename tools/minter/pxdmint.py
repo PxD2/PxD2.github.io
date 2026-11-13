@@ -175,7 +175,7 @@ def op_check(name):
     return {"name": name, "free": why is None, "why": why}
 
 
-def op_mint(name, to, title="", owner="", group="Client sites", contact="", pxd2=False, status=""):
+def op_mint(name, to, title="", owner="", group="Client sites", contact="", pxd2=False, status="", host=""):
     reg = load_reg(); name = name.lower().strip().removesuffix(".pxd")
     problem_with.pxd2_ok = pxd2
     try:
@@ -186,8 +186,8 @@ def op_mint(name, to, title="", owner="", group="Client sites", contact="", pxd2
         raise ValueError(f"{name}.pxd: {why}")
     if not to or not (to.startswith("/") or re.match(r"https?://", to)):
         raise ValueError("--to must be a site path like /clients/shop/ or a full https:// address")
-    native, fprob = folder_status(name, to)
-    no_folder = to == "/" or (fprob and pxd2)      # the site root, or a PXD2 name over its own folder: no redirect folder
+    native, fprob = (False, None) if host else folder_status(name, to)
+    no_folder = to == "/" or (fprob and pxd2) or bool(host)     # a PXD Host serves it: nothing to build on GitHub      # the site root, or a PXD2 name over its own folder: no redirect folder
     if fprob and not no_folder:
         raise ValueError(f"{name}.pxd: {fprob}")
     e = {"to": to, "title": title or name, "added": datetime.date.today().isoformat(), "group": group,
@@ -198,6 +198,8 @@ def op_mint(name, to, title="", owner="", group="Client sites", contact="", pxd2
         e["folder"] = False
     if status:
         e["status"] = status
+    if host:
+        e["host"] = host
     if group and group not in reg.get("groups", []) and group != "Client sites":
         reg.setdefault("groups", []).append(group)
     reg["names"][name] = e
@@ -212,7 +214,7 @@ def op_update(name, **changes):
     if name not in reg["names"]:
         raise ValueError(f"{name}.pxd is not minted")
     e = reg["names"][name]
-    for k in ("to", "title", "group", "status"):
+    for k in ("to", "title", "group", "status", "host"):
         v = changes.get(k)
         if v:
             e[k] = v
@@ -226,6 +228,8 @@ def op_update(name, **changes):
                 e["folder"] = False
             elif fprob:
                 raise ValueError(fprob)
+    if e.get("host"):                                # served by a PXD Host: no folder on GitHub
+        e.pop("native", None); e["folder"] = False
     save_reg(reg)
     rec = ledger_add("update", name, e, e.get("owner") or "PXD2")
     write_cert(name, reg, rec)
@@ -523,7 +527,8 @@ def main():
     m = sp.add_parser("mint"); m.add_argument("name"); m.add_argument("--to", required=True); m.add_argument("--title", default="")
     m.add_argument("--owner", default=""); m.add_argument("--group", default="Client sites"); m.add_argument("--contact", default="")
     m.add_argument("--status", default=""); m.add_argument("--pxd2", action="store_true")
-    u = sp.add_parser("update"); u.add_argument("name"); u.add_argument("--to"); u.add_argument("--title"); u.add_argument("--group"); u.add_argument("--status"); u.add_argument("--pxd2", action="store_true")
+    m.add_argument("--host", default="", help="served by this PXD Host (a Pi) instead of GitHub, e.g. pi1")
+    u = sp.add_parser("update"); u.add_argument("name"); u.add_argument("--to"); u.add_argument("--title"); u.add_argument("--group"); u.add_argument("--status"); u.add_argument("--pxd2", action="store_true"); u.add_argument("--host")
     t = sp.add_parser("transfer"); t.add_argument("name"); t.add_argument("--owner", required=True); t.add_argument("--contact", default="")
     r = sp.add_parser("release"); r.add_argument("name"); r.add_argument("--reason", required=True)
     w = sp.add_parser("whois"); w.add_argument("name")
@@ -539,9 +544,9 @@ def main():
         if a.cmd == "check":
             j = op_check(a.name); print(f"{j['name']}.pxd: " + ("free" if j["free"] else j["why"] + (f" (owner {j['owner']})" if j.get("owner") else ""))); return
         if a.cmd == "mint":
-            rec = op_mint(a.name, a.to, a.title, a.owner, a.group, a.contact, a.pxd2, a.status); print(f"minted {rec['name']}.pxd · ledger #{rec['n']} {rec['hash'][:12]}")
+            rec = op_mint(a.name, a.to, a.title, a.owner, a.group, a.contact, a.pxd2, a.status, a.host); print(f"minted {rec['name']}.pxd · ledger #{rec['n']} {rec['hash'][:12]}")
         elif a.cmd == "update":
-            rec = op_update(a.name, to=a.to, title=a.title, group=a.group, status=a.status, pxd2=a.pxd2); print(f"changed {a.name}.pxd · ledger #{rec['n']}")
+            rec = op_update(a.name, to=a.to, title=a.title, group=a.group, status=a.status, pxd2=a.pxd2, host=a.host); print(f"changed {a.name}.pxd · ledger #{rec['n']}")
         elif a.cmd == "transfer":
             rec = op_transfer(a.name, a.owner, a.contact); print(f"{a.name}.pxd → {a.owner} · ledger #{rec['n']}")
         elif a.cmd == "release":

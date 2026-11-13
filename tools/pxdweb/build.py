@@ -52,7 +52,20 @@ def main():
     with open(lp, "w", newline="\n") as f:
         f.write(head + base64.encodebytes(buf.getvalue()).decode())
     os.chmod(lp, 0o755)
-    for p in (zp, lp):
+    # PXD Host for a Raspberry Pi (or any Debian/Ubuntu box): one self-installing file
+    hb = io.BytesIO()
+    with tarfile.open(fileobj=hb, mode="w:gz") as t:
+        for rel, src in (("pxdhost-install.sh", "tools/pxdhost/linux/pxdhost-install.sh"), ("pxdhost.py", "tools/pxdhost/pxdhost.py")):
+            ti = t.gettarinfo(os.path.join(SITE, src), rel); ti.uid = ti.gid = 0; ti.uname = ti.gname = "root"; ti.mode = 0o755
+            with open(os.path.join(SITE, src), "rb") as fh:
+                t.addfile(ti, fh)
+    hp = os.path.join(OUT, "PXD-Host-Pi.pxd2")
+    with open(hp, "w", newline="\n") as f:
+        f.write("#!/bin/sh\n# PXD Host (.pxd2 installer) for a Raspberry Pi 5 or any Debian/Ubuntu box. Run:  sh PXD-Host-Pi.pxd2 [host-id]\n"
+                "set -e\nT=$(mktemp -d)\nsed '1,/^__PXD2_PAYLOAD__$/d' \"$0\" | base64 -d | tar -xz -C \"$T\"\n"
+                "sh \"$T/pxdhost-install.sh\" \"${1:-pi1}\"\nrm -rf \"$T\"\nexit 0\n__PXD2_PAYLOAD__\n" + base64.encodebytes(hb.getvalue()).decode())
+    os.chmod(hp, 0o755)
+    for p in (zp, lp, hp):
         print(f"{os.path.relpath(p, SITE)}  {os.path.getsize(p) // 1024} KB")
 
 
