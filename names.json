@@ -788,6 +788,13 @@
       "title": "Demo Diner: try PXD2 online ordering",
       "added": "2026-11-11",
       "group": "Studio & company"
+    },
+    "mikevance": {
+      "to": "/clients/mike-vance-automotive-7a31c2/",
+      "title": "Mike Vance Automotive",
+      "added": "2026-11-13",
+      "group": "Client sites",
+      "status": "concept"
     }
   },
   "groups": [
