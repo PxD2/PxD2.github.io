@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "stem.pxd",
+    "to": "/stem/",
+    "title": "STEM",
+    "owner": "PXD2",
+    "minted": "2026-10-11",
+    "ledger": {
+      "n": 51,
+      "hash": "03fd36098b999880695f9008005efbcfd30f95ee042d505c232e97dd38ff9795"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

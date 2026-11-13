@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "makerspace.pxd",
+    "to": "/pxd2spaces/",
+    "title": "PXD2 Hackspace",
+    "owner": "PXD2",
+    "minted": "2026-10-11",
+    "ledger": {
+      "n": 23,
+      "hash": "36a3ca42c6fa49f00b8789d9412ca0b6d16dfa01d712e39f3d455cf660bb0877"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

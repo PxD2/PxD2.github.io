@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "streetsonmain.pxd",
+    "to": "/clients/streets-on-main/",
+    "title": "Streets On Main, Snowflake AZ",
+    "owner": "PXD2",
+    "minted": "2026-11-10",
+    "ledger": {
+      "n": 76,
+      "hash": "2cb98cc25a2ac83264cc7caf5066a091219c9d2cbdb0cbacab29132b8fd29100"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

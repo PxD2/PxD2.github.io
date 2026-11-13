@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "mudforblood.pxd",
+    "to": "/games/",
+    "title": "GLOBAL THEATERS: Mud for Blood",
+    "owner": "PXD2",
+    "minted": "2026-10-11",
+    "ledger": {
+      "n": 1,
+      "hash": "66209e92d02f741e2cb5c77328338658e39d3e317439ce94a2a0f0054ef1fec3"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

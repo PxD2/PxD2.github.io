@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "scrubhub.pxd",
+    "to": "/clients/scrub-hub-laundry-showers-5ec2ae/",
+    "title": "Scrub Hub Laundry & Showers, Concho AZ",
+    "owner": "PXD2",
+    "minted": "2026-11-10",
+    "ledger": {
+      "n": 63,
+      "hash": "1929be8230952a0ab69ba7c4d8df9b3fdc74e2f0323ca0a97db1bdf750136b3a"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

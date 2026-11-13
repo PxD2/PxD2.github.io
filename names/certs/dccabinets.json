@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "dccabinets.pxd",
+    "to": "/clients/dc-cabinets-0de374/",
+    "title": "DC Cabinets, Show Low",
+    "owner": "PXD2",
+    "minted": "2026-11-11",
+    "ledger": {
+      "n": 100,
+      "hash": "990bf9a537c18f80b7de1c2ed2b7e3bf9d3eaa8d96c72c998a5e10dd6a7e6f1d"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

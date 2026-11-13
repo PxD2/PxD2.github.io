@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "pxd.pxd",
+    "to": "/pxd/",
+    "title": "PXD Data Lab",
+    "owner": "PXD2",
+    "minted": "2026-10-11",
+    "ledger": {
+      "n": 62,
+      "hash": "55df319d6f9cfdedee06b42a58ad859984fcd7045bcd696df73a9757ced327b6"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

@@ -16,189 +16,220 @@
       "title": "GLOBAL THEATERS: Mud for Blood",
       "added": "2026-10-11",
       "world": "page",
-      "group": "Games"
+      "group": "Games",
+      "owner": "PXD2"
     },
     "globaltheaters": {
       "to": "/games/",
       "title": "GLOBAL THEATERS franchise",
       "added": "2026-10-11",
       "world": "page",
-      "group": "Games"
+      "group": "Games",
+      "owner": "PXD2"
     },
     "pxd2games": {
       "to": "/games/",
       "title": "PXD2 Games",
       "added": "2026-10-11",
       "world": "page",
-      "group": "Games"
+      "group": "Games",
+      "owner": "PXD2"
     },
     "tunnelrats": {
       "to": "/games/",
       "title": "Tunnel Rats hero map",
       "added": "2026-10-11",
-      "group": "Games"
+      "group": "Games",
+      "owner": "PXD2"
     },
     "youtube": {
       "to": "https://www.youtube.com/@PXD2Games",
       "title": "PXD2 Games on YouTube",
       "added": "2026-10-11",
-      "group": "Social & contact"
+      "group": "Social & contact",
+      "owner": "PXD2"
     },
     "tiktok": {
       "to": "https://www.tiktok.com/@pxd2.games",
       "title": "PXD2 Games on TikTok",
       "added": "2026-10-11",
-      "group": "Social & contact"
+      "group": "Social & contact",
+      "owner": "PXD2"
     },
     "instagram": {
       "to": "https://www.instagram.com/pxd2games",
       "title": "PXD2 Games on Instagram",
       "added": "2026-10-11",
-      "group": "Social & contact"
+      "group": "Social & contact",
+      "owner": "PXD2"
     },
     "helixcad": {
       "to": "/cad2/",
       "title": "Helix CAD",
       "added": "2026-10-11",
-      "group": "Tools & making"
+      "group": "Tools & making",
+      "owner": "PXD2"
     },
     "pxd2": {
       "to": "/",
       "title": "PXD2 floor",
       "added": "2026-10-11",
-      "group": "Studio & company"
+      "group": "Studio & company",
+      "owner": "PXD2"
     },
     "pxd2studios": {
       "to": "/",
       "title": "PXD2 Studios",
       "added": "2026-10-11",
-      "group": "Studio & company"
+      "group": "Studio & company",
+      "owner": "PXD2"
     },
     "pxd2studio": {
       "to": "/studioa/",
       "title": "PXD2 Studio",
       "added": "2026-10-11",
-      "group": "Studio & company"
+      "group": "Studio & company",
+      "owner": "PXD2"
     },
     "geeg": {
       "to": "/company/",
       "title": "Glen Elder Entertainment Group",
       "added": "2026-10-11",
-      "group": "Studio & company"
+      "group": "Studio & company",
+      "owner": "PXD2"
     },
     "glenelder": {
       "to": "/company/",
       "title": "Glen Elder Entertainment Group",
       "added": "2026-10-11",
-      "group": "Studio & company"
+      "group": "Studio & company",
+      "owner": "PXD2"
     },
     "invest": {
       "to": "/company/",
       "title": "Company · investors",
       "added": "2026-10-11",
-      "group": "Studio & company"
+      "group": "Studio & company",
+      "owner": "PXD2"
     },
     "investors": {
       "to": "/company/",
       "title": "Company · investors",
       "added": "2026-10-11",
-      "group": "Studio & company"
+      "group": "Studio & company",
+      "owner": "PXD2"
     },
     "hornetbell": {
       "to": "/hornet/",
       "title": "Hornet Bell",
       "added": "2026-10-11",
-      "group": "Learning"
+      "group": "Learning",
+      "owner": "PXD2"
     },
     "digitalalexandria": {
       "to": "/alexandria/",
       "title": "Digital Alexandria",
       "added": "2026-10-11",
-      "group": "Learning"
+      "group": "Learning",
+      "owner": "PXD2"
     },
     "library": {
       "to": "/alexandria/",
       "title": "Digital Alexandria",
       "added": "2026-10-11",
-      "group": "Learning"
+      "group": "Learning",
+      "owner": "PXD2"
     },
     "civicslibrary": {
       "to": "/civics/",
       "title": "The People's Rights & Public Power",
       "added": "2026-10-11",
-      "group": "Learning"
+      "group": "Learning",
+      "owner": "PXD2"
     },
     "reform": {
       "to": "/college/",
       "title": "The Reform",
       "added": "2026-10-11",
-      "group": "Learning"
+      "group": "Learning",
+      "owner": "PXD2"
     },
     "amicus": {
       "to": "/coalitions/master-amicus-brief.html",
       "title": "Master amicus brief",
       "added": "2026-10-11",
-      "group": "Learning"
+      "group": "Learning",
+      "owner": "PXD2"
     },
     "hackspace": {
       "to": "/pxd2spaces/",
       "title": "PXD2 Hackspace",
       "added": "2026-10-11",
-      "group": "Tools & making"
+      "group": "Tools & making",
+      "owner": "PXD2"
     },
     "makerspace": {
       "to": "/pxd2spaces/",
       "title": "PXD2 Hackspace",
       "added": "2026-10-11",
-      "group": "Tools & making"
+      "group": "Tools & making",
+      "owner": "PXD2"
     },
     "pxd2cad": {
       "to": "/cad2/",
       "title": "Helix CAD",
       "added": "2026-10-11",
-      "group": "Tools & making"
+      "group": "Tools & making",
+      "owner": "PXD2"
     },
     "opencad": {
       "to": "/cad2/",
       "title": "Helix CAD",
       "added": "2026-10-11",
-      "group": "Tools & making"
+      "group": "Tools & making",
+      "owner": "PXD2"
     },
     "scans": {
       "to": "/meshworks/",
       "title": "Meshworks scans",
       "added": "2026-10-11",
-      "group": "Tools & making"
+      "group": "Tools & making",
+      "owner": "PXD2"
     },
     "props": {
       "to": "/meshworks/",
       "title": "Prop scans",
       "added": "2026-10-11",
-      "group": "Tools & making"
+      "group": "Tools & making",
+      "owner": "PXD2"
     },
     "fleet": {
       "to": "/games/",
       "title": "PXD2 Fleet",
       "added": "2026-10-11",
-      "group": "Games"
+      "group": "Games",
+      "owner": "PXD2"
     },
     "pxd2fleet": {
       "to": "/games/",
       "title": "PXD2 Fleet",
       "added": "2026-10-11",
-      "group": "Games"
+      "group": "Games",
+      "owner": "PXD2"
     },
     "github": {
       "to": "https://github.com/PxD2",
       "title": "PxD2 on GitHub",
       "added": "2026-10-11",
-      "group": "Social & contact"
+      "group": "Social & contact",
+      "owner": "PXD2"
     },
     "email": {
       "to": "mailto:pxd2games@gmail.com",
       "title": "Email PXD2 Games",
       "added": "2026-10-11",
-      "group": "Social & contact"
+      "group": "Social & contact",
+      "owner": "PXD2"
     },
     "propshop": {
       "to": "/clients/propshop/",
@@ -206,27 +237,31 @@
       "added": "2026-10-11",
       "client": true,
       "world": "store",
-      "group": "Stores & VR"
+      "group": "Stores & VR",
+      "owner": "PXD2"
     },
     "vrstore": {
       "to": "/clients/propshop/",
       "title": "PXD2 VR store demo",
       "added": "2026-10-11",
       "world": "store",
-      "group": "Stores & VR"
+      "group": "Stores & VR",
+      "owner": "PXD2"
     },
     "vrnet": {
       "to": "/vr/",
       "title": "PXD2 VR Net",
       "added": "2026-10-11",
-      "group": "Stores & VR"
+      "group": "Stores & VR",
+      "owner": "PXD2"
     },
     "games": {
       "to": "/games/",
       "title": "GLOBAL THEATERS: Mud for Blood",
       "group": "Games",
       "native": true,
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "owner": "PXD2"
     },
     "vr": {
       "to": "/vr/",
@@ -234,154 +269,176 @@
       "group": "Stores & VR",
       "native": true,
       "added": "2026-10-11",
-      "world": "page"
+      "world": "page",
+      "owner": "PXD2"
     },
     "names": {
       "to": "/names/",
       "title": "PXD2 Names registry",
       "group": "Studio & company",
       "native": true,
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "owner": "PXD2"
     },
     "company": {
       "to": "/company/",
       "title": "Company · investors",
       "group": "Studio & company",
       "native": true,
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "owner": "PXD2"
     },
     "sites": {
       "to": "/sites/",
       "title": "Sites board",
       "group": "Studio & company",
       "native": true,
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "owner": "PXD2"
     },
     "studioa": {
       "to": "/studioa/",
       "title": "Studio A — the 5080 floor",
       "group": "Studio & company",
       "native": true,
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "owner": "PXD2"
     },
     "hold": {
       "to": "/hold/",
       "title": "HOLD — SFTP roots we host",
       "group": "Studio & company",
       "native": true,
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "owner": "PXD2"
     },
     "cities": {
       "to": "/cities/",
       "title": "Cities",
       "group": "Studio & company",
       "native": true,
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "owner": "PXD2"
     },
     "ai": {
       "to": "/ai/",
       "title": "PXD2 AI",
       "group": "Tools & making",
       "native": true,
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "owner": "PXD2"
     },
     "air": {
       "to": "/air/",
       "title": "Air/hydro tunnel test desk",
       "group": "Tools & making",
       "native": true,
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "owner": "PXD2"
     },
     "cad": {
       "to": "/cad/",
       "title": "CAD v1",
       "group": "Tools & making",
       "native": true,
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "owner": "PXD2"
     },
     "cad2": {
       "to": "/cad2/",
       "title": "Helix CAD",
       "group": "Tools & making",
       "native": true,
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "owner": "PXD2"
     },
     "meshworks": {
       "to": "/meshworks/",
       "title": "Meshworks scan cards",
       "group": "Tools & making",
       "native": true,
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "owner": "PXD2"
     },
     "pxd2spaces": {
       "to": "/pxd2spaces/",
       "title": "PXD2 Hackspace",
       "group": "Tools & making",
       "native": true,
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "owner": "PXD2"
     },
     "edu": {
       "to": "/edu/",
       "title": "Education network",
       "group": "Learning",
       "native": true,
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "owner": "PXD2"
     },
     "civics": {
       "to": "/civics/",
       "title": "Civics",
       "group": "Learning",
       "native": true,
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "owner": "PXD2"
     },
     "stem": {
       "to": "/stem/",
       "title": "STEM",
       "group": "Learning",
       "native": true,
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "owner": "PXD2"
     },
     "college": {
       "to": "/college/",
       "title": "Reform college",
       "group": "Learning",
       "native": true,
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "owner": "PXD2"
     },
     "davidson": {
       "to": "/davidson/",
       "title": "Davidson",
       "group": "Learning",
       "native": true,
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "owner": "PXD2"
     },
     "hornet": {
       "to": "/hornet/",
       "title": "Hornet Bell",
       "group": "Learning",
       "native": true,
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "owner": "PXD2"
     },
     "alexandria": {
       "to": "/alexandria/",
       "title": "Digital Alexandria",
       "group": "Learning",
       "native": true,
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "owner": "PXD2"
     },
     "rv": {
       "to": "/rv/",
       "title": "RV",
       "group": "Studio & company",
       "native": true,
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "owner": "PXD2"
     },
     "coalitions": {
       "to": "/coalitions/",
       "title": "Coalitions",
       "group": "Learning",
       "native": true,
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "owner": "PXD2"
     },
     "antiques": {
       "to": "/antiques/",
@@ -393,407 +450,475 @@
       "store": {
         "bundle": "https://raw.githubusercontent.com/PxD2/PxD2.github.io/main/pxd/demo/antiques.pxdz",
         "sig": "https://raw.githubusercontent.com/PxD2/PxD2.github.io/main/pxd/demo/antiques.pxdz.sig"
-      }
+      },
+      "owner": "PXD2"
     },
     "shop": {
       "to": "/antiques/",
       "title": "PXD Antiques marketplace",
       "group": "Stores & VR",
       "world": "store",
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "owner": "PXD2"
     },
     "pxdz": {
       "to": "/pxd/",
       "title": "PXD Data Lab · the PXDZ data format",
       "group": "Tools & making",
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "owner": "PXD2"
     },
     "datalab": {
       "to": "/pxd/",
       "title": "PXD Data Lab",
       "group": "Tools & making",
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "owner": "PXD2"
     },
     "pxd": {
       "to": "/pxd/",
       "title": "PXD Data Lab",
       "group": "Tools & making",
       "native": true,
-      "added": "2026-10-11"
+      "added": "2026-10-11",
+      "owner": "PXD2"
     },
     "scrubhub": {
       "to": "/clients/scrub-hub-laundry-showers-5ec2ae/",
       "title": "Scrub Hub Laundry & Showers, Concho AZ",
       "added": "2026-11-10",
       "group": "Client sites",
-      "status": "concept"
+      "status": "concept",
+      "owner": "PXD2"
     },
     "stanfordstore": {
       "to": "/clients/stanford-general-store-8b2a57/",
       "title": "Stanford General Store & Y-Bar, Concho AZ",
       "added": "2026-11-10",
       "group": "Client sites",
-      "status": "concept"
+      "status": "concept",
+      "owner": "PXD2"
     },
     "ybar": {
       "to": "/clients/stanford-general-store-8b2a57/order.html",
       "title": "Y-Bar & Nettie's Deli menu, Stanford General Store",
       "added": "2026-11-10",
       "group": "Client sites",
-      "status": "concept"
+      "status": "concept",
+      "owner": "PXD2"
     },
     "bearwallow": {
       "to": "/clients/bear-wallow-antiques-e141f7/",
       "title": "Bear Wallow Antiques",
       "added": "2026-11-10",
       "group": "Client sites",
-      "status": "concept"
+      "status": "concept",
+      "owner": "PXD2"
     },
     "antiquewarehouse": {
       "to": "/clients/antique-consignment-warehouse-59cf3e/",
       "title": "Antique & Consignment Warehouse",
       "added": "2026-11-10",
       "group": "Client sites",
-      "status": "concept"
+      "status": "concept",
+      "owner": "PXD2"
     },
     "antiquemercantile": {
       "to": "/clients/antique-mercantile-co-cf6199/",
       "title": "Antique Mercantile Co.",
       "added": "2026-11-10",
       "group": "Client sites",
-      "status": "concept"
+      "status": "concept",
+      "owner": "PXD2"
     },
     "itsasecret": {
       "to": "/clients/its-a-secret-4a04bc/",
       "title": "It's a Secret",
       "added": "2026-11-10",
       "group": "Client sites",
-      "status": "concept"
+      "status": "concept",
+      "owner": "PXD2"
     },
     "littlelogcabin": {
       "to": "/clients/little-log-cabin-antiques-ea9465/",
       "title": "Little Log Cabin Antiques",
       "added": "2026-11-10",
       "group": "Client sites",
-      "status": "concept"
+      "status": "concept",
+      "owner": "PXD2"
     },
     "oldtimeantiques": {
       "to": "/clients/old-time-e-antiques-71d1f3/",
       "title": "Old Time \"E\" Antiques",
       "added": "2026-11-10",
       "group": "Client sites",
-      "status": "concept"
+      "status": "concept",
+      "owner": "PXD2"
     },
     "pinetopwarehouse": {
       "to": "/clients/pinetop-warehouse-ec1360/",
       "title": "Pinetop Warehouse",
       "added": "2026-11-10",
       "group": "Client sites",
-      "status": "concept"
+      "status": "concept",
+      "owner": "PXD2"
     },
     "reddirt": {
       "to": "/clients/red-dirt/",
       "title": "Red Dirt Construction, Springerville AZ",
       "added": "2026-11-10",
       "group": "Client sites",
-      "status": "concept"
+      "status": "concept",
+      "owner": "PXD2"
     },
     "reddoor": {
       "to": "/clients/red-door-consignment-8d8063/",
       "title": "Red Door Consignment",
       "added": "2026-11-10",
       "group": "Client sites",
-      "status": "concept"
+      "status": "concept",
+      "owner": "PXD2"
     },
     "snowflakesmokehouse": {
       "to": "/clients/snowflake-smokehouse/",
       "title": "Snowflake Smokehouse, Snowflake AZ",
       "added": "2026-11-10",
       "group": "Client sites",
-      "status": "concept"
+      "status": "concept",
+      "owner": "PXD2"
     },
     "streetsonmain": {
       "to": "/clients/streets-on-main/",
       "title": "Streets On Main, Snowflake AZ",
       "added": "2026-11-10",
       "group": "Client sites",
-      "status": "concept"
+      "status": "concept",
+      "owner": "PXD2"
     },
     "suzys": {
       "to": "/clients/suzys-consignment-ea6baa/",
       "title": "Suzy's Consignment Shop",
       "added": "2026-11-10",
       "group": "Client sites",
-      "status": "concept"
+      "status": "concept",
+      "owner": "PXD2"
     },
     "sweetpotato": {
       "to": "/clients/the-sweet-potato-8837b8/",
       "title": "The Sweet Potato",
       "added": "2026-11-10",
       "group": "Client sites",
-      "status": "concept"
+      "status": "concept",
+      "owner": "PXD2"
     },
     "valsbistro": {
       "to": "/clients/vals/",
       "title": "Val's Bistro & Blooms, Snowflake AZ",
       "added": "2026-11-10",
       "group": "Client sites",
-      "status": "concept"
+      "status": "concept",
+      "owner": "PXD2"
     },
     "vintagesisters": {
       "to": "/clients/vintage-sisters-antiques-0b44d7/",
       "title": "Vintage Sisters Antiques",
       "added": "2026-11-10",
       "group": "Client sites",
-      "status": "concept"
+      "status": "concept",
+      "owner": "PXD2"
     },
     "walnutcreek": {
       "to": "/clients/walnut-creek-antique-emporium-4b6cff/",
       "title": "Walnut Creek Antique Emporium",
       "added": "2026-11-10",
       "group": "Client sites",
-      "status": "concept"
+      "status": "concept",
+      "owner": "PXD2"
     },
     "blackfriday": {
       "to": "/special/",
       "title": "PXD2 $500 website, lifetime hosting",
       "added": "2026-11-10",
-      "group": "Studio & company"
+      "group": "Studio & company",
+      "owner": "PXD2"
     },
     "website500": {
       "to": "/special/",
       "title": "PXD2 $500 website, lifetime hosting",
       "added": "2026-11-10",
-      "group": "Studio & company"
+      "group": "Studio & company",
+      "owner": "PXD2"
     },
     "charlieclarkssteakhouse": {
       "to": "/clients/charlie-clark-s-steakhouse-3e0686/",
       "title": "Charlie Clark's Steakhouse, Pinetop-Lakeside",
       "added": "2026-11-11",
       "group": "Client sites",
-      "status": "concept"
+      "status": "concept",
+      "owner": "PXD2"
     },
     "darbiscafe": {
       "to": "/clients/darbi-s-cafe-af88e7/",
       "title": "Darbi's Cafe, Pinetop-Lakeside",
       "added": "2026-11-11",
       "group": "Client sites",
-      "status": "concept"
+      "status": "concept",
+      "owner": "PXD2"
     },
     "johnnyanddeespicnicbasket": {
       "to": "/clients/johnny-dee-s-picnic-basket-dabe6f/",
       "title": "Johnny & Dee's Picnic Basket, Pinetop-Lakeside",
       "added": "2026-11-11",
       "group": "Client sites",
-      "status": "concept"
+      "status": "concept",
+      "owner": "PXD2"
     },
     "blackflamegrill": {
       "to": "/clients/black-flame-grill-49eb59/",
       "title": "Black Flame Grill, Show Low",
       "added": "2026-11-11",
       "group": "Client sites",
-      "status": "concept"
+      "status": "concept",
+      "owner": "PXD2"
     },
     "mjshideawaybarandgrill": {
       "to": "/clients/mj-s-hideaway-bar-and-grill-480ad8/",
       "title": "MJ's Hideaway Bar and Grill, Show Low",
       "added": "2026-11-11",
       "group": "Client sites",
-      "status": "concept"
+      "status": "concept",
+      "owner": "PXD2"
     },
     "cavecutz": {
       "to": "/clients/cavecutz-51e804/",
       "title": "CaveCutz, Show Low",
       "added": "2026-11-11",
       "group": "Client sites",
-      "status": "concept"
+      "status": "concept",
+      "owner": "PXD2"
     },
     "danielrauschatashtenssalon": {
       "to": "/clients/daniel-rausch-at-ashten-s-salon-fe5bb3/",
       "title": "Daniel Rausch at Ashten's Salon, Show Low",
       "added": "2026-11-11",
       "group": "Client sites",
-      "status": "concept"
+      "status": "concept",
+      "owner": "PXD2"
     },
     "redridgefarm": {
       "to": "/clients/red-ridge-farm-6100ea/",
       "title": "Red Ridge Farm, Show Low",
       "added": "2026-11-11",
       "group": "Client sites",
-      "status": "concept"
+      "status": "concept",
+      "owner": "PXD2"
     },
     "1stqualityglass": {
       "to": "/clients/1st-quality-glass-454c55/",
       "title": "1st Quality Glass, Pinetop-Lakeside",
       "added": "2026-11-11",
       "group": "Client sites",
-      "status": "concept"
+      "status": "concept",
+      "owner": "PXD2"
     },
     "advancedairsystems": {
       "to": "/clients/advanced-air-systems-bc07e4/",
       "title": "Advanced Air Systems, Pinetop-Lakeside",
       "added": "2026-11-11",
       "group": "Client sites",
-      "status": "concept"
+      "status": "concept",
+      "owner": "PXD2"
     },
     "atomicpestcontrol": {
       "to": "/clients/atomic-pest-control-3a96d5/",
       "title": "Atomic Pest Control, Pinetop-Lakeside",
       "added": "2026-11-11",
       "group": "Client sites",
-      "status": "concept"
+      "status": "concept",
+      "owner": "PXD2"
     },
     "highcountrysigns": {
       "to": "/clients/high-country-signs-284caf/",
       "title": "High Country Signs, Pinetop-Lakeside",
       "added": "2026-11-11",
       "group": "Client sites",
-      "status": "concept"
+      "status": "concept",
+      "owner": "PXD2"
     },
     "baldguyandteamrealty": {
       "to": "/clients/bald-guy-team-realty-11f894/",
       "title": "Bald Guy & Team Realty, Pinetop-Lakeside",
       "added": "2026-11-11",
       "group": "Client sites",
-      "status": "concept"
+      "status": "concept",
+      "owner": "PXD2"
     },
     "adventurepestandwildlife": {
       "to": "/clients/adventure-pest-and-wildlife-a02e07/",
       "title": "Adventure Pest and Wildlife, Show Low",
       "added": "2026-11-11",
       "group": "Client sites",
-      "status": "concept"
+      "status": "concept",
+      "owner": "PXD2"
     },
     "americanintegrity": {
       "to": "/clients/american-integrity-9ce8be/",
       "title": "American Integrity, Show Low",
       "added": "2026-11-11",
       "group": "Client sites",
-      "status": "concept"
+      "status": "concept",
+      "owner": "PXD2"
     },
     "bodyworkshealthfitness": {
       "to": "/clients/bodyworks-health-fitness-24cbe8/",
       "title": "Bodyworks Health + Fitness, Show Low",
       "added": "2026-11-11",
       "group": "Client sites",
-      "status": "concept"
+      "status": "concept",
+      "owner": "PXD2"
     },
     "dccabinets": {
       "to": "/clients/dc-cabinets-0de374/",
       "title": "DC Cabinets, Show Low",
       "added": "2026-11-11",
       "group": "Client sites",
-      "status": "concept"
+      "status": "concept",
+      "owner": "PXD2"
     },
     "fieldsservices": {
       "to": "/clients/fields-services-af5251/",
       "title": "Fields Services, Show Low",
       "added": "2026-11-11",
       "group": "Client sites",
-      "status": "concept"
+      "status": "concept",
+      "owner": "PXD2"
     },
     "greenclean": {
       "to": "/clients/green-clean-8d2796/",
       "title": "Green Clean, Show Low",
       "added": "2026-11-11",
       "group": "Client sites",
-      "status": "concept"
+      "status": "concept",
+      "owner": "PXD2"
     },
     "guardiansecurityaz": {
       "to": "/clients/guardian-security-az-2df4ba/",
       "title": "Guardian Security AZ, Show Low",
       "added": "2026-11-11",
       "group": "Client sites",
-      "status": "concept"
+      "status": "concept",
+      "owner": "PXD2"
     },
     "hatchconcrete": {
       "to": "/clients/hatch-concrete-5d87ae/",
       "title": "Hatch Concrete, Show Low",
       "added": "2026-11-11",
       "group": "Client sites",
-      "status": "concept"
+      "status": "concept",
+      "owner": "PXD2"
     },
     "kjgroofing": {
       "to": "/clients/kjg-roofing-200edb/",
       "title": "KJG Roofing, Show Low",
       "added": "2026-11-11",
       "group": "Client sites",
-      "status": "concept"
+      "status": "concept",
+      "owner": "PXD2"
     },
     "baldwinandjonescpas": {
       "to": "/clients/baldwin-jones-cpas-a2f557/",
       "title": "Baldwin & Jones CPAs, Show Low",
       "added": "2026-11-11",
       "group": "Client sites",
-      "status": "concept"
+      "status": "concept",
+      "owner": "PXD2"
     },
     "vinnedgesignworks": {
       "to": "/clients/vinnedge-signworks-e8e132/",
       "title": "Vinnedge Signworks, Show Low",
       "added": "2026-11-11",
       "group": "Client sites",
-      "status": "concept"
+      "status": "concept",
+      "owner": "PXD2"
     },
     "whitemountaindrywall": {
       "to": "/clients/white-mountain-drywall-ec8ad5/",
       "title": "White Mountain Drywall, Show Low",
       "added": "2026-11-11",
       "group": "Client sites",
-      "status": "concept"
+      "status": "concept",
+      "owner": "PXD2"
     },
     "witnessthismobilenotary": {
       "to": "/clients/witness-this-mobile-notary-99144f/",
       "title": "Witness This Mobile Notary, Show Low",
       "added": "2026-11-11",
       "group": "Client sites",
-      "status": "concept"
+      "status": "concept",
+      "owner": "PXD2"
     },
     "taxladyandassociates": {
       "to": "/clients/tax-lady-associates-9a614f/",
       "title": "Tax Lady & Associates, Show Low",
       "added": "2026-11-11",
       "group": "Client sites",
-      "status": "concept"
+      "status": "concept",
+      "owner": "PXD2"
     },
     "thrivemtnmodernwellness": {
       "to": "/clients/thrive-mtn-modern-wellness-bbd3d2/",
       "title": "Thrive MTN Modern Wellness, Show Low",
       "added": "2026-11-11",
       "group": "Client sites",
-      "status": "concept"
+      "status": "concept",
+      "owner": "PXD2"
     },
     "juniperridgeexecutivecourse": {
       "to": "/clients/juniper-ridge-executive-course-4f6561/",
       "title": "Juniper Ridge Executive Course, Show Low",
       "added": "2026-11-11",
       "group": "Client sites",
-      "status": "concept"
+      "status": "concept",
+      "owner": "PXD2"
     },
     "owensenergy": {
       "to": "/clients/owen-s-energy-995b8e/",
       "title": "Owen's Energy, Show Low",
       "added": "2026-11-11",
       "group": "Client sites",
-      "status": "concept"
+      "status": "concept",
+      "owner": "PXD2"
     },
     "restaurants": {
       "to": "/restaurants/",
       "title": "PXD2 for restaurants: website, menu, ordering and calendar",
       "added": "2026-11-11",
       "group": "Studio & company",
-      "native": true
+      "native": true,
+      "owner": "PXD2"
     },
     "demodiner": {
       "to": "/restaurants/demo/order.html",
       "title": "Demo Diner: try PXD2 online ordering",
       "added": "2026-11-11",
-      "group": "Studio & company"
+      "group": "Studio & company",
+      "owner": "PXD2"
     },
     "mikevance": {
       "to": "/clients/mike-vance-automotive-7a31c2/",
       "title": "Mike Vance Automotive",
       "added": "2026-11-13",
       "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "mikevanceauto": {
+      "to": "/clients/mike-vance-automotive-7a31c2/",
+      "title": "Mike Vance Automotive",
+      "added": "2026-11-13",
+      "group": "Client sites",
+      "owner": "PXD2",
+      "minted": "2026-11-13T18:59:28+00:00",
       "status": "concept"
     }
   },

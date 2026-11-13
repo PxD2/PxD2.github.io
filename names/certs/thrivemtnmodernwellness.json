@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "thrivemtnmodernwellness.pxd",
+    "to": "/clients/thrive-mtn-modern-wellness-bbd3d2/",
+    "title": "Thrive MTN Modern Wellness, Show Low",
+    "owner": "PXD2",
+    "minted": "2026-11-11",
+    "ledger": {
+      "n": 111,
+      "hash": "837ef3da49af6a98fd1a6a4ca414a28c5a1f323847b577c26407d09e0064d07a"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

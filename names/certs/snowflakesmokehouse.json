@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "snowflakesmokehouse.pxd",
+    "to": "/clients/snowflake-smokehouse/",
+    "title": "Snowflake Smokehouse, Snowflake AZ",
+    "owner": "PXD2",
+    "minted": "2026-11-10",
+    "ledger": {
+      "n": 75,
+      "hash": "ca14d4bee59c84b11e70984da6d0b6f14f800856a594027c51c52b191aabbc06"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "antiques.pxd",
+    "to": "/antiques/",
+    "title": "PXD Antiques: see it in your room before you buy",
+    "owner": "PXD2",
+    "minted": "2026-10-11",
+    "ledger": {
+      "n": 58,
+      "hash": "0cfbadf33e21f6b7c59a55324ded6301fb403eb156a325de720d4ac4bcca83fe"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

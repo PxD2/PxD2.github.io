@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "sweetpotato.pxd",
+    "to": "/clients/the-sweet-potato-8837b8/",
+    "title": "The Sweet Potato",
+    "owner": "PXD2",
+    "minted": "2026-11-10",
+    "ledger": {
+      "n": 78,
+      "hash": "3fbcbff52dbfb4c0558f072322c6dd12fda906fe41849cf110708f9fd61a918c"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

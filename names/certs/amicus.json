@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "amicus.pxd",
+    "to": "/coalitions/master-amicus-brief.html",
+    "title": "Master amicus brief",
+    "owner": "PXD2",
+    "minted": "2026-10-11",
+    "ledger": {
+      "n": 21,
+      "hash": "eab1084bd20b49c6488852ac762308698d4cac26cc4d59196c3aa31e57e30a64"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "email.pxd",
+    "to": "mailto:pxd2games@gmail.com",
+    "title": "Email PXD2 Games",
+    "owner": "PXD2",
+    "minted": "2026-10-11",
+    "ledger": {
+      "n": 31,
+      "hash": "2742e17d155ba090b931d60c1fb08ea37923b7168cd1584931c63ca2c364ac12"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

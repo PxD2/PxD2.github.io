@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "globaltheaters.pxd",
+    "to": "/games/",
+    "title": "GLOBAL THEATERS franchise",
+    "owner": "PXD2",
+    "minted": "2026-10-11",
+    "ledger": {
+      "n": 2,
+      "hash": "9c9017ec6271578ca2677e5a35acbf04fcb86f979f0a6def9bb612d3b62ca292"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "baldwinandjonescpas.pxd",
+    "to": "/clients/baldwin-jones-cpas-a2f557/",
+    "title": "Baldwin & Jones CPAs, Show Low",
+    "owner": "PXD2",
+    "minted": "2026-11-11",
+    "ledger": {
+      "n": 106,
+      "hash": "74476afe0ffeda8dddc4b273dbf54d14066c0eadc12c5155ad361116e03eb462"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

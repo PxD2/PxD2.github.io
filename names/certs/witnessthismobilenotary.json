@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "witnessthismobilenotary.pxd",
+    "to": "/clients/witness-this-mobile-notary-99144f/",
+    "title": "Witness This Mobile Notary, Show Low",
+    "owner": "PXD2",
+    "minted": "2026-11-11",
+    "ledger": {
+      "n": 109,
+      "hash": "ad40b612011a33ffb4105c6af8963008f167fb177b98fd1ae00a9cd2fb41d3b7"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

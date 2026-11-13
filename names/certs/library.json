@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "library.pxd",
+    "to": "/alexandria/",
+    "title": "Digital Alexandria",
+    "owner": "PXD2",
+    "minted": "2026-10-11",
+    "ledger": {
+      "n": 18,
+      "hash": "00389753be3c8bf31fecbbfa5b6c5dd88552d38ea1d63cf9b8cc5720a46b175d"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

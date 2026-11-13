@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "danielrauschatashtenssalon.pxd",
+    "to": "/clients/daniel-rausch-at-ashten-s-salon-fe5bb3/",
+    "title": "Daniel Rausch at Ashten's Salon, Show Low",
+    "owner": "PXD2",
+    "minted": "2026-11-11",
+    "ledger": {
+      "n": 90,
+      "hash": "e2a28ee7b5ae5431a7c9bdf26c0f0e6f7da63a47f8cb1eaad7b912d50e9482b9"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

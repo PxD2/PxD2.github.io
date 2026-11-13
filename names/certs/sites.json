@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "sites.pxd",
+    "to": "/sites/",
+    "title": "Sites board",
+    "owner": "PXD2",
+    "minted": "2026-10-11",
+    "ledger": {
+      "n": 39,
+      "hash": "600fcd841fad5c56a0077ebe4ca21c6dd78933833769b2d1116e1487bb830c8a"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

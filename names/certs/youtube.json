@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "youtube.pxd",
+    "to": "https://www.youtube.com/@PXD2Games",
+    "title": "PXD2 Games on YouTube",
+    "owner": "PXD2",
+    "minted": "2026-10-11",
+    "ledger": {
+      "n": 5,
+      "hash": "d4c9d908eb52f1d41df09f8f5d9e1cacb1dd8febe04bacbc0c08048ccde906a8"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

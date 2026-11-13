@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "civicslibrary.pxd",
+    "to": "/civics/",
+    "title": "The People's Rights & Public Power",
+    "owner": "PXD2",
+    "minted": "2026-10-11",
+    "ledger": {
+      "n": 19,
+      "hash": "22e26aac1c5013391f0ecb4de75aa536cb8e087cd561995da6b18b5f6b7aba75"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "reddirt.pxd",
+    "to": "/clients/red-dirt/",
+    "title": "Red Dirt Construction, Springerville AZ",
+    "owner": "PXD2",
+    "minted": "2026-11-10",
+    "ledger": {
+      "n": 73,
+      "hash": "7588ff5155d8c1743e2e487a8075c225b76a0b847ed9889fef3d3c02db7ae949"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

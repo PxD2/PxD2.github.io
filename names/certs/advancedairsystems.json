@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "advancedairsystems.pxd",
+    "to": "/clients/advanced-air-systems-bc07e4/",
+    "title": "Advanced Air Systems, Pinetop-Lakeside",
+    "owner": "PXD2",
+    "minted": "2026-11-11",
+    "ledger": {
+      "n": 93,
+      "hash": "5f834c059bc5d3bf97bbd42cd2018dfef2168685ac8b462a1040f2967b46c9d0"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

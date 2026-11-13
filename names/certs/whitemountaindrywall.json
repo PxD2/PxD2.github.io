@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "whitemountaindrywall.pxd",
+    "to": "/clients/white-mountain-drywall-ec8ad5/",
+    "title": "White Mountain Drywall, Show Low",
+    "owner": "PXD2",
+    "minted": "2026-11-11",
+    "ledger": {
+      "n": 108,
+      "hash": "4db3d4cd0574e9759f5e7fac4c2c1353d18e8a0253822db606a73848019ef76b"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "website500.pxd",
+    "to": "/special/",
+    "title": "PXD2 $500 website, lifetime hosting",
+    "owner": "PXD2",
+    "minted": "2026-11-10",
+    "ledger": {
+      "n": 83,
+      "hash": "41f35bb7638ae501bc1f5d0ea86e8593ccae8419f3423e8013a7fd6636fa14cb"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

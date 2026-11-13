@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "pinetopwarehouse.pxd",
+    "to": "/clients/pinetop-warehouse-ec1360/",
+    "title": "Pinetop Warehouse",
+    "owner": "PXD2",
+    "minted": "2026-11-10",
+    "ledger": {
+      "n": 72,
+      "hash": "161730fc8f4644817648680e218ac50c50c6a48a67fa3068ce8aecadfb29d499"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

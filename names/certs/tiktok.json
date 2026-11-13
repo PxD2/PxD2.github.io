@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "tiktok.pxd",
+    "to": "https://www.tiktok.com/@pxd2.games",
+    "title": "PXD2 Games on TikTok",
+    "owner": "PXD2",
+    "minted": "2026-10-11",
+    "ledger": {
+      "n": 6,
+      "hash": "6dc2671a6ce28bd96ff3a7609bdcc68bac6ad592548d195cd18584493d18577f"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

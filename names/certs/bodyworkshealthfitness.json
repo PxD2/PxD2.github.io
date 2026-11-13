@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "bodyworkshealthfitness.pxd",
+    "to": "/clients/bodyworks-health-fitness-24cbe8/",
+    "title": "Bodyworks Health + Fitness, Show Low",
+    "owner": "PXD2",
+    "minted": "2026-11-11",
+    "ledger": {
+      "n": 99,
+      "hash": "b81599edf987ec3ff1f9657a511c5f302f3e8a86eed37b6776e2213d0335acda"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

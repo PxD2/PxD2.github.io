@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "adventurepestandwildlife.pxd",
+    "to": "/clients/adventure-pest-and-wildlife-a02e07/",
+    "title": "Adventure Pest and Wildlife, Show Low",
+    "owner": "PXD2",
+    "minted": "2026-11-11",
+    "ledger": {
+      "n": 97,
+      "hash": "b11ff716045d1527f8ab0cf56db48da5a6da895db952023e95af353659b985ca"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

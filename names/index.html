@@ -38,6 +38,13 @@ button { font: 600 13px "IBM Plex Sans", sans-serif; padding: 8px 12px; border-r
   <input id="q" type="search" placeholder="Find a name" aria-label="Find a name">
   <div class="list" id="list" aria-live="polite"><div class="row"><span class="to">Loading names…</span></div></div>
   <p class="free"><b>How it works.</b> Names live in one file, <code>names.json</code>, in PXD2's GitHub site. Each name is built into its own address and forwards wherever it points: a page on this site, a store page, a social account. Running on GitHub Pages means HTTPS, no hosting bill and no registrar.</p>
+  <section class="free" id="claim" style="display:grid;gap:10px">
+    <b>Claim a .pxd name.</b>
+    <span>A .pxd name works like a .com: <code>yourshop.pxd</code> points at your site. PXD2 mints it, signs your deed and keeps the record on GitHub for good. No yearly renewal.</span>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><input id="want" placeholder="yourshop" aria-label="Name you want" style="flex:1;min-width:180px"><button type="button" id="ask">Check</button></div>
+    <span id="said" aria-live="polite"></span>
+    <span>To see .pxd names in any browser on your computer, install <a href="/vr/pxdweb/" style="color:var(--tan)">PXD Web</a>.</span>
+  </section>
 </div>
 <script>
 (function () {
@@ -69,5 +76,26 @@ button { font: 600 13px "IBM Plex Sans", sans-serif; padding: 8px 12px; border-r
 })();
 </script>
 <script src="/sites.js" defer></script>
+<script>
+(function () {
+  var want = document.getElementById('want'), said = document.getElementById('said'), reg = null;
+  var RES = /^(www|mail|root|api|admin|pxd|lit|names|registry|hubs?|localhost|status|zone|dns|dns-query|resolve|wpad|isatap|ns\d+)$/;
+  function check() {
+    var n = want.value.trim().toLowerCase().replace(/\.pxd2?$/, '');
+    said.textContent = '';
+    if (!/^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/.test(n)) { said.textContent = 'Letters, digits and dashes only.'; return; }
+    if (RES.test(n) || /^pxd2/.test(n)) { said.textContent = n + '.pxd is reserved.'; return; }
+    if (reg && reg.names[n]) { said.textContent = n + '.pxd is taken.'; return; }
+    said.textContent = n + '.pxd is free. ';
+    var a = document.createElement('a'); a.style.color = 'var(--tan)';
+    a.href = 'mailto:pxdsquared@gmail.com?subject=' + encodeURIComponent('Mint ' + n + '.pxd') +
+      '&body=' + encodeURIComponent('Name: ' + n + '.pxd\nBusiness / owner:\nWhere it should point (your site or page):\nPhone:\n');
+    a.textContent = 'Ask PXD2 to mint it'; said.append(a);
+  }
+  fetch('/names.json', { cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (j) { reg = j; });
+  document.getElementById('ask').addEventListener('click', check);
+  want.addEventListener('keydown', function (e) { if (e.key === 'Enter') check(); });
+})();
+</script>
 </body>
 </html>

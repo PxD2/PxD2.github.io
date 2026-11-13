@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "ai.pxd",
+    "to": "/ai/",
+    "title": "PXD2 AI",
+    "owner": "PXD2",
+    "minted": "2026-10-11",
+    "ledger": {
+      "n": 43,
+      "hash": "5a49f61f20e0f6bec999de8ad2d55bf5309036b59a538e79edc38bfd8833ca79"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

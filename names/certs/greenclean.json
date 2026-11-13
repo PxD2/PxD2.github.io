@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "greenclean.pxd",
+    "to": "/clients/green-clean-8d2796/",
+    "title": "Green Clean, Show Low",
+    "owner": "PXD2",
+    "minted": "2026-11-11",
+    "ledger": {
+      "n": 102,
+      "hash": "6e98b219f62075aa0f22cc95bca707021cd99943a7b332f8020c8c24727e3509"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

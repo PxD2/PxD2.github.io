@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "fleet.pxd",
+    "to": "/games/",
+    "title": "PXD2 Fleet",
+    "owner": "PXD2",
+    "minted": "2026-10-11",
+    "ledger": {
+      "n": 28,
+      "hash": "7c9678d2fe7b1cf35c262efc7c4fb0bcd97dd972c8894d715de2d01424c7993e"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

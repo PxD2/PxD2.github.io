@@ -377,6 +377,12 @@ class TCPDNS(socketserver.BaseRequestHandler):
 
 class TCPServer(socketserver.ThreadingTCPServer):
     allow_reuse_address, daemon_threads = True, True
+    request_queue_size = 512      # the default 5 overflowed under load: dropped connections came back a second later
+
+
+class WebServer(ThreadingHTTPServer):
+    allow_reuse_address, daemon_threads = True, True
+    request_queue_size = 512      # soak test: with the default 5, p99 sat at ~1 s and DoH POSTs were reset
 
 
 class UDPServer(socketserver.ThreadingUDPServer):
@@ -503,6 +509,8 @@ class Web(BaseHTTPRequestHandler):
         if kind == "name":
             if CFG.site and self._serve_local(val[1]):
                 return
+            if CFG.serve_pages and self._serve_remote(val[1]):
+                return
             self.send_response(302); self.send_header("Location", val[1]["url"]); self.end_headers(); return
         if kind == "apex":
             self.send_response(302); self.send_header("Location", "https://pxd2.github.io/names/"); self.end_headers(); return
@@ -531,14 +539,85 @@ class Web(BaseHTTPRequestHandler):
                 ctype = mimetypes.guess_type(f)[0] or "application/octet-stream"
                 if ctype.startswith("text/") or ctype in ("application/javascript", "application/json"):
                     ctype += "; charset=utf-8"
-                with open(f, "rb") as fh:
-                    self._send(200, fh.read(), ctype, {"Cache-Control": "max-age=300", "X-PXD-Host": "pxd2-private"})
+                size = os.path.getsize(f)
+                self.send_response(200)       # streamed in pieces: a 3D model never sits whole in memory per visitor
+                for k, v in (("Content-Type", ctype), ("Content-Length", str(size)), ("Access-Control-Allow-Origin", "*"),
+                             ("Cache-Control", "max-age=300"), ("X-PXD-Host", "pxd2-private")):
+                    self.send_header(k, v)
+                self.end_headers()
+                if self.command != "HEAD":
+                    with open(f, "rb") as fh:
+                        try:
+                            while True:
+                                chunk = fh.read(262144)
+                                if not chunk:
+                                    break
+                                self.wfile.write(chunk)
+                        except (BrokenPipeError, ConnectionResetError):
+                            pass              # the visitor left mid-download
                 return True
         self._send(404, "not found on PXD2 private hosting", "text/plain; charset=utf-8")
         return True
 
+    def _serve_remote(self, entry):
+        """PXD Web: the name's pages are served here, under the .pxd address, fetched from the PXD2 site (and cached).
+        mikevanceauto.pxd/ shows the site itself; the address bar never leaves .pxd. Same path rules as _serve_local."""
+        to = entry.get("to") or ""
+        if not to.startswith("/"):
+            return False
+        req = urllib.parse.urlsplit(self.path).path or "/"
+        if ".." in req.split("/"):
+            self._send(400, "bad path", "text/plain; charset=utf-8"); return True
+        base = to if to.endswith("/") else os.path.dirname(to) + "/"
+        first = to if (req in ("", "/") and not to.endswith("/")) else base + req.lstrip("/")
+        for rel in dict.fromkeys((first, req)):
+            got = page_fetch(rel)
+            if got and got[0] == 200:
+                code, ctype, body = got
+                self._send(200, body, ctype, {"Cache-Control": "max-age=300", "X-PXD-Host": "pxd-web"})
+                return True
+            if got and got[0] in (301, 302) and rel == first and not req.endswith("/"):
+                self.send_response(301); self.send_header("Location", req + "/"); self.end_headers(); return True
+        self._send(404, "not found on this .pxd site", "text/plain; charset=utf-8")
+        return True
+
     def log_message(self, *a):
         pass
+
+
+PAGE_CACHE, PAGE_LOCK = {}, threading.Lock()
+PAGE_TTL, PAGE_CACHE_MAX = 300, 256 * 2**20
+
+
+def page_fetch(rel):
+    """(status, content type, body) for a site path, from the page origin, cached PAGE_TTL seconds."""
+    now = time.time()
+    with PAGE_LOCK:
+        hit = PAGE_CACHE.get(rel)
+        if hit and now - hit[0] < PAGE_TTL:
+            return hit[1]
+    url = CFG.serve_pages.rstrip("/") + urllib.parse.quote(rel)
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": "PXD-Web/1"})
+        with urllib.request.urlopen(req, timeout=15) as r:
+            body = r.read(64 * 2**20 + 1)
+            if len(body) > 64 * 2**20:
+                return None
+            ctype = r.headers.get("Content-Type", "application/octet-stream")
+            # GitHub Pages answers a folder without a slash with a redirect; urllib follows it, so mark it for the slash fix
+            res = (302 if r.geturl() == url + "/" else 200, ctype, body)
+    except urllib.error.HTTPError as e:
+        res = (e.code, "", b"")
+    except Exception:  # noqa: BLE001  origin unreachable: serve a stale copy if there is one
+        with PAGE_LOCK:
+            hit = PAGE_CACHE.get(rel)
+        return hit[1] if hit else None
+    with PAGE_LOCK:
+        PAGE_CACHE[rel] = (now, res)
+        total = sum(len(v[1][2]) for v in PAGE_CACHE.values())
+        while total > PAGE_CACHE_MAX and PAGE_CACHE:
+            k = min(PAGE_CACHE, key=lambda x: PAGE_CACHE[x][0]); total -= len(PAGE_CACHE.pop(k)[1][2])
+    return res
 
 
 # ------------------------------------------------------------------ main
@@ -561,6 +640,8 @@ def main():
     ap.add_argument("--public-url", default="", help="public https address of this root (for the iPhone profile)")
     ap.add_argument("--refresh", type=int, default=600, help="seconds between registry reloads")
     ap.add_argument("--site", default="", help="PXD2 private hosting: serve .pxd names from this local copy of the site (the folder holding names.json) instead of redirecting to GitHub")
+    ap.add_argument("--serve-pages", nargs="?", const="https://pxd2.github.io", default="",
+                    help="PXD Web: serve each .pxd name's pages under its .pxd address (no forwarding), fetched from this origin")
     ap.add_argument("--export-zone", metavar="DIR", help="write pxd.zone and pxd2.zone to DIR, then exit")
     a = ap.parse_args()
     if a.authority:
@@ -583,11 +664,11 @@ def main():
         print(f"wrote {', '.join(t + '.zone' for t in TLDS)} to {a.export_zone} (serial {ZONE.serial}, {len(ZONE.names)} names)")
         return
     servers = [UDPServer((a.host, a.dns_port), UDPDNS), TCPServer((a.host, a.dns_port), TCPDNS)]
-    webs = [ThreadingHTTPServer((a.host, a.web_port), Web)]
+    webs = [WebServer((a.host, a.web_port), Web)]
     if a.tls_cert:
         ctx = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER); ctx.load_cert_chain(a.tls_cert, a.tls_key)
         dot = TCPServer((a.host, a.dot_port), TCPDNS); dot.tls = ctx; servers.append(dot)
-        https = ThreadingHTTPServer((a.host, a.https_port), Web); https.socket = ctx.wrap_socket(https.socket, server_side=True, do_handshake_on_connect=False); webs.append(https)
+        https = WebServer((a.host, a.https_port), Web); https.socket = ctx.wrap_socket(https.socket, server_side=True, do_handshake_on_connect=False); webs.append(https)
     for s in servers + webs[1:]:
         threading.Thread(target=s.serve_forever, daemon=True).start()
 
@@ -598,6 +679,8 @@ def main():
     print(f"  DNS udp/tcp :{a.dns_port}  web + DoH :{a.web_port}/dns-query" + (f"  DoT :{a.dot_port}  HTTPS :{a.https_port}" if a.tls_cert else ""))
     if a.site:
         print(f"  PXD2 private hosting ON: pages served from {a.site}")
+    elif a.serve_pages:
+        print(f"  PXD Web pages ON: .pxd names show their sites under their own address (from {a.serve_pages})")
     print(f"  names point to {', '.join(a.edge_ips + a.edge_ips6)} · forwarding {'off' if a.no_forward else ', '.join(h for h, _ in a.upstreams)}")
     webs[0].serve_forever()
 

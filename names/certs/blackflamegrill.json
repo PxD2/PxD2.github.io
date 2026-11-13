@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "blackflamegrill.pxd",
+    "to": "/clients/black-flame-grill-49eb59/",
+    "title": "Black Flame Grill, Show Low",
+    "owner": "PXD2",
+    "minted": "2026-11-11",
+    "ledger": {
+      "n": 87,
+      "hash": "bf0c52ca88f85440aba698cb3dbb729295f17ae582d2b584a7e221b87f54c0f0"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}
