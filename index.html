@@ -113,7 +113,7 @@ h2{font:700 12px Consolas,monospace;letter-spacing:.12em;text-transform:uppercas
 (function () {
   "use strict";
   var MAIN = "/names.json", TLDS = /\.(pxd2?|pxd)$/;
-  var REG = { names: {}, groups: [] }, ready;
+  var REG = { names: {}, groups: [] }, HOSTS = {}, ready;
   var $ = function (id) { return document.getElementById(id); };
   var tabs = [], cur = null, seq = 0;
 
@@ -131,6 +131,7 @@ h2{font:700 12px Consolas,monospace;letter-spacing:.12em;text-transform:uppercas
         });
       }).catch(function () {});
     });
+    subs.push(loadJSON("/hosts.json").then(function (h) { HOSTS = h.hosts || {}; }).catch(function () {}));
     return Promise.all(subs);
   }).catch(function () { toast("Could not load the .pxd registry. Check your connection."); });
 
@@ -228,7 +229,8 @@ h2{font:700 12px Consolas,monospace;letter-spacing:.12em;text-transform:uppercas
         if (!(e.to || "").startsWith("/") && !e.base) { window.open(e.to, "_blank", "noopener"); toast(p.key + ".pxd opens " + e.to); return; }
         var addr = p.key + ".pxd" + (p.rest === "/" ? "" : p.rest);
         record(t, addr, push);
-        frame(t).src = pathFor(e, p.rest);
+        var host = e.host && HOSTS[e.host];
+        frame(t).src = (host ? host.url.replace(/\/$/, "") : "") + pathFor(e, p.rest);   // a PXD Host (a Pi) serves this site
         t.title = e.title || addr; paint();
         return;
       }

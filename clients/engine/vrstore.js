@@ -116,6 +116,7 @@
     var pickables = [];
     var products = store.products || [];
     var loader = THREE.GLTFLoader ? new THREE.GLTFLoader() : null;
+    var meshReady = loader && window.PXDMesh ? PXDMesh.three(loader) : Promise.resolve(loader);   // PXD Mesh (.pxdm) + meshopt
     products.forEach(function (p, i) {
       var a = (i / Math.max(products.length, 1)) * Math.PI * 2;
       var group = new THREE.Group(); group.position.set(Math.sin(a) * 4.6, 0, Math.cos(a) * 4.6); group.lookAt(0, 0, 0);
@@ -126,11 +127,11 @@
         new THREE.MeshStandardMaterial({ color: color, roughness: 0.35, metalness: 0.2 }));
       stand.position.y = 1.3; group.add(stand);
       if (p.model && loader) {
-        loader.load(p.model, function (g) {
+        meshReady.then(function () { return window.PXDMesh ? PXDMesh.url(p.model) : p.model; }).then(function (src) { loader.load(src, function (g) {
           var m = g.scene, box = new THREE.Box3().setFromObject(m), size = box.getSize(new THREE.Vector3()), s = 0.9 / Math.max(size.x, size.y, size.z || 1);
           m.scale.setScalar(s); box.setFromObject(m); m.position.y = 0.9 - box.min.y; m.userData.product = p;
           group.remove(stand); group.add(m); m.traverse(function (o) { o.userData.product = p; }); pickables.push(m);
-        }, undefined, function () { /* keep the stand-in shape */ });
+        }, undefined, function () { /* keep the stand-in shape */ }); });
       }
       stand.userData.product = p; pickables.push(stand);
       var sign = new THREE.Sprite(new THREE.SpriteMaterial({ map: labelTexture([p.name, money(p.price, store.currency)]) }));

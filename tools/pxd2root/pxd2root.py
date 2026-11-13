@@ -493,6 +493,8 @@ class Web(BaseHTTPRequestHandler):
                 return self._send(404, {"error": "start the root with --public-url https://... to offer the profile"})
             return self._send(200, mobileconfig(), "application/x-apple-aspen-config",
                               {"Content-Disposition": 'attachment; filename="pxd.mobileconfig"'})
+        if CFG.site and u.path != "/status" and self._serve_path(urllib.parse.unquote(u.path)):
+            return
         if u.path in ("/", "/status"):
             with ZLOCK:
                 z = ZONE
@@ -539,24 +541,67 @@ class Web(BaseHTTPRequestHandler):
                 ctype = mimetypes.guess_type(f)[0] or "application/octet-stream"
                 if ctype.startswith("text/") or ctype in ("application/javascript", "application/json"):
                     ctype += "; charset=utf-8"
-                size = os.path.getsize(f)
-                self.send_response(200)       # streamed in pieces: a 3D model never sits whole in memory per visitor
-                for k, v in (("Content-Type", ctype), ("Content-Length", str(size)), ("Access-Control-Allow-Origin", "*"),
-                             ("Cache-Control", "max-age=300"), ("X-PXD-Host", "pxd2-private")):
-                    self.send_header(k, v)
-                self.end_headers()
-                if self.command != "HEAD":
-                    with open(f, "rb") as fh:
-                        try:
-                            while True:
-                                chunk = fh.read(262144)
-                                if not chunk:
-                                    break
-                                self.wfile.write(chunk)
-                        except (BrokenPipeError, ConnectionResetError):
-                            pass              # the visitor left mid-download
+                self._send_file(f, ctype)
                 return True
         self._send(404, "not found on PXD2 private hosting", "text/plain; charset=utf-8")
+        return True
+
+    def _send_file(self, f, ctype):
+        """Stream a file in 256 KB pieces (a 3D model never sits whole in memory per visitor), with HTTP Range so
+        PXDZ bundles and big models load only the parts on screen."""
+        size = os.path.getsize(f); start, end, code = 0, size - 1, 200
+        rng = self.headers.get("Range", "")
+        m = re.fullmatch(r"bytes=(\d*)-(\d*)", rng.strip()) if rng else None
+        if m and size:
+            a, b = m.group(1), m.group(2)
+            if a == "" and b:
+                start = max(0, size - int(b))
+            else:
+                start = int(a or 0); end = min(int(b), size - 1) if b else size - 1
+            if start > end or start >= size:
+                self.send_response(416); self.send_header("Content-Range", f"bytes */{size}"); self.end_headers(); return
+            code = 206
+        self.send_response(code)
+        hdr = [("Content-Type", ctype), ("Content-Length", str(end - start + 1)), ("Accept-Ranges", "bytes"),
+               ("Access-Control-Allow-Origin", "*"), ("Access-Control-Expose-Headers", "Content-Range, Content-Length, Accept-Ranges"),
+               ("Cache-Control", "max-age=300"), ("X-PXD-Host", "pxd2-private")]
+        if code == 206:
+            hdr.append(("Content-Range", f"bytes {start}-{end}/{size}"))
+        for k, v in hdr:
+            self.send_header(k, v)
+        self.end_headers()
+        if self.command == "HEAD":
+            return
+        with open(f, "rb") as fh:
+            fh.seek(start); left = end - start + 1
+            try:
+                while left > 0:
+                    chunk = fh.read(min(262144, left))
+                    if not chunk:
+                        break
+                    self.wfile.write(chunk); left -= len(chunk)
+            except (BrokenPipeError, ConnectionResetError):
+                pass                          # the visitor left mid-download
+
+    def _serve_path(self, req):
+        """PXD Host: serve the site copy by plain path (https://<this server>/clients/shop/), like GitHub Pages does."""
+        import mimetypes
+        root = os.path.realpath(CFG.site)
+        f = os.path.realpath(os.path.join(root, req.lstrip("/")))
+        if not (f == root or f.startswith(root + os.sep)) or os.sep + "." in f[len(root):]:
+            return False                      # outside the site, or a dot-folder (.git) : never served
+        if os.path.isdir(f):
+            if not req.endswith("/"):
+                self.send_response(301); self.send_header("Location", req + "/"); self.end_headers(); return True
+            f = os.path.join(f, "index.html")
+        if not os.path.isfile(f):
+            return False
+        ctype = mimetypes.guess_type(f)[0] or "application/octet-stream"
+        if f.endswith((".glb",)):
+            ctype = "model/gltf-binary"
+        if ctype.startswith("text/") or ctype in ("application/javascript", "application/json"):
+            ctype += "; charset=utf-8"
+        self._send_file(f, ctype)
         return True
 
     def _serve_remote(self, entry):
@@ -570,8 +615,9 @@ class Web(BaseHTTPRequestHandler):
             self._send(400, "bad path", "text/plain; charset=utf-8"); return True
         base = to if to.endswith("/") else os.path.dirname(to) + "/"
         first = to if (req in ("", "/") and not to.endswith("/")) else base + req.lstrip("/")
+        origin = host_origin(entry["host"]) if entry.get("host") else None
         for rel in dict.fromkeys((first, req)):
-            got = page_fetch(rel)
+            got = page_fetch(rel, origin)
             if got and got[0] == 200:
                 code, ctype, body = got
                 self._send(200, body, ctype, {"Cache-Control": "max-age=300", "X-PXD-Host": "pxd-web"})
@@ -586,17 +632,31 @@ class Web(BaseHTTPRequestHandler):
 
 
 PAGE_CACHE, PAGE_LOCK = {}, threading.Lock()
+HOSTS = {"at": 0, "hosts": {}}
+
+
+def host_origin(hid):
+    """Where a PXD Host (a Pi) is right now, from hosts.json beside the registry (refreshed every 5 minutes)."""
+    if time.time() - HOSTS["at"] > 300:
+        try:
+            src = CFG.serve_pages.rstrip("/") + "/hosts.json"
+            HOSTS["hosts"] = json.loads(fetch(src)).get("hosts", {}); HOSTS["at"] = time.time()
+        except Exception:  # noqa: BLE001
+            HOSTS["at"] = time.time() - 240             # try again in a minute
+    h = HOSTS["hosts"].get(hid)
+    return h["url"].rstrip("/") if h and h.get("url") else None
 PAGE_TTL, PAGE_CACHE_MAX = 300, 256 * 2**20
 
 
-def page_fetch(rel):
-    """(status, content type, body) for a site path, from the page origin, cached PAGE_TTL seconds."""
+def page_fetch(rel, origin=None):
+    """(status, content type, body) for a site path, from the page origin (or a PXD Host), cached PAGE_TTL seconds."""
     now = time.time()
+    key = (origin or "") + rel
     with PAGE_LOCK:
-        hit = PAGE_CACHE.get(rel)
+        hit = PAGE_CACHE.get(key)
         if hit and now - hit[0] < PAGE_TTL:
             return hit[1]
-    url = CFG.serve_pages.rstrip("/") + urllib.parse.quote(rel)
+    url = (origin or CFG.serve_pages.rstrip("/")) + urllib.parse.quote(rel)
     try:
         req = urllib.request.Request(url, headers={"User-Agent": "PXD-Web/1"})
         with urllib.request.urlopen(req, timeout=15) as r:
@@ -610,10 +670,10 @@ def page_fetch(rel):
         res = (e.code, "", b"")
     except Exception:  # noqa: BLE001  origin unreachable: serve a stale copy if there is one
         with PAGE_LOCK:
-            hit = PAGE_CACHE.get(rel)
+            hit = PAGE_CACHE.get(key)
         return hit[1] if hit else None
     with PAGE_LOCK:
-        PAGE_CACHE[rel] = (now, res)
+        PAGE_CACHE[key] = (now, res)
         total = sum(len(v[1][2]) for v in PAGE_CACHE.values())
         while total > PAGE_CACHE_MAX and PAGE_CACHE:
             k = min(PAGE_CACHE, key=lambda x: PAGE_CACHE[x][0]); total -= len(PAGE_CACHE.pop(k)[1][2])
