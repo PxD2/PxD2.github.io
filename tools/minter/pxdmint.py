@@ -375,7 +375,35 @@ def op_publish(message="PXD Names: mint"):
     if c.returncode and "nothing to commit" in (c.stdout + c.stderr):
         return "nothing new to publish"
     p = git("push")
-    return "published" if p.returncode == 0 else "committed; push failed: " + p.stderr.strip()[-300:]
+    if p.returncode:
+        return "committed; push failed: " + p.stderr.strip()[-300:]
+    return "published · " + indexnow()
+
+
+INDEXNOW_KEY = "b4b20a1bf2e101849fbc5b422e15ab43"     # public by design: pxd2.github.io/<key>.txt proves the site is ours
+
+
+def indexnow(names=None):
+    """Queue the name pages (and their sites) for Bing, Yandex, Naver, Seznam and Yep via IndexNow.
+    Concept sites are skipped (they stay out of search engines until the shop signs)."""
+    import urllib.request
+    reg = load_reg()
+    urls = ["https://pxd2.github.io/", "https://pxd2.github.io/names/", "https://pxd2.github.io/sitemap.xml"]
+    for k, e in reg["names"].items():
+        if "." in k or e.get("status") == "concept" or (names and k not in names):
+            continue
+        urls.append(f"https://pxd2.github.io/n/{k}/")
+        if e.get("to", "").startswith("/") and e["to"] != "/":
+            urls.append("https://pxd2.github.io" + e["to"])
+    body = json.dumps({"host": "pxd2.github.io", "key": INDEXNOW_KEY, "urlList": sorted(set(urls)),
+                       "keyLocation": f"https://pxd2.github.io/{INDEXNOW_KEY}.txt"}).encode()
+    try:
+        req = urllib.request.Request("https://api.indexnow.org/indexnow", data=body, method="POST",
+                                     headers={"Content-Type": "application/json; charset=utf-8"})
+        with urllib.request.urlopen(req, timeout=20) as r:
+            return f"search engines queued {len(set(urls))} pages (IndexNow {r.status})"
+    except Exception as e:  # noqa: BLE001
+        return f"search-engine queue skipped ({e})"
 
 
 # ------------------------------------------------------------------ the panel
@@ -400,7 +428,7 @@ table{width:100%;border-collapse:collapse;font-size:13px}td,th{text-align:left;p
 <div class=card><h2>Change or transfer</h2>
 <div class=row><input id=u_name placeholder=name><input id=u_to placeholder="new destination (optional)"><input id=u_title placeholder="new title (optional)"><input id=u_owner placeholder="new owner (transfer)"></div>
 <div><button onclick=upd()>Change</button> <button onclick=xfer()>Transfer</button> <button class=alt onclick=whois()>Whois</button></div><div id=u_out class=out></div></div>
-<div class=card><h2>Keep it secure</h2><div><button onclick=verify()>Verify everything</button> <button class=alt onclick=sign()>Sign deeds + registry</button> <button class=alt onclick=publish()>Publish to git</button></div><div id=v_out class=out></div></div>
+<div class=card><h2>Keep it secure</h2><div><button onclick=verify()>Verify everything</button> <button class=alt onclick=sign()>Sign deeds + registry</button> <button class=alt onclick=publish()>Publish to git + search engines</button></div><div id=v_out class=out></div></div>
 <div class=card><h2>Every name (<span id=count></span>)</h2><input id=filter placeholder=filter oninput=paint()><table id=list></table></div>
 </div><script>
 const $=id=>document.getElementById(id);let NAMES={};
@@ -500,7 +528,7 @@ def main():
     r = sp.add_parser("release"); r.add_argument("name"); r.add_argument("--reason", required=True)
     w = sp.add_parser("whois"); w.add_argument("name")
     sp.add_parser("verify"); sp.add_parser("sign"); sp.add_parser("backfill")
-    sp.add_parser("list")
+    sp.add_parser("list"); sp.add_parser("indexnow")
     p = sp.add_parser("publish"); p.add_argument("-m", "--message", default="PXD Names: mint")
     a = ap.parse_args()
     try:
@@ -530,6 +558,8 @@ def main():
             for k, e in sorted(load_reg()["names"].items()):
                 print(f"{k}.pxd  ->  {e.get('to')}   [{e.get('owner') or 'PXD2'}]")
             return
+        elif a.cmd == "indexnow":
+            print(indexnow()); return
         elif a.cmd == "publish":
             print(op_publish(a.message)); return
         after_change()
