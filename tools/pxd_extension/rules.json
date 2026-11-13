@@ -1,0 +1,66 @@
+[
+  {
+    "id": 1,
+    "priority": 2,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "regexSubstitution": "https://pxd2.github.io/?go=\\1.pxd\\3"
+      }
+    },
+    "condition": {
+      "regexFilter": "^https?://([a-z0-9-]+(?:\\.[a-z0-9-]+)*)\\.(pxd2?)(/[^?#]*)?(?:[?#].*)?$",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 2,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "regexSubstitution": "https://pxd2.github.io/?go=\\1"
+      }
+    },
+    "condition": {
+      "regexFilter": "^https://(?:www\\.)?google\\.[a-z.]+/search\\?(?:[^#]*&)?q=([a-z0-9][a-z0-9.-]*\\.pxd2?(?:%2F[^&#]*)?)(?:[&#].*)?$",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 3,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "regexSubstitution": "https://pxd2.github.io/?go=\\1"
+      }
+    },
+    "condition": {
+      "regexFilter": "^https://www\\.bing\\.com/search\\?(?:[^#]*&)?q=([a-z0-9][a-z0-9.-]*\\.pxd2?(?:%2F[^&#]*)?)(?:[&#].*)?$",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 4,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "regexSubstitution": "https://pxd2.github.io/?go=\\1"
+      }
+    },
+    "condition": {
+      "regexFilter": "^https://(?:html\\.)?duckduckgo\\.com/(?:html/)?\\?(?:[^#]*&)?q=([a-z0-9][a-z0-9.-]*\\.pxd2?(?:%2F[^&#]*)?)(?:[&#].*)?$",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  }
+]

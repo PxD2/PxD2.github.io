@@ -31,8 +31,8 @@ def page(name, entry):
 
 ok, refused = [], []
 for name, entry in sorted(reg["names"].items()):
-    if entry.get("native"):
-        continue  # a real site folder: the name is the page itself
+    if entry.get("native") or entry.get("folder") is False:
+        continue  # a real site folder, or a name kept off pxd2.github.io/<name> (pxd.pxd is the site root itself)  # a real site folder: the name is the page itself
     if not re.fullmatch(r"[a-z0-9][a-z0-9-]{0,62}", name):
         refused.append((name, "letters, digits and dashes only")); continue
     d = os.path.join(ROOT, name); f = os.path.join(d, "index.html")

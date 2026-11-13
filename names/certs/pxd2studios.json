@@ -2,16 +2,16 @@
   "cert": {
     "type": "pxd-name-cert/1",
     "name": "pxd2studios.pxd",
-    "to": "/",
+    "to": "/display/",
     "title": "PXD2 Studios",
     "owner": "PXD2",
     "minted": "2026-10-11",
     "ledger": {
-      "n": 10,
-      "hash": "cf22bc81e7ee58e6c5bd97f969c5b532f6a7e0685791bd1b8ee8a123122aa490"
+      "n": 119,
+      "hash": "bebf43f251f183de3efc6e576e9aea9bf81606431183fd7c8d9201cf8c622571"
     },
     "registry": "PXD2 Names",
-    "issued": "2026-11-13T18:59:28+00:00"
+    "issued": "2026-11-13T19:06:53+00:00"
   },
   "signature": null
 }
