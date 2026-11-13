@@ -278,9 +278,6 @@ footer { border-top: 1px solid var(--line); padding-top: 18px; font-family: var(
       navigator.clipboard.writeText(text).then(function () { msg.textContent = 'Copied.'; }, fallback);
     } else { fallback(); }
   });
-
-  }
-  requestAnimationFrame(draw);
 })();
 </script>
 <script src="/sites.js" defer></script>

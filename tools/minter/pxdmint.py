@@ -145,6 +145,8 @@ def after_change(say=print):
     r = subprocess.run([sys.executable, os.path.join(SITE, "tools", "names_build.py")], cwd=SITE, capture_output=True, text=True)
     if r.returncode:
         say("names_build: " + (r.stderr or r.stdout).strip())
+    r = subprocess.run([sys.executable, os.path.join(SITE, "tools", "seo_build.py")], cwd=SITE, capture_output=True, text=True)
+    say((r.stdout or r.stderr).strip())
     priv, auth = authority()
     if priv:
         import pxdsign
@@ -366,7 +368,7 @@ def op_init(name="PXD2 Authority"):
 def op_publish(message="PXD Names: mint"):
     def git(*a):
         return subprocess.run(["git", *a], cwd=SITE, capture_output=True, text=True)
-    git("add", "names.json", "names.json.sig", "names", "pxd/authority.json")
+    git("add", "names.json", "names.json.sig", "names", "pxd/authority.json", "n", "sitemap.xml", "robots.txt")
     reg = load_reg()
     git("add", *[n for n in reg["names"] if os.path.isdir(os.path.join(SITE, n))])
     c = git("commit", "-m", message)
