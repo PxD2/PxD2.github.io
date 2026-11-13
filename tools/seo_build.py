@@ -64,6 +64,78 @@ h1{{margin:0;font:600 15px Consolas,monospace;color:#c9a46a}}h1 span{{color:#a39
 """
 
 
+class _Text(__import__("html.parser").parser.HTMLParser):
+    """Title, description, headings and readable text of a page (scripts, styles and nav skipped)."""
+    def __init__(self):
+        super().__init__(); self.title = ""; self.desc = ""; self.heads = []; self.text = []; self._skip = 0; self._in = None
+
+    def handle_starttag(self, tag, a):
+        a = dict(a)
+        if tag in ("script", "style", "noscript", "svg", "nav", "template"):
+            self._skip += 1
+        elif tag == "meta" and (a.get("name") or a.get("property") or "").lower() in ("description", "og:description") and not self.desc:
+            self.desc = (a.get("content") or "").strip()
+        elif tag in ("title", "h1", "h2", "h3"):
+            self._in = tag
+
+    def handle_endtag(self, tag):
+        if tag in ("script", "style", "noscript", "svg", "nav", "template") and self._skip:
+            self._skip -= 1
+        if tag == self._in:
+            self._in = None
+
+    def handle_data(self, d):
+        if self._skip:
+            return
+        d = " ".join(d.split())
+        if not d:
+            return
+        if self._in == "title":
+            self.title += d
+        elif self._in in ("h1", "h2", "h3"):
+            self.heads.append(d)
+        else:
+            self.text.append(d)
+
+
+def page_text(path):
+    f = os.path.join(ROOT, path.lstrip("/"))
+    if os.path.isdir(f):
+        f = os.path.join(f, "index.html")
+    if not os.path.isfile(f) or not f.endswith((".html", ".htm")):
+        return None
+    p = _Text()
+    try:
+        p.feed(open(f, encoding="utf-8", errors="replace").read())
+    except Exception:  # noqa: BLE001
+        return None
+    return p
+
+
+def build_search(names):
+    """PXD's own search index: what every .pxd site actually says, rebuilt on every publish (no crawler, no waiting)."""
+    docs = []
+    for k, e in sorted(names.items()):
+        if "." in k:
+            continue
+        doc = {"n": k, "t": e.get("title") or k, "g": e.get("group") or ""}
+        if e.get("status") == "concept":
+            doc["c"] = 1
+        to = e.get("to") or ""
+        p = page_text(to) if to.startswith("/") and not e.get("host") else None
+        if p:
+            doc["d"] = p.desc[:300]
+            doc["h"] = list(dict.fromkeys(p.heads))[:24]
+            body = " ".join(p.text)
+            doc["x"] = body[:2400]
+        elif not to.startswith("/"):
+            doc["d"] = "Opens " + re.sub(r"^https?://", "", to).split("/")[0]
+        docs.append(doc)
+    out = {"v": 1, "built": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"), "docs": docs}
+    open(os.path.join(ROOT, "search-index.json"), "w", encoding="utf-8").write(json.dumps(out, ensure_ascii=False, separators=(",", ":")))
+    return len(docs)
+
+
 def main():
     reg = json.load(open(os.path.join(ROOT, "names.json"), encoding="utf-8"))
     names = reg["names"]
@@ -93,8 +165,9 @@ def main():
     sm.append("</urlset>")
     open(os.path.join(ROOT, "sitemap.xml"), "w", encoding="utf-8").write("\n".join(sm) + "\n")
     open(os.path.join(ROOT, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\nDisallow: /tools/\nDisallow: /names/certs/\n\nSitemap: {BASE}/sitemap.xml\n")
+    n_search = build_search(names)
     n_idx = sum(1 for k, e in names.items() if "." not in k and e.get("status") != "concept")
-    print(f"seo: {len(keep)} name pages in /n/ ({n_idx} indexable, {len(keep) - n_idx} concept kept out of Google) · sitemap {len(urls)} URLs")
+    print(f"seo: {len(keep)} name pages in /n/ ({n_idx} indexable, {len(keep) - n_idx} concept kept out of Google) · sitemap {len(urls)} URLs · PXD search index {n_search} sites")
 
 
 if __name__ == "__main__":
