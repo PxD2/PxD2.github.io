@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "pxd2gametest.pxd",
+    "to": "/playtest/",
+    "title": "PXD2 Game Test",
+    "owner": "PXD2",
+    "minted": "2026-11-13T21:50:56+00:00",
+    "ledger": {
+      "n": 123,
+      "hash": "c4a725475329096319f9f27e50724e8cff742d8b501cab507d4572653deaa190"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T21:50:56+00:00"
+  },
+  "signature": null
+}

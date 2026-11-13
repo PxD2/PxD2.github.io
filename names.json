@@ -937,6 +937,14 @@
       "owner": "PXD2",
       "minted": "2026-11-13T19:07:08+00:00",
       "native": true
+    },
+    "pxd2gametest": {
+      "to": "/playtest/",
+      "title": "PXD2 Game Test",
+      "added": "2026-11-13",
+      "group": "PXD2",
+      "owner": "PXD2",
+      "minted": "2026-11-13T21:50:56+00:00"
     }
   },
   "groups": [
@@ -945,7 +953,8 @@
     "Studio & company",
     "Learning",
     "Tools & making",
-    "Social & contact"
+    "Social & contact",
+    "PXD2"
   ],
   "authorities": [
     {
