@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "demodiner.pxd",
+    "to": "/restaurants/demo/order.html",
+    "title": "Demo Diner: try PXD2 online ordering",
+    "owner": "PXD2",
+    "minted": "2026-11-11",
+    "ledger": {
+      "n": 115,
+      "hash": "ba9953072e02f7fcf228640b3c337c95608cea741d6cd237c428bc369b678d2c"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T17:47:35+00:00"
+  },
+  "signature": null
+}

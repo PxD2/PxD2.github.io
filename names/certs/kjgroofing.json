@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "kjgroofing.pxd",
+    "to": "/clients/kjg-roofing-200edb/",
+    "title": "KJG Roofing, Show Low",
+    "owner": "PXD2",
+    "minted": "2026-11-11",
+    "ledger": {
+      "n": 105,
+      "hash": "648bf5562cae5473f2e4e17cdc9d32cfaa013f019af1b77a7e5b6d2bd60950f6"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T17:47:35+00:00"
+  },
+  "signature": null
+}

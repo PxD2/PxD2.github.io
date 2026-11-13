@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "geeg.pxd",
+    "to": "/company/",
+    "title": "Glen Elder Entertainment Group",
+    "owner": "PXD2",
+    "minted": "2026-10-11",
+    "ledger": {
+      "n": 12,
+      "hash": "81bcd3a55ed28c60e4b237bcb554c2d75b445ad1425382706c3f7596722f182a"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T17:47:34+00:00"
+  },
+  "signature": null
+}

@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "meshworks.pxd",
+    "to": "/meshworks/",
+    "title": "Meshworks scan cards",
+    "owner": "PXD2",
+    "minted": "2026-10-11",
+    "ledger": {
+      "n": 47,
+      "hash": "d05dfe294ac62b07e19039ac36db76e8fe7cd7e2bbbb518f5fc1e7b9b5b024ef"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T17:47:34+00:00"
+  },
+  "signature": null
+}

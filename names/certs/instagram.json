@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "instagram.pxd",
+    "to": "https://www.instagram.com/pxd2games",
+    "title": "PXD2 Games on Instagram",
+    "owner": "PXD2",
+    "minted": "2026-10-11",
+    "ledger": {
+      "n": 7,
+      "hash": "16b1980fd4a62cc7aa1d89fb2f7ab4e045c337bfab450067768186ecc8a49c6c"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T17:47:34+00:00"
+  },
+  "signature": null
+}

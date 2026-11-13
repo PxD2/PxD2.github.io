@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "fieldsservices.pxd",
+    "to": "/clients/fields-services-af5251/",
+    "title": "Fields Services, Show Low",
+    "owner": "PXD2",
+    "minted": "2026-11-11",
+    "ledger": {
+      "n": 101,
+      "hash": "24d62b410fc7648f2a9e68ce11dbeb22c473d681f833a867326830de20e170dd"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T17:47:35+00:00"
+  },
+  "signature": null
+}

@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "pxd2studio.pxd",
+    "to": "/studioa/",
+    "title": "PXD2 Studio",
+    "owner": "PXD2",
+    "minted": "2026-10-11",
+    "ledger": {
+      "n": 11,
+      "hash": "115b67c69b3b38b7c4a1949abef9edeed0a2197d39db2b4946eea8f6f128ff4e"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T17:47:34+00:00"
+  },
+  "signature": null
+}

@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "americanintegrity.pxd",
+    "to": "/clients/american-integrity-9ce8be/",
+    "title": "American Integrity, Show Low",
+    "owner": "PXD2",
+    "minted": "2026-11-11",
+    "ledger": {
+      "n": 98,
+      "hash": "0fb9d4b4e63a1363d6d4b528e6157dd869b4e24617ac98ef60a6c49a8f615d9f"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T17:47:35+00:00"
+  },
+  "signature": null
+}

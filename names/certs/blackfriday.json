@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "blackfriday.pxd",
+    "to": "/special/",
+    "title": "PXD2 $500 website, lifetime hosting",
+    "owner": "PXD2",
+    "minted": "2026-11-10",
+    "ledger": {
+      "n": 82,
+      "hash": "526d2f44a802f5f1204309d1b069a1de23b36e7f9ae2b03a3ae36030f74a9203"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T17:47:35+00:00"
+  },
+  "signature": null
+}

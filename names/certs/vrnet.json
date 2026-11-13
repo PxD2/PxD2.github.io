@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "vrnet.pxd",
+    "to": "/vr/",
+    "title": "PXD2 VR Net",
+    "owner": "PXD2",
+    "minted": "2026-10-11",
+    "ledger": {
+      "n": 34,
+      "hash": "ee4e449e81bb9f7f9df41b2153afa97484cf5d680792086a9c31396b73f2e2cc"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T17:47:34+00:00"
+  },
+  "signature": null
+}
