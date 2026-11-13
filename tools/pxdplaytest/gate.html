@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>PXD2 Game Test</title>
+<style>
+:root{--bg:#0b0b0a;--card:#151513;--line:#2a2a26;--ink:#ecebe6;--dim:#9b9a92;--acc:#e8b04a;--bad:#e2685a}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+main{max-width:860px;margin:0 auto;padding:28px 18px 60px}h1{font-size:26px;margin:0 0 4px;letter-spacing:.02em}h2{font-size:16px;margin:28px 0 10px;color:var(--acc);text-transform:uppercase;letter-spacing:.08em}
+.sub{color:var(--dim);margin:0 0 22px}.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin:10px 0}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}input,textarea,select{background:#0f0f0e;color:var(--ink);border:1px solid var(--line);border-radius:7px;padding:10px 12px;font:inherit;width:100%}
+textarea{min-height:110px;resize:vertical}button,.btn{background:var(--acc);color:#111;border:0;border-radius:7px;padding:10px 16px;font:600 15px system-ui;cursor:pointer;text-decoration:none;display:inline-block}
+button.ghost,.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+@media(max-width:640px){.grid2{grid-template-columns:minmax(0,1fr)}}.msg{color:var(--bad);min-height:1.4em}.ok{color:#8fd18f}.dim{color:var(--dim)}
+.pass{font:14px ui-monospace,Consolas,monospace;background:#0f0f0e;border:1px dashed var(--acc);padding:10px;border-radius:7px;word-break:break-all}
+.tag{font-size:12px;border:1px solid var(--line);border-radius:20px;padding:2px 9px;color:var(--dim)}img.prev{max-width:100%;max-height:180px;border-radius:6px;margin-top:8px}
+</style></head><body><main>
+<h1>PXD2 Game Test</h1><p class="sub">Private playtests of PXD2 games. You play; the game stays on PXD2's machines.</p>
+
+<section id="out" hidden>
+  <div class="grid2">
+    <div class="card"><h2 style="margin-top:0">Join with an invite</h2>
+      <p class="dim">PXD2 sent you an invite code. Enter it once to get your personal tester pass.</p>
+      <input id="inv" placeholder="Invite code, like 9F3A-11C2-77B0-4E1D" autocomplete="off"><div style="height:8px"></div>
+      <input id="nm" placeholder="Your name or player handle" maxlength="60"><div style="height:10px"></div>
+      <button id="join">Join the test</button><p class="msg" id="m1"></p></div>
+    <div class="card"><h2 style="margin-top:0">Sign in with your pass</h2>
+      <p class="dim">Already a tester? Paste the pass you saved.</p>
+      <input id="ps" placeholder="pxdgt_…" autocomplete="off"><div style="height:10px"></div>
+      <button id="login">Sign in</button><p class="msg" id="m2"></p></div>
+  </div>
+  <p class="dim">Want in? Ask for an invite at pxd2games@gmail.com.</p>
+</section>
+
+<section id="newpass" hidden class="card"><h2 style="margin-top:0">Your tester pass</h2>
+  <p>This is your key to every PXD2 test. It is shown once. It is saved in this browser; keep a copy somewhere safe, and don't share it (it is tied to you).</p>
+  <div class="pass" id="pv"></div><div style="height:10px"></div>
+  <div class="row"><button id="copy" class="ghost">Copy pass</button><button id="cont">Continue</button></div></section>
+
+<section id="in" hidden>
+  <div class="row" style="justify-content:space-between"><div>Signed in as <b id="who"></b> <span class="tag" id="seats"></span></div><button class="ghost" id="out-btn">Sign out</button></div>
+  <h2>Builds</h2><div id="builds"></div>
+  <h2>Send feedback</h2>
+  <div class="card">
+    <div class="grid2"><select id="fb-build"></select>
+      <select id="fb-kind"><option value="bug">Bug</option><option value="feel">How it plays</option><option value="perf">Performance</option><option value="idea">Idea</option><option value="note">Other</option></select></div>
+    <div style="height:10px"></div><textarea id="fb-text" placeholder="What happened, where you were, what you expected. Paste a screenshot here with Ctrl+V."></textarea>
+    <div style="height:8px"></div><input type="file" id="fb-img" accept="image/png,image/jpeg,image/webp"><img class="prev" id="fb-prev" hidden alt="">
+    <div style="height:10px"></div><button id="fb-send">Send to PXD2</button> <span id="m3" class="msg"></span></div>
+  <p class="dim">Test builds are confidential. Recording or sharing footage, files or details is not allowed unless PXD2 says so for a build.</p>
+</section>
+</main>
+<script>
+var $ = function (i) { return document.getElementById(i); }, IMG = "";
+function api(p, body) { return fetch("/gate/api/" + p, body ? { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body), credentials: "same-origin" } : { credentials: "same-origin" }).then(function (r) { return r.json().then(function (j) { j._s = r.status; return j; }); }); }
+function show(id) { ["out", "newpass", "in"].forEach(function (x) { $(x).hidden = x !== id; }); }
+function store(p) { try { localStorage.setItem("pxdgt-pass", p); } catch (e) {} }
+function saved() { try { return localStorage.getItem("pxdgt-pass") || ""; } catch (e) { return ""; } }
+function mb(n) { return n == null ? "" : (n / 1048576 > 1024 ? (n / 1073741824).toFixed(1) + " GB" : Math.round(n / 1048576) + " MB"); }
+function me() {
+  api("me").then(function (j) {
+    if (j._s !== 200) { var p = saved(); if (p) return api("login", { pass: p }).then(function (r) { if (r.ok) me(); else show("out"); }); return show("out"); }
+    $("who").textContent = j.name; $("seats").textContent = j.playing + " / " + j.slots + " seats in use";
+    var b = $("builds"); b.innerHTML = ""; $("fb-build").innerHTML = "";
+    if (!j.builds.length) b.innerHTML = '<div class="card dim">No build is open for testing right now. Check back soon.</div>';
+    j.builds.forEach(function (x) {
+      var c = document.createElement("div"); c.className = "card";
+      var h = document.createElement("div"); h.className = "row"; h.style.justifyContent = "space-between";
+      var t = document.createElement("div"); t.innerHTML = "<b></b> <span class='tag'></span>"; t.children[0].textContent = x.title; t.children[1].textContent = x.mode === "stream" ? "plays in your browser" : "download " + mb(x.size);
+      var a = document.createElement("a"); a.className = "btn";
+      if (x.mode === "stream") { a.href = "/"; a.textContent = "Play now"; } else { a.href = "/gate/dl/" + x.id; a.textContent = "Download"; }
+      h.appendChild(t); h.appendChild(a); c.appendChild(h);
+      if (x.notes) { var n = document.createElement("p"); n.className = "dim"; n.style.margin = "8px 0 0"; n.textContent = x.notes; c.appendChild(n); }
+      b.appendChild(c);
+      var o = document.createElement("option"); o.value = x.id; o.textContent = x.title; $("fb-build").appendChild(o);
+    });
+    var o = document.createElement("option"); o.value = ""; o.textContent = "General"; $("fb-build").appendChild(o);
+    show("in");
+  });
+}
+$("join").onclick = function () {
+  $("m1").textContent = "";
+  api("redeem", { invite: $("inv").value, name: $("nm").value }).then(function (j) {
+    if (!j.pass) { $("m1").textContent = j.error || "Could not join."; return; }
+    store(j.pass); $("pv").textContent = j.pass; show("newpass");
+  });
+};
+$("login").onclick = function () {
+  $("m2").textContent = "";
+  api("login", { pass: $("ps").value.trim() }).then(function (j) { if (j.ok) { store($("ps").value.trim()); me(); } else $("m2").textContent = j.error || "Could not sign in."; });
+};
+$("copy").onclick = function () { navigator.clipboard && navigator.clipboard.writeText($("pv").textContent); $("copy").textContent = "Copied"; };
+$("cont").onclick = me;
+$("out-btn").onclick = function () { api("logout").then(function () { try { localStorage.removeItem("pxdgt-pass"); } catch (e) {} show("out"); }); };
+function takeImg(f) { if (!f || f.size > 12 * 1048576) return; var r = new FileReader(); r.onload = function () { IMG = r.result; $("fb-prev").src = IMG; $("fb-prev").hidden = false; }; r.readAsDataURL(f); }
+$("fb-img").onchange = function () { takeImg(this.files[0]); };
+$("fb-text").addEventListener("paste", function (e) { var it = (e.clipboardData || {}).items || []; for (var i = 0; i < it.length; i++) if (it[i].type.indexOf("image") === 0) takeImg(it[i].getAsFile()); });
+$("fb-send").onclick = function () {
+  var t = $("fb-text").value.trim(); if (!t && !IMG) return;
+  $("m3").className = "msg"; $("m3").textContent = "Sending…";
+  api("feedback", { build: $("fb-build").value, kind: $("fb-kind").value, text: t, image: IMG }).then(function (j) {
+    if (j.ok) { $("m3").className = "ok"; $("m3").textContent = "Thanks, PXD2 has it."; $("fb-text").value = ""; IMG = ""; $("fb-prev").hidden = true; $("fb-img").value = ""; }
+    else $("m3").textContent = j.error || "Not sent.";
+  });
+};
+me();
+</script></body></html>
