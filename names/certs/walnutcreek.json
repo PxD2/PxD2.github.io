@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "walnutcreek.pxd",
+    "to": "/clients/walnut-creek-antique-emporium-4b6cff/",
+    "title": "Walnut Creek Antique Emporium",
+    "owner": "PXD2",
+    "minted": "2026-11-10",
+    "ledger": {
+      "n": 81,
+      "hash": "7593c4a23f9c7344d795d2161e121598b0e8d9a2ffee86cbf7c58c7e33f7abf9"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T17:47:35+00:00"
+  },
+  "signature": null
+}

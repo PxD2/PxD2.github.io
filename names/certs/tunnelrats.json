@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "tunnelrats.pxd",
+    "to": "/games/",
+    "title": "Tunnel Rats hero map",
+    "owner": "PXD2",
+    "minted": "2026-10-11",
+    "ledger": {
+      "n": 4,
+      "hash": "e5e5ff3e90e9df7041cec6682f8389a84143b20a336186e7d98d5e1a16dfb3e1"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T17:47:34+00:00"
+  },
+  "signature": null
+}

@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "vintagesisters.pxd",
+    "to": "/clients/vintage-sisters-antiques-0b44d7/",
+    "title": "Vintage Sisters Antiques",
+    "owner": "PXD2",
+    "minted": "2026-11-10",
+    "ledger": {
+      "n": 80,
+      "hash": "298fe4246bea72a1b0923b5e53578afce823eab96e509c6d91815f0bbfff6e5f"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T17:47:35+00:00"
+  },
+  "signature": null
+}

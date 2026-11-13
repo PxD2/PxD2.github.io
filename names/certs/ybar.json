@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "ybar.pxd",
+    "to": "/clients/stanford-general-store-8b2a57/order.html",
+    "title": "Y-Bar & Nettie's Deli menu, Stanford General Store",
+    "owner": "PXD2",
+    "minted": "2026-11-10",
+    "ledger": {
+      "n": 65,
+      "hash": "1245f96dd2f93c76b53e73ac91c6bc95fc4e1aeae6e8a38eb50fe5419d4bdc05"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T17:47:35+00:00"
+  },
+  "signature": null
+}

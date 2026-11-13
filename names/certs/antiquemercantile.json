@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "antiquemercantile.pxd",
+    "to": "/clients/antique-mercantile-co-cf6199/",
+    "title": "Antique Mercantile Co.",
+    "owner": "PXD2",
+    "minted": "2026-11-10",
+    "ledger": {
+      "n": 68,
+      "hash": "294b5efa4bdd8edeefc61e89ec474a99a48f2dde28ab0762554e2f4ad64a27b1"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T17:47:35+00:00"
+  },
+  "signature": null
+}

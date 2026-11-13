@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "github.pxd",
+    "to": "https://github.com/PxD2",
+    "title": "PxD2 on GitHub",
+    "owner": "PXD2",
+    "minted": "2026-10-11",
+    "ledger": {
+      "n": 30,
+      "hash": "c0f3629ca6df944cf4438b736aaeada2652bd178cde1bc1552dfedfe054afa08"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T17:47:34+00:00"
+  },
+  "signature": null
+}

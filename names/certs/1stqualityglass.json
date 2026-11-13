@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "1stqualityglass.pxd",
+    "to": "/clients/1st-quality-glass-454c55/",
+    "title": "1st Quality Glass, Pinetop-Lakeside",
+    "owner": "PXD2",
+    "minted": "2026-11-11",
+    "ledger": {
+      "n": 92,
+      "hash": "0307ea729e2eb410cddef109991d0ead1df82be75d34127922839a38dba4d293"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T17:47:35+00:00"
+  },
+  "signature": null
+}

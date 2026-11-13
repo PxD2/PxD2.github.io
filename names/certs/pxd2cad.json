@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "pxd2cad.pxd",
+    "to": "/cad2/",
+    "title": "Helix CAD",
+    "owner": "PXD2",
+    "minted": "2026-10-11",
+    "ledger": {
+      "n": 24,
+      "hash": "5c9682a4a294ebb64d4a06948cd9efd33ee70887c46c4f78eddf1c93bbcc6722"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T17:47:34+00:00"
+  },
+  "signature": null
+}

@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "littlelogcabin.pxd",
+    "to": "/clients/little-log-cabin-antiques-ea9465/",
+    "title": "Little Log Cabin Antiques",
+    "owner": "PXD2",
+    "minted": "2026-11-10",
+    "ledger": {
+      "n": 70,
+      "hash": "90a6ff3958683fca4681c9f0f407efd414f3815d5b142ce4b4214d4631ae4095"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T17:47:35+00:00"
+  },
+  "signature": null
+}

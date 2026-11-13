@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "edu.pxd",
+    "to": "/edu/",
+    "title": "Education network",
+    "owner": "PXD2",
+    "minted": "2026-10-11",
+    "ledger": {
+      "n": 49,
+      "hash": "93078bf8646f2d30946794a708aa8079394d29cb108ca6b0c69844bf849521d8"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T17:47:34+00:00"
+  },
+  "signature": null
+}

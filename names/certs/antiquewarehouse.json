@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "antiquewarehouse.pxd",
+    "to": "/clients/antique-consignment-warehouse-59cf3e/",
+    "title": "Antique & Consignment Warehouse",
+    "owner": "PXD2",
+    "minted": "2026-11-10",
+    "ledger": {
+      "n": 67,
+      "hash": "fd862c483aad782fc6886f5ada0a96d724bb9517345d87db73d7efa30d514b6c"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T17:47:35+00:00"
+  },
+  "signature": null
+}

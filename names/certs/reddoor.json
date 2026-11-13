@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "reddoor.pxd",
+    "to": "/clients/red-door-consignment-8d8063/",
+    "title": "Red Door Consignment",
+    "owner": "PXD2",
+    "minted": "2026-11-10",
+    "ledger": {
+      "n": 74,
+      "hash": "ecb851e8efbb24974efb68009ccf9d64e89640876825f2bc5099cae0592ff3a9"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T17:47:35+00:00"
+  },
+  "signature": null
+}

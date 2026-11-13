@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "stanfordstore.pxd",
+    "to": "/clients/stanford-general-store-8b2a57/",
+    "title": "Stanford General Store & Y-Bar, Concho AZ",
+    "owner": "PXD2",
+    "minted": "2026-11-10",
+    "ledger": {
+      "n": 64,
+      "hash": "dbdf5df7d2dc0b4a8fdd287d874dd5a55801aed27c568fb726284719ad9c2efa"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T17:47:35+00:00"
+  },
+  "signature": null
+}

@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "guardiansecurityaz.pxd",
+    "to": "/clients/guardian-security-az-2df4ba/",
+    "title": "Guardian Security AZ, Show Low",
+    "owner": "PXD2",
+    "minted": "2026-11-11",
+    "ledger": {
+      "n": 103,
+      "hash": "d3df7599b7d3f6010180fe631f7f241ed6fbc267ac3b95f4ee70a85b38061b3a"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T17:47:35+00:00"
+  },
+  "signature": null
+}

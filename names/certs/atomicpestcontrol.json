@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "atomicpestcontrol.pxd",
+    "to": "/clients/atomic-pest-control-3a96d5/",
+    "title": "Atomic Pest Control, Pinetop-Lakeside",
+    "owner": "PXD2",
+    "minted": "2026-11-11",
+    "ledger": {
+      "n": 94,
+      "hash": "81de86cc9b4b2f23d8afb5a1c7316b55f7adc30260c394daed083d2c7c4a148a"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T17:47:35+00:00"
+  },
+  "signature": null
+}

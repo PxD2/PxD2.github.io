@@ -11,6 +11,10 @@
 | PXD Browser | reads the registry directly; no DNS setting needed |
 | Anyone else | `https://pxd2.github.io/<name>` |
 
+## Minting and desktops
+- New names: `tools/minter` (PXD Minter): mint, deed, chained ledger, signing.
+- Any PC or Linux box: `tools/pxdweb` → the downloads at `/vr/pxdweb/` make `.pxd` work system-wide (only `.pxd` / `.pxd2` lookups go to the root).
+
 ## Names
 - `name.pxd`: a main-hub name, or a sub-hub name the main hub doesn't use
 - `name.hub.pxd`: a sub-hub name, always (`pizzaco.eats.pxd`)

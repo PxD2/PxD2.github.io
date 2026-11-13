@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "davidson.pxd",
+    "to": "/davidson/",
+    "title": "Davidson",
+    "owner": "PXD2",
+    "minted": "2026-10-11",
+    "ledger": {
+      "n": 53,
+      "hash": "2369f5e34f95e30a4ebec45776332c2dff750a9ec531a6893bb4bff5b32036d5"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T17:47:34+00:00"
+  },
+  "signature": null
+}

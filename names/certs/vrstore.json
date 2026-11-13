@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "vrstore.pxd",
+    "to": "/clients/propshop/",
+    "title": "PXD2 VR store demo",
+    "owner": "PXD2",
+    "minted": "2026-10-11",
+    "ledger": {
+      "n": 33,
+      "hash": "c8568190a4160dc10ae1ded80d803bb6899878acee5e08c23d9527b76120cca9"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T17:47:34+00:00"
+  },
+  "signature": null
+}

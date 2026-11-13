@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "owensenergy.pxd",
+    "to": "/clients/owen-s-energy-995b8e/",
+    "title": "Owen's Energy, Show Low",
+    "owner": "PXD2",
+    "minted": "2026-11-11",
+    "ledger": {
+      "n": 113,
+      "hash": "6d63287709338684f88ce2fa42734d3973fde41349786b66ac31ae0157ce0c33"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T17:47:35+00:00"
+  },
+  "signature": null
+}
