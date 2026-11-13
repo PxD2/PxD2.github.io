@@ -6,17 +6,21 @@
   (Games, Stores & VR, Learning, Tools & making, Studio & company, Social & contact),
   each searchable on its own, so finding sites you didn't know about is easy.
 - Normal web addresses still work.
+- Google · Shield (Ctrl+Shift+G, or type  g <words>): the real google.com in a memory-only profile. Nothing is kept on
+  disk, there are no third-party cookies, Google's tracking and ad calls are blocked, result links skip Google's click
+  logging, and every request carries Global Privacy Control. With an exit set in ~/.pxd/shield.json
+  ({"exit": "socks5://host:1080"}), Google traffic leaves through PXD's server, so Google sees PXD, not you.
 
 Run:  pip install PyQt6 PyQt6-WebEngine   then   python pxd_browser.py
 """
-import html, json, os, sys, threading, urllib.request
-from urllib.parse import urljoin, urlparse
+import base64, html, json, os, re, sys, threading, urllib.request
+from urllib.parse import urljoin, urlparse, parse_qs
 
 from PyQt6.QtCore import QUrl, Qt, pyqtSignal, QObject
 from PyQt6.QtGui import QAction, QKeySequence, QIcon
 from PyQt6.QtWidgets import QApplication, QMainWindow, QTabWidget, QToolBar, QLineEdit, QLabel, QWidget, QSizePolicy
 from PyQt6.QtWebEngineWidgets import QWebEngineView
-from PyQt6.QtWebEngineCore import QWebEnginePage, QWebEngineSettings
+from PyQt6.QtWebEngineCore import QWebEnginePage, QWebEngineSettings, QWebEngineProfile, QWebEngineUrlRequestInterceptor
 
 APP = "PXD Browser"
 MAIN_REGISTRY = os.environ.get("PXD_REGISTRY", "https://pxd2.github.io/names.json")
@@ -167,13 +171,85 @@ $("#q").addEventListener("input",render);render();
 </script></body></html>""".replace("__DATA__", payload)
 
 
+# ---------------------------------------------------------------- PXD Shield: Google, without Google building a profile
+SHIELD_CONF = os.path.join(os.path.expanduser("~"), ".pxd", "shield.json")
+# Calls whose job is tracking or ads, not showing results (Google's own and the ones it runs on other sites)
+TRACKERS = re.compile(
+    r"(^|\.)(google-analytics\.com|googletagmanager\.com|doubleclick\.net|googlesyndication\.com|googleadservices\.com|"
+    r"adservice\.google\.[a-z.]+|app-measurement\.com|googletagservices\.com|ade\.googlesyndication\.com)$")
+TRACK_PATHS = re.compile(r"^/(gen_204|client_204|log|pagead/|ads/|xjs/_/ss/|async/bgasy|complete/search\?.*client=gws-wiz.*&gs_ri=gws-wiz-ri)")
+GOOGLE = re.compile(r"(^|\.)google\.[a-z.]+$")
+
+
+def shield_conf():
+    try:
+        return json.load(open(SHIELD_CONF))
+    except Exception:  # noqa: BLE001
+        return {}
+
+
+def shield_pac(exit_proxy):
+    """Only Google traffic goes out through the PXD exit; everything else stays direct."""
+    scheme = "SOCKS5" if exit_proxy.startswith("socks") else "PROXY"
+    hostport = exit_proxy.split("://", 1)[-1].rstrip("/")
+    pac = ("function FindProxyForURL(url, host) {"
+           " if (/(^|\\.)(google|gstatic|googleapis|googleusercontent|youtube|ytimg|ggpht)\\.[a-z.]+$/.test(host))"
+           f" return '{scheme} {hostport}'; return 'DIRECT'; }}")  # no DIRECT fallback: if the exit is down, Google waits instead of seeing you
+    return "data:application/x-ns-proxy-autoconfig;base64," + base64.b64encode(pac.encode()).decode()
+
+
+class ShieldInterceptor(QWebEngineUrlRequestInterceptor):
+    """Every request from a Shield tab: tracking calls blocked, privacy signals sent."""
+    def __init__(self):
+        super().__init__(); self.blocked = 0
+
+    def interceptRequest(self, info):
+        u = info.requestUrl(); host = (u.host() or "").lower()
+        path = u.path() + ("?" + u.query() if u.query() else "")
+        if TRACKERS.search(host) or (GOOGLE.search(host) and TRACK_PATHS.match(path)):
+            info.block(True); self.blocked += 1; return
+        info.setHttpHeader(b"Sec-GPC", b"1")   # Global Privacy Control: a legal "do not sell or share" signal (CCPA/CPRA)
+        info.setHttpHeader(b"DNT", b"1")
+
+
+class Shield:
+    """An off-the-record profile: nothing is written to disk, cookies die with the tab, no third-party cookies."""
+    def __init__(self):
+        self.profile = QWebEngineProfile()          # no storage name = off the record (memory only)
+        self.profile.setHttpCacheType(QWebEngineProfile.HttpCacheType.MemoryHttpCache)
+        self.profile.setPersistentCookiesPolicy(QWebEngineProfile.PersistentCookiesPolicy.NoPersistentCookies)
+        self.profile.setHttpAcceptLanguage("en-US,en;q=0.9")
+        self.interceptor = ShieldInterceptor()
+        self.profile.setUrlRequestInterceptor(self.interceptor)
+        try:
+            self.profile.cookieStore().setCookieFilter(lambda req: not req.thirdParty)
+        except Exception:  # noqa: BLE001
+            pass
+        self.exit = shield_conf().get("exit", "")
+
+
+def unwrap_google(url):
+    """Google result links go through google.com/url?q=... so Google logs the click. Go straight to the site instead."""
+    if GOOGLE.search((url.host() or "").lower()) and url.path() == "/url":
+        q = parse_qs(url.query())
+        dest = (q.get("q") or q.get("url") or [""])[0]
+        if dest.startswith(("http://", "https://")):
+            return QUrl(dest)
+    return None
+
+
 # ---------------------------------------------------------------- browser
 class Page(QWebEnginePage):
     def __init__(self, win, profile=None):
-        super().__init__(win)
+        super().__init__(profile, win) if profile is not None else super().__init__(win)
         self.win = win
+        self.shielded = profile is not None
 
     def acceptNavigationRequest(self, url, nav_type, is_main):
+        direct = unwrap_google(url)
+        if direct is not None and is_main:
+            self.setUrl(direct)
+            return False
         host = (url.host() or "").lower()
         if url.scheme() == "pxd" or host.endswith(TLDS):
             target, _ = self.win.reg.resolve(url.toString().replace("http://", "").replace("https://", ""))
@@ -185,7 +261,7 @@ class Page(QWebEnginePage):
         return super().acceptNavigationRequest(url, nav_type, is_main)
 
     def createWindow(self, _type):
-        return self.win.new_tab().page()
+        return (self.win.new_shield_tab() if self.shielded else self.win.new_tab()).page()
 
 
 class Browser(QMainWindow):
@@ -194,6 +270,7 @@ class Browser(QMainWindow):
         self.setWindowTitle(APP)
         self.resize(1320, 860)
         self.reg = Registry()
+        self.shield = Shield()
         self.discovering = set()
         self.tabs = QTabWidget(documentMode=True, tabsClosable=True, movable=True)
         self.tabs.tabCloseRequested.connect(self.close_tab)
@@ -207,6 +284,7 @@ class Browser(QMainWindow):
                                ("⟳", QKeySequence.StandardKey.Refresh, lambda: self.current().reload()),
                                ("PXD", QKeySequence("Alt+Home"), lambda: self.show_home()),
                                ("Discover", None, lambda: self.show_discover()),
+                               ("Google · Shield", QKeySequence("Ctrl+Shift+G"), lambda: self.new_shield_tab()),
                                ("Stores", None, lambda: self.show_stores())):
             a = QAction(label, self)
             if key:
@@ -259,6 +337,24 @@ class Browser(QMainWindow):
             self.show_home(view=view)
         return view
 
+    def new_shield_tab(self, query=""):
+        """Google in PXD: the real google.com, in a memory-only profile with tracking blocked; through the PXD exit if set."""
+        view = QWebEngineView()
+        view.setPage(Page(self, self.shield.profile))
+        view.urlChanged.connect(lambda u, v=view: self.on_url(v, u))
+        view.titleChanged.connect(lambda t, v=view: self.tabs.setTabText(self.tabs.indexOf(v), "🛡 " + (t or "Google")[:20]))
+        i = self.tabs.addTab(view, "🛡 Google")
+        self.tabs.setCurrentIndex(i)
+        url = "https://www.google.com/search?q=" + QUrl.toPercentEncoding(query).data().decode() if query else "https://www.google.com/"
+        view.setUrl(QUrl(url))
+        self.status.setText(self.shield_status())
+        return view
+
+    def shield_status(self):
+        ex = self.shield.exit
+        return (f"Shield: Google sees the PXD exit ({ex.split('://')[-1]}) · {self.shield.interceptor.blocked} trackers blocked" if ex
+                else f"Shield: memory-only, {self.shield.interceptor.blocked} trackers blocked · no exit set, Google sees your IP")
+
     def close_tab(self, i):
         if self.tabs.count() > 1:
             w = self.tabs.widget(i)
@@ -304,6 +400,8 @@ class Browser(QMainWindow):
             return self.show_discover()
         if text.lower().rstrip("/") in ("stores", "stores.pxd", "pxd://stores"):
             return self.show_stores()
+        if text.lower().startswith(("g ", "google ")):      # g words  -> shielded Google search
+            return self.new_shield_tab(text.split(" ", 1)[1])
         target, _ = self.reg.resolve(text)
         if target:
             return self.current().setUrl(QUrl(target))
@@ -337,7 +435,11 @@ class Browser(QMainWindow):
 
 
 def main():
-    os.environ.setdefault("QTWEBENGINE_CHROMIUM_FLAGS", "--enable-features=WebXR")
+    flags = "--enable-features=WebXR"
+    ex = shield_conf().get("exit", "")
+    if ex:                                   # route only Google traffic through the PXD exit server
+        flags += " --proxy-pac-url=" + shield_pac(ex)
+    os.environ.setdefault("QTWEBENGINE_CHROMIUM_FLAGS", flags)
     app = QApplication(sys.argv)
     app.setApplicationName(APP)
     w = Browser()
