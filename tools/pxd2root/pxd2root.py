@@ -377,6 +377,12 @@ class TCPDNS(socketserver.BaseRequestHandler):
 
 class TCPServer(socketserver.ThreadingTCPServer):
     allow_reuse_address, daemon_threads = True, True
+    request_queue_size = 512      # the default 5 overflowed under load: dropped connections came back a second later
+
+
+class WebServer(ThreadingHTTPServer):
+    allow_reuse_address, daemon_threads = True, True
+    request_queue_size = 512      # soak test: with the default 5, p99 sat at ~1 s and DoH POSTs were reset
 
 
 class UDPServer(socketserver.ThreadingUDPServer):
@@ -531,8 +537,22 @@ class Web(BaseHTTPRequestHandler):
                 ctype = mimetypes.guess_type(f)[0] or "application/octet-stream"
                 if ctype.startswith("text/") or ctype in ("application/javascript", "application/json"):
                     ctype += "; charset=utf-8"
-                with open(f, "rb") as fh:
-                    self._send(200, fh.read(), ctype, {"Cache-Control": "max-age=300", "X-PXD-Host": "pxd2-private"})
+                size = os.path.getsize(f)
+                self.send_response(200)       # streamed in pieces: a 3D model never sits whole in memory per visitor
+                for k, v in (("Content-Type", ctype), ("Content-Length", str(size)), ("Access-Control-Allow-Origin", "*"),
+                             ("Cache-Control", "max-age=300"), ("X-PXD-Host", "pxd2-private")):
+                    self.send_header(k, v)
+                self.end_headers()
+                if self.command != "HEAD":
+                    with open(f, "rb") as fh:
+                        try:
+                            while True:
+                                chunk = fh.read(262144)
+                                if not chunk:
+                                    break
+                                self.wfile.write(chunk)
+                        except (BrokenPipeError, ConnectionResetError):
+                            pass              # the visitor left mid-download
                 return True
         self._send(404, "not found on PXD2 private hosting", "text/plain; charset=utf-8")
         return True
@@ -583,11 +603,11 @@ def main():
         print(f"wrote {', '.join(t + '.zone' for t in TLDS)} to {a.export_zone} (serial {ZONE.serial}, {len(ZONE.names)} names)")
         return
     servers = [UDPServer((a.host, a.dns_port), UDPDNS), TCPServer((a.host, a.dns_port), TCPDNS)]
-    webs = [ThreadingHTTPServer((a.host, a.web_port), Web)]
+    webs = [WebServer((a.host, a.web_port), Web)]
     if a.tls_cert:
         ctx = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER); ctx.load_cert_chain(a.tls_cert, a.tls_key)
         dot = TCPServer((a.host, a.dot_port), TCPDNS); dot.tls = ctx; servers.append(dot)
-        https = ThreadingHTTPServer((a.host, a.https_port), Web); https.socket = ctx.wrap_socket(https.socket, server_side=True, do_handshake_on_connect=False); webs.append(https)
+        https = WebServer((a.host, a.https_port), Web); https.socket = ctx.wrap_socket(https.socket, server_side=True, do_handshake_on_connect=False); webs.append(https)
     for s in servers + webs[1:]:
         threading.Thread(target=s.serve_forever, daemon=True).start()
 
