@@ -225,7 +225,8 @@ class Shield:
             self.profile.cookieStore().setCookieFilter(lambda req: not req.thirdParty)
         except Exception:  # noqa: BLE001
             pass
-        self.exit = shield_conf().get("exit", "")
+        c = shield_conf()
+        self.exit = c.get("exit", "") or ("PXD NOC (PXD Link)" if c.get("link") else "")
 
 
 def unwrap_google(url):
@@ -434,9 +435,23 @@ class Browser(QMainWindow):
                 self.show_discover(view=v)
 
 
+def start_link(conf):
+    """PXD Link: this device's encrypted line to the PXD NOC, as a local SOCKS5 on 127.0.0.1:1080."""
+    import subprocess
+    link = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "pxdnoc", "pxdnoc.py")
+    if not os.path.exists(link):
+        return ""
+    args = [sys.executable, link, "link", "--port", str(conf.get("link_port", 1080))]
+    if conf.get("noc"):
+        args += ["--noc", conf["noc"]]
+    subprocess.Popen(args, creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
+    return f"socks5://127.0.0.1:{conf.get('link_port', 1080)}"
+
+
 def main():
     flags = "--enable-features=WebXR"
-    ex = shield_conf().get("exit", "")
+    conf = shield_conf()
+    ex = start_link(conf) if conf.get("link") else conf.get("exit", "")
     if ex:                                   # route only Google traffic through the PXD exit server
         flags += " --proxy-pac-url=" + shield_pac(ex)
     os.environ.setdefault("QTWEBENGINE_CHROMIUM_FLAGS", flags)

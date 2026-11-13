@@ -43,7 +43,7 @@ def gh(method, path, token, body=None):
         return json.loads(r.read() or b"{}")
 
 
-def publish(c, url):
+def publish(c, url, field="url"):
     """Write this host's address into hosts.json in the site repo (one small commit, only when the address changes)."""
     if not os.path.exists(TOKEN):
         log(f"address {url} (not published: no token at {TOKEN}; add it so browsers find this host)")
@@ -59,10 +59,11 @@ def publish(c, url):
                     raise
                 sha, data = None, {"hosts": {}}
             old = data.setdefault("hosts", {}).get(c["id"], {})
-            if old.get("url") == url:
-                log(f"address unchanged in hosts.json: {url}"); return True
-            data["hosts"][c["id"]] = {"url": url, "name": c.get("name", "PXD Host"), "updated": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())}
-            body = {"message": f"PXD Host {c['id']}: {url}", "content": base64.b64encode((json.dumps(data, indent=2) + "\n").encode()).decode()}
+            if old.get(field) == url:
+                log(f"{field} unchanged in hosts.json: {url}"); return True
+            ent = dict(old); ent.update({field: url, "name": c.get("name", "PXD Host"), "updated": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())})
+            data["hosts"][c["id"]] = ent
+            body = {"message": f"PXD Host {c['id']} {field}: {url}", "content": base64.b64encode((json.dumps(data, indent=2) + "\n").encode()).decode()}
             if sha:
                 body["sha"] = sha
             gh("PUT", path, token, body)
@@ -96,6 +97,23 @@ def run():
     cf = subprocess.Popen(["cloudflared", "tunnel", "--no-autoupdate", "--url", f"http://127.0.0.1:{port}"],
                           stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
     procs.append(cf)
+    if c.get("noc", True):                    # PXD NOC: registered devices' Google traffic leaves through this machine
+        nport = int(c.get("noc_port", 8090))
+        noc = os.path.join(c["site"], "tools", "pxdnoc", "pxdnoc.py")
+        procs.append(subprocess.Popen([sys.executable, noc, "noc", "--port", str(nport)]))
+        ncf = subprocess.Popen(["cloudflared", "tunnel", "--no-autoupdate", "--url", f"http://127.0.0.1:{nport}"],
+                               stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+        procs.append(ncf)
+
+        def watch_noc():
+            for line in ncf.stdout:
+                m = re.search(r"https://([a-z0-9-]+\.trycloudflare\.com)", line)
+                if m:
+                    wss = f"wss://{m.group(1)}/relay"
+                    log(f"NOC up: {wss}"); publish(c, wss, "noc"); break
+            for _ in ncf.stdout:
+                pass
+        threading.Thread(target=watch_noc, daemon=True).start()
     url = None
     for line in cf.stdout:
         m = re.search(r"https://[a-z0-9-]+\.trycloudflare\.com", line)
