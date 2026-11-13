@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "coalitions.pxd",
+    "to": "/coalitions/",
+    "title": "Coalitions",
+    "owner": "PXD2",
+    "minted": "2026-10-11",
+    "ledger": {
+      "n": 57,
+      "hash": "111649c2185c0ae5b731b9801d4be2545a5e581eb7fba3e7af3ad522c1bcf7d7"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "johnnyanddeespicnicbasket.pxd",
+    "to": "/clients/johnny-dee-s-picnic-basket-dabe6f/",
+    "title": "Johnny & Dee's Picnic Basket, Pinetop-Lakeside",
+    "owner": "PXD2",
+    "minted": "2026-11-11",
+    "ledger": {
+      "n": 86,
+      "hash": "62332f43d947edc64b6674566e510622f9a5d3cc18d1267adaa491fe00c43f75"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

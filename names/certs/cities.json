@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "cities.pxd",
+    "to": "/cities/",
+    "title": "Cities",
+    "owner": "PXD2",
+    "minted": "2026-10-11",
+    "ledger": {
+      "n": 42,
+      "hash": "004c874f97f50138b9229fe7d02031093e8bd86e1c2c7ddc029a3294b464aa4d"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

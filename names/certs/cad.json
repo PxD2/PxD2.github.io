@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "cad.pxd",
+    "to": "/cad/",
+    "title": "CAD v1",
+    "owner": "PXD2",
+    "minted": "2026-10-11",
+    "ledger": {
+      "n": 45,
+      "hash": "dd9ef5bc4a0772997f73b4662934ca1655240415d93ce3f2c1daed77292fdc08"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

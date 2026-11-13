@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "taxladyandassociates.pxd",
+    "to": "/clients/tax-lady-associates-9a614f/",
+    "title": "Tax Lady & Associates, Show Low",
+    "owner": "PXD2",
+    "minted": "2026-11-11",
+    "ledger": {
+      "n": 110,
+      "hash": "a160f5c29c92e94b3796918c607395aa869f6d21c3fa280cd0767b00892dff44"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

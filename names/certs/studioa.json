@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "studioa.pxd",
+    "to": "/studioa/",
+    "title": "Studio A — the 5080 floor",
+    "owner": "PXD2",
+    "minted": "2026-10-11",
+    "ledger": {
+      "n": 40,
+      "hash": "51c09116ed3d0e98f7a8d5dbcfc1cb8db8afdd49af7d4a7189103b0e13ac22f5"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

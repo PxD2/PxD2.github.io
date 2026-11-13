@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "valsbistro.pxd",
+    "to": "/clients/vals/",
+    "title": "Val's Bistro & Blooms, Snowflake AZ",
+    "owner": "PXD2",
+    "minted": "2026-11-10",
+    "ledger": {
+      "n": 79,
+      "hash": "d0ba61a6b4a15376840425a08a9b39c6f642c7ec5ed4156d10518407e11122ad"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

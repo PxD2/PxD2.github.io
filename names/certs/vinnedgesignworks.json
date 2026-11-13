@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "vinnedgesignworks.pxd",
+    "to": "/clients/vinnedge-signworks-e8e132/",
+    "title": "Vinnedge Signworks, Show Low",
+    "owner": "PXD2",
+    "minted": "2026-11-11",
+    "ledger": {
+      "n": 107,
+      "hash": "f1367a9bcaa29bcbd4b1d2057f5ef965f0ccf88a9bbd193509b65adba10ed61b"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

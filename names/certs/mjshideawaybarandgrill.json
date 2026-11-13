@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "mjshideawaybarandgrill.pxd",
+    "to": "/clients/mj-s-hideaway-bar-and-grill-480ad8/",
+    "title": "MJ's Hideaway Bar and Grill, Show Low",
+    "owner": "PXD2",
+    "minted": "2026-11-11",
+    "ledger": {
+      "n": 88,
+      "hash": "71259fd4d6202f3db8fb7a2b9979cfa9a34502c06760c9e3f1ae99c206901243"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

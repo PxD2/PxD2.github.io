@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "rv.pxd",
+    "to": "/rv/",
+    "title": "RV",
+    "owner": "PXD2",
+    "minted": "2026-10-11",
+    "ledger": {
+      "n": 56,
+      "hash": "c1d12405efd0d92b66b11ced16e4c878252c16e3a1cbd7947a670e0f6a39b1c0"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

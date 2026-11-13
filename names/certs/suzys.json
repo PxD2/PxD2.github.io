@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "suzys.pxd",
+    "to": "/clients/suzys-consignment-ea6baa/",
+    "title": "Suzy's Consignment Shop",
+    "owner": "PXD2",
+    "minted": "2026-11-10",
+    "ledger": {
+      "n": 77,
+      "hash": "165e2084709d9fe925e61a2c117cf4f2566b3e8debd6c2b01b9b577602a957b4"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

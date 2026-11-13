@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "cavecutz.pxd",
+    "to": "/clients/cavecutz-51e804/",
+    "title": "CaveCutz, Show Low",
+    "owner": "PXD2",
+    "minted": "2026-11-11",
+    "ledger": {
+      "n": 89,
+      "hash": "0c37063c834cbc1670e6d8e9cf7d39f4d543bf9b1672e2be3495201a3b483251"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

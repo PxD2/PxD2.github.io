@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "names.pxd",
+    "to": "/names/",
+    "title": "PXD2 Names registry",
+    "owner": "PXD2",
+    "minted": "2026-10-11",
+    "ledger": {
+      "n": 37,
+      "hash": "53f19838506cd24e6a610ed7ee1a450e09cc4c96e8dfc1a528d63ecab39207e2"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

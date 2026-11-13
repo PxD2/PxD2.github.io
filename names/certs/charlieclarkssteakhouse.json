@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "charlieclarkssteakhouse.pxd",
+    "to": "/clients/charlie-clark-s-steakhouse-3e0686/",
+    "title": "Charlie Clark's Steakhouse, Pinetop-Lakeside",
+    "owner": "PXD2",
+    "minted": "2026-11-11",
+    "ledger": {
+      "n": 84,
+      "hash": "87ddfde6fd1858e7799e7afac4c65cbebad186cccae79d105bea2b2fd801b839"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

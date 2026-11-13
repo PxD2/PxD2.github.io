@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "redridgefarm.pxd",
+    "to": "/clients/red-ridge-farm-6100ea/",
+    "title": "Red Ridge Farm, Show Low",
+    "owner": "PXD2",
+    "minted": "2026-11-11",
+    "ledger": {
+      "n": 91,
+      "hash": "f415085669462c9864759cacd9456ffa06e891a81ae48a4b3214e8d5841893e5"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "civics.pxd",
+    "to": "/civics/",
+    "title": "Civics",
+    "owner": "PXD2",
+    "minted": "2026-10-11",
+    "ledger": {
+      "n": 50,
+      "hash": "7a57c54c1a30eda429c97a034df33f66a3bfc0abfb44625d9e0b5651f3d13f56"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

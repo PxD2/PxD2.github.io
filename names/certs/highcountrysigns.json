@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "highcountrysigns.pxd",
+    "to": "/clients/high-country-signs-284caf/",
+    "title": "High Country Signs, Pinetop-Lakeside",
+    "owner": "PXD2",
+    "minted": "2026-11-11",
+    "ledger": {
+      "n": 95,
+      "hash": "ab071185fc8a8e2dc3f5f22cf2bc523fc84999626df3ede45f399b08e1866a3b"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

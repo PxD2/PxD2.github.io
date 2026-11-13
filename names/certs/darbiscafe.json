@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "darbiscafe.pxd",
+    "to": "/clients/darbi-s-cafe-af88e7/",
+    "title": "Darbi's Cafe, Pinetop-Lakeside",
+    "owner": "PXD2",
+    "minted": "2026-11-11",
+    "ledger": {
+      "n": 85,
+      "hash": "046241d11082b30f7f0f429dd3ffa35481095f9165c65ce296a750f83a42b7f0"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

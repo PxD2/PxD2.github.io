@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "oldtimeantiques.pxd",
+    "to": "/clients/old-time-e-antiques-71d1f3/",
+    "title": "Old Time \"E\" Antiques",
+    "owner": "PXD2",
+    "minted": "2026-11-10",
+    "ledger": {
+      "n": 71,
+      "hash": "6485de871c8c705c505d628f66571441fb04a2b32cb31fe0709dd40017216f07"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

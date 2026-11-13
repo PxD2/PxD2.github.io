@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "baldguyandteamrealty.pxd",
+    "to": "/clients/bald-guy-team-realty-11f894/",
+    "title": "Bald Guy & Team Realty, Pinetop-Lakeside",
+    "owner": "PXD2",
+    "minted": "2026-11-11",
+    "ledger": {
+      "n": 96,
+      "hash": "468d3ad760c5af316cfdf1a9db891ad714ce715b70f480dd9774b57ab20b14e4"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "juniperridgeexecutivecourse.pxd",
+    "to": "/clients/juniper-ridge-executive-course-4f6561/",
+    "title": "Juniper Ridge Executive Course, Show Low",
+    "owner": "PXD2",
+    "minted": "2026-11-11",
+    "ledger": {
+      "n": 112,
+      "hash": "d5986a27a907719455003e9b070274e7184c557fe63a98cf40a5cd9f336d549d"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

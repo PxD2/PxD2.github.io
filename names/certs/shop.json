@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "shop.pxd",
+    "to": "/antiques/",
+    "title": "PXD Antiques marketplace",
+    "owner": "PXD2",
+    "minted": "2026-10-11",
+    "ledger": {
+      "n": 59,
+      "hash": "f51dca5e95709b38faaaa3d2b9b46b4c71132931f1986eb793884b962004ed92"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

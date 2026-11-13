@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "hornetbell.pxd",
+    "to": "/hornet/",
+    "title": "Hornet Bell",
+    "owner": "PXD2",
+    "minted": "2026-10-11",
+    "ledger": {
+      "n": 16,
+      "hash": "60419443d010e56b281b27b9cc1ccb234ebd035fe5c53e95eaf421dcc3d964f4"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

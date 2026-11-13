@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "reform.pxd",
+    "to": "/college/",
+    "title": "The Reform",
+    "owner": "PXD2",
+    "minted": "2026-10-11",
+    "ledger": {
+      "n": 20,
+      "hash": "e5b8ad96d4b9a9f1b55f53c4de602c72d67835d440800432571393c0eae10715"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

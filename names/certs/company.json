@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "company.pxd",
+    "to": "/company/",
+    "title": "Company · investors",
+    "owner": "PXD2",
+    "minted": "2026-10-11",
+    "ledger": {
+      "n": 38,
+      "hash": "8d75608e3cf09a0af423d8f0b5465eea6862d7e4f0dd8a1bde70f2d69d3f7f19"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

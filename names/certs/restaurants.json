@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "restaurants.pxd",
+    "to": "/restaurants/",
+    "title": "PXD2 for restaurants: website, menu, ordering and calendar",
+    "owner": "PXD2",
+    "minted": "2026-11-11",
+    "ledger": {
+      "n": 114,
+      "hash": "5fc8463722ba9b1051d75110f00783314d1299ff9132616d581e315229e5ac19"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

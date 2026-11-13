@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "mikevanceauto.pxd",
+    "to": "/clients/mike-vance-automotive-7a31c2/",
+    "title": "Mike Vance Automotive",
+    "owner": "PXD2",
+    "minted": "2026-11-13T18:59:28+00:00",
+    "ledger": {
+      "n": 117,
+      "hash": "b54ce8b59b774f5ea706cd4c5c46c4de53952054ec2dc77ce0ca7daa3e840d45"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}

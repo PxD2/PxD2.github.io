@@ -1,0 +1,17 @@
+{
+  "cert": {
+    "type": "pxd-name-cert/1",
+    "name": "hold.pxd",
+    "to": "/hold/",
+    "title": "HOLD — SFTP roots we host",
+    "owner": "PXD2",
+    "minted": "2026-10-11",
+    "ledger": {
+      "n": 41,
+      "hash": "96d14483a8be8718c105e0d6de64cdbb238ff22c2e59000e3fe94621afd36e5a"
+    },
+    "registry": "PXD2 Names",
+    "issued": "2026-11-13T18:59:28+00:00"
+  },
+  "signature": null
+}
