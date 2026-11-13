@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /tools/
+Disallow: /names/certs/
+
+Sitemap: https://pxd2.github.io/sitemap.xml
