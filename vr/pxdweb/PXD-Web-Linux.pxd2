@@ -8,7 +8,7 @@ sh "$T/linux/pxdweb.sh" install "$(id -un)"
 rm -rf "$T"
 exit 0
 __PXD2_PAYLOAD__
-H4sIAN1t92oC/+29637bRrIvms98ih5MZgQmBEVSF8uU6VmyJF8mvmhL8mQyijYXSIISI5KgAVIX
+H4sIABl692oC/+29637bRrIvms98ih5MZgQmBEVSF8uU6VmyJF8mvmhL8mQyijYXSIISI5KgAVIX
 K1q//RD7Xc738yjnSc6/qrpxI0BJSWxr1jInY5FAX6q7q6urqutSXa4u/8eee/nSc3te8M0n+dTk
 U/S3VltZib/T83qtUa9/oy6/+QyfWTh1A3T/zf/MT+ORGk0HI69Vf/R4db1Wq288rm6sPm6srpS+
 +fr57/+Z+v4wXJ5c9hqB70+jL9XJ1R+7/9dXV/P3f7229qhR/6a+1ni0tr6+vvJoHft/9VFj7RtV

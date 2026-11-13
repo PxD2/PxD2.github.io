@@ -12,7 +12,7 @@ if [ "$(id -u)" != 0 ]; then
 fi
 USER_NAME=${2:-${SUDO_USER:-}}
 echo "== PXD Host '$ID'"
-apt-get update -qq && apt-get install -y -qq python3 python3-cryptography git curl >/dev/null
+apt-get update -qq && apt-get install -y -qq python3 python3-cryptography python3-websockets git curl >/dev/null
 case "$(uname -m)" in aarch64|arm64) A=arm64;; x86_64) A=amd64;; armv7l|armhf) A=arm;; *) echo "unsupported CPU $(uname -m)"; exit 1;; esac
 if ! command -v cloudflared >/dev/null 2>&1; then
   echo "== Cloudflare tunnel client ($A)"
