@@ -2,16 +2,16 @@
   "cert": {
     "type": "pxd-name-cert/1",
     "name": "pxd2.pxd",
-    "to": "/",
+    "to": "/display/",
     "title": "PXD2 floor",
     "owner": "PXD2",
     "minted": "2026-10-11",
     "ledger": {
-      "n": 9,
-      "hash": "6cd798043654ba7d12ceee24e14c389dd8c3f63d819696a336dd0831f595bd86"
+      "n": 118,
+      "hash": "cef501ea97ac1b9e89a43438b1fec2bae7265a0eab7f9ac27611357d77819dbc"
     },
     "registry": "PXD2 Names",
-    "issued": "2026-11-13T18:59:28+00:00"
+    "issued": "2026-11-13T19:06:53+00:00"
   },
   "signature": null
 }

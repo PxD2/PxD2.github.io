@@ -91,7 +91,7 @@ def authority():
 def problem_with(name, reg, minting=True):
     if not NAME_RE.fullmatch(name):
         return "letters, digits and dashes only, 1 to 63 long, no dash at either end"
-    if name in RESERVED or re.fullmatch(r"ns\d+", name):
+    if (name in RESERVED or re.fullmatch(r"ns\d+", name)) and not (name == "pxd" and getattr(problem_with, "pxd2_ok", False)):
         return "reserved for the PXD root itself"
     if minting and name.startswith("pxd2") and not getattr(problem_with, "pxd2_ok", False):
         return "pxd2… names are kept for PXD2 itself (mint with --pxd2 if this is PXD2's)"
@@ -185,12 +185,15 @@ def op_mint(name, to, title="", owner="", group="Client sites", contact="", pxd2
     if not to or not (to.startswith("/") or re.match(r"https?://", to)):
         raise ValueError("--to must be a site path like /clients/shop/ or a full https:// address")
     native, fprob = folder_status(name, to)
-    if fprob:
+    no_folder = to == "/" or (fprob and pxd2)      # the site root, or a PXD2 name over its own folder: no redirect folder
+    if fprob and not no_folder:
         raise ValueError(f"{name}.pxd: {fprob}")
     e = {"to": to, "title": title or name, "added": datetime.date.today().isoformat(), "group": group,
          "owner": owner or "PXD2", "minted": now()}
     if native:
         e["native"] = True
+    if no_folder:
+        e["folder"] = False
     if status:
         e["status"] = status
     if group and group not in reg.get("groups", []) and group != "Client sites":
@@ -211,10 +214,16 @@ def op_update(name, **changes):
         v = changes.get(k)
         if v:
             e[k] = v
-    if e.get("to", "").startswith("/"):
-        native, fprob = folder_status(name, e["to"])
-        if fprob and not e.get("native"):
-            raise ValueError(fprob)
+    if changes.get("to"):                            # a new destination: work out the folder rules again
+        e.pop("native", None); e.pop("folder", None)
+        if e["to"].startswith("/"):
+            native, fprob = folder_status(name, e["to"])
+            if native:
+                e["native"] = True
+            elif e["to"] == "/" or (fprob and changes.get("pxd2")):
+                e["folder"] = False
+            elif fprob:
+                raise ValueError(fprob)
     save_reg(reg)
     rec = ledger_add("update", name, e, e.get("owner") or "PXD2")
     write_cert(name, reg, rec)
@@ -484,7 +493,7 @@ def main():
     m = sp.add_parser("mint"); m.add_argument("name"); m.add_argument("--to", required=True); m.add_argument("--title", default="")
     m.add_argument("--owner", default=""); m.add_argument("--group", default="Client sites"); m.add_argument("--contact", default="")
     m.add_argument("--status", default=""); m.add_argument("--pxd2", action="store_true")
-    u = sp.add_parser("update"); u.add_argument("name"); u.add_argument("--to"); u.add_argument("--title"); u.add_argument("--group"); u.add_argument("--status")
+    u = sp.add_parser("update"); u.add_argument("name"); u.add_argument("--to"); u.add_argument("--title"); u.add_argument("--group"); u.add_argument("--status"); u.add_argument("--pxd2", action="store_true")
     t = sp.add_parser("transfer"); t.add_argument("name"); t.add_argument("--owner", required=True); t.add_argument("--contact", default="")
     r = sp.add_parser("release"); r.add_argument("name"); r.add_argument("--reason", required=True)
     w = sp.add_parser("whois"); w.add_argument("name")
@@ -502,7 +511,7 @@ def main():
         if a.cmd == "mint":
             rec = op_mint(a.name, a.to, a.title, a.owner, a.group, a.contact, a.pxd2, a.status); print(f"minted {rec['name']}.pxd · ledger #{rec['n']} {rec['hash'][:12]}")
         elif a.cmd == "update":
-            rec = op_update(a.name, to=a.to, title=a.title, group=a.group, status=a.status); print(f"changed {a.name}.pxd · ledger #{rec['n']}")
+            rec = op_update(a.name, to=a.to, title=a.title, group=a.group, status=a.status, pxd2=a.pxd2); print(f"changed {a.name}.pxd · ledger #{rec['n']}")
         elif a.cmd == "transfer":
             rec = op_transfer(a.name, a.owner, a.contact); print(f"{a.name}.pxd → {a.owner} · ledger #{rec['n']}")
         elif a.cmd == "release":

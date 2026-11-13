@@ -71,14 +71,14 @@
       "owner": "PXD2"
     },
     "pxd2": {
-      "to": "/",
+      "to": "/display/",
       "title": "PXD2 floor",
       "added": "2026-10-11",
       "group": "Studio & company",
       "owner": "PXD2"
     },
     "pxd2studios": {
-      "to": "/",
+      "to": "/display/",
       "title": "PXD2 Studios",
       "added": "2026-10-11",
       "group": "Studio & company",
@@ -476,12 +476,12 @@
       "owner": "PXD2"
     },
     "pxd": {
-      "to": "/pxd/",
-      "title": "PXD Data Lab",
-      "group": "Tools & making",
-      "native": true,
+      "to": "/",
+      "title": "PXD Browser: the .pxd web and web search",
+      "group": "Studio & company",
       "added": "2026-10-11",
-      "owner": "PXD2"
+      "owner": "PXD2",
+      "folder": false
     },
     "scrubhub": {
       "to": "/clients/scrub-hub-laundry-showers-5ec2ae/",
@@ -920,6 +920,23 @@
       "owner": "PXD2",
       "minted": "2026-11-13T18:59:28+00:00",
       "status": "concept"
+    },
+    "pxdlab": {
+      "to": "/pxd/",
+      "title": "PXD Data Lab",
+      "added": "2026-11-13",
+      "group": "Tools & making",
+      "owner": "PXD2",
+      "minted": "2026-11-13T19:07:08+00:00"
+    },
+    "display": {
+      "to": "/display/",
+      "title": "PXD2 floor (display)",
+      "added": "2026-11-13",
+      "group": "Studio & company",
+      "owner": "PXD2",
+      "minted": "2026-11-13T19:07:08+00:00",
+      "native": true
     }
   },
   "groups": [

@@ -1,56 +1,372 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>PXD2 — Software as much as hardware</title>
-    <meta
-      name="description"
-      content="PXD2 in-house floor. Think tank. Alternative autonomous systems — first steel to mothball fleet refit. Walk the hall. Fund the stack."
-    />
-    <meta name="theme-color" content="#07080c" />
-    <link rel="canonical" href="https://pxd2.github.io/" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://pxd2.github.io/" />
-    <meta property="og:title" content="PXD2 — The floor is open" />
-    <meta
-      property="og:description"
-      content="Software as much as hardware. First systems to mothball refit. Walk the hall."
-    />
-    <meta property="og:image" content="https://pxd2.github.io/og.jpg" />
-    <meta property="og:image:width" content="1600" />
-    <meta property="og:image:height" content="840" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="PXD2 — The floor is open" />
-    <meta
-      name="twitter:description"
-      content="Software as much as hardware. First systems to mothball fleet refit."
-    />
-    <meta name="twitter:image" content="https://pxd2.github.io/og.jpg" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Oswald:wght@500;600;700;800&display=swap"
-    />
-    <script type="module" crossorigin src="/assets/index-D18w3Jts.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-BWL9SfPr.css">
-  </head>
-  <body>
-    <div id="app"></div>
-    <nav aria-label="PXD2 rooms" style="position:fixed;left:12px;bottom:12px;z-index:50;display:flex;gap:10px;flex-wrap:wrap;pointer-events:auto;font:600 11px/1 Barlow,system-ui,sans-serif;letter-spacing:.22em;text-transform:uppercase">
-      <a href="/" style="color:#8b93a3;text-decoration:none">Floor</a>
-      <a href="/ai/" style="color:#8fce4a;text-decoration:none">AI</a>
-      <a href="/games/" style="color:#b01e22;text-decoration:none">Games</a>
-      <a href="/vr/" style="color:#c9a46a;text-decoration:none">VR Net</a>
-      <a href="/company/" style="color:#8b93a3;text-decoration:none">Company</a>
-      <a href="/sites/" style="color:#f5c14a;text-decoration:none">Sites</a>
-      <a href="/rv/" style="color:#7ad0a3;text-decoration:none">RV</a>
-      <a href="/davidson/" style="color:#e6b84d;text-decoration:none">Davidson</a>
-      <a href="/hornet/" style="color:#c45c26;text-decoration:none">Hornet</a>
-      <a href="/cad2/" style="color:#8b93a3;text-decoration:none">Helix CAD</a>
-      <a href="/cad/" style="color:#8b93a3;text-decoration:none">CAD v1</a>
-      <a href="/pxd2spaces/" style="color:#00d4ea;text-decoration:none">Hackspace</a>
-    </nav>
-    <script src="/assets/rocm-cert.js" data-pos="br" data-mpos="edge" defer></script>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PXD Browser</title>
+<meta name="description" content="The .pxd web, in any browser. Type a .pxd name like mikevanceauto.pxd and the site opens right here. Free names, no registrar, held on GitHub by PXD2.">
+<meta name="theme-color" content="#0b0b0a">
+<link rel="canonical" href="https://pxd2.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://pxd2.github.io/">
+<meta property="og:title" content="PXD Browser: the .pxd web">
+<meta property="og:description" content="Type a .pxd name and the site opens right here. No registrar, no .com.">
+<meta property="og:image" content="https://pxd2.github.io/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="search" type="application/opensearchdescription+xml" title="PXD" href="/opensearch.xml">
+<style>
+:root{--bg:#0b0b0a;--bar:#121110;--panel:#171513;--panel2:#1f1c18;--line:#2e2a24;--fg:#ece4cf;--muted:#a39a88;--tan:#c9a46a;--red:#d0302f;color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--fg);font:15px/1.45 "Segoe UI",system-ui,-apple-system,sans-serif;overflow:hidden}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--tan);outline-offset:1px}
+.app{display:grid;grid-template-rows:auto auto 1fr;grid-template-columns:minmax(0,1fr);height:100dvh}
+/* tabs */
+.tabs{display:flex;align-items:flex-end;gap:2px;padding:6px 8px 0;background:#080807;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{display:flex;align-items:center;gap:6px;min-width:120px;max-width:220px;flex:0 1 200px;padding:7px 8px 7px 12px;background:#141311;border:1px solid var(--line);border-bottom:0;border-radius:9px 9px 0 0;color:var(--muted);font-size:13px;white-space:nowrap}
+.tab[aria-selected="true"]{background:var(--bar);color:var(--fg)}
+.tab span{overflow:hidden;text-overflow:ellipsis;flex:1;text-align:left}
+.tab i{font-style:normal;width:18px;height:18px;line-height:17px;text-align:center;border-radius:5px;flex:none}
+.tab i:hover{background:var(--panel2)}
+.newtab{background:none;border:0;color:var(--muted);font-size:20px;padding:2px 10px 6px}
+/* bar */
+.bar{display:flex;align-items:center;gap:6px;padding:7px 8px;background:var(--bar);border-bottom:1px solid var(--line)}
+.nav{background:none;border:0;width:34px;height:34px;border-radius:8px;color:var(--fg);font-size:17px;flex:none}
+.nav:hover:not(:disabled){background:var(--panel2)}
+.nav:disabled{color:#4a453d;cursor:default}
+form.addr{flex:1;display:flex;align-items:center;min-width:0;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:0 6px 0 14px}
+form.addr:focus-within{border-color:var(--tan)}
+.lock{font:700 11px Consolas,monospace;color:var(--tan);letter-spacing:.06em;margin-right:8px;flex:none}
+form.addr input{flex:1;min-width:0;background:none;border:0;outline:none;padding:8px 0;font-size:15px}
+.mark{font:900 19px/1 Impact,"Arial Narrow",sans-serif;letter-spacing:.03em;padding:0 6px 0 2px;flex:none;text-decoration:none;color:var(--fg)}
+.mark b{color:var(--red);font-weight:inherit}
+.out{background:none;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:12px;padding:5px 10px;flex:none}
+/* views */
+.views{position:relative;min-height:0}
+.view{position:absolute;inset:0;display:none}
+.view.on{display:block}
+iframe{width:100%;height:100%;border:0;background:#fff;display:block}
+/* home */
+.home{height:100%;overflow:auto;background:var(--bg)}
+.hero{max-width:780px;margin:0 auto;padding:9vh 18px 14px;text-align:center}
+.big{font:900 clamp(56px,12vw,108px)/1 Impact,"Arial Narrow",sans-serif;margin:0;letter-spacing:.02em}
+.big b{color:var(--red);font-weight:inherit}
+.say{color:var(--muted);margin:6px 0 22px}
+form.q{display:flex;background:var(--panel);border:2px solid var(--fg);border-radius:999px;overflow:hidden}
+form.q:focus-within{border-color:var(--tan)}
+form.q input{flex:1;min-width:0;background:none;border:0;outline:none;padding:13px 22px;font-size:18px}
+form.q button{background:var(--red);border:0;color:#fff;padding:0 24px;font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:16px 0 0}
+.chip{background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:13px}
+.chip[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+main{max-width:1140px;margin:0 auto;padding:6px 18px 60px}
+h2{font:700 12px Consolas,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:26px 0 10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:13px 14px;text-align:left;display:grid;gap:3px;color:var(--fg)}
+.card:hover{border-color:var(--tan)}
+.card .n{font:600 14px Consolas,monospace;color:var(--tan);overflow-wrap:anywhere}
+.card .t{font-weight:600}
+.card .o{color:var(--muted);font-size:12px}
+.empty{color:var(--muted);text-align:center;padding:30px}
+.web{margin:16px 0 0;color:var(--muted);font-size:14px}.web b{color:var(--fg)}.web a{color:var(--tan)}
+.foot{color:var(--muted);font-size:13px;text-align:center;padding:10px 18px 40px}
+.foot a{color:var(--tan)}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:10px 16px;font-size:14px;display:none;z-index:9;max-width:90vw}
+@media (max-width:640px){.grid{grid-template-columns:minmax(0,1fr)}.hero{padding-top:5vh}.mark{display:none}.out{display:none}.tab{min-width:96px}.nav{width:30px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="tabs" role="tablist" id="tabs"><button class="newtab" id="newtab" title="New tab" aria-label="New tab">+</button></div>
+  <div class="bar">
+    <a class="mark" href="#" id="homeMark" title="PXD home">PX<b>D</b></a>
+    <button class="nav" id="back" title="Back" aria-label="Back">&#8592;</button>
+    <button class="nav" id="fwd" title="Forward" aria-label="Forward">&#8594;</button>
+    <button class="nav" id="reload" title="Reload" aria-label="Reload">&#8635;</button>
+    <form class="addr" id="addrForm" autocomplete="off">
+      <span class="lock" id="lock">PXD</span>
+      <input id="addr" spellcheck="false" autocapitalize="off" placeholder="Type a .pxd name, like mikevanceauto.pxd, or search" aria-label="Address">
+    </form>
+    <button class="out" id="share" title="Copy a link to this page">Share</button>
+  </div>
+  <div class="views" id="views"></div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+<template id="homeTpl">
+  <div class="home">
+    <div class="hero">
+      <h1 class="big">PX<b>D</b></h1>
+      <p class="say">The .pxd web. Type a name and the site opens right here. No .com, no registrar.</p>
+      <form class="q"><input placeholder="Search .pxd sites, or type a name.pxd" aria-label="Search .pxd sites" spellcheck="false"><button>Go</button></form>
+      <div class="chips"></div>
+      <div class="web" hidden>Search the regular web for <b></b>: <a data-e="g" target="_blank" rel="noopener">Google</a> · <a data-e="d" target="_blank" rel="noopener">DuckDuckGo</a> · <a data-e="b" target="_blank" rel="noopener">Bing</a></div>
+    </div>
+    <main></main>
+    <p class="foot">Every name lives in PXD2's registry on GitHub. <a href="/names/" target="_blank" rel="noopener">Claim a .pxd name</a> · <a href="/vr/pxdweb/" target="_blank" rel="noopener">PXD Web for your whole computer</a> · <a href="#pxd2.pxd">PXD2 display</a></p>
+  </div>
+</template>
+<script>
+(function () {
+  "use strict";
+  var MAIN = "/names.json", TLDS = /\.(pxd2?|pxd)$/;
+  var REG = { names: {}, groups: [] }, ready;
+  var $ = function (id) { return document.getElementById(id); };
+  var tabs = [], cur = null, seq = 0;
+
+  // ---------------------------------------------------------------- registry (main hub + sub-hubs)
+  function loadJSON(u) { return fetch(u, { cache: "no-cache" }).then(function (r) { if (!r.ok) throw r.status; return r.json(); }); }
+  ready = loadJSON(MAIN).then(function (main) {
+    REG.groups = main.groups || [];
+    Object.keys(main.names || {}).forEach(function (k) { REG.names[k] = Object.assign({ hub: "pxd2" }, main.names[k]); });
+    var subs = (main.hubs || []).slice(1).map(function (h) {
+      return loadJSON(h.registry).then(function (sub) {
+        Object.keys(sub.names || {}).forEach(function (k) {
+          var e = Object.assign({ hub: h.id, base: h.registry.replace(/[^/]*$/, "") }, sub.names[k]);
+          REG.names[k + "." + h.id] = e;
+          if (!REG.names[k]) REG.names[k] = e;
+        });
+      }).catch(function () {});
+    });
+    return Promise.all(subs);
+  }).catch(function () { toast("Could not load the .pxd registry. Check your connection."); });
+
+  // ---------------------------------------------------------------- names <-> paths
+  function parse(raw) {
+    var s = (raw || "").trim();
+    if (!s) return { kind: "home" };
+    s = s.replace(/^pxd:\/\//i, "").replace(/^https?:\/\/pxd2\.github\.io\/#?/i, "");
+    var m = s.match(/^([a-z0-9][a-z0-9.-]*?)(\.pxd2?|\.pxd)(\/.*)?$/i);
+    if (m) return { kind: "name", key: m[1].toLowerCase(), rest: (m[3] || "/") };
+    if (/^[a-z0-9-]+$/i.test(s) && REG.names[s.toLowerCase()]) return { kind: "name", key: s.toLowerCase(), rest: "/" };
+    if (/^https?:\/\//i.test(s) || /^[^\s]+\.[a-z]{2,}(\/.*)?$/i.test(s)) return { kind: "web", url: /^https?:/i.test(s) ? s : "https://" + s };
+    return { kind: "search", q: s };
+  }
+  function resolve(key) {
+    if (REG.names[key]) return REG.names[key];
+    var parts = key.split(".");
+    for (var i = 1; i < parts.length; i++) { var k = parts.slice(i).join("."); if (REG.names[k]) return REG.names[k]; }
+    return null;
+  }
+  function baseOf(to) { return /\/$/.test(to) ? to : to.replace(/[^/]*$/, ""); }
+  function pathFor(entry, rest) {
+    var to = entry.to || "/";
+    if (entry.base) return entry.base.replace(/\/$/, "") + (rest === "/" ? to : baseOf(to) + rest.replace(/^\//, ""));
+    if (rest === "/" || rest === "") return to;
+    return baseOf(to) + rest.replace(/^\//, "");
+  }
+  // a site path back to the .pxd address it belongs to (longest matching name wins)
+  function nameFor(path, prefer) {
+    var pe = prefer && REG.names[prefer];
+    if (pe && (pe.to || "").startsWith("/") && !pe.base) {
+      var pb = baseOf(pe.to);
+      if (path === pe.to || path.startsWith(pb)) return prefer + ".pxd" + (path === pe.to || path === pb ? "" : "/" + path.slice(pb.length));
+    }
+    var best = null, len = -1;
+    Object.keys(REG.names).forEach(function (k) {
+      var e = REG.names[k], to = e.to || "";
+      if (e.base || !to.startsWith("/") || k.indexOf(".") > -1) return;
+      var b = baseOf(to);
+      if ((path === to || path.startsWith(b)) && b.length > len) { best = k; len = b.length; }
+    });
+    if (!best) return null;
+    var e = REG.names[best], b = baseOf(e.to), rest = path === e.to ? "/" : "/" + path.slice(b.length);
+    return best + ".pxd" + (rest === "/" ? "" : rest);
+  }
+
+  // ---------------------------------------------------------------- tabs
+  function newTab(addr, focus) {
+    var t = { id: ++seq, hist: [], at: -1, el: document.createElement("div"), title: "New tab" };
+    t.el.className = "view";
+    $("views").appendChild(t.el);
+    t.btn = document.createElement("div");
+    t.btn.className = "tab"; t.btn.setAttribute("role", "tab");
+    t.btn.innerHTML = "<span></span><i title='Close tab' aria-label='Close tab' role='button'>&times;</i>";
+    t.btn.addEventListener("click", function (ev) { if (ev.target.tagName === "I") closeTab(t); else select(t); });
+    $("tabs").insertBefore(t.btn, $("newtab"));
+    tabs.push(t);
+    select(t);
+    go(t, addr || "", true);
+    if (focus) setTimeout(function () { $("addr").focus(); $("addr").select(); }, 0);
+    return t;
+  }
+  function closeTab(t) {
+    var i = tabs.indexOf(t);
+    tabs.splice(i, 1); t.el.remove(); t.btn.remove();
+    if (!tabs.length) return newTab("", true);
+    if (cur === t) select(tabs[Math.max(0, i - 1)]);
+  }
+  function select(t) {
+    tabs.forEach(function (x) { x.el.classList.toggle("on", x === t); x.btn.setAttribute("aria-selected", x === t); });
+    cur = t; paint();
+  }
+  function paint() {
+    var t = cur; if (!t) return;
+    var h = t.hist[t.at] || "";
+    if (document.activeElement !== $("addr")) $("addr").value = h;
+    $("lock").textContent = h ? (parse(h).kind === "name" ? "PXD" : "WEB") : "PXD";
+    $("back").disabled = t.at <= 0; $("fwd").disabled = t.at >= t.hist.length - 1;
+    t.btn.querySelector("span").textContent = t.title || h || "New tab";
+    t.btn.title = h || "PXD home";
+    var want = h ? "#" + h : "";
+    if (location.hash !== want && (location.hash || want)) history.replaceState(null, "", want || location.pathname);
+    document.title = (t.title && h ? t.title + " · " : "") + "PXD Browser";
+  }
+
+  // ---------------------------------------------------------------- navigation
+  function go(t, raw, push) {
+    ready.then(function () {
+      var p = parse(raw);
+      if (p.kind === "web") { window.open(p.url, "_blank", "noopener"); toast("Opened outside PXD: " + p.url); return; }
+      if (p.kind === "name") {
+        var e = resolve(p.key);
+        if (!e) return showHome(t, p.key + ".pxd is not minted yet. Claim it at Names.", raw, push);
+        if (e.to === "/" && !e.base) return showHome(t, "", "", push);   // pxd.pxd is this browser
+        if (!(e.to || "").startsWith("/") && !e.base) { window.open(e.to, "_blank", "noopener"); toast(p.key + ".pxd opens " + e.to); return; }
+        var addr = p.key + ".pxd" + (p.rest === "/" ? "" : p.rest);
+        record(t, addr, push);
+        frame(t).src = pathFor(e, p.rest);
+        t.title = e.title || addr; paint();
+        return;
+      }
+      showHome(t, p.kind === "search" ? p.q : "", p.kind === "search" ? "search:" + p.q : "", push);
+    });
+  }
+  function record(t, addr, push) {
+    if (push !== false) { t.hist = t.hist.slice(0, t.at + 1); if (t.hist[t.at] !== addr) { t.hist.push(addr); t.at++; } }
+  }
+  function frame(t) {
+    var f = t.el.querySelector("iframe");
+    if (f) return f;
+    t.el.innerHTML = "";
+    f = document.createElement("iframe");
+    f.setAttribute("allow", "fullscreen; xr-spatial-tracking; clipboard-write; autoplay; geolocation");
+    f.title = "Site";
+    f.addEventListener("load", function () { onFrameLoad(t, f); });
+    t.el.appendChild(f);
+    return f;
+  }
+  function onFrameLoad(t, f) {
+    var w; try { w = f.contentWindow; if (!/^https?:$/.test(w.location.protocol)) return; } catch (e) { return; }
+    var curKey = ((t.hist[t.at] || "").match(/^([^/]+?)\.pxd2?(\/|$)/) || [])[1];
+    var addr = nameFor(w.location.pathname, curKey) || ("pxd2.github.io" + w.location.pathname);
+    addr += w.location.search + (w.location.hash || "");
+    if (t.hist[t.at] !== addr) {
+      var prev = t.hist[t.at] || "";
+      if (prev.split("#")[0] !== addr.split("#")[0]) { t.hist = t.hist.slice(0, t.at + 1); t.hist.push(addr); t.at++; }
+      else t.hist[t.at] = addr;
+    }
+    t.title = (w.document && w.document.title) || addr;
+    // links to other websites leave PXD in their own tab; links to other .pxd sites stay here
+    try {
+      w.document.addEventListener("click", function (ev) {
+        var a = ev.target.closest && ev.target.closest("a[href]");
+        if (!a || ev.defaultPrevented) return;
+        var u; try { u = new URL(a.href, w.location.href); } catch (e) { return; }
+        if (u.origin !== location.origin && /^https?:$/.test(u.protocol)) { a.target = "_blank"; a.rel = "noopener"; }
+        var m = u.hostname.match(/^(.+)\.pxd2?$/);
+        if (m) { ev.preventDefault(); go(t, m[1] + ".pxd" + u.pathname); }
+      }, true);
+    } catch (e) {}
+    paint();
+  }
+  function showHome(t, q, addr, push) {
+    if (push !== false && addr) record(t, addr, push);
+    else if (push !== false && !addr) record(t, "", push);
+    t.el.innerHTML = "";
+    var h = $("homeTpl").content.firstElementChild.cloneNode(true);
+    t.el.appendChild(h);
+    t.title = q && addr ? "Search: " + q : "PXD home";
+    var input = h.querySelector("form.q input"), main = h.querySelector("main"), chips = h.querySelector(".chips"), group = "";
+    input.value = addr ? q : "";
+    var groups = ["All"].concat(REG.groups.slice());
+    Object.keys(REG.names).forEach(function (k) { var g = REG.names[k].group; if (g && groups.indexOf(g) < 0) groups.push(g); });
+    groups.forEach(function (g) {
+      var b = document.createElement("button"); b.className = "chip"; b.type = "button"; b.textContent = g;
+      b.setAttribute("aria-pressed", g === "All"); b.addEventListener("click", function () {
+        group = g === "All" ? "" : g; chips.querySelectorAll(".chip").forEach(function (c) { c.setAttribute("aria-pressed", c === b); }); list();
+      });
+      chips.appendChild(b);
+    });
+    var web = h.querySelector(".web"), ENG = { g: "https://www.google.com/search?q=", d: "https://duckduckgo.com/?q=", b: "https://www.bing.com/search?q=" };
+    function list() {
+      var raw = input.value.trim(), term = raw.toLowerCase().replace(/\.pxd2?$/, "");
+      web.hidden = !raw || parse(raw).kind !== "search";
+      if (!web.hidden) { web.querySelector("b").textContent = raw; web.querySelectorAll("a").forEach(function (a) { a.href = ENG[a.dataset.e] + encodeURIComponent(raw); }); }
+      var keys = Object.keys(REG.names).filter(function (k) {
+        var e = REG.names[k];
+        if (k.indexOf(".") > -1 && REG.names[k.split(".")[0]] === e) return false;
+        if (group && e.group !== group) return false;
+        return !term || (k + " " + (e.title || "") + " " + (e.group || "")).toLowerCase().indexOf(term) > -1;
+      }).sort();
+      var by = {};
+      keys.forEach(function (k) { var g = REG.names[k].group || "Other"; (by[g] = by[g] || []).push(k); });
+      main.innerHTML = "";
+      if (!keys.length) { main.innerHTML = "<p class='empty'></p>"; main.firstChild.textContent = (q && !addr ? q : "Nothing matches that.") ; return; }
+      Object.keys(by).sort(function (a, b) { return (groups.indexOf(a) + 1 || 99) - (groups.indexOf(b) + 1 || 99); }).forEach(function (g) {
+        var h2 = document.createElement("h2"); h2.textContent = g + " · " + by[g].length; main.appendChild(h2);
+        var grid = document.createElement("div"); grid.className = "grid"; main.appendChild(grid);
+        by[g].forEach(function (k) {
+          var e = REG.names[k], c = document.createElement("button");
+          c.className = "card"; c.type = "button";
+          c.innerHTML = "<span class='n'></span><span class='t'></span><span class='o'></span>";
+          c.children[0].textContent = k + ".pxd"; c.children[1].textContent = e.title || k;
+          c.children[2].textContent = (e.to || "").startsWith("/") || e.base ? "Opens here" : "Opens " + (e.to || "").replace(/^https?:\/\//, "").split("/")[0];
+          c.addEventListener("click", function () { go(t, k + ".pxd"); });
+          grid.appendChild(c);
+        });
+      });
+    }
+    h.querySelector("form.q").addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      var p = parse(input.value);
+      if (p.kind === "search") { record(t, "search:" + p.q); paint(); list(); } else go(t, input.value);
+    });
+    input.addEventListener("input", list);
+    list(); paint();
+    if (!addr && !q) setTimeout(function () { input.focus(); }, 0);
+    if (q && !addr) { var m = main.querySelector(".empty"); if (m) m.textContent = q; }
+  }
+  function revisit(t) {
+    var h = t.hist[t.at] || "";
+    if (h.indexOf("search:") === 0) return showHome(t, h.slice(7), h, false);
+    go(t, h, false);
+  }
+
+  // ---------------------------------------------------------------- chrome
+  $("addrForm").addEventListener("submit", function (ev) { ev.preventDefault(); go(cur, $("addr").value); $("addr").blur(); });
+  $("addr").addEventListener("focus", function () { this.select(); });
+  $("back").addEventListener("click", function () { if (cur.at > 0) { cur.at--; revisit(cur); } });
+  $("fwd").addEventListener("click", function () { if (cur.at < cur.hist.length - 1) { cur.at++; revisit(cur); } });
+  $("reload").addEventListener("click", function () { var f = cur.el.querySelector("iframe"); if (f) { try { f.contentWindow.location.reload(); } catch (e) { f.src = f.src; } } else revisit(cur); });
+  $("newtab").addEventListener("click", function () { newTab("", true); });
+  $("homeMark").addEventListener("click", function (ev) { ev.preventDefault(); go(cur, ""); });
+  $("share").addEventListener("click", function () {
+    var h = cur.hist[cur.at] || "", url = location.origin + "/" + (h && h.indexOf("search:") ? "#" + h : "");
+    (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject()).then(function () { toast("Link copied: " + url); }, function () { toast(url); });
+  });
+  window.addEventListener("hashchange", function () {
+    var h = decodeURIComponent(location.hash.slice(1));
+    if (h && h !== (cur.hist[cur.at] || "")) go(cur, h);
+  });
+  var tt;
+  function toast(s) { var el = $("toast"); el.textContent = s; el.style.display = "block"; clearTimeout(tt); tt = setTimeout(function () { el.style.display = "none"; }, 3200); }
+
+  // Search-engine mode (PXD set as the browser's search engine, or the extension): ?q=words
+  // a .pxd name opens here; a web address goes there; anything else goes on to Google (or ?via=ddg / bing)
+  var qs = new URLSearchParams(location.search), Q = qs.get("q");
+  if (Q !== null) {
+    var p0 = parse(Q), via = { ddg: "https://duckduckgo.com/?q=", bing: "https://www.bing.com/search?q=" }[qs.get("via")] || "https://www.google.com/search?q=";
+    if (p0.kind === "web") { location.replace(p0.url); return; }
+    if (p0.kind === "search" && !/\.pxd2?\b/i.test(Q)) { location.replace(via + encodeURIComponent(Q)); return; }
+    history.replaceState(null, "", "/");
+    newTab(p0.kind === "search" ? Q.replace(/\s+/g, "") : Q, false);
+    return;
+  }
+  newTab(decodeURIComponent(location.hash.slice(1)) || qs.get("go") || "", false);
+})();
+</script>
 </body>
 </html>

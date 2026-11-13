@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "PXD Web",
+  "short_name": "PXD",
+  "version": "1.0.0",
+  "description": "Type a .pxd name (like mikevanceauto.pxd) in the address bar and it opens. No settings, no DNS changes.",
+  "icons": { "16": "icon16.png", "48": "icon48.png", "128": "icon128.png" },
+  "permissions": ["declarativeNetRequest"],
+  "host_permissions": [
+    "*://*.pxd/*", "*://*.pxd2/*",
+    "https://www.google.com/*", "https://google.com/*", "https://www.google.ca/*", "https://www.google.co.uk/*", "https://www.google.com.au/*",
+    "https://www.bing.com/*", "https://duckduckgo.com/*", "https://html.duckduckgo.com/*"
+  ],
+  "declarative_net_request": { "rule_resources": [{ "id": "pxd", "enabled": true, "path": "rules.json" }] },
+  "omnibox": { "keyword": "pxd" },
+  "background": { "service_worker": "background.js", "scripts": ["background.js"] },
+  "action": { "default_title": "Open the PXD Browser", "default_icon": { "16": "icon16.png", "48": "icon48.png" } },
+  "browser_specific_settings": { "gecko": { "id": "pxdweb@pxd2.github.io", "strict_min_version": "128.0" } }
+}
