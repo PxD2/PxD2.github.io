@@ -16,6 +16,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="search" type="application/opensearchdescription+xml" title="PXD" href="/opensearch.xml">
+<link rel="manifest" href="/pxd.webmanifest">
 <style>
 :root{--bg:#0b0b0a;--bar:#121110;--panel:#171513;--panel2:#1f1c18;--line:#2e2a24;--fg:#ece4cf;--muted:#a39a88;--tan:#c9a46a;--red:#d0302f;color-scheme:dark}
 *{box-sizing:border-box}
@@ -65,7 +66,7 @@ form.q button{background:var(--red);border:0;color:#fff;padding:0 24px;font-weig
 .chip[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
 main{max-width:1140px;margin:0 auto;padding:6px 18px 60px}
 h2{font:700 12px Consolas,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:26px 0 10px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:13px 14px;text-align:left;display:grid;gap:3px;color:var(--fg)}
 .card:hover{border-color:var(--tan)}
 .card .n{font:600 14px Consolas,monospace;color:var(--tan);overflow-wrap:anywhere}
@@ -101,7 +102,7 @@ h2{font:700 12px Consolas,monospace;letter-spacing:.12em;text-transform:uppercas
     <div class="hero">
       <h1 class="big">PX<b>D</b></h1>
       <p class="say">The .pxd web. Type a name and the site opens right here. No .com, no registrar.</p>
-      <form class="q"><input placeholder="Search .pxd sites, or type a name.pxd" aria-label="Search .pxd sites" spellcheck="false"><button>Go</button></form>
+      <form class="q"><input placeholder="Search every .pxd site, or type a name.pxd" aria-label="Search .pxd sites" spellcheck="false"><button>Go</button></form>
       <div class="chips"></div>
       <div class="web" hidden>Search the regular web for <b></b>: <a data-e="g" target="_blank" rel="noopener">Google</a> · <a data-e="d" target="_blank" rel="noopener">DuckDuckGo</a> · <a data-e="b" target="_blank" rel="noopener">Bing</a></div>
     </div>
@@ -113,7 +114,7 @@ h2{font:700 12px Consolas,monospace;letter-spacing:.12em;text-transform:uppercas
 (function () {
   "use strict";
   var MAIN = "/names.json", TLDS = /\.(pxd2?|pxd)$/;
-  var REG = { names: {}, groups: [] }, HOSTS = {}, ready;
+  var REG = { names: {}, groups: [] }, HOSTS = {}, IDX = {}, ready;
   var $ = function (id) { return document.getElementById(id); };
   var tabs = [], cur = null, seq = 0;
 
@@ -132,6 +133,8 @@ h2{font:700 12px Consolas,monospace;letter-spacing:.12em;text-transform:uppercas
       }).catch(function () {});
     });
     subs.push(loadJSON("/hosts.json").then(function (h) { HOSTS = h.hosts || {}; }).catch(function () {}));
+    // PXD search index: every site's real content, rebuilt on each publish (no crawler)
+    loadJSON("/search-index.json").then(function (ix) { (ix.docs || []).forEach(function (d) { IDX[d.n] = d; }); window.dispatchEvent(new Event("pxd-index")); }).catch(function () {});
     return Promise.all(subs);
   }).catch(function () { toast("Could not load the .pxd registry. Check your connection."); });
 
@@ -294,29 +297,59 @@ h2{font:700 12px Consolas,monospace;letter-spacing:.12em;text-transform:uppercas
       chips.appendChild(b);
     });
     var web = h.querySelector(".web"), ENG = { g: "https://www.google.com/search?q=", d: "https://duckduckgo.com/?q=", b: "https://www.bing.com/search?q=" };
+    function score(k, e, words) {
+      // name > title > headings > description > page text; every word has to match somewhere
+      var d = IDX[k] || {}, total = 0;
+      var fields = [[k, 12], [e.title || "", 8], [(d.h || []).join(" "), 4], [d.d || "", 3], [e.group || "", 2], [d.x || "", 1]];
+      for (var i = 0; i < words.length; i++) {
+        var w = words[i], best = 0;
+        for (var j = 0; j < fields.length; j++) {
+          var f = fields[j][0].toLowerCase(), at = f.indexOf(w);
+          if (at > -1) best = Math.max(best, fields[j][1] * (at === 0 || /[^a-z0-9]/.test(f.charAt(at - 1)) ? 2 : 1));
+        }
+        if (!best) return 0;
+        total += best;
+      }
+      return total;
+    }
+    function snippet(k, words) {
+      var d = IDX[k] || {}, x = (d.d ? d.d + " " : "") + (d.x || "");
+      if (!x) return "";
+      var lx = x.toLowerCase(), at = -1;
+      for (var i = 0; i < words.length && at < 0; i++) at = lx.indexOf(words[i]);
+      var from = Math.max(0, at - 60);
+      return (from ? "…" : "") + x.slice(from, from + 170).trim() + (x.length > from + 170 ? "…" : "");
+    }
+    window.addEventListener("pxd-index", function () { list(); });
     function list() {
       var raw = input.value.trim(), term = raw.toLowerCase().replace(/\.pxd2?$/, "");
       web.hidden = !raw || parse(raw).kind !== "search";
       if (!web.hidden) { web.querySelector("b").textContent = raw; web.querySelectorAll("a").forEach(function (a) { a.href = ENG[a.dataset.e] + encodeURIComponent(raw); }); }
+      var words = term.split(/\s+/).filter(Boolean), scores = {};
       var keys = Object.keys(REG.names).filter(function (k) {
         var e = REG.names[k];
         if (k.indexOf(".") > -1 && REG.names[k.split(".")[0]] === e) return false;
         if (group && e.group !== group) return false;
-        return !term || (k + " " + (e.title || "") + " " + (e.group || "")).toLowerCase().indexOf(term) > -1;
-      }).sort();
+        if (!words.length) return true;
+        scores[k] = score(k, e, words);
+        return scores[k] > 0;
+      });
+      if (words.length) keys.sort(function (a, b) { return scores[b] - scores[a] || (a < b ? -1 : 1); }); else keys.sort();
       var by = {};
-      keys.forEach(function (k) { var g = REG.names[k].group || "Other"; (by[g] = by[g] || []).push(k); });
+      if (words.length) by["Results for " + raw + " · " + keys.length] = keys;
+      else keys.forEach(function (k) { var g = REG.names[k].group || "Other"; (by[g] = by[g] || []).push(k); });
       main.innerHTML = "";
       if (!keys.length) { main.innerHTML = "<p class='empty'></p>"; main.firstChild.textContent = (q && !addr ? q : "Nothing matches that.") ; return; }
       Object.keys(by).sort(function (a, b) { return (groups.indexOf(a) + 1 || 99) - (groups.indexOf(b) + 1 || 99); }).forEach(function (g) {
-        var h2 = document.createElement("h2"); h2.textContent = g + " · " + by[g].length; main.appendChild(h2);
+        var h2 = document.createElement("h2"); h2.textContent = words.length ? g : g + " · " + by[g].length; main.appendChild(h2);
         var grid = document.createElement("div"); grid.className = "grid"; main.appendChild(grid);
         by[g].forEach(function (k) {
           var e = REG.names[k], c = document.createElement("button");
           c.className = "card"; c.type = "button";
           c.innerHTML = "<span class='n'></span><span class='t'></span><span class='o'></span>";
           c.children[0].textContent = k + ".pxd"; c.children[1].textContent = e.title || k;
-          c.children[2].textContent = (e.to || "").startsWith("/") || e.base ? "Opens here" : "Opens " + (e.to || "").replace(/^https?:\/\//, "").split("/")[0];
+          var sn = words.length ? snippet(k, words) : "";
+          c.children[2].textContent = sn || ((e.to || "").startsWith("/") || e.base ? "Opens here" : "Opens " + (e.to || "").replace(/^https?:\/\//, "").split("/")[0]);
           c.addEventListener("click", function () { go(t, k + ".pxd"); });
           grid.appendChild(c);
         });
@@ -369,6 +402,7 @@ h2{font:700 12px Consolas,monospace;letter-spacing:.12em;text-transform:uppercas
     return;
   }
   newTab(decodeURIComponent(location.hash.slice(1)) || qs.get("go") || "", false);
+  if ("serviceWorker" in navigator) navigator.serviceWorker.register("/pxd-sw.js").catch(function () {});
 })();
 </script>
 </body>

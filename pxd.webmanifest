@@ -1,0 +1,14 @@
+{
+  "name": "PXD Browser",
+  "short_name": "PXD",
+  "description": "The .pxd web: type a name and the site opens. PXD2's own names, search and hosting.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0b0b0a",
+  "theme_color": "#0b0b0a",
+  "icons": [
+    { "src": "/tools/pxd_extension/icon128.png", "sizes": "128x128", "type": "image/png" },
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}
