@@ -23,4 +23,5 @@ Mints `.pxd` names for PXD2 and keeps them secure on GitHub. A `.pxd` name works
 - `pxd2…` names are PXD2's own: tick **PXD2's own name** in the panel, or pass `--pxd2`.
 - A name can't take over a real site folder unless it points at that folder.
 - The owner's business name is public in the registry. Phone and email go only to `keys\owners.json` on base1.
+- **Publish** also queues the name pages with Bing, Yandex, Naver, Seznam and Yep (IndexNow). Google needs Search Console (verify pxd2.github.io once, submit sitemap.xml).
 - Names are for life. `release` exists for mistakes; the ledger keeps the history either way.
