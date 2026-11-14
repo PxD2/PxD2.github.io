@@ -945,6 +945,838 @@
       "group": "PXD2",
       "owner": "PXD2",
       "minted": "2026-11-13T21:50:56+00:00"
+    },
+    "onehotmess": {
+      "to": "/clients/one-hot-mess-8c6951/",
+      "title": "One Hot Mess",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "junescafe": {
+      "to": "/clients/june-s-cafe-f3ac1e/",
+      "title": "June's Cafe",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "sanderscoffee": {
+      "to": "/clients/sanders-coffee-co-2f9995/",
+      "title": "Sanders Coffee & Co",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "cabinbargrill": {
+      "to": "/clients/the-cabin-bar-grill-29e896/",
+      "title": "The Cabin Bar & Grill",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "heavenonearthfudge": {
+      "to": "/clients/heaven-on-earth-homemade-fudge-delectables-24e7af/",
+      "title": "Heaven on Earth Homemade Fudge & Delectables",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "shepherdskitchen": {
+      "to": "/clients/shepherd-s-kitchen-and-thrift-9c3d6d/",
+      "title": "Shepherd's Kitchen and Thrift",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "trapperscafe": {
+      "to": "/clients/trapper-s-cafe-aba8d0/",
+      "title": "Trapper's Cafe",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "bluebirdantiques": {
+      "to": "/clients/blue-bird-antiques-9f3018/",
+      "title": "Blue Bird Antiques",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "encorethriftstore": {
+      "to": "/clients/encore-thrift-store-b6fac0/",
+      "title": "Encore Thrift Store",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "gigipizza": {
+      "to": "/clients/gigi-pizza-795a47/",
+      "title": "Gigi Pizza",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "icecreaminthetruck": {
+      "to": "/clients/ice-cream-in-the-truck-ee32e6/",
+      "title": "Ice Cream in the Truck",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "ponderosacafe": {
+      "to": "/clients/ponderosa-cafe-a44e9f/",
+      "title": "Ponderosa Cafe",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "smokeshowbbq": {
+      "to": "/clients/smoke-show-bbq-35193d/",
+      "title": "Smoke Show BBQ",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "glazedandconfused": {
+      "to": "/clients/glazed-confused-donuts-treats-88d18c/",
+      "title": "Glazed & Confused Donuts & Treats",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "lacocinadeeva": {
+      "to": "/clients/la-cocina-de-eva-203df8/",
+      "title": "La Cocina De Eva",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "loscorralesmexicanfood": {
+      "to": "/clients/los-corrales-mexican-food-f4a880/",
+      "title": "Los Corrales Mexican Food",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "safirerestaurant": {
+      "to": "/clients/safire-restaurant-1aac1c/",
+      "title": "Safire Restaurant",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "sunsetsoda": {
+      "to": "/clients/sunset-soda-co-2a41b0/",
+      "title": "Sunset Soda Co.",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "atouchofserenity": {
+      "to": "/clients/a-touch-of-serenity-e15842/",
+      "title": "A Touch of Serenity",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "amorerimsalon": {
+      "to": "/clients/amore-rim-salon-f3ee29/",
+      "title": "Amore Rim Salon",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "dmoutfitters": {
+      "to": "/clients/d-m-outfitters-17d185/",
+      "title": "D & M Outfitters",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "hairbygelinesalon": {
+      "to": "/clients/hair-by-geline-salon-ace8f6/",
+      "title": "Hair by Geline Salon",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "ladynaysboutique": {
+      "to": "/clients/lady-nay-s-boutique-2316be/",
+      "title": "Lady Nay's Boutique",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "naturesnursery": {
+      "to": "/clients/nature-s-nursery-garden-center-2dcc7a/",
+      "title": "Nature's Nursery Garden Center",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "packersprintship": {
+      "to": "/clients/packer-s-print-ship-0d5f77/",
+      "title": "Packer's Print & Ship",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "pennypinchersthrift": {
+      "to": "/clients/penny-pinchers-az-thrift-store-5a43db/",
+      "title": "Penny Pinchers AZ Thrift Store",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "potsplusheber": {
+      "to": "/clients/pots-plus-c0640d/",
+      "title": "Pots Plus",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "rusticrelic": {
+      "to": "/clients/rustic-relic-44aed1/",
+      "title": "Rustic Relic",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "stixtreeservice": {
+      "to": "/clients/stix-tree-service-4a8531/",
+      "title": "Stix Tree Service",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "bigredbarnmarketplace": {
+      "to": "/clients/the-big-red-barn-marketplace-ca622a/",
+      "title": "The Big Red Barn Marketplace",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "azembroideryquilting": {
+      "to": "/clients/arizona-embroidery-and-quilting-b49a0a/",
+      "title": "Arizona Embroidery and Quilting",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "kokopelligiftstreasures": {
+      "to": "/clients/kokopelli-gifts-treasures-dc05ca/",
+      "title": "Kokopelli Gifts & Treasures",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "asweetescape": {
+      "to": "/clients/a-sweet-escape-ef40db/",
+      "title": "A Sweet Escape",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "exitmobiledj": {
+      "to": "/clients/exit-mobile-dj-61dcfa/",
+      "title": "EXIT Mobile DJ",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "frontierfence": {
+      "to": "/clients/frontier-fence-co-08918b/",
+      "title": "Frontier Fence Co.",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "miphotoart": {
+      "to": "/clients/m-i-photo-art-ae5130/",
+      "title": "M&I Photo & Art",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "whitemountainbookkeeping": {
+      "to": "/clients/white-mountain-bookkeeping-780276/",
+      "title": "White Mountain Bookkeeping",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "barefootfoto": {
+      "to": "/clients/barefoot-foto-imperfectly-perfect-crochet-8e04a4/",
+      "title": "Barefoot Foto & Imperfectly Perfect Crochet",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "betterworldbarbeque": {
+      "to": "/clients/better-world-barbeque-4bad4c/",
+      "title": "Better World Barbeque",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "cleaningcaddy": {
+      "to": "/clients/cleaning-caddy-f63bb3/",
+      "title": "Cleaning Caddy",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "debsjewelrybox": {
+      "to": "/clients/deb-s-jewelry-box-c07115/",
+      "title": "Deb's Jewelry Box",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "doylesautobody": {
+      "to": "/clients/doyle-s-auto-body-d88cb9/",
+      "title": "Doyle's Auto Body",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "susankulbackiart": {
+      "to": "/clients/susan-kulbacki-art-9cdd9b/",
+      "title": "Susan Kulbacki Art",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "morethanjustglass": {
+      "to": "/clients/more-than-just-a-piece-of-glass-d57d18/",
+      "title": "More Than Just A Piece of Glass",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "zsphotography": {
+      "to": "/clients/z-s-photography-41a641/",
+      "title": "Z's Photography",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "5starhandyman": {
+      "to": "/clients/5-star-handyman-d80a0a/",
+      "title": "5 Star Handyman",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "atozhomerepair": {
+      "to": "/clients/a-to-z-home-repair-your-side-a46eb3/",
+      "title": "A to Z Home Repair @ Your Side",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "blessthismesscleaning": {
+      "to": "/clients/bless-this-mess-cleaning-service-57e3fa/",
+      "title": "Bless This Mess Cleaning Service",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "cbaccounting": {
+      "to": "/clients/cb-accounting-c3477f/",
+      "title": "CB Accounting",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "countryclubstorage": {
+      "to": "/clients/country-club-storage-4e120a/",
+      "title": "Country Club Storage",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "desisonautocare": {
+      "to": "/clients/desi-son-auto-care-df68dc/",
+      "title": "Desi & Son Auto Care",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "dianedahlinrealty": {
+      "to": "/clients/diane-dahlin-s-pine-rim-realty-3fda25/",
+      "title": "Diane Dahlin's Pine Rim Realty",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "economydoorservice": {
+      "to": "/clients/economy-door-service-db881b/",
+      "title": "Economy Door Service",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "elevatedazhomewatch": {
+      "to": "/clients/elevated-az-home-watch-ac537e/",
+      "title": "Elevated AZ Home Watch",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "goldensoulmassagestudio": {
+      "to": "/clients/golden-soul-massage-studio-07f65e/",
+      "title": "Golden Soul Massage Studio",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "hancockleavittinsurance": {
+      "to": "/clients/hancock-leavitt-insurance-986447/",
+      "title": "Hancock Leavitt Insurance",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "jswoodworking": {
+      "to": "/clients/js-woodworking-b12746/",
+      "title": "JS Woodworking",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "jenningsconstruction": {
+      "to": "/clients/jennings-construction-3a58c6/",
+      "title": "Jennings Construction",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "leesflooring": {
+      "to": "/clients/lee-s-flooring-fe0432/",
+      "title": "Lee's Flooring",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "mountaintopfitness": {
+      "to": "/clients/mountain-top-fitness-3d4bfe/",
+      "title": "Mountain Top Fitness",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "norriscustomfinishes": {
+      "to": "/clients/norris-custom-finishes-29ab33/",
+      "title": "Norris Custom Finishes",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "stevenwienceknotary": {
+      "to": "/clients/steven-wiencek-notary-badc47/",
+      "title": "Steven Wiencek Notary",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "overgaardmarket": {
+      "to": "/clients/overgaard-market-665827/",
+      "title": "Overgaard Market",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "prestigemotors": {
+      "to": "/clients/prestige-motors-7eea1a/",
+      "title": "Prestige Motors",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "prettypoochgrooming": {
+      "to": "/clients/pretty-pooch-grooming-ea4cc9/",
+      "title": "Pretty Pooch Grooming",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "qualityfuelspropane": {
+      "to": "/clients/quality-fuels-propane-3f0617/",
+      "title": "Quality Fuels Propane",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "redonionbargrill": {
+      "to": "/clients/red-onion-bar-grill-2a7252/",
+      "title": "Red Onion Bar & Grill",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "rickabbottplumbing": {
+      "to": "/clients/rick-abbott-plumbing-24a9d0/",
+      "title": "Rick Abbott Plumbing",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "rimlakesvacationrentals": {
+      "to": "/clients/rim-lakes-vacation-rentals-313016/",
+      "title": "Rim Lakes Vacation Rentals",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "rimmountaincleaning": {
+      "to": "/clients/rim-mountain-cleaning-cd1404/",
+      "title": "Rim Mountain Cleaning",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "rizenelectric": {
+      "to": "/clients/rizen-electric-502ac0/",
+      "title": "Rizen Electric",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "schumacherelectric": {
+      "to": "/clients/schumacher-electrical-contracting-918778/",
+      "title": "Schumacher Electrical Contracting",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "skylinecanyonrealty": {
+      "to": "/clients/skyline-canyon-realty-4e7834/",
+      "title": "Skyline Canyon Realty",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "slowbreakmusic": {
+      "to": "/clients/slowbreak-music-25202c/",
+      "title": "Slowbreak Music",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "stampingnthepines": {
+      "to": "/clients/stamping-n-the-pines-7ebf82/",
+      "title": "Stamping N The Pines",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "swankyssalonparlor": {
+      "to": "/clients/swanky-s-salon-parlor-ee0872/",
+      "title": "Swanky's Salon & Parlor",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "heberridgeband": {
+      "to": "/clients/the-heber-ridge-band-851b99/",
+      "title": "The Heber Ridge Band",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "wmcollision": {
+      "to": "/clients/white-mountain-collision-towing-56e29b/",
+      "title": "White Mountain Collision & Towing",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "yingyangapparel": {
+      "to": "/clients/ying-yang-apparel-fcda18/",
+      "title": "Ying-Yang Apparel",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "bigdogselfstorage": {
+      "to": "/clients/big-dog-self-storage-698bdc/",
+      "title": "Big Dog Self Storage",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "perkinscinders": {
+      "to": "/clients/perkins-cinders-ed66b7/",
+      "title": "Perkins Cinders",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "whitemountainivhydration": {
+      "to": "/clients/white-mountain-iv-hydration-06db1d/",
+      "title": "White Mountain IV Hydration",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "bwconstruction": {
+      "to": "/clients/bw-construction-b202a7/",
+      "title": "BW Construction",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "cdhcabinets": {
+      "to": "/clients/cdh-cabinets-flooring-more-a0cd14/",
+      "title": "CDH Cabinets, Flooring & More",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "cottonwoodmarket": {
+      "to": "/clients/cottonwood-market-3f2890/",
+      "title": "Cottonwood Market",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "crandallsmusic": {
+      "to": "/clients/crandall-s-music-cf322f/",
+      "title": "Crandall's Music",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "esstutoring": {
+      "to": "/clients/ess-tutoring-a87f7f/",
+      "title": "ESS Tutoring",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "hairbybobbie": {
+      "to": "/clients/hair-by-bobbie-25419e/",
+      "title": "Hair by Bobbie",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "halfwheelranch": {
+      "to": "/clients/half-wheel-ranch-1a1081/",
+      "title": "Half Wheel Ranch",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "hectorshayandfeed": {
+      "to": "/clients/hector-s-hay-and-feed-15d81c/",
+      "title": "Hector's Hay and Feed",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "hudsonsfurniture": {
+      "to": "/clients/hudson-s-furniture-9d4936/",
+      "title": "Hudson's Furniture",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "lopezdetailing": {
+      "to": "/clients/lopez-detailing-32bc3c/",
+      "title": "Lopez Detailing",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "macksautoparts": {
+      "to": "/clients/mack-s-auto-parts-881ff0/",
+      "title": "Mack's Auto Parts",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "mountainfitness": {
+      "to": "/clients/mountain-fitness-a1c40c/",
+      "title": "Mountain Fitness",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "mountainsepticsolutions": {
+      "to": "/clients/mountain-septic-solutions-7df366/",
+      "title": "Mountain Septic Solutions",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "overlookranchkettlecorn": {
+      "to": "/clients/overlook-ranch-kettle-corn-761fe2/",
+      "title": "Overlook Ranch Kettle Corn",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "rjswihartagency": {
+      "to": "/clients/rj-swihart-agency-ce4ebf/",
+      "title": "RJ Swihart Agency",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "redtreerealty": {
+      "to": "/clients/red-tree-realty-450126/",
+      "title": "Red Tree Realty",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "silvercreekinflatables": {
+      "to": "/clients/silver-creek-inflatables-99ad5c/",
+      "title": "Silver Creek Inflatables",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "willisfarmranch": {
+      "to": "/clients/the-willis-farm-ranch-b6e341/",
+      "title": "The Willis Farm & Ranch",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "topthatroofing": {
+      "to": "/clients/top-that-roofing-c7c495/",
+      "title": "Top That Roofing",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "vipawards": {
+      "to": "/clients/v-i-p-awards-dd00aa/",
+      "title": "V.I.P. Awards",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "whitemountainwishes": {
+      "to": "/clients/white-mountain-wishes-137838/",
+      "title": "White Mountain Wishes",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
+    },
+    "xcaliberentertainment": {
+      "to": "/clients/xcaliber-entertainment-by-wheat-f9d41b/",
+      "title": "Xcaliber Entertainment by Wheat",
+      "added": "2026-11-14",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "PXD2"
     }
   },
   "groups": [
