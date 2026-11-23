@@ -217,11 +217,11 @@ ld = {"@context": "https://schema.org", "@type": "Restaurant", "name": "Uncle Mi
       "sameAs": [FB]}
 if PHONE: ld["telephone"] = "+1-" + PHONE
 
-tick_items = ["Now open in Show Low", "Square pies", "Crispy edges", "Cup &amp; char pepperoni", "Fresh ricotta", "Basil pesto", "Made by Mike &amp; Beth", "Hometown pizza"]
+tick_items = ["Coming soon to Show Low", "Square pies", "Crispy edges", "Cup &amp; char pepperoni", "Fresh ricotta", "Basil pesto", "Made by Mike &amp; Beth", "Hometown pizza"]
 ticker = "".join(f"<span>{x}</span><i>●</i>" for x in tick_items)
 
-call_or_msg = f'<a class="btn b1" href="#menu">{sv("slice")}Start an order</a>' 
-dock_first = f'<a href="#menu">{sv("slice")}Order</a>' if True else (f'<a href="tel:+1{PHONE.replace("-", "")}">{sv("phone")}Call</a>' if PHONE else f'<a href="{FB}" target="_blank" rel="noopener">{sv("fb")}Follow</a>')
+call_or_msg = f'<a class="btn b1" href="#menu">{sv("slice")}Preview the menu</a>' 
+dock_first = f'<a href="#menu">{sv("slice")}Menu</a>' if True else (f'<a href="tel:+1{PHONE.replace("-", "")}">{sv("phone")}Call</a>' if PHONE else f'<a href="{FB}" target="_blank" rel="noopener">{sv("fb")}Follow</a>')
 
 MENU_BLOCK = MENU_BLOCK.replace('{MSG}', MSG)
 page = f'''<!doctype html>
@@ -230,9 +230,9 @@ page = f'''<!doctype html>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <title>Uncle Mike's Pizza House · Show Low, Arizona</title>
-<meta name="description" content="Uncle Mike's Pizza House is now open in Show Low, Arizona. Square pan pies with crispy edges, pepperoni, ricotta and pesto from Mike and Beth.">
+<meta name="description" content="Uncle Mike's Pizza House is coming soon to Show Low, Arizona. Square pan pies with crispy edges, pepperoni, ricotta and pesto from Mike and Beth.">
 <meta name="theme-color" content="#C8202F">
-<meta property="og:title" content="Uncle Mike's Pizza House · Now open in Show Low"><meta property="og:description" content="Square pies, crispy edges, hometown pizza from Mike and Beth."><meta property="og:image" content="banner-1100.jpg"><meta property="og:type" content="restaurant">
+<meta property="og:title" content="Uncle Mike's Pizza House · Coming soon to Show Low"><meta property="og:description" content="Square pies, crispy edges, hometown pizza from Mike and Beth."><meta property="og:image" content="banner-1100.jpg"><meta property="og:type" content="restaurant">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='29' fill='%23C8202F' stroke='%231B1410' stroke-width='4'/%3E%3Ctext x='32' y='41' font-family='Arial Black' font-size='22' text-anchor='middle' fill='%23F3E6CC'%3EUM%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Titan+One&family=Zilla+Slab:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -241,20 +241,20 @@ page = f'''<!doctype html>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="prog" aria-hidden="true"></div>
-<div class="soon"><b>Now open in Show Low!</b> Come get a square pie. <a href="{FB}" target="_blank" rel="noopener">Follow on Facebook</a> for specials.</div>
+<div class="soon"><b>Coming soon to Show Low.</b> Doors open soon. <a href="{FB}" target="_blank" rel="noopener">Follow on Facebook</a> to hear first.</div>
 <header><div class="wrap">
  <a class="logo" href="#main"><img class="dotimg" src="logo-sm.jpg" alt="" width="48" height="47"><span><b>Uncle Mike's</b><small>PIZZA HOUSE</small></span></a>
  <nav class="main" aria-label="Sections"><a href="#pie">The pie</a><a href="#menu">Menu &amp; order</a><a href="#story">Mike &amp; Beth</a><a href="#photos">Photos</a><a href="#visit">Visit</a></nav>
- <a class="pill hdr-cta" href="#menu">{sv("slice")}Order</a><button class="cartbtn" type="button" id="cartbtn" aria-label="Your order, 0 items">{sv("bag")}<span id="cartn">0</span></button>
+ <a class="pill hdr-cta" href="#menu">{sv("slice")}Menu</a><button class="cartbtn" type="button" id="cartbtn" aria-label="Your order, 0 items">{sv("bag")}<span id="cartn">0</span></button>
  <button class="abtn" type="button" id="pxa-open" aria-haspopup="dialog" aria-controls="pxa" aria-label="Accessibility and voice options">{sv("access")}</button>
 </div></header>
 <main id="main" tabindex="-1">
-<div class="hero"><figure class="banner rv in"><img src="banner.jpg" srcset="banner-1100.jpg 1100w, banner.jpg 1942w" sizes="(max-width:1240px) 100vw, 1200px" alt="Uncle Mike's Pizza House sign with three of their pizzas: tomato pesto ricotta, BBQ chicken, and cup pepperoni" width="1942" height="809" fetchpriority="high"><span class="open-stk" aria-hidden="true">NOW OPEN!</span></figure><div class="wrap">
+<div class="hero"><figure class="banner rv in"><img src="banner.jpg" srcset="banner-1100.jpg 1100w, banner.jpg 1942w" sizes="(max-width:1240px) 100vw, 1200px" alt="Uncle Mike's Pizza House sign with three of their pizzas: tomato pesto ricotta, BBQ chicken, and cup pepperoni" width="1942" height="809" fetchpriority="high"></figure><div class="wrap">
  <div class="rv in">
-  <span class="badge"><i></i>Now open · Show Low, AZ</span>
+  <span class="badge"><i></i>Coming soon · Show Low, AZ</span>
   <h1>Uncle Mike's Pizza House</h1>
   <p class="tag">Square pies. Crispy edges. <em>Hometown pizza</em> in Show Low.</p>
-  <p class="sub">Mike and Beth's pizza house is open in the White Mountains: cup-and-char pepperoni, fresh ricotta and basil pesto on a golden, crunchy crust.</p>
+  <p class="sub">Mike and Beth are bringing their pizza house to the White Mountains: cup-and-char pepperoni, fresh ricotta and basil pesto on a golden, crunchy crust.</p>
   <div class="acts">{call_or_msg}<a class="btn b2" href="{MSG}" target="_blank" rel="noopener">{sv("chat")}Message us</a><a class="btn b3" href="{e(MAPS)}" target="_blank" rel="noopener">{sv("pin")}Directions</a></div>
  </div>
  <div class="rv in" style="--d:150ms"></div>
@@ -279,7 +279,7 @@ page = f'''<!doctype html>
  <div class="rv">
   <p class="kick">Mike &amp; Beth</p>
   <h2>A pizza house <em>with an uncle in it.</em></h2>
-  <p class="lede">Uncle Mike's is a family pizza shop in Show Low run by Mike and Beth, who are already part of the community.</p>
+  <p class="lede">Uncle Mike's is a family pizza shop opening in Show Low, run by Mike and Beth, who are already part of the community.</p>
   <div class="mural">{sv("brush","x")}<div><b>A mural is coming.</b><br><span style="color:var(--soft)">A local White Mountains artist sketched a piece for the shop, and it's going up on a wall inside. Come see it once it's painted.</span></div></div>
  </div>
  <div class="rv" style="--d:120ms"><figure class="mb"><img src="mike-beth.jpg" alt="Mike tossing pizza dough next to Beth in the kitchen" loading="lazy" width="480" height="640"></figure>
@@ -303,7 +303,7 @@ page = f'''<!doctype html>
   <div class="vbox rv">
    <p class="lbl">{sv("pin")}Address</p><p class="bigt">{ADDR1}<br>{ADDR2}</p>
    <p class="lbl">{sv("phone")}Phone</p><p class="bigt{'' if PHONE else ' s'}">{f'<a href="tel:+1{PHONE.replace("-", "")}">{PHONE}</a>' if PHONE else f'<a href="{MSG}" target="_blank" rel="noopener">Message on Facebook</a>'}</p>
-   <p class="lbl">{sv("clock")}Hours</p><p class="bigt s">Open now · message us for today's hours</p>
+   <p class="lbl">{sv("clock")}Hours</p><p class="bigt s">Posted the week we open</p>
    <div class="tools"><div class="qr" title="Scan with a phone camera">{QR}</div>
     <div><div class="acts" style="margin-top:0"><a class="btn b1" href="{e(MAPS)}" target="_blank" rel="noopener">{sv("pin")}Directions</a><button class="btn b2" type="button" data-share>{sv("share")}Share</button></div>
     <p style="margin-top:10px;color:var(--soft);font-size:.92rem">Scan the code with a phone camera to open this page.</p></div></div>
@@ -312,7 +312,7 @@ page = f'''<!doctype html>
  </div>
 </div></section>
 
-<section style="padding-top:0"><div class="wrap"><div class="band rv"><h2>Hungry? Uncle Mike's is open.</h2><p>Square pies in Show Low, Arizona.</p>
+<section style="padding-top:0"><div class="wrap"><div class="band rv"><h2>Save room for Uncle Mike's.</h2><p>Opening soon in Show Low, Arizona.</p>
  <div class="acts"><a class="btn b2" href="{FB}" target="_blank" rel="noopener">{sv("fb")}Follow on Facebook</a></div></div></div></section>
 </main>
 <footer><div class="wrap"><span>Uncle Mike's Pizza House · {ADDR1}, {ADDR2}</span><span>Built for everyone: voice control, read aloud and sound cues. Tap {sv("access")} at the top.</span></div></footer>
