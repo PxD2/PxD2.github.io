@@ -125,6 +125,7 @@ MENU = [
 ]
 
 ICONS = {
+ "flame": '<path d="M12 22c4 0 7-3 7-7 0-4-3-6-4-10-2 2-3 4-3 6-1-1-2-2-2-4-2 2-5 5-5 8 0 4 3 7 7 7z"/>',
  "sun": '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
  "egg": '<path d="M12 3c-4 0-7 6-7 10a7 7 0 0 0 14 0c0-4-3-10-7-10z"/><circle cx="12" cy="14" r="2.5"/>',
  "spark": '<path d="M12 3l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/>',
@@ -202,6 +203,13 @@ HERO = '''<svg class="hero-art" viewBox="0 0 640 470" role="img" aria-label="Saf
 </svg>'''
 
 CSS = r'''
+.spx{display:grid;grid-auto-flow:column;grid-auto-columns:min(320px,78vw);gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 16px;scrollbar-color:var(--acc) transparent}
+.spx figure{margin:0;scroll-snap-align:start;border-radius:18px;overflow:hidden;border:1px solid var(--line);box-shadow:0 20px 40px -26px rgba(0,0,0,.8);transition:transform .3s}
+.spx figure:hover{transform:translateY(-4px) rotate(-.5deg)}.spx img{display:block;width:100%;height:auto}
+.cover{margin:0;border-radius:24px;overflow:hidden;border:1px solid rgba(224,166,74,.3);box-shadow:0 40px 70px -40px rgba(0,0,0,.9);transform:rotate(-1.2deg);transition:transform .4s}
+.cover:hover{transform:rotate(0)}.cover img{display:block;width:100%;height:auto}
+.cover figcaption{background:var(--panel2);color:var(--soft);padding:14px 18px;font:italic 600 1.05rem var(--head)}
+
 :root{--bg:#17100D;--panel:#221813;--panel2:#2D201A;--ink:#F6EAD6;--soft:#CDB89C;--acc:#E0A64A;--acc2:#C8452F;--on:#1A0F0A;--line:rgba(246,234,214,.12);--head:"Playfair Display",Georgia,serif;--west:"Rye",Georgia,serif;--body:"Inter",system-ui,sans-serif;--r:22px;--glow:rgba(224,166,74,.35)}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:86px}
@@ -349,7 +357,7 @@ hours_rows = "".join(f'<tr data-d="{i}"><td>{d}</td><td>{fmt(o)} – {fmt(c)}</t
 
 HAT = '<svg class="hat" viewBox="0 0 200 100" aria-hidden="true"><path d="M10 78c30 14 150 14 180 0-8-8-30-10-40-10-4-30-14-50-30-50-8 0-12 8-20 8s-12-8-20-8c-16 0-26 20-30 50-10 0-32 2-40 10z"/></svg>'
 
-ribbon_items = ["Breakfast all morning", "Hand cut steaks", "Green chile everything", "Salad bar", "Live music", "The Lounge", "Since the Duke rode through", "Seven days a week"]
+ribbon_items = ["Taco Tuesday", "Daily specials", "Breakfast all morning", "Hand cut steaks", "Green chile everything", "Salad bar", "Live music", "The Lounge", "Since the Duke rode through", "Seven days a week"]
 ribbon = "".join(f"<span>{x}</span><i>✦</i>" for x in ribbon_items)
 
 page = f'''<!doctype html>
@@ -372,7 +380,7 @@ page = f'''<!doctype html>
 <div class="concept">Concept design by PXD2 for Safire Restaurant. Not the business's official website. <b>Black Friday sale: $250 one time, lifetime hosting, live the same day. First 100 customers only. Add online ordering for $1,500.</b> <a href="tel:+19284576404" style="color:inherit;font-weight:700;margin-left:6px">Want this site? Call PXD2 at 928-457-6404</a></div>
 <header><div class="wrap">
  <a class="logo" href="#main">{GEM}<span><b>SAFIRE</b><small>Restaurant & Lounge · Springerville</small></span></a>
- <nav class="main" aria-label="Sections"><a href="#meals">Today</a><a href="#menu">Menu</a><a href="#story">Our story</a><a href="#photos">Photos</a><a href="#visit">Visit</a></nav>
+ <nav class="main" aria-label="Sections"><a href="#meals">Today</a><a href="#menu">Menu</a><a href="#story">Our story</a><a href="#photos">Specials</a><a href="#visit">Visit</a></nav>
  <a class="pill hdr-call" href="tel:{TEL}">{sv("phone")}{PHONE}</a>
  <button class="abtn" type="button" id="pxa-open" aria-haspopup="dialog" aria-controls="pxa" aria-label="Accessibility and voice options">{sv("access")}</button>
 </div></header>
@@ -380,7 +388,7 @@ page = f'''<!doctype html>
 <div class="hero"><div class="wrap">
  <div class="rv in">
   <span class="status" id="status" role="status"><i></i><span>Checking hours…</span></span>
-  <span class="eyb">Main Street · Springerville, Arizona</span>
+  <span class="eyb">The Heartbeat of Round Valley · Springerville, AZ</span>
   <h1>SAFIRE<span>Restaurant &amp; Lounge</span></h1>
   <p class="tag">Breakfast, lunch and dinner seven days a week. Hand cut steaks, green chile plates and burgers off the grill, a salad bar, live music, and the Lounge when the day is done.</p>
   <div class="acts">
@@ -388,7 +396,7 @@ page = f'''<!doctype html>
    <a class="btn b2" href="#menu">{sv("fork")}See the menu</a>
    <a class="btn b3" href="{e(MAPS)}" target="_blank" rel="noopener">{sv("pin")}Directions</a>
   </div>
-  <div class="facts"><span>{sv("clock")}Open 7 days</span><span>{sv("leaf")}Salad bar</span><span>{sv("tone")}Live music</span><span>{sv("bag")}Takeout</span><span>{sv("access")}Wheelchair accessible</span></div>
+  <div class="facts"><span>{sv("clock")}Open 7 days</span><span>{sv("leaf")}Salad bar</span><span>{sv("sun")}Outdoor patio &amp; bar</span><span>{sv("tone")}Live music</span><span>{sv("bag")}Takeout</span><span>{sv("access")}Wheelchair accessible</span></div>
  </div>
  <div class="artbox rv in" style="--d:120ms">{HERO}</div>
 </div></div>
@@ -425,29 +433,24 @@ page = f'''<!doctype html>
 </div></section>
 
 <section id="story" style="padding-top:0"><div class="wrap story">
- <div class="duke rv"><q>Folks around here will tell you the Duke himself ate here, back when he came through for the 26 Bar Ranch.</q><small>A Springerville legend, as told by our regulars.</small>{HAT}</div>
+ <figure class="cover rv"><img src="cover.jpg" alt="Safire Restaurant card: Outdoor Patio and Bar, The Duke ate here, 411 E. Main Street, Springerville, 928-333-4512" loading="lazy" width="960" height="570"><figcaption>&ldquo;The Heartbeat of Round Valley.&rdquo; Breakfast, lunch and dinner seven days a week.</figcaption></figure>
  <div>
   <p class="kick rv">Our story</p>
   <h2 class="rv">Rustic, western, <em>and always on.</em></h2>
-  <p class="lede rv">Safire has served Round Valley for years from 411 E Main Street. Come for the food, stay for the music, and finish the night in the Lounge.</p>
+  <p class="lede rv">The Heartbeat of Round Valley at 411 E Main Street. Pick the dining room, the new fireside patio, a booth or the counter. Folks will tell you the Duke himself ate here.</p>
   <div class="feats">
-   <div class="feat rv">{sv("leaf","x")}<b>Salad bar</b><span>Fresh and stocked, alongside any meal.</span></div>
+   <div class="feat rv">{sv("flame","x")}<b>Fireside patio</b><span>Outdoor patio and bar under the Round Valley sky.</span></div>
    <div class="feat rv" style="--d:70ms">{sv("tone","x")}<b>Live music</b><span>Local players on the Safire stage.</span></div>
    <div class="feat rv" style="--d:140ms">{sv("star","x")}<b>The Lounge</b><span>A full bar inside for a drink after dinner.</span></div>
-   <div class="feat rv" style="--d:210ms">{sv("bag","x")}<b>Takeout</b><span>Call it in and we'll have it ready.</span></div>
+   <div class="feat rv" style="--d:210ms">{sv("leaf","x")}<b>Salad bar</b><span>Fresh and stocked, alongside any meal.</span></div>
   </div>
  </div>
 </div></section>
 
 <section id="photos" style="padding-top:0"><div class="wrap">
- <p class="kick rv">Photos</p><h2 class="rv">See it for yourself.</h2>
- <div class="gal rv">
-  <div class="ph">{sv("steak","x")}<span>Ribeye on the plate</span></div>
-  <div class="ph">{sv("home","x")}<span>The dining room</span></div>
-  <div class="ph">{sv("star","x")}<span>The Lounge</span></div>
-  <div class="ph">{sv("sun","x")}<span>Breakfast spread</span></div>
- </div>
- <p class="mnote" style="margin-top:18px">Safire's own photos go here. Send them to PXD2 and we'll put them in.</p>
+ <p class="kick rv">Today’s specials</p><h2 class="rv">Something new <em>every day.</em></h2>
+ <p class="lede rv">Safire posts a fresh special, soup and bar drink most days, plus Taco Tuesday. These are from the specials board. <a href="https://www.facebook.com/safirespringerville411/" target="_blank" rel="noopener" style="color:var(--acc)">Follow on Facebook</a> for today’s.</p>
+ <div class="spx rv" tabindex="0" aria-label="Recent specials boards, scroll sideways"><figure><img src="special1.jpg" alt="Safire Today’s Specials board 1" loading="lazy" width="640" height="640"></figure><figure><img src="special2.jpg" alt="Safire Today’s Specials board 2" loading="lazy" width="640" height="640"></figure><figure><img src="special3.jpg" alt="Safire Today’s Specials board 3" loading="lazy" width="640" height="640"></figure><figure><img src="special4.jpg" alt="Safire Today’s Specials board 4" loading="lazy" width="640" height="640"></figure><figure><img src="special5.jpg" alt="Safire Today’s Specials board 5" loading="lazy" width="640" height="640"></figure><figure><img src="special6.jpg" alt="Safire Today’s Specials board 6" loading="lazy" width="640" height="640"></figure><figure><img src="special7.jpg" alt="Safire Today’s Specials board 7" loading="lazy" width="640" height="640"></figure></div>
 </div></section>
 
 <section id="visit" style="padding-top:0"><div class="wrap">
