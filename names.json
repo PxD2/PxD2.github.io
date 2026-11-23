@@ -1777,6 +1777,14 @@
       "group": "Client sites",
       "status": "concept",
       "owner": "PXD2"
+    },
+    "unclemikes": {
+      "to": "/clients/uncle-mikes-pizza-house-48b95c/",
+      "title": "Uncle Mike's Pizza House",
+      "added": "2026-11-23",
+      "group": "Client sites",
+      "status": "client",
+      "owner": "PXD2"
     }
   },
   "groups": [
