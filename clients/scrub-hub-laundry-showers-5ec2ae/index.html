@@ -355,5 +355,99 @@ document.getElementById("cal").onclick = () => {
   const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([ics], { type: "text/calendar" })); a.download = "scrub-hub-shower.ics"; a.click();
 };
 </script>
+<style>.skip-pxa{position:absolute;left:-999px;top:8px;z-index:99;background:#111;color:#fff;padding:10px 16px;border-radius:10px}.skip-pxa:focus{left:8px}html.rm *,html.rm *::before,html.rm *::after{animation:none!important;transition:none!important}html.hc,html.hc body{background:#000!important;color:#fff!important}html.hc *:not(#pxa):not(#pxa *):not(#pxa-fab){background-color:transparent!important;color:#fff!important;border-color:#fff!important}html.hc a{color:#FFD400!important;text-decoration:underline!important}html.hc img{filter:contrast(1.1)}html.dys body{letter-spacing:.04em;word-spacing:.14em;line-height:1.9}</style>
+<!-- pxd2-access -->
+<div id="pxa" role="dialog" aria-modal="false" aria-labelledby="pxa-t" hidden>
+ <div class="pxa-h"><b id="pxa-t">Make this page work for you</b><button type="button" class="pxa-x" aria-label="Close">×</button></div>
+ <div class="pxa-g">
+  <button type="button" data-a="bigger" aria-label="Bigger text"><span aria-hidden="true">A+</span>Bigger text</button>
+  <button type="button" data-a="smaller" aria-label="Smaller text"><span aria-hidden="true">A−</span>Smaller text</button>
+  <button type="button" data-a="hc" aria-pressed="false"><span aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3v18" /><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg></span>High contrast</button>
+  <button type="button" data-a="dys" aria-pressed="false"><span aria-hidden="true">Aa</span>Easy reading</button>
+  <button type="button" data-a="rm" aria-pressed="false"><span aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5v14M15 5v14"/></svg></span>Stop motion</button>
+  <button type="button" data-a="read" aria-pressed="false"><span aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11"/></svg></span>Read page aloud</button>
+  <button type="button" data-a="voice" aria-pressed="false"><span aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span>Voice control</button>
+  <button type="button" data-a="tones" aria-pressed="false"><span aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h2l2-6 3 12 3-9 2 5 2-2h4"/></svg></span>Sound cues</button>
+ </div>
+ <p class="pxa-n" id="pxa-n">Voice: say “call”, “directions”, “menu”, “photos”, “visit”, “read”, “stop”, “bigger” or “top”. Sound cues play a tone as you move: high for links, middle for buttons, low for headings.</p>
+</div>
+<style>
+#pxa{position:fixed;right:14px;top:84px;width:min(380px,calc(100vw - 28px));background:var(--panel,#fff);color:var(--ink,#111);border:1px solid var(--line,#ccc);border-radius:22px;box-shadow:0 30px 80px -20px rgba(0,0,0,.5);z-index:60;padding:18px;font:16px/1.45 system-ui,sans-serif}
+#pxa[hidden]{display:none}html.hc #pxa{background:#000!important;color:#fff!important;border-color:#fff!important}html.hc #pxa-fab{background:#FFD400!important;color:#000!important}.pxa-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.pxa-h b{font-size:17px}
+.pxa-x{width:36px;height:36px;border-radius:50%;border:1px solid var(--line,#ccc);background:transparent;color:inherit;font-size:22px;cursor:pointer}
+.pxa-g{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pxa-g button{display:flex;align-items:center;gap:10px;text-align:left;padding:12px;border-radius:14px;border:1px solid var(--line,#ccc);background:transparent;color:inherit;font:600 14px/1.2 system-ui,sans-serif;cursor:pointer;min-height:52px}
+.pxa-g button span{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:color-mix(in srgb,currentColor 16%,transparent);font-weight:800;flex:none}
+.pxa-g button[aria-pressed=true]{background:var(--acc,#333);color:var(--on,#fff);border-color:transparent}.pxa-g button[aria-pressed=true] span{background:rgba(255,255,255,.22)}
+.pxa-n{font-size:13px;color:var(--soft,#555);margin-top:12px}
+.pxa-live{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.pxa-reading{outline:3px solid var(--acc2,#f90)!important;outline-offset:4px;border-radius:6px;background:color-mix(in srgb,var(--acc2,#f90) 14%,transparent)}
+#pxa-fab{position:fixed;right:14px;bottom:calc(84px + env(safe-area-inset-bottom));width:52px;height:52px;border-radius:50%;border:0;background:var(--acc,#333);color:var(--on,#fff);box-shadow:0 12px 30px -10px rgba(0,0,0,.5);cursor:pointer;z-index:15;display:grid;place-items:center}
+#pxa-fab svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:2.1;stroke-linecap:round;stroke-linejoin:round}
+@media(min-width:761px){#pxa-fab{bottom:20px}}
+</style>
+<div class="pxa-live" aria-live="assertive" id="pxa-live"></div>
+<script>
+(function(){
+var H=document.documentElement,P=document.getElementById('pxa'),L=document.getElementById('pxa-live');
+var S={};try{S=JSON.parse(localStorage.getItem('pxa')||'{}')}catch(e){}
+function save(){try{localStorage.setItem('pxa',JSON.stringify(S))}catch(e){}}
+function say(m){L.textContent='';setTimeout(function(){L.textContent=m},30);if(window.pxToast)pxToast(m)}
+function btn(a){return P.querySelector('[data-a="'+a+'"]')}
+function setFs(){H.style.setProperty('--fs',S.fs||1);H.style.fontSize=(S.fs&&S.fs!=1)?(100*S.fs)+'%':''}
+function flag(k){H.classList.toggle(k,!!S[k]);var b=btn(k);if(b)b.setAttribute('aria-pressed',!!S[k])}
+['hc','dys','rm'].forEach(flag);setFs();
+var opener=document.getElementById('pxa-open');
+if(!opener){opener=document.createElement('button');opener.id='pxa-fab';opener.type='button';opener.setAttribute('aria-label','Accessibility and voice options');opener.setAttribute('aria-controls','pxa');opener.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="4.5" r="2"/><path d="M5 8.5l7 1.5 7-1.5M12 10v5l-3 6M12 15l3 6"/></svg>';document.body.appendChild(opener)}
+function open(v){P.hidden=!v;opener.setAttribute('aria-expanded',v);if(v)P.querySelector('button').focus()}
+opener.addEventListener('click',function(){open(P.hidden)});
+P.querySelector('.pxa-x').addEventListener('click',function(){open(false);opener.focus()});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!P.hidden){open(false);opener.focus()}if(e.altKey&&(e.key==='a'||e.key==='A')){open(P.hidden)}});
+/* ---- read aloud ---- */
+var synth=window.speechSynthesis,reading=false,q=[],cur=null;
+function blocks(){var root=document.querySelector('main')||document.body;return [].slice.call(root.querySelectorAll('h1,h2,h3,p,li,td,.btn,.chips span,.mt b,.big')).filter(function(el){return el.offsetParent!==null&&!el.closest('#pxa,[aria-hidden=true],.ticker')&&el.innerText.trim()})}
+function stopRead(){reading=false;if(synth)synth.cancel();if(cur)cur.classList.remove('pxa-reading');cur=null;var b=btn('read');b&&b.setAttribute('aria-pressed','false')}
+function next(){if(!reading||!q.length){stopRead();return}if(cur)cur.classList.remove('pxa-reading');cur=q.shift();cur.classList.add('pxa-reading');cur.scrollIntoView({block:'center',behavior:H.classList.contains('rm')?'auto':'smooth'});var u=new SpeechSynthesisUtterance(cur.innerText.replace(/\s+/g,' '));u.rate=S.rate||1;u.lang='en-US';u.onend=next;u.onerror=next;synth.speak(u)}
+function read(){if(!synth){say('Read aloud is not supported in this browser');return}stopRead();q=blocks();reading=true;btn('read').setAttribute('aria-pressed','true');next()}
+/* ---- sound cues (tone system) ---- */
+var ac=null;function tone(f,d){try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();var o=ac.createOscillator(),g=ac.createGain();o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(.0001,ac.currentTime);g.gain.exponentialRampToValueAtTime(.18,ac.currentTime+.02);g.gain.exponentialRampToValueAtTime(.0001,ac.currentTime+(d||.14));o.connect(g).connect(ac.destination);o.start();o.stop(ac.currentTime+(d||.14)+.02)}catch(e){}}
+function cue(el){if(!S.tones||!el||!el.tagName)return;var t=el.tagName;if(t==='A'){tone(/^tel:/.test(el.getAttribute('href')||'')?988:880)}else if(t==='BUTTON'){tone(660)}else if(/^H[1-3]$/.test(t)){tone(440,.2)}else if(t==='INPUT'||t==='SELECT'||t==='TEXTAREA'){tone(587)}}
+document.addEventListener('focusin',function(e){cue(e.target)});
+var lastSec=null;if('IntersectionObserver' in window){var so=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting&&S.tones&&x.target!==lastSec){lastSec=x.target;tone(330,.09);setTimeout(function(){tone(494,.12)},110)}})},{rootMargin:'-45% 0px -50% 0px'});document.querySelectorAll('main section,.hero').forEach(function(s){so.observe(s)})}
+/* ---- voice control ---- */
+var SR=window.SpeechRecognition||window.webkitSpeechRecognition,rec=null,listening=false;
+function go(sel){var el=document.querySelector(sel);if(el){el.scrollIntoView({behavior:'smooth'});var h=el.querySelector('h2');if(h){h.setAttribute('tabindex','-1');h.focus({preventScroll:true})}return true}return false}
+function cmd(t){t=t.toLowerCase();
+ if(/\b(call|phone|ring)\b/.test(t)){var a=document.querySelector('a[href^="tel:"]:not(.concept a)')||document.querySelectorAll('a[href^="tel:"]')[1];if(a){say('Calling');location.href=a.href}return}
+ if(/direction|map|navigate|where/.test(t)){var m=document.querySelector('a[href*="google.com/maps"]');if(m){say('Opening directions');window.open(m.href,'_blank')}return}
+ if(/\bread\b/.test(t)){read();return}
+ if(/\b(stop|quiet|pause|cancel)\b/.test(t)){stopRead();say('Stopped');return}
+ if(/bigger|larger|zoom in/.test(t)){act('bigger');return}if(/smaller|zoom out/.test(t)){act('smaller');return}
+ if(/contrast/.test(t)){act('hc');return}
+ if(/\btop|home|start\b/.test(t)){scrollTo({top:0,behavior:'smooth'});say('Top of page');return}
+ if(/bottom|end/.test(t)){scrollTo({top:document.body.scrollHeight,behavior:'smooth'});return}
+ if(/down|scroll/.test(t)){scrollBy({top:innerHeight*.8,behavior:'smooth'});return}if(/\bup\b/.test(t)){scrollBy({top:-innerHeight*.8,behavior:'smooth'});return}
+ var map={menu:'#menu,#services,#finds',food:'#menu,#services',service:'#services,#finds',carry:'#finds,#services',photo:'#photos,#gallery',picture:'#photos,#gallery',review:'#reviews',visit:'#visit',hour:'#visit',address:'#visit',contact:'#visit',how:'#how'};
+ for(var k in map){if(t.indexOf(k)>-1){var ok=map[k].split(',').some(go);say(ok?'Going to '+k:'No '+k+' section on this page');return}}
+ say('Heard: '+t+'. Try call, directions, menu, read or stop.')}
+function voice(on){if(!SR){say('Voice control needs Chrome, Edge or Safari');return}
+ if(!on){listening=false;try{rec&&rec.stop()}catch(e){}btn('voice').setAttribute('aria-pressed','false');return}
+ rec=new SR();rec.lang='en-US';rec.continuous=true;rec.interimResults=false;
+ rec.onresult=function(e){var r=e.results[e.results.length-1];if(r.isFinal)cmd(r[0].transcript)};
+ rec.onend=function(){if(listening)try{rec.start()}catch(e){}};
+ rec.onerror=function(e){if(e.error==='not-allowed'){listening=false;btn('voice').setAttribute('aria-pressed','false');say('Microphone was blocked')}};
+ listening=true;btn('voice').setAttribute('aria-pressed','true');try{rec.start();say('Listening. Say call, directions, menu, or read.')}catch(e){}}
+function act(a){
+ if(a==='bigger'){S.fs=Math.min(1.6,Math.round(((S.fs||1)+.1)*10)/10);setFs();say('Text '+Math.round(S.fs*100)+' percent')}
+ else if(a==='smaller'){S.fs=Math.max(.9,Math.round(((S.fs||1)-.1)*10)/10);setFs();say('Text '+Math.round(S.fs*100)+' percent')}
+ else if(a==='hc'||a==='dys'||a==='rm'){S[a]=!S[a];flag(a);say((btn(a).innerText.replace(/^\S+\s*/,''))+(S[a]?' on':' off'))}
+ else if(a==='read'){reading?stopRead():read()}
+ else if(a==='voice'){voice(!listening)}
+ else if(a==='tones'){S.tones=!S.tones;btn('tones').setAttribute('aria-pressed',!!S.tones);if(S.tones){tone(440,.1);setTimeout(function(){tone(660,.1)},120);setTimeout(function(){tone(880,.14)},240)}say('Sound cues '+(S.tones?'on':'off'))}
+ save()}
+btn('tones').setAttribute('aria-pressed',!!S.tones);
+P.querySelectorAll('[data-a]').forEach(function(b){b.addEventListener('click',function(){act(b.getAttribute('data-a'))})});
+})();
+</script>
 </body>
 </html>
