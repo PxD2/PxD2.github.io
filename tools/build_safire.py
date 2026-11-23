@@ -203,6 +203,13 @@ HERO = '''<svg class="hero-art" viewBox="0 0 640 470" role="img" aria-label="Saf
 </svg>'''
 
 CSS = r'''
+.hero-img{display:block;width:min(100%,520px);margin:0 auto;height:auto;border-radius:50%;box-shadow:0 0 0 6px rgba(224,166,74,.25),0 40px 80px -30px rgba(0,0,0,.85),0 0 90px -10px rgba(224,166,74,.35);animation:spinIn 1.2s cubic-bezier(.2,.8,.2,1) both,float 8s 1.2s ease-in-out infinite}
+@keyframes spinIn{from{opacity:0;transform:scale(.85) rotate(-8deg)}}@keyframes float{50%{transform:translateY(-10px)}}
+.realrow{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:46px}@media(max-width:820px){.realrow{grid-template-columns:1fr}}
+.realrow figure{margin:0;border-radius:20px;overflow:hidden;border:1px solid var(--line);background:var(--panel)}
+.realrow img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;transition:transform .6s}.realrow figure:hover img{transform:scale(1.05)}
+.realrow figcaption{padding:12px 16px;color:var(--soft);font-weight:600;font-size:.95rem}
+
 .spx{display:grid;grid-auto-flow:column;grid-auto-columns:min(320px,78vw);gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 16px;scrollbar-color:var(--acc) transparent}
 .spx figure{margin:0;scroll-snap-align:start;border-radius:18px;overflow:hidden;border:1px solid var(--line);box-shadow:0 20px 40px -26px rgba(0,0,0,.8);transition:transform .3s}
 .spx figure:hover{transform:translateY(-4px) rotate(-.5deg)}.spx img{display:block;width:100%;height:auto}
@@ -398,7 +405,7 @@ page = f'''<!doctype html>
   </div>
   <div class="facts"><span>{sv("clock")}Open 7 days</span><span>{sv("leaf")}Salad bar</span><span>{sv("sun")}Outdoor patio &amp; bar</span><span>{sv("tone")}Live music</span><span>{sv("bag")}Takeout</span><span>{sv("access")}Wheelchair accessible</span></div>
  </div>
- <div class="artbox rv in" style="--d:120ms">{HERO}</div>
+ <div class="artbox rv in" style="--d:120ms"><img class="hero-img" src="badge.jpg" alt="Safire Restaurant, Outdoor Patio and Bar. The Duke ate here." width="640" height="640" fetchpriority="high"></div>
 </div></div>
 <div class="ribbon" aria-hidden="true"><div>{ribbon}{ribbon}</div><div>{ribbon}{ribbon}</div></div>
 
@@ -445,6 +452,11 @@ page = f'''<!doctype html>
    <div class="feat rv" style="--d:210ms">{sv("leaf","x")}<b>Salad bar</b><span>Fresh and stocked, alongside any meal.</span></div>
   </div>
  </div>
+</div>
+<div class="wrap realrow">
+ <figure class="rv"><img src="sign.jpg" alt="Vintage Safire Restaurant and Cocktails sign" loading="lazy" style="object-fit:contain;background:#EFE3C4"><figcaption>The classic Safire sign</figcaption></figure>
+ <figure class="rv" style="--d:90ms"><img src="brands.jpg" alt="Ranch cattle brands burned into the wall at Safire" loading="lazy"><figcaption>Local ranch brands on the wall</figcaption></figure>
+ <figure class="rv" style="--d:180ms"><img src="band.jpg" alt="The Gila River Band, country music you can dance to, playing at Safire" loading="lazy"><figcaption>Live music: The Gila River Band</figcaption></figure>
 </div></section>
 
 <section id="photos" style="padding-top:0"><div class="wrap">
