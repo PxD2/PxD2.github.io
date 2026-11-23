@@ -19,7 +19,8 @@ MSG = "https://m.me/unclemikespizzahouse"
 ADDR1, ADDR2 = "1191 E Deuce of Clubs", "Show Low, AZ 85901"   # TO CONFIRM with Mike & Beth
 MAPS = "https://www.google.com/maps/search/?api=1&query=1191%20E%20Deuce%20of%20Clubs%2C%20Show%20Low%2C%20AZ%2085901"
 EMBED = "https://www.google.com/maps?output=embed&q=1191+E+Deuce+of+Clubs+Show+Low+AZ+85901"
-PHONE = ""          # e.g. "928-555-0123" once they have one
+PHONE = ""
+MENU_BLOCK = open(pathlib.Path(__file__).with_name('unclemikes_menu.html')).read()          # e.g. "928-555-0123" once they have one
 URL = f"https://pxd2.github.io/unclemikes"
 
 e = html.escape
@@ -156,7 +157,7 @@ section{padding:92px 0}
 h2{font:400 clamp(2.2rem,5vw,3.7rem)/1.02 var(--disp);letter-spacing:.005em;margin-bottom:14px;text-wrap:balance}
 h2 em{font-style:normal;color:var(--red)}
 .lede{color:var(--soft);max-width:38em;font-size:1.15rem;margin-bottom:34px}
-.feat3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}@media(max-width:860px){.feat3{grid-template-columns:1fr}}
+.feat3{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}@media(max-width:1000px){.feat3{grid-template-columns:1fr 1fr}}@media(max-width:560px){.feat3{grid-template-columns:1fr}}
 .fc{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:30px 26px;transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s}
 .fc:hover{transform:translateY(-6px);box-shadow:0 30px 50px -30px rgba(27,20,16,.4)}
 .fc .i{width:56px;height:56px;border-radius:16px;display:grid;place-items:center;background:var(--panel2);margin-bottom:16px}.fc .i svg{width:30px;height:30px;stroke:var(--red);fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
@@ -219,10 +220,10 @@ if PHONE: ld["telephone"] = "+1-" + PHONE
 tick_items = ["Now open in Show Low", "Square pies", "Crispy edges", "Cup &amp; char pepperoni", "Fresh ricotta", "Basil pesto", "Made by Mike &amp; Beth", "Hometown pizza"]
 ticker = "".join(f"<span>{x}</span><i>●</i>" for x in tick_items)
 
-call_or_msg = (f'<a class="btn b1" href="tel:+1{PHONE.replace("-", "")}">{sv("phone")}Call {PHONE}</a>' if PHONE
-               else f'<a class="btn b1" href="{e(MAPS)}" target="_blank" rel="noopener">{sv("pin")}Come get a pie</a>')
-dock_first = (f'<a href="tel:+1{PHONE.replace("-", "")}">{sv("phone")}Call</a>' if PHONE else f'<a href="{FB}" target="_blank" rel="noopener">{sv("fb")}Follow</a>')
+call_or_msg = f'<a class="btn b1" href="#menu">{sv("slice")}Start an order</a>' 
+dock_first = f'<a href="#menu">{sv("slice")}Order</a>' if True else (f'<a href="tel:+1{PHONE.replace("-", "")}">{sv("phone")}Call</a>' if PHONE else f'<a href="{FB}" target="_blank" rel="noopener">{sv("fb")}Follow</a>')
 
+MENU_BLOCK = MENU_BLOCK.replace('{MSG}', MSG)
 page = f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <!-- pxd2-v2 -->
@@ -243,8 +244,8 @@ page = f'''<!doctype html>
 <div class="soon"><b>Now open in Show Low!</b> Come get a square pie. <a href="{FB}" target="_blank" rel="noopener">Follow on Facebook</a> for specials.</div>
 <header><div class="wrap">
  <a class="logo" href="#main"><img class="dotimg" src="logo-sm.jpg" alt="" width="48" height="47"><span><b>Uncle Mike's</b><small>PIZZA HOUSE</small></span></a>
- <nav class="main" aria-label="Sections"><a href="#pie">The pie</a><a href="#menu">Menu</a><a href="#story">Mike &amp; Beth</a><a href="#photos">Photos</a><a href="#visit">Visit</a></nav>
- <a class="pill hdr-cta" href="{FB}" target="_blank" rel="noopener">{sv("fb")}Follow us</a>
+ <nav class="main" aria-label="Sections"><a href="#pie">The pie</a><a href="#menu">Menu &amp; order</a><a href="#story">Mike &amp; Beth</a><a href="#photos">Photos</a><a href="#visit">Visit</a></nav>
+ <a class="pill hdr-cta" href="#menu">{sv("slice")}Order</a><button class="cartbtn" type="button" id="cartbtn" aria-label="Your order, 0 items">{sv("bag")}<span id="cartn">0</span></button>
  <button class="abtn" type="button" id="pxa-open" aria-haspopup="dialog" aria-controls="pxa" aria-label="Accessibility and voice options">{sv("access")}</button>
 </div></header>
 <main id="main" tabindex="-1">
@@ -254,7 +255,7 @@ page = f'''<!doctype html>
   <h1>Uncle Mike's Pizza House</h1>
   <p class="tag">Square pies. Crispy edges. <em>Hometown pizza</em> in Show Low.</p>
   <p class="sub">Mike and Beth's pizza house is open in the White Mountains: cup-and-char pepperoni, fresh ricotta and basil pesto on a golden, crunchy crust.</p>
-  <div class="acts">{call_or_msg}<a class="btn b2" href="{MSG}" target="_blank" rel="noopener">{sv("chat")}Message us</a><a class="btn b3" href="#pie">{sv("slice")}See the pies</a></div>
+  <div class="acts">{call_or_msg}<a class="btn b2" href="{MSG}" target="_blank" rel="noopener">{sv("chat")}Message us</a><a class="btn b3" href="{e(MAPS)}" target="_blank" rel="noopener">{sv("pin")}Directions</a></div>
  </div>
  <div class="rv in" style="--d:150ms"></div>
 </div></div>
@@ -268,16 +269,11 @@ page = f'''<!doctype html>
   <article class="fc ph-card rv"><img src="pizza3.jpg" alt="Square pepperoni pizza with crispy cupped pepperoni" loading="lazy"><h3>Cup &amp; char pepperoni</h3><p>Pepperoni cups that crisp at the rim over a golden, crunchy pan crust.</p></article>
   <article class="fc ph-card rv" style="--d:90ms"><img src="pizza1.jpg" alt="Pizza with cherry tomatoes, basil pesto drizzle and ricotta" loading="lazy"><h3>Tomato, pesto &amp; ricotta</h3><p>Roasted cherry tomatoes, a basil pesto drizzle and cool dollops of ricotta.</p></article>
   <article class="fc ph-card rv" style="--d:180ms"><img src="pizza2.jpg" alt="BBQ chicken pizza with cilantro" loading="lazy"><h3>BBQ chicken</h3><p>Chicken, a BBQ drizzle, fresh cilantro and a cool, creamy finish.</p></article>
+  <article class="fc ph-card rv" style="--d:270ms"><img src="veggie.jpg" alt="Garden veggie pizza" loading="lazy" style="object-position:50% 70%"><h3>Garden veggie</h3><p>Peppers, tomatoes, red onion, olives, artichoke and spinach on a crisp crust.</p></article>
  </div>
 </div></section>
 
-<section id="menu" style="padding-top:0"><div class="wrap">
- <div class="menu-soon rv">
-  <div><p class="kick" style="color:#FFD3A8">The menu</p><h2>Today's pies are on the board.</h2><p>Stop in to see what's coming out of the oven, or message Mike &amp; Beth to ask what's on today. The full menu with prices posts here soon.</p>
-   <div class="acts"><a class="btn b1" href="{MSG}" target="_blank" rel="noopener">{sv("chat")}Ask what's on today</a></div></div>
-  <div class="board" aria-hidden="true"><b>Today at Uncle Mike's</b><div class="ln">Cup &amp; char pepperoni<span></span>★</div><div class="ln">Tomato, pesto &amp; ricotta<span></span>★</div><div class="ln">BBQ chicken<span></span>★</div><div class="ln">Today's special<span></span>ask</div></div>
- </div>
-</div></section>
+{MENU_BLOCK}
 
 <section id="story" style="padding-top:0"><div class="wrap story">
  <div class="rv">
@@ -286,16 +282,17 @@ page = f'''<!doctype html>
   <p class="lede">Uncle Mike's is a family pizza shop in Show Low run by Mike and Beth, who are already part of the community.</p>
   <div class="mural">{sv("brush","x")}<div><b>A mural is coming.</b><br><span style="color:var(--soft)">A local White Mountains artist sketched a piece for the shop, and it's going up on a wall inside. Come see it once it's painted.</span></div></div>
  </div>
- <div class="quote rv" style="--d:120ms"><p>We feel grateful to have Uncle Mike and Beth in our community!</p><small>A neighbor, on the Uncle Mike's Facebook page</small></div>
+ <div class="rv" style="--d:120ms"><figure class="mb"><img src="mike-beth.jpg" alt="Mike tossing pizza dough next to Beth in the kitchen" loading="lazy" width="480" height="640"></figure>
+  <div class="quote" style="margin-top:-60px;margin-left:30px;position:relative"><p>We feel grateful to have Uncle Mike and Beth in our community!</p><small>A neighbor, on the Uncle Mike's Facebook page</small></div></div>
 </div></section>
 
 <section id="photos" style="padding-top:0"><div class="wrap">
  <p class="kick rv">Photos</p><h2 class="rv">From the shop.</h2>
  <div class="gal rv">
-  <figure class="real"><img src="pizza3.jpg" alt="Cup pepperoni square pizza" loading="lazy"></figure>
-  <figure class="real"><img src="pizza1.jpg" alt="Tomato pesto ricotta pizza" loading="lazy"></figure>
-  <figure class="real"><img src="logo.jpg" alt="Uncle Mike's Pizza House logo" loading="lazy" style="object-fit:contain;background:#2B4A2A"></figure>
-  <figure class="real"><img src="pizza2.jpg" alt="BBQ chicken pizza" loading="lazy"></figure>
+  <figure class="real"><img src="veggie.jpg" alt="Garden veggie pizza in an Uncle Mike's box" loading="lazy"></figure>
+  <figure class="real"><img src="storefront.jpg" alt="Uncle Mike's Pizza House storefront in Show Low" loading="lazy"></figure>
+  <figure class="real"><img src="mike-beth.jpg" alt="Mike and Beth in the kitchen" loading="lazy" style="object-position:50% 30%"></figure>
+  <figure class="real"><img src="pizza3.jpg" alt="Cup pepperoni pizza" loading="lazy"></figure>
  </div>
  
 </div></section>
@@ -311,7 +308,7 @@ page = f'''<!doctype html>
     <div><div class="acts" style="margin-top:0"><a class="btn b1" href="{e(MAPS)}" target="_blank" rel="noopener">{sv("pin")}Directions</a><button class="btn b2" type="button" data-share>{sv("share")}Share</button></div>
     <p style="margin-top:10px;color:var(--soft);font-size:.92rem">Scan the code with a phone camera to open this page.</p></div></div>
   </div>
-  <div class="map rv" style="--d:100ms" data-src="{EMBED}"><div class="mapc"><div class="pin" aria-hidden="true"><i></i></div><button class="btn b1" type="button" data-map>{sv("pin")}Show the map</button><small>The map loads from Google only when you tap.</small></div></div>
+  <div class="rv" style="--d:100ms;display:grid;gap:18px"><figure class="real" style="aspect-ratio:4/3"><img src="storefront.jpg" alt="The Uncle Mike's storefront" loading="lazy"></figure><div class="map" data-src="{EMBED}"><div class="mapc"><div class="pin" aria-hidden="true"><i></i></div><button class="btn b1" type="button" data-map>{sv("pin")}Show the map</button><small>The map loads from Google only when you tap.</small></div></div></div>
  </div>
 </div></section>
 
