@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PXD2 — The new way to web</title>
+<meta name="description" content="PXD2 builds websites, 3D storefronts, games and the .pxd network from an off-grid shop in Concho, Arizona. $500 puts your business on its own .com for ten years. Built for everyone — voice, read-aloud and tone access built in.">
+<meta name="theme-color" content="#000000">
+<script>try{var t=localStorage.getItem('pxd2-theme');if(t&&t!=='pxd2')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<meta property="og:title" content="PXD2 — The new way to web">
+<meta property="og:description" content="Websites, 3D storefronts, games and the .pxd network. Built for everyone.">
+<meta property="og:url" content="https://pxd2.com/">
+<link rel="canonical" href="https://pxd2.com/">
+<style>:root{--bg:#000000;--bg2:#0b0b0d;--panel:#111113;--panel2:#18181b;--line:#2a2a2e;--text:#f2f2f4;--muted:#9a9ca3;--accent:#e10600;--accenthi:#ff2b20;--line2:#424246;--line3:#5c5c60;--text2:#cfd0d4;--muted2:#8b8c93;--paper:#f7f7f8;--card:#ffffff;--paperline:#d7d7d8;--paperline2:#c6c6c6;--papermuted:#545454;--papertext2:#313132;--onaccent:#ffffff}
+:root[data-theme="warm"]{--bg:#1e1b18;--bg2:#24201c;--panel:#2b2621;--panel2:#312b25;--line:#3d362e;--line2:#4a4238;--line3:#5e554a;--text:#ede6da;--text2:#cbc2b4;--muted:#b3a998;--muted2:#9a8f80;--accent:#3e6b4f;--accenthi:#5b8c6c;--paper:#f3eee4;--card:#ffffff;--paperline:#ddd6c8;--paperline2:#d2caba;--papermuted:#5f574c;--papertext2:#3e372f;--onaccent:#ffffff}
+:root[data-theme="r6"]{--bg:#00070b;--bg2:#021018;--panel:#04161f;--panel2:#072230;--line:#0f3a4b;--text:#d9f4ff;--muted:#6f9fb2;--accent:#2fbfff;--accenthi:#7fdcff;--line2:#275061;--line3:#426878;--text2:#afd2e0;--muted2:#6490a1;--paper:#e6f8ff;--card:#ffffff;--paperline:#c8d9df;--paperline2:#b8c8ce;--papermuted:#4e595e;--papertext2:#2e373c;--onaccent:#00070b}
+:root[data-theme="dune"]{--bg:#0c0804;--bg2:#140d06;--panel:#1b1209;--panel2:#24180c;--line:#3d2b15;--text:#f7e7cc;--muted:#b39570;--accent:#e8962e;--accenthi:#ffbf66;--line2:#53422b;--line3:#6c5a43;--text2:#dcc6a7;--muted2:#a28765;--paper:#faefde;--card:#ffffff;--paperline:#dbd1c2;--paperline2:#cac1b2;--papermuted:#5d574e;--papertext2:#3c3630;--onaccent:#0c0804}
+:root[data-theme="hangar"]{--bg:#0e1013;--bg2:#14171b;--panel:#1b1f24;--panel2:#232830;--line:#343a43;--text:#e9edf2;--muted:#8d96a3;--accent:#ff7417;--accenthi:#ff9a52;--line2:#4a4f58;--line3:#61676f;--text2:#c4cad2;--muted2:#808995;--paper:#f1f3f7;--card:#ffffff;--paperline:#d3d5d9;--paperline2:#c4c6c9;--papermuted:#5b5d61;--papertext2:#3b3d41;--onaccent:#0e1013}
+:root[data-theme="cruiser"]{--bg:#000000;--bg2:#08080a;--panel:#0e0e11;--panel2:#16161a;--line:#2b2b31;--text:#f2f2f4;--muted:#9a9ca3;--accent:#d9dbe2;--accenthi:#ffffff;--line2:#434348;--line3:#5d5d62;--text2:#cfd0d4;--muted2:#8b8c93;--paper:#f7f7f8;--card:#ffffff;--paperline:#d7d7d8;--paperline2:#c6c6c6;--papermuted:#545454;--papertext2:#313132;--onaccent:#000000}
+:root[data-theme="nebula"]{--bg:#04020a;--bg2:#0b0716;--panel:#120b22;--panel2:#1a1030;--line:#2e2050;--text:#ece4ff;--muted:#9a8cc0;--accent:#a46bff;--accenthi:#c9a6ff;--line2:#453865;--line3:#5e517c;--text2:#cbc1e6;--muted2:#8b7eae;--paper:#f3edff;--card:#ffffff;--paperline:#d4cedf;--paperline2:#c3bece;--papermuted:#55525d;--papertext2:#34313b;--onaccent:#04020a}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg)}
+a{color:var(--text)}a:hover{color:var(--accenthi)}
+:focus-visible{outline:3px solid #E9C46A;outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:12px;top:-60px;background:#E9C46A;color:#1E1B18;padding:12px 18px;border-radius:8px;font:600 16px system-ui,sans-serif;z-index:10;text-decoration:none}
+.skip:focus{top:12px}
+.a-btn{min-height:52px;border-radius:10px;border:1px solid var(--line2);background:transparent;color:var(--text);font:600 15px Inter,system-ui,sans-serif;cursor:pointer}
+.a-btn[aria-pressed="true"]{background:var(--accent);border:2px solid var(--accent);color:var(--onaccent)}
+.a-sel{min-height:48px;border-radius:10px;border:1px solid var(--line2);background:var(--bg);color:var(--text);font:500 16px Inter,system-ui,sans-serif;padding:0 12px}
+.a-large .wrap{zoom:1.2}
+.a-light body{background:#F7F3EA}
+.a-light .wrap{filter:invert(1) hue-rotate(180deg)}
+.a-light .wrap img{filter:invert(1) hue-rotate(180deg)}
+.a-calm *,.a-calm{scroll-behavior:auto!important;transition:none!important;animation:none!important}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<div class="wrap" style="background: var(--bg); color: var(--text); font-family: Inter, system-ui, sans-serif; font-size: 18px; line-height: 1.65">
+
+<header style="border-bottom: 1px solid var(--line)">
+<nav aria-label="Main" style="max-width: 1240px; margin: 0 auto; padding: 18px 32px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+<a href="#top" style="display: flex; align-items: center; gap: 10px; text-decoration: none">
+<img src="logo.webp" alt="PXD2 Studios" width="150" height="54" style="display: block; height: 54px; width: auto">
+</a>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 28px; font-size: 15px; font-weight: 500">
+<a href="#access" aria-label="Accessibility options: voice, read aloud, tone guide" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line2); border-radius: 999px; padding: 8px 14px; min-height: 44px; box-sizing: border-box"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="4.5" r="1.8"/><path d="M5 8.5l7 1.5 7-1.5M12 10v5l-3 6M12 15l3 6"/></svg>Access</a>
+<a href="#web" style="text-decoration: none">Services</a>
+<a href="#network" style="text-decoration: none">.pxd network</a>
+<a href="#lit" style="text-decoration: none">Lit</a>
+<a href="#games" style="text-decoration: none">Games</a>
+<a href="#labs" style="text-decoration: none">Labs</a>
+<a href="#founder" style="text-decoration: none">Founder</a>
+<a href="#contact" style="text-decoration: none">Contact</a>
+<a href="#contact" style="text-decoration: none; background: var(--accent); color: var(--onaccent); padding: 11px 20px; border-radius: 8px; font-weight: 600; min-height: 44px; box-sizing: border-box; display: inline-flex; align-items: center">Get a site</a>
+</div>
+</nav>
+</header>
+<main id="main">
+
+<section id="top" style="max-width: 1240px; margin: 0 auto; padding: 112px 32px 96px; display: flex; flex-direction: column; align-items: flex-start; gap: 28px">
+<p style="margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted)">Lit by PXD2 · Concho, Arizona</p>
+<h1 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(48px, 7vw, 96px); line-height: 0.98; letter-spacing: -3px; max-width: 1000px">The new way to web.</h1>
+<p style="margin: 0; font-size: 21px; color: var(--text2); max-width: 680px">PXD2 builds websites, 3D storefronts, games and the .pxd network — a web you own outright, that doesn&#39;t sell the people who use it.</p>
+<form role="search" action="https://pxd2.github.io/" method="get" style="width: 100%; max-width: 720px; display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px">
+<label for="pxdsearch" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Find a .pxd site</label>
+<div style="flex: 1 1 260px; min-width: 0; display: flex; align-items: center; gap: 10px; background: var(--panel); border: 1px solid var(--line2); border-radius: 12px; padding: 0 18px; min-height: 60px">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--bg); background: var(--text); border-radius: 4px; padding: 2px 6px">.pxd</span>
+<input id="pxdsearch" name="q" type="text" placeholder="Type a name, like mikevanceauto.pxd" style="flex: 1; min-width: 0; background: transparent; border: 0; color: var(--text); font-size: 17px; font-family: Inter, sans-serif; outline: none; min-height: 44px">
+</div>
+<button type="submit" style="background: var(--accent); color: var(--onaccent); border: 0; border-radius: 12px; padding: 0 28px; min-height: 60px; font-size: 17px; font-weight: 600; font-family: Inter, sans-serif; cursor: pointer">Open</button>
+</form>
+<div style="display: flex; flex-wrap: wrap; gap: 14px">
+<a href="https://pxd2.github.io" style="text-decoration: none; border: 1px solid var(--line2); border-radius: 8px; padding: 12px 18px; font-weight: 500; font-size: 15px">Browse the .pxd directory →</a>
+</div>
+</section>
+
+<section style="border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--bg2)">
+<div style="max-width: 1240px; margin: 0 auto; padding: 36px 32px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr)); gap: 28px">
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-family: 'Space Grotesk', sans-serif; font-size: 40px; font-weight: 700">155</span><span style="color: var(--muted); font-size: 15px">local business pages on the .pxd directory</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-family: 'Space Grotesk', sans-serif; font-size: 40px; font-weight: 700">$500</span><span style="color: var(--muted); font-size: 15px">your site on your .com — ten years, one payment</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-family: 'Space Grotesk', sans-serif; font-size: 40px; font-weight: 700">100%</span><span style="color: var(--muted); font-size: 15px">off-grid, solar-powered shop</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-family: 'Space Grotesk', sans-serif; font-size: 40px; font-weight: 700">10 yrs</span><span style="color: var(--muted); font-size: 15px">no monthly bills, no renewal surprises</span></div>
+</div>
+</section>
+
+<section id="access" style="max-width: 1240px; margin: 0 auto; padding: 112px 32px 0; display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; flex-wrap: wrap; gap: 48px; align-items: flex-end; justify-content: space-between">
+<div style="flex: 1 1 560px; display: flex; flex-direction: column; gap: 14px">
+<p style="margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted)">PXD2 Access · built in, not bolted on</p>
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 56px; line-height: 1.02; letter-spacing: -1.5px">A web for everyone. Hands, voice or ears.</h2>
+<p style="margin: 0; font-size: 19px; color: var(--text2); max-width: 720px">The ADA is our floor, not our finish line. Every PXD2 site is built from the first line of code to WCAG 2.2 AA, meets the stricter AAA level wherever it can — contrast, text size, spacing, no time limits — and is built to keep pace with WCAG 3 as it&#39;s finalized. Then PXD2 Access goes further: speak to navigate, listen to any page, and find your way by tone.</p>
+</div>
+<div role="group" aria-label="Try PXD2 Access" style="flex: 0 1 420px; background: var(--panel); border: 1px solid var(--line2); border-radius: 18px; padding: 20px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
+<span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 18px">Access</span>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--muted)">Alt + A</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+<button type="button" class="a-btn" data-feature="voice" aria-pressed="false">Voice control</button>
+<button type="button" class="a-btn" data-feature="read" aria-pressed="false">Read aloud</button>
+<button type="button" class="a-btn" data-feature="tone" aria-pressed="false">Tone guide</button>
+<button type="button" class="a-btn" data-feature="large" aria-pressed="false">Larger text</button>
+<button type="button" class="a-btn" data-feature="light" aria-pressed="false">Light mode</button>
+<button type="button" class="a-btn" data-feature="calm" aria-pressed="false">Calm motion</button>
+</div>
+<label for="theme-pick" style="font-size: 15px; font-weight: 600; margin-top: 4px">Color theme</label>
+<select id="theme-pick" class="a-sel"><option value="pxd2">PXD2 Red</option><option value="warm">Warm (easy on eyes)</option><option value="r6">R6 Holo</option><option value="dune">Dune Runner</option><option value="hangar">Hangar 9</option><option value="cruiser">Dark Cruiser</option><option value="nebula">Nebula</option></select>
+<p id="access-status" role="status" aria-live="polite" style="margin: 0; font-size: 15px; color: var(--text2); background: var(--bg); border-radius: 10px; padding: 12px 14px">Press a button, or press Alt + A from anywhere on the page.</p>
+</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: 20px">
+<article style="border: 1px solid var(--line); border-radius: 16px; padding: 26px; display: flex; flex-direction: column; gap: 10px">
+<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--text)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 22px">Voice, no hands</h3>
+<p style="margin: 0; color: var(--text2); font-size: 16px">Say where you want to go, what to click, or what to type. Runs on your device — your voice isn&#39;t recorded or sold.</p>
+</article>
+<article style="border: 1px solid var(--line); border-radius: 16px; padding: 26px; display: flex; flex-direction: column; gap: 10px">
+<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--text)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10v4h4l5 4V6L7 10z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 22px">Read aloud</h3>
+<p style="margin: 0; color: var(--text2); font-size: 16px">Any page, any section, read in a natural voice at your speed — and it works alongside screen readers, not over them.</p>
+</article>
+<article style="border: 1px solid var(--line); border-radius: 16px; padding: 26px; display: flex; flex-direction: column; gap: 10px">
+<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--text)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12h3l2-6 3 12 3-9 2 5 2-2h5"/></svg>
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 22px">Tone guide</h3>
+<p style="margin: 0; color: var(--text2); font-size: 16px">Short, distinct tones tell blind and low-vision visitors where they are — a rising tone for a heading, a click for a link, a chime for a button.</p>
+</article>
+<article style="border: 1px solid var(--line); border-radius: 16px; padding: 26px; display: flex; flex-direction: column; gap: 10px">
+<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--text)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M12 3a9 9 0 0 1 0 18"/></svg>
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 22px">Easy on the eyes</h3>
+<p style="margin: 0; color: var(--text2); font-size: 16px">Warm, low-glare colors, high-contrast text, larger type and calm motion by default — and it follows your device&#39;s settings.</p>
+</article>
+</div>
+<div id="statement" style="border: 1px solid var(--line2); border-radius: 18px; padding: 32px; display: flex; flex-wrap: wrap; gap: 40px; background: var(--bg2)">
+<div style="flex: 1 1 520px; display: flex; flex-direction: column; gap: 12px">
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 28px">Our accessibility promise</h3>
+<ul style="margin: 0; padding-left: 22px; color: var(--text2); font-size: 17px; display: flex; flex-direction: column; gap: 6px">
+<li>Every site works by keyboard, touch, voice, mouse and screen reader.</li>
+<li>Every image has a description; every video has captions.</li>
+<li>Every site is tested by hand and with real assistive technology — never left to a widget.</li>
+<li>Every barrier you report gets a reply within two business days and a fix, at no charge.</li>
+</ul>
+</div>
+<div style="flex: 1 1 320px; display: flex; flex-direction: column; gap: 10px; font-size: 17px">
+<p style="margin: 0; font-weight: 600">Hit a barrier? Tell us any way that works for you.</p>
+<a href="mailto:chad@pxd2.com">chad@pxd2.com</a>
+<a href="mailto:angie@pxd2.com">angie@pxd2.com</a>
+<a href="tel:+19284576404">928-457-6404 · call or text</a>
+<span style="color: var(--text2)">On call 24/7, 365 days a year</span>
+<span style="color: var(--text2)">PXD2 · PO Box 514, Concho, AZ 85924</span>
+</div>
+</div>
+</section>
+
+<section id="web" style="max-width: 1240px; margin: 0 auto; padding: 112px 32px; display: flex; flex-direction: column; gap: 48px">
+<div style="display: flex; flex-direction: column; gap: 14px; max-width: 760px">
+<p style="margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted)">What we build</p>
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 56px; line-height: 1.02; letter-spacing: -1.5px">More than hosting.</h2>
+<p style="margin: 0; font-size: 19px; color: var(--text2)">$500 puts your business on its own .com for ten years — no monthly fees, no lost sites. Then we run it with you: managing your web presence, getting you seen, and building the software your business runs on.</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr)); gap: 20px">
+<article style="background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 28px; display: flex; flex-direction: column; gap: 14px">
+<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--text)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18M8 21h8"/></svg>
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 24px">Your site on your .com</h3>
+<p style="margin: 0; color: var(--text2); font-size: 16px">A fast, modern site with your hours, services, photos and a map — on your own .com, plus a free .pxd name. QR codes included.</p>
+<p style="margin: 0; margin-top: auto; font-weight: 600">$500 · ten years</p>
+</article>
+<article style="background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 28px; display: flex; flex-direction: column; gap: 14px">
+<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--text)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3v8a2 2 0 0 0 2 2v8M5 3v5M9 3v5M17 3c-1.7 1.5-2.5 3.5-2.5 6s.8 3.5 2.5 4v8"/></svg>
+<span style="align-self: flex-start; background: var(--accent); color: var(--onaccent); border-radius: 999px; padding: 4px 12px; font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600">Black Friday special</span>
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 24px">Restaurant menu sites</h3>
+<p style="margin: 0; color: var(--text2); font-size: 16px">Your full menu, hours, photos and map on a phone-first site, with table and menu QR codes. One flat price: ten years on your .com — the longest a .com can be registered — plus a lifetime pxd2.com address.</p>
+<p style="margin: 0; margin-top: auto; font-weight: 600">$1,000 flat · Black Friday special</p>
+<a href="https://pxd2.github.io/tipsy/" target="_blank" rel="noopener" style="color: var(--accent); font-weight: 600; text-decoration: underline; text-underline-offset: 3px">See a restaurant demo →</a>
+</article>
+<article style="background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 28px; display: flex; flex-direction: column; gap: 14px">
+<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--text)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 24px">Personal web management</h3>
+<p style="margin: 0; color: var(--text2); font-size: 16px">One person who knows your business keeps your site, listings, maps and profiles current — you call, we handle it.</p>
+<p style="margin: 0; margin-top: auto; font-weight: 600">Ask for a quote</p>
+</article>
+<article style="background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 28px; display: flex; flex-direction: column; gap: 14px">
+<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--text)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11v2a1 1 0 0 0 1 1h3l5 4V6L7 10H4a1 1 0 0 0-1 1z"/><path d="M16 9a4 4 0 0 1 0 6M19 6a8 8 0 0 1 0 12"/></svg>
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 24px">Advertising</h3>
+<p style="margin: 0; color: var(--text2); font-size: 16px">Get seen on the .pxd directory and inside PXD2 games — your storefront on Route 66, your brand on the range.</p>
+<p style="margin: 0; margin-top: auto; font-weight: 600">Ask for a quote</p>
+</article>
+<article style="background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 28px; display: flex; flex-direction: column; gap: 14px">
+<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--text)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 24px">Software systems</h3>
+<p style="margin: 0; color: var(--text2); font-size: 16px">Custom apps, office tools and AI built for how your business actually runs — on hardware you own.</p>
+<p style="margin: 0; margin-top: auto; font-weight: 600">Ask for a quote</p>
+</article>
+<article style="background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 28px; display: flex; flex-direction: column; gap: 14px">
+<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--text)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l9 5v10l-9 5-9-5V7z"/><path d="M12 22V12M21 7l-9 5-9-5"/></svg>
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 24px">3D &amp; VR storefronts</h3>
+<p style="margin: 0; color: var(--text2); font-size: 16px">We scan your shop and products so customers can walk your aisles from home, in a browser or a headset.</p>
+<p style="margin: 0; margin-top: auto; font-weight: 600">Ask for a quote</p>
+</article>
+<article style="background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 28px; display: flex; flex-direction: column; gap: 14px">
+<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--text)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M12 10v4M10 12h4"/></svg>
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 24px">Online stores</h3>
+<p style="margin: 0; color: var(--text2); font-size: 16px">Take cards, cash apps and crypto. Your inventory, your checkout, your customers.</p>
+<p style="margin: 0; margin-top: auto; font-weight: 600">Ask for a quote</p>
+</article>
+</div>
+<div id="qr" style="display: flex; flex-wrap: wrap; gap: 32px; align-items: center; background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 32px">
+<div style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
+<p style="margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted)">Included with every site</p>
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 34px; line-height: 1.1">QR codes for your business</h3>
+<p style="margin: 0; color: var(--text2); font-size: 17px">Every PXD2 site comes with its own QR codes, ready to print anywhere. Customers point a phone camera and land right on your site — no typing, no searching.</p>
+<ul style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 14px 24px">
+<li style="display: flex; flex-direction: column; gap: 4px; border-top: 1px solid var(--line); padding-top: 14px"><span style="font-family: 'Space Grotesk', sans-serif; font-size: 19px; font-weight: 700">Your site QR</span><span style="color: var(--text2); font-size: 16px">For your door, counter, business cards, receipts and flyers.</span></li>
+<li style="display: flex; flex-direction: column; gap: 4px; border-top: 1px solid var(--line); padding-top: 14px"><span style="font-family: 'Space Grotesk', sans-serif; font-size: 19px; font-weight: 700">Product &amp; inventory tags</span><span style="color: var(--text2); font-size: 16px">A QR for each item — customers scan to see details, photos and call you.</span></li>
+<li style="display: flex; flex-direction: column; gap: 4px; border-top: 1px solid var(--line); padding-top: 14px"><span style="font-family: 'Space Grotesk', sans-serif; font-size: 19px; font-weight: 700">Table &amp; menu QR</span><span style="color: var(--text2); font-size: 16px">Restaurants: scan at the table for the menu, hours and online ordering.</span></li>
+<li style="display: flex; flex-direction: column; gap: 4px; border-top: 1px solid var(--line); padding-top: 14px"><span style="font-family: 'Space Grotesk', sans-serif; font-size: 19px; font-weight: 700">Updates for life</span><span style="color: var(--text2); font-size: 16px">Change your site and every printed QR still works — no reprinting.</span></li>
+</ul>
+</div>
+<figure style="margin: 0; flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; gap: 10px">
+<svg viewBox="0 0 33 33" width="180" height="180" role="img" aria-label="QR code: scan to open the Tipsy Hippy Grill demo" shape-rendering="crispEdges" style="display: block; background: white; border-radius: 8px"><rect width="33" height="33" fill="white"/><path d="M2 2h1v1h-1zM3 2h1v1h-1zM4 2h1v1h-1zM5 2h1v1h-1zM6 2h1v1h-1zM7 2h1v1h-1zM8 2h1v1h-1zM13 2h1v1h-1zM14 2h1v1h-1zM16 2h1v1h-1zM19 2h1v1h-1zM20 2h1v1h-1zM21 2h1v1h-1zM22 2h1v1h-1zM24 2h1v1h-1zM25 2h1v1h-1zM26 2h1v1h-1zM27 2h1v1h-1zM28 2h1v1h-1zM29 2h1v1h-1zM30 2h1v1h-1zM2 3h1v1h-1zM8 3h1v1h-1zM10 3h1v1h-1zM13 3h1v1h-1zM15 3h1v1h-1zM20 3h1v1h-1zM21 3h1v1h-1zM22 3h1v1h-1zM24 3h1v1h-1zM30 3h1v1h-1zM2 4h1v1h-1zM4 4h1v1h-1zM5 4h1v1h-1zM6 4h1v1h-1zM8 4h1v1h-1zM11 4h1v1h-1zM12 4h1v1h-1zM14 4h1v1h-1zM17 4h1v1h-1zM21 4h1v1h-1zM24 4h1v1h-1zM26 4h1v1h-1zM27 4h1v1h-1zM28 4h1v1h-1zM30 4h1v1h-1zM2 5h1v1h-1zM4 5h1v1h-1zM5 5h1v1h-1zM6 5h1v1h-1zM8 5h1v1h-1zM11 5h1v1h-1zM12 5h1v1h-1zM13 5h1v1h-1zM15 5h1v1h-1zM18 5h1v1h-1zM20 5h1v1h-1zM24 5h1v1h-1zM26 5h1v1h-1zM27 5h1v1h-1zM28 5h1v1h-1zM30 5h1v1h-1zM2 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM6 6h1v1h-1zM8 6h1v1h-1zM10 6h1v1h-1zM11 6h1v1h-1zM12 6h1v1h-1zM13 6h1v1h-1zM14 6h1v1h-1zM15 6h1v1h-1zM18 6h1v1h-1zM21 6h1v1h-1zM24 6h1v1h-1zM26 6h1v1h-1zM27 6h1v1h-1zM28 6h1v1h-1zM30 6h1v1h-1zM2 7h1v1h-1zM8 7h1v1h-1zM11 7h1v1h-1zM12 7h1v1h-1zM16 7h1v1h-1zM17 7h1v1h-1zM18 7h1v1h-1zM19 7h1v1h-1zM20 7h1v1h-1zM21 7h1v1h-1zM22 7h1v1h-1zM24 7h1v1h-1zM30 7h1v1h-1zM2 8h1v1h-1zM3 8h1v1h-1zM4 8h1v1h-1zM5 8h1v1h-1zM6 8h1v1h-1zM7 8h1v1h-1zM8 8h1v1h-1zM10 8h1v1h-1zM12 8h1v1h-1zM14 8h1v1h-1zM16 8h1v1h-1zM18 8h1v1h-1zM20 8h1v1h-1zM22 8h1v1h-1zM24 8h1v1h-1zM25 8h1v1h-1zM26 8h1v1h-1zM27 8h1v1h-1zM28 8h1v1h-1zM29 8h1v1h-1zM30 8h1v1h-1zM11 9h1v1h-1zM13 9h1v1h-1zM17 9h1v1h-1zM19 9h1v1h-1zM21 9h1v1h-1zM2 10h1v1h-1zM4 10h1v1h-1zM6 10h1v1h-1zM8 10h1v1h-1zM11 10h1v1h-1zM14 10h1v1h-1zM18 10h1v1h-1zM19 10h1v1h-1zM21 10h1v1h-1zM22 10h1v1h-1zM26 10h1v1h-1zM29 10h1v1h-1zM2 11h1v1h-1zM5 11h1v1h-1zM10 11h1v1h-1zM12 11h1v1h-1zM14 11h1v1h-1zM15 11h1v1h-1zM17 11h1v1h-1zM18 11h1v1h-1zM22 11h1v1h-1zM23 11h1v1h-1zM24 11h1v1h-1zM25 11h1v1h-1zM27 11h1v1h-1zM30 11h1v1h-1zM3 12h1v1h-1zM6 12h1v1h-1zM7 12h1v1h-1zM8 12h1v1h-1zM10 12h1v1h-1zM11 12h1v1h-1zM12 12h1v1h-1zM16 12h1v1h-1zM17 12h1v1h-1zM18 12h1v1h-1zM20 12h1v1h-1zM22 12h1v1h-1zM23 12h1v1h-1zM28 12h1v1h-1zM29 12h1v1h-1zM30 12h1v1h-1zM5 13h1v1h-1zM6 13h1v1h-1zM7 13h1v1h-1zM10 13h1v1h-1zM11 13h1v1h-1zM13 13h1v1h-1zM14 13h1v1h-1zM15 13h1v1h-1zM16 13h1v1h-1zM18 13h1v1h-1zM19 13h1v1h-1zM20 13h1v1h-1zM22 13h1v1h-1zM23 13h1v1h-1zM24 13h1v1h-1zM25 13h1v1h-1zM29 13h1v1h-1zM3 14h1v1h-1zM6 14h1v1h-1zM7 14h1v1h-1zM8 14h1v1h-1zM9 14h1v1h-1zM10 14h1v1h-1zM11 14h1v1h-1zM12 14h1v1h-1zM13 14h1v1h-1zM14 14h1v1h-1zM16 14h1v1h-1zM17 14h1v1h-1zM19 14h1v1h-1zM21 14h1v1h-1zM22 14h1v1h-1zM23 14h1v1h-1zM24 14h1v1h-1zM25 14h1v1h-1zM27 14h1v1h-1zM29 14h1v1h-1zM30 14h1v1h-1zM2 15h1v1h-1zM6 15h1v1h-1zM11 15h1v1h-1zM12 15h1v1h-1zM13 15h1v1h-1zM16 15h1v1h-1zM17 15h1v1h-1zM19 15h1v1h-1zM20 15h1v1h-1zM23 15h1v1h-1zM24 15h1v1h-1zM25 15h1v1h-1zM27 15h1v1h-1zM30 15h1v1h-1zM2 16h1v1h-1zM3 16h1v1h-1zM4 16h1v1h-1zM8 16h1v1h-1zM14 16h1v1h-1zM15 16h1v1h-1zM20 16h1v1h-1zM22 16h1v1h-1zM23 16h1v1h-1zM24 16h1v1h-1zM26 16h1v1h-1zM27 16h1v1h-1zM29 16h1v1h-1zM30 16h1v1h-1zM2 17h1v1h-1zM3 17h1v1h-1zM4 17h1v1h-1zM6 17h1v1h-1zM10 17h1v1h-1zM13 17h1v1h-1zM17 17h1v1h-1zM19 17h1v1h-1zM24 17h1v1h-1zM27 17h1v1h-1zM29 17h1v1h-1zM2 18h1v1h-1zM3 18h1v1h-1zM4 18h1v1h-1zM5 18h1v1h-1zM6 18h1v1h-1zM8 18h1v1h-1zM9 18h1v1h-1zM11 18h1v1h-1zM13 18h1v1h-1zM14 18h1v1h-1zM18 18h1v1h-1zM19 18h1v1h-1zM22 18h1v1h-1zM23 18h1v1h-1zM24 18h1v1h-1zM27 18h1v1h-1zM29 18h1v1h-1zM30 18h1v1h-1zM3 19h1v1h-1zM4 19h1v1h-1zM5 19h1v1h-1zM10 19h1v1h-1zM11 19h1v1h-1zM14 19h1v1h-1zM15 19h1v1h-1zM17 19h1v1h-1zM18 19h1v1h-1zM19 19h1v1h-1zM20 19h1v1h-1zM22 19h1v1h-1zM23 19h1v1h-1zM24 19h1v1h-1zM27 19h1v1h-1zM28 19h1v1h-1zM30 19h1v1h-1zM2 20h1v1h-1zM6 20h1v1h-1zM7 20h1v1h-1zM8 20h1v1h-1zM11 20h1v1h-1zM12 20h1v1h-1zM16 20h1v1h-1zM17 20h1v1h-1zM18 20h1v1h-1zM19 20h1v1h-1zM20 20h1v1h-1zM26 20h1v1h-1zM29 20h1v1h-1zM30 20h1v1h-1zM3 21h1v1h-1zM5 21h1v1h-1zM7 21h1v1h-1zM9 21h1v1h-1zM11 21h1v1h-1zM13 21h1v1h-1zM15 21h1v1h-1zM16 21h1v1h-1zM18 21h1v1h-1zM19 21h1v1h-1zM20 21h1v1h-1zM21 21h1v1h-1zM22 21h1v1h-1zM25 21h1v1h-1zM26 21h1v1h-1zM27 21h1v1h-1zM29 21h1v1h-1zM2 22h1v1h-1zM6 22h1v1h-1zM7 22h1v1h-1zM8 22h1v1h-1zM9 22h1v1h-1zM10 22h1v1h-1zM11 22h1v1h-1zM12 22h1v1h-1zM13 22h1v1h-1zM16 22h1v1h-1zM17 22h1v1h-1zM19 22h1v1h-1zM22 22h1v1h-1zM23 22h1v1h-1zM24 22h1v1h-1zM25 22h1v1h-1zM26 22h1v1h-1zM10 23h1v1h-1zM11 23h1v1h-1zM12 23h1v1h-1zM14 23h1v1h-1zM16 23h1v1h-1zM17 23h1v1h-1zM20 23h1v1h-1zM22 23h1v1h-1zM26 23h1v1h-1zM28 23h1v1h-1zM29 23h1v1h-1zM30 23h1v1h-1zM2 24h1v1h-1zM3 24h1v1h-1zM4 24h1v1h-1zM5 24h1v1h-1zM6 24h1v1h-1zM7 24h1v1h-1zM8 24h1v1h-1zM13 24h1v1h-1zM15 24h1v1h-1zM20 24h1v1h-1zM21 24h1v1h-1zM22 24h1v1h-1zM24 24h1v1h-1zM26 24h1v1h-1zM27 24h1v1h-1zM29 24h1v1h-1zM30 24h1v1h-1zM2 25h1v1h-1zM8 25h1v1h-1zM11 25h1v1h-1zM13 25h1v1h-1zM14 25h1v1h-1zM17 25h1v1h-1zM19 25h1v1h-1zM20 25h1v1h-1zM22 25h1v1h-1zM26 25h1v1h-1zM27 25h1v1h-1zM2 26h1v1h-1zM4 26h1v1h-1zM5 26h1v1h-1zM6 26h1v1h-1zM8 26h1v1h-1zM10 26h1v1h-1zM12 26h1v1h-1zM13 26h1v1h-1zM14 26h1v1h-1zM18 26h1v1h-1zM19 26h1v1h-1zM20 26h1v1h-1zM22 26h1v1h-1zM23 26h1v1h-1zM24 26h1v1h-1zM25 26h1v1h-1zM26 26h1v1h-1zM29 26h1v1h-1zM2 27h1v1h-1zM4 27h1v1h-1zM5 27h1v1h-1zM6 27h1v1h-1zM8 27h1v1h-1zM11 27h1v1h-1zM14 27h1v1h-1zM17 27h1v1h-1zM18 27h1v1h-1zM21 27h1v1h-1zM26 27h1v1h-1zM28 27h1v1h-1zM2 28h1v1h-1zM4 28h1v1h-1zM5 28h1v1h-1zM6 28h1v1h-1zM8 28h1v1h-1zM10 28h1v1h-1zM11 28h1v1h-1zM12 28h1v1h-1zM13 28h1v1h-1zM14 28h1v1h-1zM16 28h1v1h-1zM17 28h1v1h-1zM18 28h1v1h-1zM19 28h1v1h-1zM23 28h1v1h-1zM25 28h1v1h-1zM26 28h1v1h-1zM27 28h1v1h-1zM30 28h1v1h-1zM2 29h1v1h-1zM8 29h1v1h-1zM12 29h1v1h-1zM14 29h1v1h-1zM15 29h1v1h-1zM18 29h1v1h-1zM19 29h1v1h-1zM20 29h1v1h-1zM21 29h1v1h-1zM22 29h1v1h-1zM25 29h1v1h-1zM29 29h1v1h-1zM2 30h1v1h-1zM3 30h1v1h-1zM4 30h1v1h-1zM5 30h1v1h-1zM6 30h1v1h-1zM7 30h1v1h-1zM8 30h1v1h-1zM10 30h1v1h-1zM17 30h1v1h-1zM18 30h1v1h-1zM20 30h1v1h-1zM21 30h1v1h-1zM22 30h1v1h-1zM24 30h1v1h-1zM26 30h1v1h-1zM27 30h1v1h-1zM29 30h1v1h-1zM30 30h1v1h-1z" fill="black"/></svg>
+<figcaption style="color: var(--text2); font-size: 15px; text-align: center">Scan me — opens our<br>restaurant demo</figcaption>
+</figure>
+</div>
+<a href="https://pxd2.github.io/tipsy/" target="_blank" rel="noopener" aria-label="Live restaurant demo: Tipsy Hippy Grill, Lakeside, Arizona (opens in a new tab)" style="text-decoration: none; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px; background: var(--bg2); border: 1px solid var(--line2); border-radius: 16px; padding: 26px 28px">
+<span style="display: flex; flex-direction: column; gap: 6px; min-width: 0">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted)">Live demo · Restaurants</span>
+<span style="font-family: 'Space Grotesk', sans-serif; font-size: 26px; font-weight: 700">Tipsy Hippy Grill — Lakeside, AZ</span>
+<span style="color: var(--text2); font-size: 16px">Menu, hours, online ordering, map and a call bar on phones. Black Friday special: restaurant menu sites are $1,000 flat — ten years on your .com plus a lifetime pxd2.com address.</span>
+</span>
+<span style="background: var(--accent); color: var(--onaccent); border-radius: 10px; padding: 0 22px; min-height: 52px; display: inline-flex; align-items: center; font-weight: 600">Open the demo</span>
+</a>
+</section>
+
+<section id="network" style="background: var(--paper); color: var(--bg)">
+<div style="max-width: 1240px; margin: 0 auto; padding: 112px 32px; display: flex; flex-wrap: wrap; gap: 64px; align-items: center">
+<div style="flex: 1 1 460px; display: flex; flex-direction: column; gap: 18px">
+<p style="margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; color: var(--papermuted)">The .pxd network</p>
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 56px; line-height: 1.02; letter-spacing: -1.5px">Your name. No registrar.</h2>
+<p style="margin: 0; font-size: 19px; color: var(--papertext2)">Every business gets a .pxd name that opens in the PXD Browser — and a matching pxd2.com address that works in Chrome, Safari and Google today.</p>
+<a href="https://pxd2.github.io" style="align-self: flex-start; text-decoration: none; background: var(--bg); color: var(--text); padding: 14px 22px; border-radius: 8px; font-weight: 600; min-height: 44px; box-sizing: border-box">Open the PXD Browser</a>
+</div>
+<div style="flex: 1 1 460px; display: flex; flex-direction: column; gap: 14px">
+<div style="background: var(--card); border: 1px solid var(--paperline); border-radius: 14px; padding: 22px 24px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; align-items: center">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 18px">mikevanceauto.pxd</span>
+<span style="font-size: 15px; color: var(--papermuted)">PXD Browser</span>
+</div>
+<div style="text-align: center; font-family: 'JetBrains Mono', monospace; color: var(--papermuted); font-size: 14px">same site</div>
+<div style="background: var(--card); border: 1px solid var(--paperline); border-radius: 14px; padding: 22px 24px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; align-items: center">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 18px">mikevanceauto.pxd2.com</span>
+<span style="font-size: 15px; color: var(--papermuted)">Any browser · Google</span>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px">
+<span style="border: 1px solid var(--paperline2); border-radius: 999px; padding: 6px 14px; font-size: 14px">Stores &amp; VR</span>
+<a href="https://pxd2.github.io/tipsy/" target="_blank" rel="noopener" style="border: 1px solid var(--paperline2); border-radius: 999px; padding: 6px 14px; font-size: 14px; text-decoration: underline; text-underline-offset: 3px">Restaurants</a>
+<span style="border: 1px solid var(--paperline2); border-radius: 999px; padding: 6px 14px; font-size: 14px">Trades</span>
+<span style="border: 1px solid var(--paperline2); border-radius: 999px; padding: 6px 14px; font-size: 14px">Games</span>
+<span style="border: 1px solid var(--paperline2); border-radius: 999px; padding: 6px 14px; font-size: 14px">Learning</span>
+<span style="border: 1px solid var(--paperline2); border-radius: 999px; padding: 6px 14px; font-size: 14px">Tools &amp; making</span>
+</div>
+</div>
+</div>
+</section>
+
+<section id="lit" style="max-width: 1240px; margin: 0 auto; padding: 112px 32px; display: flex; flex-wrap: wrap; gap: 64px">
+<div style="flex: 1 1 460px; display: flex; flex-direction: column; gap: 18px">
+<p style="margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted)">Lit · coming soon</p>
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 56px; line-height: 1.02; letter-spacing: -1.5px">Search and watch without being sold.</h2>
+<p style="margin: 0; font-size: 19px; color: var(--text2)">Lit routes your searches, browsing and YouTube through the PXD2 network, so ad companies can&#39;t build a profile on you and sell it. No sign-up, no email, no name — just a private access code.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 6px">
+<a href="mailto:chad@pxd2.com?subject=Lit%20early%20access" style="text-decoration: none; background: var(--accent); color: var(--onaccent); border-radius: 10px; padding: 0 24px; min-height: 52px; display: inline-flex; align-items: center; font-size: 16px; font-weight: 600">Get early access</a>
+</div>
+<p style="margin: 0; font-size: 15px; color: var(--muted)">When Lit opens, your private access code is your account — no name or email required.</p>
+</div>
+<div style="flex: 1 1 460px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr)); gap: 16px">
+<div style="border: 1px solid var(--line); border-radius: 14px; padding: 22px; display: flex; flex-direction: column; gap: 8px"><h3 style="margin: 0; font-size: 18px; font-family: 'Space Grotesk', sans-serif">No login, no history</h3><p style="margin: 0; color: var(--text2); font-size: 15px">No account details to leak, and no record of where you browse.</p></div>
+<div style="border: 1px solid var(--line); border-radius: 14px; padding: 22px; display: flex; flex-direction: column; gap: 8px"><h3 style="margin: 0; font-size: 18px; font-family: 'Space Grotesk', sans-serif">YouTube, unprofiled</h3><p style="margin: 0; color: var(--text2); font-size: 15px">Watch through Lit without signing in, so your viewing isn&#39;t tied to you.</p></div>
+<div style="border: 1px solid var(--line); border-radius: 14px; padding: 22px; display: flex; flex-direction: column; gap: 8px"><h3 style="margin: 0; font-size: 18px; font-family: 'Space Grotesk', sans-serif">Harmful sites blocked</h3><p style="margin: 0; color: var(--text2); font-size: 15px">Known abuse, malware and phishing domains are filtered for everyone.</p></div>
+<div style="border: 1px solid var(--line); border-radius: 14px; padding: 22px; display: flex; flex-direction: column; gap: 8px"><h3 style="margin: 0; font-size: 18px; font-family: 'Space Grotesk', sans-serif">Clear use rules</h3><p style="margin: 0; color: var(--text2); font-size: 15px">No illegal use. Codes that break the rules are shut off.</p></div>
+<div style="border: 1px solid var(--line); border-radius: 14px; padding: 22px; display: flex; flex-direction: column; gap: 8px"><h3 style="margin: 0; font-size: 18px; font-family: 'Space Grotesk', sans-serif">Report abuse</h3><p style="margin: 0; color: var(--text2); font-size: 15px">abuse@pxd2.com — every report is reviewed.</p></div>
+</div>
+</section>
+
+<section id="games" style="border-top: 1px solid var(--line); background: var(--bg2)">
+<div style="max-width: 1240px; margin: 0 auto; padding: 112px 32px; display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 14px">
+<p style="margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted)">PXD2 Games</p>
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 56px; line-height: 1.02; letter-spacing: -1.5px">Built in Unreal. Built here.</h2>
+</div>
+<a href="#contact" style="text-decoration: none; border: 1px solid var(--line2); border-radius: 8px; padding: 12px 18px; font-weight: 500; font-size: 15px">Join a playtest →</a>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 20px">
+<article style="display: flex; flex-direction: column; gap: 14px">
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 24px">Global Theaters: Mud for Blood</h3>
+<p style="margin: 0; color: var(--text2); font-size: 15px">Tactical combat, starting at the PXD2 training center.</p>
+</article>
+<article style="display: flex; flex-direction: column; gap: 14px">
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 24px">Rouge Racer: Route 66</h3>
+<p style="margin: 0; color: var(--text2); font-size: 15px">Drive the Mother Road in the Rouge Concho — and shop the real towns along it.</p>
+</article>
+<article style="display: flex; flex-direction: column; gap: 14px">
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 24px">PXD2 Fleet</h3>
+<p style="margin: 0; color: var(--text2); font-size: 15px">Naval and air combat with PXD2 subs, frigates and drones.</p>
+</article>
+</div>
+</div>
+</section>
+
+<section id="labs" style="max-width: 1240px; margin: 0 auto; padding: 112px 32px; display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; flex-direction: column; gap: 14px; max-width: 760px">
+<p style="margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted)">PXD2 Labs</p>
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 56px; line-height: 1.02; letter-spacing: -1.5px">Hardware and software, made off-grid.</h2>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 16px; overflow: hidden">
+<div style="background: var(--bg); padding: 28px; display: flex; flex-direction: column; gap: 8px"><h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 20px">Droids &amp; drones</h3><p style="margin: 0; color: var(--text2); font-size: 15px">Mesh-networked droid fleet and the PXD2 board.</p></div>
+<div style="background: var(--bg); padding: 28px; display: flex; flex-direction: column; gap: 8px"><h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 20px">PXD2 VR Base</h3><p style="margin: 0; color: var(--text2); font-size: 15px">Walk-in-place locomotion for VR.</p></div>
+<div style="background: var(--bg); padding: 28px; display: flex; flex-direction: column; gap: 8px"><h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 20px">PXD2 CAD</h3><p style="margin: 0; color: var(--text2); font-size: 15px">Open-source CAD in the browser.</p></div>
+<div style="background: var(--bg); padding: 28px; display: flex; flex-direction: column; gap: 8px"><h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 20px">PXD2 Office</h3><p style="margin: 0; color: var(--text2); font-size: 15px">Docs, sheets and slides that run anywhere.</p></div>
+</div>
+</section>
+
+<section id="founder" style="border-top: 1px solid var(--line); background: var(--bg2)">
+<div style="max-width: 1240px; margin: 0 auto; padding: 112px 32px; display: flex; flex-wrap: wrap; gap: 64px; align-items: flex-start">
+<div style="flex: 1 1 520px; display: flex; flex-direction: column; gap: 20px">
+<p style="margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted)">Founder</p>
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 56px; line-height: 1.02; letter-spacing: -1.5px">Chad Aaron Peters</h2>
+<p style="margin: 0; font-size: 19px; color: var(--text2)">Chad builds PXD2 from his own land in Concho, Arizona — fully off-grid, on solar he wired himself. He&#39;s a software developer and PCB and embedded engineer whose work runs from smart meters to AI systems, and he designs the games, droids, boards and network that make up PXD2.</p>
+<p style="margin: 0; font-size: 19px; color: var(--text2)">Before tech, he spent years in kitchens, auto shops and maintenance crews across the Valley, so he knows how a small business really runs — and he builds PXD2&#39;s sites, software and around-the-clock support around that. He&#39;s also a war historian.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: stretch; margin-top: 8px">
+<div style="flex: 1 1 300px; border: 1px solid var(--line2); border-radius: 14px; padding: 22px; display: flex; flex-direction: column; gap: 8px">
+<img src="badge.webp" alt="AMD ROCm Certified Associate badge" style="width: 120px; height: 120px; border-radius: 8px">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted)">Credential</span>
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 22px">AMD ROCm™ Certified Associate</h3>
+<p style="margin: 0; color: var(--text2); font-size: 15px">AMD&#39;s official credential for building, porting and optimizing AI and high-performance code on AMD GPUs — HIP programming, GPU architecture, profiling and CUDA porting. The program launched in July 2026; Chad earned it October 22, 2026, among its first holders.</p>
+</div>
+<div style="flex: 1 1 220px; border: 1px solid var(--line2); border-radius: 14px; padding: 22px; display: flex; flex-direction: column; gap: 8px">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted)">Run by</span>
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 22px">Angie Wood</h3>
+<p style="margin: 0; color: var(--text2); font-size: 15px">CEO — runs the business side so Chad can build.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="contact" style="background: var(--accent); color: var(--onaccent)">
+<div style="max-width: 1240px; margin: 0 auto; padding: 96px 32px; display: flex; flex-wrap: wrap; gap: 48px; justify-content: space-between; align-items: flex-end">
+<div style="flex: 1 1 480px; display: flex; flex-direction: column; gap: 16px">
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 64px; line-height: 1; letter-spacing: -2px">Let&#39;s get you lit.</h2>
+<p style="margin: 0; font-size: 19px">Tell us about your business and we&#39;ll show you a draft before you pay a dime.</p>
+</div>
+<div style="flex: 1 1 360px; display: flex; flex-direction: column; gap: 10px; font-size: 18px">
+<a href="mailto:chad@pxd2.com" style="color: var(--onaccent); text-decoration: none; font-weight: 600">chad@pxd2.com <span style="font-weight: 400">· Founder</span></a>
+<a href="mailto:angie@pxd2.com" style="color: var(--onaccent); text-decoration: none; font-weight: 600">angie@pxd2.com <span style="font-weight: 400">· Sales &amp; accounts</span></a>
+<a href="tel:+19284576404" style="color: var(--onaccent); text-decoration: none">928-457-6404</a>
+<span>On call 24/7, 365 days a year</span>
+<span>PO Box 514, Concho, AZ 85924</span>
+</div>
+</div>
+</section>
+
+</main>
+<footer style="max-width: 1240px; margin: 0 auto; padding: 32px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; color: var(--muted); font-size: 14px">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<span>© 2026 PXD2 Enterprises · Lit by PXD2</span>
+<span>PO Box 514, Concho, AZ 85924 · <a href="tel:+19284576404" style="color: var(--muted)">928-457-6404</a> · <a href="mailto:chad@pxd2.com" style="color: var(--muted)">chad@pxd2.com</a> · <a href="mailto:angie@pxd2.com" style="color: var(--muted)">angie@pxd2.com</a></span>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 20px">
+<a href="#statement" style="color: var(--muted)">Accessibility statement</a>
+<a href="#lit" style="color: var(--muted)">Acceptable use</a>
+<a href="#lit" style="color: var(--muted)">Privacy</a>
+<a href="mailto:abuse@pxd2.com" style="color: var(--muted)">abuse@pxd2.com</a>
+</div>
+</footer>
+
+</div>
+<script>(function () {
+  var $ = function (s) { return document.querySelector(s); };
+  var status = $('#access-status');
+  var root = document.documentElement;
+  var state = { voice: false, read: false, tone: false, large: false, light: false, calm: false };
+  function save() { try { localStorage.setItem('pxd2-access', JSON.stringify({ tone: state.tone, large: state.large, light: state.light, calm: state.calm })); } catch (e) {} }
+  function say(msg) { if (status) status.textContent = msg; }
+  function setBtn(name, on) {
+    var b = document.querySelector('[data-feature="' + name + '"]');
+    if (b) { b.setAttribute('aria-pressed', on ? 'true' : 'false'); }
+  }
+
+  /* ---------- Tone guide ---------- */
+  var ctx = null;
+  function tone(freqs, dur) {
+    if (!state.tone) return;
+    try {
+      ctx = ctx || new (window.AudioContext || window.webkitAudioContext)();
+      var t = ctx.currentTime;
+      freqs.forEach(function (f, i) {
+        var o = ctx.createOscillator(), g = ctx.createGain();
+        o.type = 'sine'; o.frequency.value = f;
+        g.gain.setValueAtTime(0.0001, t + i * dur);
+        g.gain.exponentialRampToValueAtTime(0.12, t + i * dur + 0.01);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + (i + 1) * dur);
+        o.connect(g); g.connect(ctx.destination);
+        o.start(t + i * dur); o.stop(t + (i + 1) * dur + 0.02);
+      });
+    } catch (e) {}
+  }
+  document.addEventListener('focusin', function (e) {
+    var el = e.target;
+    if (!state.tone || !el) return;
+    var tag = el.tagName;
+    if (/^H[1-3]$/.test(tag)) tone([440, 660], 0.09);          // heading: rising
+    else if (tag === 'A') tone([880], 0.05);                     // link: click
+    else if (tag === 'BUTTON') tone([660, 990], 0.07);           // button: chime
+    else if (tag === 'INPUT' || tag === 'TEXTAREA') tone([523, 523], 0.06); // field: double
+  });
+  function setTone(on) {
+    state.tone = on; setBtn('tone', on);
+    document.querySelectorAll('main h2, main h3').forEach(function (h) { if (on) h.setAttribute('tabindex', '0'); else h.removeAttribute('tabindex'); });
+    if (on) { tone([440, 660, 880], 0.08); say('Tone guide on. Rising tone means a heading, a click means a link, a chime means a button.'); } else say('Tone guide off.');
+    save();
+  }
+
+  /* ---------- Read aloud ---------- */
+  var synth = window.speechSynthesis;
+  function stopReading() { if (synth) synth.cancel(); state.read = false; setBtn('read', false); }
+  function readText(text) {
+    if (!synth) { say('Read aloud is not supported in this browser.'); return; }
+    synth.cancel();
+    var chunks = text.replace(/\s+/g, ' ').match(/[^.!?]+[.!?]*/g) || [text];
+    state.read = true; setBtn('read', true);
+    chunks.forEach(function (c, i) {
+      var u = new SpeechSynthesisUtterance(c.trim()); u.rate = 1; u.lang = 'en-US';
+      if (i === chunks.length - 1) u.onend = function () { state.read = false; setBtn('read', false); };
+      synth.speak(u);
+    });
+  }
+  function currentSection() {
+    var secs = document.querySelectorAll('main section'), best = null, mid = window.innerHeight / 3;
+    secs.forEach(function (s) { var r = s.getBoundingClientRect(); if (r.top <= mid && r.bottom > mid) best = s; });
+    return best || $('main');
+  }
+  function toggleRead() {
+    if (state.read) { stopReading(); say('Stopped reading.'); return; }
+    say('Reading this section. Press Read aloud again or say "stop" to stop.');
+    readText(currentSection().innerText);
+  }
+
+  /* ---------- Display ---------- */
+  function setLarge(on) { state.large = on; setBtn('large', on); root.classList.toggle('a-large', on); say(on ? 'Larger text on.' : 'Larger text off.'); save(); }
+  function setLight(on) { state.light = on; setBtn('light', on); root.classList.toggle('a-light', on); say(on ? 'Light mode on.' : 'Warm dark mode on.'); save(); }
+  function setCalm(on) { state.calm = on; setBtn('calm', on); root.classList.toggle('a-calm', on); say(on ? 'Calm motion on.' : 'Calm motion off.'); save(); }
+
+  /* ---------- Voice control ---------- */
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition, rec = null;
+  var places = { services: 'web', service: 'web', websites: 'web', network: 'network', pxd: 'network', lit: 'lit', vpn: 'lit', privacy: 'lit', games: 'games', game: 'games', labs: 'labs', hardware: 'labs', founder: 'founder', about: 'founder', chad: 'founder', contact: 'contact', access: 'access', accessibility: 'access', top: 'top', home: 'top' };
+  function go(id) { var el = document.getElementById(id); if (el) { el.scrollIntoView({ behavior: state.calm ? 'auto' : 'smooth' }); var h = el.querySelector('h1,h2'); if (h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); } say('Opened ' + id + '.'); tone([440, 660], 0.09); } }
+  function handle(cmd) {
+    cmd = cmd.toLowerCase().trim();
+    say('Heard: "' + cmd + '"');
+    if (/\bstop\b/.test(cmd)) { stopReading(); return; }
+    if (/read/.test(cmd)) { readText((/whole|all|page/.test(cmd) ? $('main') : currentSection()).innerText); return; }
+    if (/scroll down|next/.test(cmd)) { window.scrollBy(0, window.innerHeight * 0.8); return; }
+    if (/scroll up|back|previous/.test(cmd)) { window.scrollBy(0, -window.innerHeight * 0.8); return; }
+    if (/call/.test(cmd)) { window.location.href = 'tel:+19284576404'; return; }
+    if (/email|mail/.test(cmd)) { window.location.href = 'mailto:' + (/angie/.test(cmd) ? 'angie' : 'chad') + '@pxd2.com'; return; }
+    if (/bigger|larger|zoom in/.test(cmd)) { setLarge(true); return; }
+    if (/smaller|zoom out/.test(cmd)) { setLarge(false); return; }
+    var themeWords = { red: 'pxd2', pxd2: 'pxd2', warm: 'warm', holo: 'r6', r6: 'r6', dune: 'dune', hangar: 'hangar', cruiser: 'cruiser', nebula: 'nebula' };
+    if (/theme|color|colour/.test(cmd)) { var tw = cmd.split(/\s+/); for (var j = 0; j < tw.length; j++) { if (themeWords[tw[j]]) { setTheme(themeWords[tw[j]]); return; } } }
+    if (/light/.test(cmd)) { setLight(true); return; }
+    if (/dark/.test(cmd)) { setLight(false); return; }
+    if (/tone/.test(cmd)) { setTone(!/off/.test(cmd)); return; }
+    var words = cmd.split(/\s+/);
+    for (var i = words.length - 1; i >= 0; i--) { if (places[words[i]]) { go(places[words[i]]); return; } }
+    say('Try "open services", "read this page", "call PXD2" or "stop".');
+  }
+  function setVoice(on) {
+    if (on && !SR) { say('Voice control needs Chrome, Edge or Safari. Read aloud and the tone guide work everywhere.'); setBtn('voice', false); return; }
+    state.voice = on; setBtn('voice', on);
+    if (on) {
+      rec = new SR(); rec.lang = 'en-US'; rec.continuous = true; rec.interimResults = false;
+      rec.onresult = function (e) { handle(e.results[e.results.length - 1][0].transcript); };
+      rec.onend = function () { if (state.voice) { try { rec.start(); } catch (e) {} } };
+      rec.onerror = function (e) { if (e.error === 'not-allowed') { state.voice = false; setBtn('voice', false); say('Microphone permission was blocked. Allow it in your browser to use voice control.'); } };
+      try { rec.start(); say('Listening… try "open services", "read this page" or "call PXD2".'); } catch (e) {}
+    } else { if (rec) { rec.onend = null; rec.stop(); } say('Voice control off.'); }
+  }
+
+  /* ---------- Color theme (ASTRO COMS set) ---------- */
+  var pick = $('#theme-pick');
+  function setTheme(key, quiet) {
+    if (key === 'pxd2') root.removeAttribute('data-theme'); else root.setAttribute('data-theme', key);
+    if (pick) pick.value = key;
+    try { localStorage.setItem('pxd2-theme', key); } catch (e) {}
+    if (!quiet) { say('Color theme: ' + (pick ? pick.options[pick.selectedIndex].text : key) + '.'); tone([523, 659], 0.07); }
+  }
+  if (pick) {
+    pick.value = root.getAttribute('data-theme') || 'pxd2';
+    pick.addEventListener('change', function () { setTheme(pick.value); });
+  }
+
+  /* ---------- Wire up ---------- */
+  var actions = { voice: function () { setVoice(!state.voice); }, read: toggleRead, tone: function () { setTone(!state.tone); }, large: function () { setLarge(!state.large); }, light: function () { setLight(!state.light); }, calm: function () { setCalm(!state.calm); } };
+  document.querySelectorAll('[data-feature]').forEach(function (b) { b.addEventListener('click', function () { actions[b.getAttribute('data-feature')](); }); });
+  document.addEventListener('keydown', function (e) {
+    if (e.altKey && (e.key === 'a' || e.key === 'A')) { e.preventDefault(); go('access'); var first = document.querySelector('[data-feature]'); if (first) first.focus(); }
+    if (e.key === 'Escape' && state.read) stopReading();
+  });
+  try {
+    var saved = JSON.parse(localStorage.getItem('pxd2-access') || '{}');
+    if (saved.large) setLarge(true); if (saved.light) setLight(true); if (saved.calm) setCalm(true);
+    if (saved.tone) { state.tone = true; setBtn('tone', true); }
+  } catch (e) {}
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) { root.classList.add('a-calm'); setBtn('calm', true); state.calm = true; }
+  say('Press a button, or press Alt + A from anywhere on the page.');
+})();
+</script>
+</body>
+</html>
