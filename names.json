@@ -1785,6 +1785,22 @@
       "group": "Client sites",
       "status": "client",
       "owner": "PXD2"
+    },
+    "mufflermasters": {
+      "to": "/clients/muffler-masters-taylor-2037be/",
+      "title": "Muffler Masters (Taylor, AZ)",
+      "added": "2026-11-24",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "Muffler Masters"
+    },
+    "patriotflagpoles": {
+      "to": "/clients/patriot-flagpoles-62ef21/",
+      "title": "Patriot Flagpoles (Taylor, AZ)",
+      "added": "2026-11-24",
+      "group": "Client sites",
+      "status": "concept",
+      "owner": "Patriot Flagpoles"
     }
   },
   "groups": [
