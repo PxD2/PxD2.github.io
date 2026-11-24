@@ -52,6 +52,16 @@ def qr_svg(url, dark):
     return b.getvalue().decode().replace("<svg ", '<svg class="segno" role="img" aria-label="QR code to this page" ', 1)
 
 CSS = r'''
+.shop{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}@media(max-width:1000px){.shop{grid-template-columns:repeat(3,1fr)}}@media(max-width:720px){.shop{grid-template-columns:1fr 1fr;gap:12px}}
+.prod{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;transition:transform .3s,box-shadow .3s,border-color .3s;position:relative}
+.prod:hover{transform:translateY(-4px);box-shadow:0 24px 40px -28px rgba(0,0,0,.5);border-color:color-mix(in srgb,var(--acc) 45%,var(--line))}
+.prod .pi{aspect-ratio:1;background:#fff;display:grid;place-items:center;overflow:hidden}.prod .pi img{width:100%;height:100%;object-fit:contain;padding:8px;transition:transform .6s}.prod:hover .pi img{transform:scale(1.05)}
+.prod .pb{padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;flex:1}.prod h3{font:700 1.02rem/1.25 var(--body);margin:0}.prod .pp{font:700 1.2rem/1 var(--head);color:var(--acc)}.prod .pp small{font:500 .8rem var(--body);color:var(--soft);margin-right:4px}
+.prod .pd{color:var(--soft);font-size:.88rem;margin:0}.prod .pa{margin-top:auto;display:flex;gap:8px;padding-top:8px}.prod .pa a{flex:1;text-align:center;padding:10px 8px;border-radius:10px;font:700 .88rem/1 var(--body);text-decoration:none}
+.prod .pa .buy{background:var(--acc);color:var(--on)}.prod .pa .ask{border:1px solid var(--line);color:var(--ink)}.prod .rib{position:absolute;top:10px;left:10px;background:var(--acc2);color:#1E1B18;font:800 .72rem/1 var(--body);letter-spacing:.04em;text-transform:uppercase;padding:6px 9px;border-radius:999px;z-index:2}
+.prod[hidden]{display:none}.trust{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 18px}.trust span{display:inline-flex;align-items:center;gap:8px;background:var(--panel2);border-radius:999px;padding:8px 14px;font-weight:600;font-size:.92rem}.trust .ic{color:var(--acc)}
+.howto{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:26px;counter-reset:h}@media(max-width:800px){.howto{grid-template-columns:1fr 1fr}}.howto div{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px;counter-increment:h}.howto div::before{content:counter(h);display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--acc);color:var(--on);font-weight:800;margin-bottom:8px}.howto b{display:block}.howto span{color:var(--soft);font-size:.92rem}
+@media(max-width:720px){.prod .pa{flex-direction:column}.prod .pb{padding:12px}}
 :root{--bg:%BG%;--panel:%PANEL%;--panel2:%PANEL2%;--ink:%INK%;--soft:%SOFT%;--acc:%ACC%;--acc2:%ACC2%;--on:%ON%;--line:%LINE%;--head:%HEAD%;--body:%BODY%;--r:22px;--glow:%GLOW%}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:84px;overflow-x:clip}
@@ -231,6 +241,7 @@ def build(key, c):
     nav = [("top3", c.get("nav_first", "Highlights"))]
     if c.get("menu"): nav.append(("menu", c.get("menu_nav", "Menu")))
     if c.get("services"): nav.append(("services", "Services"))
+    if c.get("shop"): nav.insert(1, ("shop", "Shop"))
     nav += [("story", c.get("story_nav", "Our story")), ("photos", "Photos"), ("visit", "Visit")]
     # hero collage
     hp = c["hero_photos"]
@@ -260,6 +271,33 @@ def build(key, c):
  <p class="kick rv">{e(c.get("services_kick","Services"))}</p><h2 class="rv">{c["services_h2"]}</h2>{f'<p class="lede rv">{e(c["services_lede"])}</p>' if c.get("services_lede") else ""}
  <div class="cards">{sv_cards}</div>{f'<p class="mnote" style="margin-top:22px">{e(c["services_note"])}</p>' if c.get("services_note") else ""}
 </div></section>'''
+    shop = ""
+    if c.get("shop"):
+        S = c["shop"]
+        cats = ["All"] + list(dict.fromkeys(it["cat"] for it in S["items"]))
+        chips = "".join(f'<button class="tab" type="button" role="tab" aria-selected="{"true" if i==0 else "false"}" data-cat="{e(k)}">{e(k)}</button>' for i, k in enumerate(cats))
+        def pcard(it):
+            rib = f'<span class="rib">{e(it["rib"])}</span>' if it.get("rib") else ""
+            pre = '<small>from</small>' if it.get("from") else ""
+            d = f'<p class="pd">{e(it["d"])}</p>' if it.get("d") else ""
+            return (f'<article class="prod rv" data-cat="{e(it["cat"])}" data-n="{e(it["n"].lower())}">{rib}<div class="pi"><img src="img/shop/{it["img"]}.jpg" alt="{e(it["n"])}" loading="lazy"></div>'
+                    f'<div class="pb"><h3>{e(it["n"])}</h3><span class="pp">{pre}{e(it["p"])}</span>{d}<div class="pa"><a class="buy" href="{e(S["store"])}/product-page/{it["h"]}" target="_blank" rel="noopener">Buy online</a>'
+                    f'<a class="ask" href="tel:{tel}">Call</a></div></div></article>')
+        trust = "".join(f'<span>{ic(i)}{e(t)}</span>' for i, t in S.get("trust", []))
+        how = "".join(f'<div><b>{e(a)}</b><span>{e(b)}</span></div>' for a, b in S.get("howto", []))
+        shop = f'''<section id="shop" style="padding-top:0"><div class="wrap">
+ <p class="kick rv">{e(S.get("kick","Shop"))}</p><h2 class="rv">{S["h2"]}</h2><p class="lede rv">{e(S["lede"])}</p>
+ <div class="trust rv">{trust}</div>
+ <div class="mbar"><div class="tabs" role="tablist" aria-label="Shop categories" id="stabs">{chips}</div>
+  <label class="search">{ic("spark")}<input id="sq" type="search" placeholder="{e(S.get("search","Search products"))}" aria-label="Search products"></label></div>
+ <div class="shop" id="shopg">{"".join(pcard(it) for it in S["items"])}</div>
+ <div style="text-align:center;margin-top:20px"><button class="btn b2" type="button" id="smore">{ic("flag")}Show all {len(S["items"])} products</button></div>
+ <p class="mnote" style="margin-top:22px">{S["note"]}</p>
+ {f'<h3 class="rv" style="font:700 1.5rem var(--head);margin-top:40px">{e(S["howto_h"])}</h3><div class="howto">{how}</div>' if how else ""}
+</div></section>
+<script>(()=>{{const g=document.getElementById('shopg'),t=document.getElementById('stabs'),q=document.getElementById('sq');let cat='All';
+const mb=document.getElementById('smore');let all=false;const run=()=>{{const v=(q.value||'').toLowerCase().trim();const lim=!all&&cat==='All'&&!v;let k=0;g.querySelectorAll('.prod').forEach(p=>{{const ok=(cat==='All'||p.dataset.cat===cat)&&(!v||p.dataset.n.includes(v)||p.dataset.cat.toLowerCase().includes(v));p.hidden=!ok||(lim&&k>=12);if(ok)k++}});mb.parentNode.hidden=!lim}};mb.addEventListener('click',()=>{{all=true;run()}});run();
+t.addEventListener('click',ev=>{{const b=ev.target.closest('.tab');if(!b)return;cat=b.dataset.cat;t.querySelectorAll('.tab').forEach(x=>x.setAttribute('aria-selected',x===b));run()}});q.addEventListener('input',run)}})();</script>'''
     menu = ""
     if c.get("menu"):
         menu = f'''<section id="menu" style="padding-top:0"><div class="wrap">
@@ -294,6 +332,7 @@ def build(key, c):
     contact_rows = (f'<p class="lbl">{ic("pin")}{e(c.get("addr_label","Address"))}</p><p class="bigt">{c["address_html"]}</p>'
                     + (f'<p class="lbl">{ic("phone")}Phone</p><p class="bigt"><a href="tel:{tel}">{phone}</a></p>' if phone else "")
                     + (f'<p class="lbl">{ic("mail")}Email</p><p class="bigt" style="font-size:1.05rem"><a href="mailto:{e(email)}">{e(email)}</a></p>' if email else "")
+                    + (f'<p class="lbl">{ic("cart" if "cart" in v2.I else "flag")}Online store</p><p class="bigt" style="font-size:1.05rem"><a href="{e(c["web"])}" target="_blank" rel="noopener">{e(c["web"].split("//")[1].replace("www.",""))}</a></p>' if c.get("web") else "")
                     + (f'<p class="lbl">{ic("fb")}Facebook</p><p class="bigt" style="font-size:1.05rem"><a href="{e(c["fb"])}" target="_blank" rel="noopener">Follow for specials &amp; news</a></p>' if c.get("fb") else "")
                     + f'<p class="lbl">{ic("clock")}Hours</p>{hours_html}')
     story_fig = f'<figure class="rv"><img src="{img(c["story_photo"][0])}" alt="{e(c["story_photo"][1])}" loading="lazy"></figure>'
@@ -343,7 +382,7 @@ def build(key, c):
  <p class="kick rv">{e(c["top3_kick"])}</p><h2 class="rv">{c["top3_h2"]}</h2>{f'<p class="lede rv">{e(c["top3_lede"])}</p>' if c.get("top3_lede") else ""}
  <div class="cards">{cards}</div>
 </div></section>
-{menu}{serv}
+{shop}{menu}{serv}
 <section id="story" style="padding-top:0"><div class="wrap">
  <div class="split">{story_fig}<div><p class="kick rv">{e(c.get("story_kick","Our story"))}</p><h2 class="rv">{c["story_h2"]}</h2><p class="lede rv">{e(c["story"])}</p><div class="points">{pts}</div></div></div>
  {revs}
